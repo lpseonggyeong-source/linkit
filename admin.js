@@ -52,6 +52,7 @@
       "product-display.html": "product-list.html",
       "order-list.html":      "order-list.html",
       "design.html":          "design.html",
+      "design-editor.html":   "design.html",
       "seller-list.html":     "seller-list.html",
       "notice.html":          "notice.html",
       "settings.html":        "settings.html",
@@ -1386,6 +1387,7 @@
     if (window.initSettingsPage) window.initSettingsPage();
     /* 디자인 관리 */
     if (window.initDesignPage) window.initDesignPage();
+    if (window.initDesignEditorPage) window.initDesignEditorPage();
   });
 })();
 
@@ -3646,14 +3648,6 @@
         openPreviewModal(tpl);
       });
     });
-    document.querySelectorAll('[data-action="select"]').forEach(function (btn) {
-      btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        var card = btn.closest(".admin-design-tpl-card");
-        var tpl  = card ? card.dataset.template : "";
-        showEditorScreen(tpl);
-      });
-    });
   }
 
   /* ─────────────────────────────────────────
@@ -3683,18 +3677,6 @@
   }
 
   /* ─────────────────────────────────────────
-     화면 전환
-  ───────────────────────────────────────── */
-  function showEditorScreen(tplName) {
-    var tpl = document.getElementById("designTemplateScreen");
-    var ed  = document.getElementById("designEditorScreen");
-    if (tpl) tpl.style.display = "none";
-    if (ed)  ed.style.display = "block";
-    updateBizPreview();
-    savedSnapshot = getSnapshot();
-  }
-
-  /* ─────────────────────────────────────────
      유틸
   ───────────────────────────────────────── */
   function cap(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
@@ -3706,21 +3688,29 @@
   }
 
   /* ─────────────────────────────────────────
-     진입점
+     진입점: 템플릿 선택 화면 (design.html)
   ───────────────────────────────────────── */
   function initDesignPage() {
-    if (!document.getElementById("designTemplateGrid") &&
-        !document.querySelector(".admin-design-template-grid")) return;
-
+    if (!document.querySelector(".admin-design-template-grid")) return;
     initTemplateGrid();
+    initPreviewModal();
+  }
+
+  /* ─────────────────────────────────────────
+     진입점: 에디터 화면 (design-editor.html)
+  ───────────────────────────────────────── */
+  function initDesignEditorPage() {
+    if (!document.getElementById("designEditorScreen")) return;
     initTabs();
     initPreviewSync();
     initLayoutRadios();
     initUploadZones();
     initSaveBtn();
-    initPreviewModal();
+    updateBizPreview();
+    savedSnapshot = getSnapshot();
   }
 
   window.initDesignPage = initDesignPage;
+  window.initDesignEditorPage = initDesignEditorPage;
 
 })();

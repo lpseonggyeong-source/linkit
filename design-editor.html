@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>디자인 편집 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+
+    <!-- ══════════════════════════════════════════════
+         에디터 화면
+         ══════════════════════════════════════════════ -->
+    <div id="designEditorScreen" class="admin-design-editor-screen">
+      <div class="admin-design-editor-layout">
+
+        <!-- ────────────────────────────────────────
+             좌: 쇼핑몰 미리보기
+             ──────────────────────────────────────── -->
+        <div class="admin-design-preview-area">
+          <div class="admin-design-mall-wrap" id="designMallWrap">
+
+            <!-- 쇼핑몰 헤더 -->
+            <div class="adp-header">
+              <div class="adp-header__top">
+                <a href="design.html" class="adp-header__back" aria-label="뒤로">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                </a>
+                <!-- 백엔드: header.name -->
+                <span class="adp-header__name" id="adpHeaderName">Market name</span>
+                <button class="adp-header__cart" aria-label="장바구니">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                </button>
+              </div>
+              <div class="adp-header__nav">
+                <button class="adp-header__nav-btn adp-header__nav-btn--active">ALL</button>
+                <button class="adp-header__nav-btn">의류</button>
+                <button class="adp-header__nav-btn">뷰티</button>
+                <button class="adp-header__nav-btn">인테리어</button>
+              </div>
+            </div>
+
+            <!-- 메인 배너 -->
+            <!-- 백엔드: mainBanner.image (src), mainBanner.layout -->
+            <div class="adp-main-banner" id="adpMainBanner">
+              <div class="adp-main-banner__placeholder" id="adpMainBannerPlaceholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>메인 배너 이미지</span>
+              </div>
+              <img class="adp-main-banner__img" id="adpMainBannerImg" src="" alt="메인 배너" style="display:none;" />
+            </div>
+
+            <!-- 마켓 정보 -->
+            <!-- 백엔드: market.name, market.description, market.homeUrl, market.instagramUrl, market.youtubeUrl -->
+            <div class="adp-market-info">
+              <div class="adp-market-info__row">
+                <span class="adp-market-info__link-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </span>
+                <strong class="adp-market-info__name" id="adpMarketName">Linkit Market</strong>
+                <div class="adp-market-info__social">
+                  <a href="#" class="adp-social-btn" title="홈">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                  </a>
+                  <a href="#" class="adp-social-btn" title="Instagram">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+                  </a>
+                  <a href="#" class="adp-social-btn" title="YouTube">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+                  </a>
+                </div>
+              </div>
+              <p class="adp-market-info__desc" id="adpMarketDesc">링크만 있으면 나만의 상점 완성</p>
+            </div>
+
+            <!-- ═══ 섹션 1: 오늘의 라이브 쇼핑 (2열 그리드) ═══ -->
+            <!-- 백엔드: sections[0].name -->
+            <div class="adp-section">
+              <div class="adp-section__header">
+                <span class="adp-section__icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.069A1 1 0 0121 8.869v6.263a1 1 0 01-1.447.894L15 14M3 8h12a2 2 0 012 2v4a2 2 0 01-2 2H3a2 2 0 01-2-2V10a2 2 0 012-2z"/></svg>
+                </span>
+                <span class="adp-section__name" id="adpSection1Name">오늘의 라이브 쇼핑</span>
+              </div>
+              <div class="adp-product-grid">
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+              </div>
+              <button class="adp-more-btn">더보기</button>
+            </div>
+
+            <!-- ═══ 섹션 2: BEST 상품 (리스트형) ═══ -->
+            <!-- 백엔드: sections[1].name -->
+            <div class="adp-section">
+              <div class="adp-section__header">
+                <span class="adp-section__icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                </span>
+                <span class="adp-section__name" id="adpSection2Name">BEST 상품</span>
+              </div>
+              <div class="adp-product-list">
+                <div class="adp-product-list-item">
+                  <div class="adp-product-list-item__thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <div class="adp-product-list-item__info">
+                    <p class="adp-product-list-item__meta">72% <span>323,990</span></p>
+                    <p class="adp-product-list-item__name">어드벤스드 나이트 리페어 멀티 리커버리 콤플렉스 갈색병 세럼...</p>
+                    <p class="adp-product-list-item__price">28,500원</p>
+                  </div>
+                </div>
+                <div class="adp-product-list-item">
+                  <div class="adp-product-list-item__thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <div class="adp-product-list-item__info">
+                    <p class="adp-product-list-item__name">[비컨틱] 비레인 녹두 약산성 클렌징폼, 80ml, 1개</p>
+                    <p class="adp-product-list-item__price">8,500원</p>
+                  </div>
+                </div>
+                <div class="adp-product-list-item">
+                  <div class="adp-product-list-item__thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <div class="adp-product-list-item__info">
+                    <p class="adp-product-list-item__meta">72% <span>323,990</span></p>
+                    <p class="adp-product-list-item__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                    <p class="adp-product-list-item__price">25,990원</p>
+                  </div>
+                </div>
+                <div class="adp-product-list-item">
+                  <div class="adp-product-list-item__thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <div class="adp-product-list-item__info">
+                    <p class="adp-product-list-item__name">ELLE PARIS PDRN 콜리겐 녹는 실 탄력 앰플, 1개, 100ml</p>
+                    <p class="adp-product-list-item__price">9,990원</p>
+                  </div>
+                </div>
+                <div class="adp-product-list-item">
+                  <div class="adp-product-list-item__thumb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <div class="adp-product-list-item__info">
+                    <p class="adp-product-list-item__meta">72% <span>323,990</span></p>
+                    <p class="adp-product-list-item__name">어드벤스드 나이트 리페어 멀티 리커버리 콤플렉스 갈색병 세럼...</p>
+                    <p class="adp-product-list-item__price">28,500원</p>
+                  </div>
+                </div>
+              </div>
+              <button class="adp-more-btn">더보기</button>
+            </div>
+
+            <!-- ═══ 섹션 3: 이번주 HOT (2열 그리드) ═══ -->
+            <!-- 백엔드: sections[2].name -->
+            <div class="adp-section">
+              <div class="adp-section__header">
+                <span class="adp-section__icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c0 6-6 8-6 13a6 6 0 0012 0c0-5-6-7-6-13z"/><path d="M12 22v-4"/></svg>
+                </span>
+                <span class="adp-section__name" id="adpSection3Name">이번주 HOT</span>
+              </div>
+              <div class="adp-product-grid">
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+              </div>
+              <button class="adp-more-btn">더보기</button>
+            </div>
+
+            <!-- ═══ 섹션 4: SALE 상품 (2열 그리드) ═══ -->
+            <!-- 백엔드: sections[3].name -->
+            <div class="adp-section">
+              <div class="adp-section__header">
+                <span class="adp-section__icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                </span>
+                <span class="adp-section__name" id="adpSection4Name">SALE 상품</span>
+              </div>
+              <div class="adp-product-grid">
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+                <div class="adp-product-card">
+                  <div class="adp-product-card__thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                  <p class="adp-product-card__meta">72% <span>323,990</span></p>
+                  <p class="adp-product-card__name">소년마켓 로켓스튜디오 남아용 벌룬 마팬츠</p>
+                  <p class="adp-product-card__price">28,500원</p>
+                </div>
+              </div>
+              <button class="adp-more-btn">더보기</button>
+            </div>
+
+            <!-- 서브 배너 -->
+            <!-- 백엔드: subBanner.image (src), subBanner.layout -->
+            <div class="adp-sub-banner" id="adpSubBanner">
+              <div class="adp-sub-banner__placeholder" id="adpSubBannerPlaceholder">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>서브 배너 이미지</span>
+              </div>
+              <img class="adp-sub-banner__img" id="adpSubBannerImg" src="" alt="서브 배너" style="display:none;" />
+            </div>
+
+            <!-- 푸터 -->
+            <!-- 백엔드: footer.* 모든 필드 -->
+            <div class="adp-footer">
+              <p class="adp-footer__cs-title">고객센터 <span id="adpFooterPhone">02-1234-1234</span></p>
+              <p class="adp-footer__cs-hours" id="adpFooterHours">평일 10:00 - 18:00 (주말/공휴일 제외)</p>
+              <p class="adp-footer__cs-email" id="adpFooterEmail">help@linkit.com</p>
+              <p class="adp-footer__biz" id="adpFooterBiz">
+                상호명 (주)링크잇 | 대표이사 000 | 사업자등록번호 123-45-67890 |<br>
+                통신판매업신고번호 2024-서울강남-0000 |<br>
+                본사 서울특별시 강남구 테헤란로 123
+              </p>
+              <div class="adp-footer__links">
+                <a href="termsandcondition.html" class="adp-footer__link">이용약관</a>
+                <span class="adp-footer__sep">|</span>
+                <a href="privacy.html" class="adp-footer__link">개인정보처리방침</a>
+              </div>
+              <p class="adp-footer__copy" id="adpFooterCopy">© 2026 LINKIT Inc. All rights reserved.</p>
+            </div>
+
+          </div><!-- /mall-wrap -->
+        </div><!-- /preview-area -->
+
+
+        <!-- ────────────────────────────────────────
+             우: 편집 패널 (탭 형식)
+             ──────────────────────────────────────── -->
+        <div class="admin-design-right-panel">
+
+          <!-- 탭 버튼 -->
+          <div class="admin-design-edit-tabs" role="tablist">
+            <button class="admin-design-edit-tab is-active" data-tab="basic" role="tab" aria-selected="true">기본 정보</button>
+            <button class="admin-design-edit-tab" data-tab="sections" role="tab" aria-selected="false">섹션 이름</button>
+            <button class="admin-design-edit-tab" data-tab="banner" role="tab" aria-selected="false">서브 배너</button>
+            <button class="admin-design-edit-tab" data-tab="footer" role="tab" aria-selected="false">푸터 정보</button>
+          </div>
+
+          <!-- 탭 패널들 (스크롤) -->
+          <div class="admin-design-edit-panels">
+
+            <!-- ────── 탭 1: 기본 정보 ────── -->
+            <div class="admin-design-edit-panel is-active" id="designPanelBasic" role="tabpanel">
+
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">헤더/기본정보</p>
+                <div class="admin-field">
+                  <label for="designHeaderName">헤더 이름</label>
+                  <!-- 백엔드: header.name -->
+                  <input type="text" id="designHeaderName" value="Market name" maxlength="30" />
+                </div>
+              </div>
+
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">메인 배너 이미지 변경</p>
+                <div class="admin-field">
+                  <label>레이아웃</label>
+                  <!-- 백엔드: mainBanner.layout ("fill" | "fixed") -->
+                  <div class="admin-design-radio-group">
+                    <label class="admin-design-radio-label">
+                      <input type="radio" name="designMainBannerLayout" value="fill" /> 가득 채우기
+                    </label>
+                    <label class="admin-design-radio-label">
+                      <input type="radio" name="designMainBannerLayout" value="fixed" checked /> 고정 크기
+                    </label>
+                  </div>
+                  <p class="admin-design-radio-hint">업로드한 이미지 기준으로 고정되어 노출됩니다.</p>
+                </div>
+                <div class="admin-field">
+                  <label>이미지 선택</label>
+                  <div class="admin-design-upload-zone" id="designMainBannerUpload" data-target="main">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <span class="admin-design-upload-zone__label">섹션 배너</span>
+                    <span class="admin-design-upload-zone__sub">JPG/PNG 클릭하거나 파일을 여기에 끌어다 놓으세요</span>
+                    <button type="button" class="admin-design-upload-zone__remove" aria-label="이미지 제거">×</button>
+                    <img class="admin-design-upload-zone__preview" alt="배너 미리보기" />
+                    <input type="file" accept="image/*" class="admin-design-upload-input" />
+                  </div>
+                  <p class="admin-design-upload-hint">섹션 배너 권장 사이즈는 780 x 370 입니다.</p>
+                </div>
+              </div>
+
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">기본 정보 수정</p>
+                <div class="admin-field">
+                  <label for="designMarketName">마켓이름</label>
+                  <!-- 백엔드: market.name -->
+                  <input type="text" id="designMarketName" value="Linkit Market" maxlength="40" />
+                </div>
+                <div class="admin-field">
+                  <div class="admin-design-field-counter">
+                    <label for="designMarketDesc">설명</label>
+                    <span><span id="designMarketDescLen">18</span>/50</span>
+                  </div>
+                  <!-- 백엔드: market.description -->
+                  <input type="text" id="designMarketDesc" value="링크만 있으면 나만의 상점 완성" maxlength="50" />
+                </div>
+              </div>
+
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">링크</p>
+                <div class="admin-field">
+                  <label for="designMarketHomeUrl">홈페이지링크</label>
+                  <!-- 백엔드: market.homeUrl -->
+                  <input type="text" id="designMarketHomeUrl" value="https://link-it.com" />
+                </div>
+                <div class="admin-field">
+                  <label for="designMarketInstagram">인스타 링크</label>
+                  <!-- 백엔드: market.instagramUrl -->
+                  <input type="text" id="designMarketInstagram" value="instagram.com/username" />
+                </div>
+                <div class="admin-field">
+                  <label for="designMarketYoutube">유튜브 링크</label>
+                  <!-- 백엔드: market.youtubeUrl -->
+                  <input type="text" id="designMarketYoutube" value="youtube.com/username" />
+                </div>
+              </div>
+
+            </div><!-- /panel basic -->
+
+
+            <!-- ────── 탭 2: 섹션 이름 ────── -->
+            <div class="admin-design-edit-panel" id="designPanelSections" role="tabpanel">
+
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">섹션 이름 수정</p>
+
+                <div class="admin-design-section-row">
+                  <label for="designSection1Name">섹션1</label>
+                  <!-- 백엔드: sections[0].name -->
+                  <input type="text" id="designSection1Name" value="오늘의 라이브 쇼핑" maxlength="30" />
+                </div>
+                <div class="admin-design-section-row">
+                  <label for="designSection2Name">섹션2</label>
+                  <!-- 백엔드: sections[1].name -->
+                  <input type="text" id="designSection2Name" value="BEST 상품" maxlength="30" />
+                </div>
+                <div class="admin-design-section-row">
+                  <label for="designSection3Name">섹션3</label>
+                  <!-- 백엔드: sections[2].name -->
+                  <input type="text" id="designSection3Name" value="이번주 HOT" maxlength="30" />
+                </div>
+                <div class="admin-design-section-row">
+                  <label for="designSection4Name">섹션4</label>
+                  <!-- 백엔드: sections[3].name -->
+                  <input type="text" id="designSection4Name" value="SALE 상품" maxlength="30" />
+                </div>
+
+              </div>
+            </div><!-- /panel sections -->
+
+
+            <!-- ────── 탭 3: 서브 배너 ────── -->
+            <div class="admin-design-edit-panel" id="designPanelBanner" role="tabpanel">
+
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">이미지 변경</p>
+                <div class="admin-field">
+                  <label>레이아웃</label>
+                  <!-- 백엔드: subBanner.layout ("fill" | "fixed") -->
+                  <div class="admin-design-radio-group">
+                    <label class="admin-design-radio-label">
+                      <input type="radio" name="designSubBannerLayout" value="fill" /> 가득 채우기
+                    </label>
+                    <label class="admin-design-radio-label">
+                      <input type="radio" name="designSubBannerLayout" value="fixed" checked /> 고정 크기
+                    </label>
+                  </div>
+                  <p class="admin-design-radio-hint">업로드한 이미지 기준으로 고정되어 노출됩니다.</p>
+                </div>
+                <div class="admin-field">
+                  <label>이미지 선택</label>
+                  <div class="admin-design-upload-zone" id="designSubBannerUpload" data-target="sub">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <span class="admin-design-upload-zone__label">서브 배너</span>
+                    <span class="admin-design-upload-zone__sub">JPG/PNG 클릭하거나 파일을 여기에 끌어다 놓으세요</span>
+                    <button type="button" class="admin-design-upload-zone__remove" aria-label="이미지 제거">×</button>
+                    <img class="admin-design-upload-zone__preview" alt="서브배너 미리보기" />
+                    <input type="file" accept="image/*" class="admin-design-upload-input" />
+                  </div>
+                  <p class="admin-design-upload-hint">서브 배너 권장 사이즈는 780 x 370 입니다.</p>
+                </div>
+              </div>
+
+            </div><!-- /panel banner -->
+
+
+            <!-- ────── 탭 4: 푸터 정보 ────── -->
+            <div class="admin-design-edit-panel" id="designPanelFooter" role="tabpanel">
+
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">푸터 정보 설정</p>
+
+                <div class="admin-field">
+                  <label for="designFooterPhone">고객센터 전화번호</label>
+                  <!-- 백엔드: footer.customerPhone -->
+                  <input type="text" id="designFooterPhone" value="02-1234-1234" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterHours">영업시간</label>
+                  <!-- 백엔드: footer.businessHours -->
+                  <input type="text" id="designFooterHours" value="평일 10:00 - 18:00 (주말/공휴일 제외)" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterEmail">이메일</label>
+                  <!-- 백엔드: footer.email -->
+                  <input type="text" id="designFooterEmail" value="help@linkit.com" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterCompany">상호명</label>
+                  <!-- 백엔드: footer.companyName -->
+                  <input type="text" id="designFooterCompany" value="(주)링크잇" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterCeo">대표이사</label>
+                  <!-- 백엔드: footer.ceo -->
+                  <input type="text" id="designFooterCeo" value="000" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterBizNum">사업자 등록번호</label>
+                  <!-- 백엔드: footer.businessNumber -->
+                  <input type="text" id="designFooterBizNum" value="123-45-67890" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterCommerceNum">통신판매업신고번호</label>
+                  <!-- 백엔드: footer.commerceNumber -->
+                  <input type="text" id="designFooterCommerceNum" value="2024-서울강남-0000" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterAddr">주소</label>
+                  <!-- 백엔드: footer.address -->
+                  <input type="text" id="designFooterAddr" value="본사 서울특별시 강남구 테헤란로 123" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterTermsUrl">이용약관 링크</label>
+                  <!-- 백엔드: footer.termsUrl -->
+                  <input type="text" id="designFooterTermsUrl" value="termsandcondition.html" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterPrivacyUrl">개인정보 처리방침 링크</label>
+                  <!-- 백엔드: footer.privacyUrl -->
+                  <input type="text" id="designFooterPrivacyUrl" value="privacy.html" />
+                </div>
+                <div class="admin-field">
+                  <label for="designFooterCopy">저작권</label>
+                  <!-- 백엔드: footer.copyright -->
+                  <input type="text" id="designFooterCopy" value="© 2026 LINKIT Inc. All rights reserved." />
+                </div>
+
+              </div>
+            </div><!-- /panel footer -->
+
+          </div><!-- /edit-panels -->
+
+          <!-- 저장 버튼 -->
+          <div class="admin-design-panel-save-bar">
+            <button type="button" class="admin-btn admin-btn--primary" id="designSaveBtn" disabled>저장</button>
+          </div>
+
+        </div><!-- /right-panel -->
+
+      </div><!-- /editor-layout -->
+    </div><!-- /editorScreen -->
+
+  </main>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
