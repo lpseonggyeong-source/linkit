@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>셀러 관리 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- 모바일 헤더 -->
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <h1 class="admin-page-title t-title-1-md">셀러 관리</h1>
+
+    <!-- ── 액션 / 검색 영역 ── -->
+    <div class="admin-seller-action-bar">
+      <button type="button" id="sellerCreateBtn"
+        class="admin-order-btn admin-order-btn--primary">+ 셀러 등록</button>
+      <div class="admin-seller-action-bar__right">
+        <div class="admin-order-select-wrap">
+          <select id="sellerStatusFilter" aria-label="상태 검색">
+            <option value="">전체</option>
+            <option value="승인">승인</option>
+            <option value="정지">정지</option>
+          </select>
+          <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </div>
+        <input type="text" id="sellerSearchInput"
+          class="admin-order-search-input"
+          placeholder="상품명 검색"
+          aria-label="상품명 검색" />
+        <button type="button" id="sellerSearchBtn"
+          class="admin-order-btn admin-order-btn--primary">검색</button>
+      </div>
+    </div>
+
+    <!-- ── 셀러 목록 카드 ── -->
+    <div class="admin-card">
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="sellerTable">
+          <thead>
+            <tr>
+              <th scope="col" style="width:52px; text-align:center;">번호</th>
+              <th scope="col" style="min-width:120px; text-align:left;">셀러명</th>
+              <th scope="col" style="width:140px; text-align:center;">셀러 아이디</th>
+              <th scope="col" style="width:110px; text-align:center;">판매 상품 수</th>
+              <th scope="col" style="width:76px; text-align:center;">상태</th>
+              <th scope="col" style="width:100px; text-align:center;">등록일</th>
+              <th scope="col" style="width:112px; text-align:center;">관리</th>
+            </tr>
+          </thead>
+          <tbody id="sellerTableBody"></tbody>
+        </table>
+      </div>
+      <div class="admin-pagination" id="sellerPagination" aria-label="페이지 네비게이션"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── 셀러 등록 모달 ── -->
+<div class="admin-product-modal" id="sellerCreateModal"
+  role="dialog" aria-modal="true" aria-labelledby="sellerCreateModalTitle">
+  <div class="admin-product-modal__overlay" id="sellerCreateOverlay"></div>
+  <div class="admin-product-modal__box admin-seller-modal-box">
+
+    <h2 class="admin-product-modal__title admin-seller-modal__title"
+      id="sellerCreateModalTitle">셀러 등록 폼</h2>
+
+    <div class="admin-field">
+      <label for="createSellerName">셀러명</label>
+      <input type="text" id="createSellerName"
+        placeholder="셀러명을 입력해주세요" autocomplete="off" />
+    </div>
+
+    <div class="admin-field">
+      <label for="createSellerId">셀러 아이디</label>
+      <input type="text" id="createSellerId"
+        placeholder="셀러 아이디를 입력해주세요" autocomplete="off" />
+    </div>
+
+    <div class="admin-field">
+      <label for="createSellerPw">비밀번호</label>
+      <div class="admin-seller-pw-wrap">
+        <input type="password" id="createSellerPw"
+          placeholder="비밀번호를 입력해주세요" autocomplete="new-password" />
+        <button type="button" class="admin-seller-pw-toggle"
+          data-target="createSellerPw" aria-label="비밀번호 보기">
+          <!-- eye-off (기본: 숨김 상태) -->
+          <svg class="icon-eye-off" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+          <!-- eye-on (보기 상태) -->
+          <svg class="icon-eye-on" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true" style="display:none;">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="admin-field">
+      <label>셀러상태</label>
+      <div class="admin-seller-toggle-row">
+        <label class="admin-seller-toggle" aria-label="셀러 상태 토글">
+          <input type="checkbox" id="createSellerStatus" class="admin-seller-toggle__input" />
+          <span class="admin-seller-toggle__track"></span>
+        </label>
+        <span class="admin-seller-toggle-label t-body-2-rg" id="createSellerStatusLabel">정지</span>
+      </div>
+      <p class="admin-seller-toggle-hint t-body-3-rg">비활성화 시, 셀러가 정지되고 판매가 제한됩니다.</p>
+    </div>
+
+    <div class="admin-product-modal__footer">
+      <button type="button" id="sellerCreateCancelBtn"
+        class="admin-btn admin-btn--outline">취소</button>
+      <button type="button" id="sellerCreateSubmitBtn"
+        class="admin-btn admin-btn--primary">등록</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 셀러 수정 모달 ── -->
+<div class="admin-product-modal" id="sellerEditModal"
+  role="dialog" aria-modal="true" aria-labelledby="sellerEditModalTitle">
+  <div class="admin-product-modal__overlay" id="sellerEditOverlay"></div>
+  <div class="admin-product-modal__box admin-seller-modal-box">
+
+    <h2 class="admin-product-modal__title admin-seller-modal__title"
+      id="sellerEditModalTitle">셀러 수정 폼</h2>
+
+    <input type="hidden" id="editSellerHiddenId" />
+
+    <div class="admin-field">
+      <label for="editSellerName">셀러명</label>
+      <input type="text" id="editSellerName"
+        placeholder="셀러명을 입력해주세요" autocomplete="off" />
+    </div>
+
+    <div class="admin-field">
+      <label for="editSellerLoginId">셀러 아이디</label>
+      <input type="text" id="editSellerLoginId"
+        placeholder="셀러 아이디를 입력해주세요" autocomplete="off" />
+    </div>
+
+    <div class="admin-field">
+      <label for="editSellerPw">비밀번호</label>
+      <div class="admin-seller-pw-wrap">
+        <input type="password" id="editSellerPw"
+          placeholder="비밀번호를 입력해주세요" autocomplete="new-password" />
+        <button type="button" class="admin-seller-pw-toggle"
+          data-target="editSellerPw" aria-label="비밀번호 보기">
+          <svg class="icon-eye-off" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+          <svg class="icon-eye-on" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true" style="display:none;">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="admin-field">
+      <label>셀러상태</label>
+      <div class="admin-seller-toggle-row">
+        <label class="admin-seller-toggle" aria-label="셀러 상태 토글">
+          <input type="checkbox" id="editSellerStatus" class="admin-seller-toggle__input" />
+          <span class="admin-seller-toggle__track"></span>
+        </label>
+        <span class="admin-seller-toggle-label t-body-2-rg" id="editSellerStatusLabel">정지</span>
+      </div>
+      <p class="admin-seller-toggle-hint t-body-3-rg">비활성화 시, 셀러가 정지되고 판매가 제한됩니다.</p>
+    </div>
+
+    <div class="admin-product-modal__footer">
+      <button type="button" id="sellerEditCancelBtn"
+        class="admin-btn admin-btn--outline">취소</button>
+      <button type="button" id="sellerEditSubmitBtn"
+        class="admin-btn admin-btn--primary">적용</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

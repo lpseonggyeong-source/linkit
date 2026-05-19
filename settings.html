@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>환경설정 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- 모바일 헤더 -->
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <h1 class="admin-page-title t-title-1-md">환경설정</h1>
+
+    <!-- ── 로그인 정보 ── -->
+    <div class="admin-card admin-settings-section">
+      <div class="admin-card__header">
+        <h2 class="admin-card__title t-title-2-sb">로그인 정보</h2>
+      </div>
+      <div class="admin-card__body">
+
+        <div class="admin-settings-info-row">
+          <span class="admin-settings-info-label">아이디</span>
+          <span class="admin-settings-info-value" id="dispLoginId">링크페이먼츠</span>
+        </div>
+
+        <div class="admin-settings-info-row">
+          <span class="admin-settings-info-label">비밀번호</span>
+          <div style="display:flex; align-items:center; gap:8px; flex:1;">
+            <span class="admin-settings-info-value">**********</span>
+            <button type="button" id="openPwModalBtn"
+              class="admin-btn admin-btn--outline admin-btn--sm">비밀번호 변경</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 사업자 정보 ── -->
+    <div class="admin-card admin-settings-section">
+      <div class="admin-card__header">
+        <h2 class="admin-card__title t-title-2-sb">사업자 정보</h2>
+        <button type="button" id="openBizModalBtn"
+          class="admin-btn admin-btn--outline admin-btn--sm">사업자 정보 수정</button>
+      </div>
+      <div class="admin-card__body">
+
+        <div class="admin-settings-grid" id="bizInfoGrid">
+
+          <!-- 왼쪽 컬럼 -->
+          <div>
+            <div class="admin-field">
+              <label>사업자 명</label>
+              <input type="text" id="dispBizName" class="admin-settings-readonly admin-settings-readonly--disabled"
+                value="링크페이먼츠" readonly />
+            </div>
+            <div class="admin-field">
+              <label>사업자 번호</label>
+              <input type="text" id="dispBizNumber" class="admin-settings-readonly admin-settings-readonly--disabled"
+                value="012-34-56789" readonly />
+            </div>
+            <div class="admin-field">
+              <label>통신판매 번호</label>
+              <input type="text" id="dispMailOrder" class="admin-settings-readonly admin-settings-readonly--disabled"
+                value="1234-서울강남-1234" readonly />
+            </div>
+            <div class="admin-field">
+              <label>사업장 주소</label>
+              <input type="text" id="dispAddress" class="admin-settings-readonly admin-settings-readonly--disabled"
+                value="서울시 서초구 바우뫼로 200" readonly />
+            </div>
+            <div class="admin-field">
+              <label>상담 시간</label>
+              <input type="text" id="dispWeekdayHours" class="admin-settings-readonly"
+                value="평일 09:00~18:00" readonly />
+              <input type="text" id="dispLunchHours" class="admin-settings-readonly"
+                value="점심 12:00~13:00" readonly style="margin-top:6px;" />
+            </div>
+          </div>
+
+          <!-- 오른쪽 컬럼 -->
+          <div>
+            <div class="admin-field">
+              <label>대표 연락처</label>
+              <input type="text" id="dispPhone" class="admin-settings-readonly"
+                value="010-1234-5678" readonly />
+            </div>
+            <div class="admin-field">
+              <label>계좌 번호</label>
+              <input type="text" id="dispBankAccount" class="admin-settings-readonly"
+                value="12-01345-4567" readonly />
+            </div>
+            <div class="admin-field">
+              <label>계좌 예금주</label>
+              <input type="text" id="dispAccountHolder" class="admin-settings-readonly"
+                value="홍길동" readonly />
+            </div>
+            <div class="admin-field">
+              <label>택배사</label>
+              <input type="text" id="dispCourier" class="admin-settings-readonly"
+                value="cj 대한통운" readonly />
+            </div>
+            <div class="admin-field">
+              <label>지역 추가요금</label>
+              <input type="text" id="dispJejuFee" class="admin-settings-readonly"
+                value="제주 3,500원" readonly />
+              <input type="text" id="dispIslandFee" class="admin-settings-readonly"
+                value="도서/산간 5,000원" readonly style="margin-top:6px;" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 주문 취소 / 반품 정보 ── -->
+    <div class="admin-card admin-settings-section">
+      <div class="admin-card__header">
+        <h2 class="admin-card__title t-title-2-sb">주문 취소 / 반품 정보</h2>
+      </div>
+      <div class="admin-card__body">
+
+        <!-- 탭 -->
+        <div class="admin-settings-tabs" role="tablist">
+          <button type="button" class="admin-settings-tab" id="tabText"
+            role="tab" aria-selected="false" aria-controls="panelText">내용 직접 입력</button>
+          <button type="button" class="admin-settings-tab is-active" id="tabImage"
+            role="tab" aria-selected="true" aria-controls="panelImage">안내 이미지 등록</button>
+        </div>
+
+        <!-- 내용 직접 입력 패널 -->
+        <div class="admin-settings-panel" id="panelText" role="tabpanel" aria-labelledby="tabText">
+          <div class="admin-field">
+            <textarea id="cancelReturnText"
+              placeholder="주문 취소 및 반품 안내 내용을 입력해주세요."
+              style="min-height:180px;"></textarea>
+          </div>
+          <div style="display:flex; justify-content:flex-end; margin-top:4px;">
+            <button type="button" id="saveReturnTextBtn"
+              class="admin-btn admin-btn--primary admin-btn--sm">저장</button>
+          </div>
+        </div>
+
+        <!-- 안내 이미지 등록 패널 -->
+        <div class="admin-settings-panel is-active" id="panelImage" role="tabpanel" aria-labelledby="tabImage">
+          <input type="file" id="cancelReturnImgInput"
+            accept=".jpg,.jpeg,.png" multiple
+            style="display:none;" aria-label="취소/반품 안내 이미지 파일 선택" />
+          <label for="cancelReturnImgInput"
+            class="product-detail-upload-zone admin-settings-upload-zone" role="button">
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+              <rect x="3" y="8" width="38" height="28" rx="3.5" stroke="#c8d0dc" stroke-width="1.6"/>
+              <circle cx="14" cy="19" r="3" fill="#c8d0dc"/>
+              <path d="M3 29l9.5-9 5 5 5.5-6 8 9.5" stroke="#c8d0dc" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 3v10M19 6l3-3 3 3" stroke="#c8d0dc" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="product-detail-upload-title">이미지를 업로드해주세요</span>
+            <span class="product-detail-upload-sub"
+              id="cancelReturnFileLabel">JPG / PNG · 클릭하거나 파일을 여기에 끌어다 놓으세요</span>
+          </label>
+          <p class="admin-settings-upload-hint">여러장 선택 가능합니다.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══════════════════════════════════════════
+     비밀번호 변경 모달
+     ══════════════════════════════════════════ -->
+<div class="admin-product-modal" id="settingsPwModal"
+  role="dialog" aria-modal="true" aria-labelledby="settingsPwModalTitle">
+  <div class="admin-product-modal__overlay" id="settingsPwOverlay"></div>
+  <div class="admin-product-modal__box" style="width:440px;">
+
+    <h2 class="admin-product-modal__title" id="settingsPwModalTitle">비밀번호 변경</h2>
+    <p class="admin-settings-pw-desc">안전한 계정 사용을 위해 주기적으로 비밀번호를 변경해주세요.</p>
+
+    <!-- 현재 비밀번호 -->
+    <div class="admin-field">
+      <label for="pwCurrent">현재 비밀번호</label>
+      <div class="admin-seller-pw-wrap">
+        <input type="password" id="pwCurrent"
+          placeholder="현재 비밀번호를 입력해주세요" autocomplete="current-password" />
+        <button type="button" class="admin-seller-pw-toggle"
+          data-target="pwCurrent" aria-label="비밀번호 보기">
+          <svg class="icon-eye-off" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+          <svg class="icon-eye-on" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true" style="display:none;">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 새 비밀번호 -->
+    <div class="admin-field">
+      <label for="pwNew">새 비밀번호</label>
+      <div class="admin-seller-pw-wrap">
+        <input type="password" id="pwNew"
+          placeholder="새 비밀번호를 입력해주세요" autocomplete="new-password" />
+        <button type="button" class="admin-seller-pw-toggle"
+          data-target="pwNew" aria-label="비밀번호 보기">
+          <svg class="icon-eye-off" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+          <svg class="icon-eye-on" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true" style="display:none;">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 비밀번호 확인 -->
+    <div class="admin-field">
+      <label for="pwConfirm">비밀번호 확인</label>
+      <div class="admin-seller-pw-wrap">
+        <input type="password" id="pwConfirm"
+          placeholder="비밀번호를 한 번 더 입력해주세요" autocomplete="new-password" />
+        <button type="button" class="admin-seller-pw-toggle"
+          data-target="pwConfirm" aria-label="비밀번호 보기">
+          <svg class="icon-eye-off" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+          <svg class="icon-eye-on" width="17" height="17" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true" style="display:none;">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+      <p class="admin-settings-error" id="pwMismatchError">비밀번호가 일치하지 않습니다</p>
+    </div>
+
+    <div class="admin-product-modal__footer">
+      <button type="button" id="settingsPwCancelBtn"
+        class="admin-btn admin-btn--outline">취소</button>
+      <button type="button" id="settingsPwSubmitBtn"
+        class="admin-btn admin-btn--primary">변경</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     사업자 정보 수정 모달
+     ══════════════════════════════════════════ -->
+<div class="admin-product-modal" id="settingsBizModal"
+  role="dialog" aria-modal="true" aria-labelledby="settingsBizModalTitle">
+  <div class="admin-product-modal__overlay" id="settingsBizOverlay"></div>
+  <div class="admin-product-modal__box admin-settings-modal-box">
+
+    <h2 class="admin-product-modal__title" id="settingsBizModalTitle">사업자 정보 수정</h2>
+
+    <div class="admin-settings-two-col">
+
+      <!-- 왼쪽 컬럼 -->
+      <div>
+
+        <div class="admin-field admin-field--disabled">
+          <label for="editBizName">사업자 명</label>
+          <input type="text" id="editBizName"
+            placeholder="사업자 명을 입력해주세요" autocomplete="off" disabled />
+        </div>
+
+        <div class="admin-field admin-field--disabled">
+          <label for="editBizNumber">사업자 번호</label>
+          <input type="text" id="editBizNumber"
+            placeholder="000-00-00000" autocomplete="off" disabled />
+        </div>
+
+        <div class="admin-field admin-field--disabled">
+          <label for="editMailOrder">통신판매 번호</label>
+          <input type="text" id="editMailOrder"
+            placeholder="0000-서울강남-0000" autocomplete="off" disabled />
+        </div>
+
+        <div class="admin-field admin-field--disabled">
+          <label for="editAddress">사업장 주소</label>
+          <input type="text" id="editAddress"
+            placeholder="사업장 주소를 입력해주세요" autocomplete="off" disabled />
+        </div>
+
+        <div class="admin-field">
+          <label>상담 시간</label>
+          <div class="admin-settings-time-block">
+            <p class="admin-settings-time-sub">평일</p>
+            <div class="admin-settings-time-row">
+              <input type="time" id="editWeekdayStart" value="09:00" />
+              <span class="admin-settings-time-sep">~</span>
+              <input type="time" id="editWeekdayEnd" value="18:00" />
+            </div>
+            <p class="admin-settings-time-sub" style="margin-top:8px;">점심</p>
+            <div class="admin-settings-time-row">
+              <input type="time" id="editLunchStart" value="12:00" />
+              <span class="admin-settings-time-sep">~</span>
+              <input type="time" id="editLunchEnd" value="13:00" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 오른쪽 컬럼 -->
+      <div>
+
+        <div class="admin-field">
+          <label for="editPhone">대표 연락처</label>
+          <input type="tel" id="editPhone"
+            placeholder="010-0000-0000" autocomplete="off" />
+        </div>
+
+        <div class="admin-field">
+          <label for="editBankAccount">계좌 번호</label>
+          <input type="text" id="editBankAccount"
+            placeholder="00-00000-0000" autocomplete="off" />
+        </div>
+
+        <div class="admin-field">
+          <label for="editAccountHolder">계좌 예금주</label>
+          <input type="text" id="editAccountHolder"
+            placeholder="예금주명을 입력해주세요" autocomplete="off" />
+        </div>
+
+        <div class="admin-field">
+          <label for="editCourier">택배사</label>
+          <input type="text" id="editCourier"
+            placeholder="택배사명을 입력해주세요" autocomplete="off" />
+        </div>
+
+        <div class="admin-field">
+          <label>지역 추가요금</label>
+          <div class="admin-settings-extra-fee">
+            <div class="admin-settings-extra-fee-item">
+              <input type="number" id="editJejuFee"
+                placeholder="0" min="0" step="100" />
+              <span>제주 추가 요금 (원)</span>
+            </div>
+            <div class="admin-settings-extra-fee-item">
+              <input type="number" id="editIslandFee"
+                placeholder="0" min="0" step="100" />
+              <span>도서/산간 추가 요금 (원)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /two-col -->
+
+    <div class="admin-product-modal__footer">
+      <button type="button" id="settingsBizCancelBtn"
+        class="admin-btn admin-btn--outline">취소</button>
+      <button type="button" id="settingsBizSubmitBtn"
+        class="admin-btn admin-btn--primary">변경</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>주문내역 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- 모바일 헤더 -->
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+
+  <!-- ── 사이드바 (admin.js 로 렌더링) ── -->
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+  <!-- /사이드바 -->
+
+  <!-- ── 메인 콘텐츠 ── -->
+  <main class="admin-main">
+
+    <h1 class="admin-page-title">주문 내역</h1>
+
+    <!-- ── 주문 상태 요약 ── -->
+    <!-- [MOCK] GET /api/orders/summary → { total, paid, cancelled } -->
+    <div class="admin-order-summary" aria-label="주문 상태 요약">
+      <div class="admin-order-summary__item admin-order-summary__item--highlight">
+        <span class="admin-order-summary__label">전체 주문</span>
+        <strong class="admin-order-summary__count">135</strong><!-- [MOCK] total -->
+      </div>
+      <span class="admin-order-summary__sep" aria-hidden="true">|</span>
+      <div class="admin-order-summary__item">
+        <span class="admin-order-summary__label">결제 완료</span>
+        <strong class="admin-order-summary__count">120</strong><!-- [MOCK] paid -->
+      </div>
+      <span class="admin-order-summary__sep" aria-hidden="true">|</span>
+      <div class="admin-order-summary__item">
+        <span class="admin-order-summary__label">주문 취소</span>
+        <strong class="admin-order-summary__count">15</strong><!-- [MOCK] cancelled -->
+      </div>
+    </div>
+
+    <!-- ── 상단 액션 / 필터 툴바 ── -->
+    <div class="admin-order-toolbar" role="toolbar" aria-label="주문 관리 툴바">
+
+      <!-- 선택 변경 -->
+      <div class="admin-order-toolbar__group">
+        <span class="admin-order-toolbar__label">선택 변경</span>
+        <div class="admin-order-toolbar__row">
+          <div class="admin-order-select-wrap">
+            <select id="orderStatusSelect" aria-label="변경할 주문 상태 선택">
+              <option value="">상태 변경</option>
+              <option value="상품 준비중">상품 준비중</option>
+              <option value="취소 준비중">취소 준비중</option>
+              <option value="취소완료">취소완료</option>
+              <option value="배송준비중">배송준비중</option>
+              <option value="배송중">배송중</option>
+            </select>
+            <svg class="admin-order-select__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <button type="button" class="admin-order-btn admin-order-btn--primary" id="orderStatusSaveBtn">변경 저장</button>
+          <button type="button" class="admin-order-btn admin-order-btn--action" id="orderExportBtn">배송자료 다운</button>
+          <button type="button" class="admin-order-btn admin-order-btn--action" id="orderInvoiceUploadBtn">송장 번호 업로드</button>
+          <input type="file" id="orderInvoiceFileInput" accept=".xls,.xlsx,.csv" style="display:none;" aria-label="송장 번호 파일 선택" />
+        </div>
+      </div>
+
+      <!-- 택배사ㅣ필터 -->
+      <div class="admin-order-toolbar__group">
+        <span class="admin-order-toolbar__label">택배사 선택</span>
+        <div class="admin-order-toolbar__row">
+          <div class="admin-order-select-wrap">
+            <select id="orderCourierFilter" aria-label="택배사 필터">
+              <option value="CJ대한통운">CJ대한통운</option>
+              <option value="한진택배">한진택배</option>
+              <option value="우체국택배">우체국택배</option>
+            </select>
+            <svg class="admin-order-select__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- 주문기간 -->
+      <div class="admin-order-toolbar__group">
+        <span class="admin-order-toolbar__label">주문기간</span>
+        <div class="admin-order-toolbar__row">
+          <input type="text" id="orderDateRange" class="admin-order-date-input" placeholder="yyyy. mm. dd  ~  yyyy. mm. dd" aria-label="주문 기간" />
+        </div>
+      </div>
+
+      <!-- 상품명 검색 -->
+      <div class="admin-order-toolbar__group">
+        <span class="admin-order-toolbar__label">상품명 검색</span>
+        <div class="admin-order-toolbar__row">
+          <input type="text" id="orderProductSearch" class="admin-order-search-input" placeholder="상품명 검색" aria-label="상품명 검색" />
+          <button type="button" class="admin-order-btn admin-order-btn--primary" id="orderSearchBtn">검색</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── 주문 테이블 카드 ── -->
+    <div class="admin-card">
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="orderTable">
+          <thead>
+            <tr>
+              <th style="width:40px; text-align:center;">
+                <input type="checkbox" id="orderSelectAll" aria-label="전체 선택" style="accent-color:var(--admin-red); cursor:pointer;" />
+              </th>
+              <th style="width:44px;">순서</th>
+              <th style="width:70px;">제품 사진</th>
+              <th style="width:140px;">주문번호</th>
+              <th style="min-width:180px;">제품명</th>
+              <th style="min-width:150px;">구매 정보</th>
+              <th style="min-width:120px;">결제 금액</th>
+              <th style="min-width:110px;">구매자 정보</th>
+              <th style="min-width:160px;">수령지 주소</th>
+              <th style="min-width:120px; text-align:center;">처리 상태</th>
+              <th style="min-width:90px;">주문 일시</th>
+              <th style="min-width:90px;">처리일</th>
+            </tr>
+          </thead>
+          <tbody id="orderTableBody">
+            <!-- JS(initOrderListPage)로 렌더링 -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="admin-pagination" id="orderPagination" aria-label="페이지 네비게이션"></div>
+
+    </div>
+    <!-- /order table card -->
+
+  </main>
+</div>
+
+<!-- ══════════════════════════════════════
+     배송지 정보 수정 모달
+     ══════════════════════════════════════ -->
+<div class="admin-order-modal" id="orderAddressModal" role="dialog" aria-modal="true" aria-labelledby="orderAddressModalTitle">
+  <div class="admin-order-modal__overlay" id="orderAddressOverlay"></div>
+  <div class="admin-order-modal__box">
+    <h3 class="admin-order-modal__title" id="orderAddressModalTitle">배송지 정보 수정</h3>
+
+    <div class="admin-field">
+      <label for="oaReceiverName">수령인명</label>
+      <input type="text" id="oaReceiverName" name="receiverName" placeholder="수령인명" autocomplete="off" />
+    </div>
+    <div class="admin-field">
+      <label for="oaReceiverPhone">연락처</label>
+      <input type="tel" id="oaReceiverPhone" name="receiverPhone" placeholder="연락처" autocomplete="off" />
+    </div>
+    <div class="admin-field">
+      <label for="oaReceiverAddr">주소</label>
+      <input type="text" id="oaReceiverAddr" name="receiverAddr" placeholder="주소" autocomplete="off" />
+    </div>
+    <div class="admin-field">
+      <label for="oaReceiverAddrDetail">상세주소</label>
+      <input type="text" id="oaReceiverAddrDetail" name="receiverAddrDetail" placeholder="상세주소" autocomplete="off" />
+    </div>
+
+    <div class="admin-order-modal__footer">
+      <button type="button" class="admin-btn admin-btn--outline" id="orderAddressCancelBtn">취소</button>
+      <button type="button" class="admin-btn admin-btn--primary" id="orderAddressSaveBtn">저장</button>
+    </div>
+  </div>
+</div>
+
+<!--
+  TODO: 상품목록 페이지 개선 사항 (order-list와 무관, 추후 product-list.html 작업 시 반영)
+  - 옵션/관리 버튼 클릭 시 제품 옵션정보 팝업 디자인 필요
+  - 판매여부/판매중 버튼 클릭 시 판매 마감으로 상태 변경 필요
+  - 상태 변경 안내 메시지 보완 필요
+  - 상품 복사 버튼 클릭 시 같은 상품을 복사하여 새 상품으로 추가 필요
+-->
+
+<script src="admin.js"></script>
+</body>
+</html>
