@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>매출관리 초안 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    /*
+      Draft-only styles.
+      - 기존 admin.css가 있는 admin 폴더에서는 공통 스타일을 그대로 따릅니다.
+      - 현재 파일만 단독으로 열어도 확인 가능하도록 핵심 공통 스타일만 fallback으로 포함합니다.
+      - 신규 스타일은 admin-planning-* 접두사로 격리했습니다.
+    */
+    :root {
+      --admin-red: #ed370f;
+      --admin-red-bright: #ff2400;
+      --admin-bg: #f7f7f7;
+      --admin-sidebar: #202732;
+      --admin-sidebar-top: #2a2a2a;
+      --admin-text: #414141;
+      --admin-heading: #283150;
+      --admin-muted: #6b6b6b;
+      --admin-stroke: #eaf0f9;
+      --admin-white: #ffffff;
+      --admin-border: #e0e6f0;
+      --admin-input-bg: #f9fafc;
+      --sidebar-w: 235px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", sans-serif;
+      font-size: 14px;
+      color: var(--admin-text);
+      background: var(--admin-bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    table { border-collapse: collapse; }
+
+    .admin-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .admin-sidebar {
+      width: var(--sidebar-w);
+      background: var(--admin-sidebar);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .admin-sidebar__logo {
+      height: 50px;
+      background: var(--admin-sidebar-top);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+    }
+
+    .admin-sidebar__logo-link,
+    .admin-mobile-header__logo {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--admin-red-bright);
+    }
+
+    .admin-sidebar__nav {
+      padding: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .admin-sidebar__group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-sidebar__main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--admin-white);
+      white-space: nowrap;
+    }
+
+    .admin-sidebar__main:hover,
+    .admin-sidebar__main.is-active {
+      background: rgba(255,255,255,0.1);
+      color: var(--admin-red-bright);
+    }
+
+    .admin-sidebar__sub {
+      display: block;
+      padding: 8px 24px 8px 52px;
+      font-size: 14px;
+      color: #dadada;
+      white-space: nowrap;
+    }
+
+    .admin-sidebar__sub.is-active {
+      color: var(--admin-white);
+      background: rgba(237,55,15,0.15);
+      font-weight: 500;
+    }
+
+    .admin-sidebar__divider {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 8px 0;
+    }
+
+    .admin-main {
+      flex: 1;
+      min-width: 0;
+      margin-left: var(--sidebar-w);
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    .admin-page-title {
+      margin: 0 0 24px;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 28px;
+      color: var(--admin-heading);
+      letter-spacing: 0;
+    }
+
+    .admin-card {
+      background: var(--admin-white);
+      border: 1px solid var(--admin-stroke);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .admin-card__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 16px 0;
+      margin-bottom: 16px;
+    }
+
+    .admin-card__title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      color: var(--admin-text);
+    }
+
+    .admin-card__body {
+      padding: 0 16px 16px;
+    }
+
+    .admin-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .admin-table {
+      width: 100%;
+      font-size: 14px;
+      color: var(--admin-text);
+    }
+
+    .admin-table th {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+      color: var(--admin-heading);
+      background: #f9fafc;
+      border-bottom: 2px solid var(--admin-stroke);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .admin-table td {
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--admin-stroke);
+      vertical-align: middle;
+    }
+
+    .admin-table tbody tr:hover { background: #f9fafc; }
+    .admin-table tbody tr:last-child td { border-bottom: none; }
+
+    .admin-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+      white-space: nowrap;
+    }
+
+    .admin-badge--notice { background: var(--admin-heading); color: var(--admin-white); border-color: var(--admin-heading); }
+    .admin-badge--active { background: #e8f5e9; color: #2e7d32; border-color: #81c784; }
+    .admin-badge--pending { background: rgba(255,199,0,.2); border-color: #ffc700; color: #ffa100; }
+
+    .admin-btn,
+    .admin-order-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 12px;
+      border: 0.5px solid transparent;
+      border-radius: 4px;
+      background: none;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      white-space: nowrap;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+
+    .admin-btn--primary,
+    .admin-order-btn--primary {
+      background: var(--admin-red);
+      color: #f5f5f5;
+      font-weight: 500;
+      border-color: var(--admin-red);
+    }
+
+    .admin-btn--outline,
+    .admin-order-btn--action {
+      background: var(--admin-white);
+      color: var(--admin-text);
+      border-color: #6b6b6b;
+    }
+
+    .admin-btn--sm {
+      height: 30px;
+      padding: 0 10px;
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .admin-mobile-header,
+    .admin-overlay {
+      display: none;
+    }
+
+    .admin-planning-page {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .admin-planning-note {
+      margin: 0;
+      padding: 12px 14px;
+      border: 1px solid var(--admin-stroke);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--admin-muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .admin-planning-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .admin-planning-header .admin-page-title {
+      margin-bottom: 0;
+    }
+
+    .admin-planning-subtitle {
+      margin: 6px 0 0;
+      color: var(--admin-muted);
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    .admin-planning-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+      max-width: 560px;
+    }
+
+    .admin-planning-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 0.5px solid var(--admin-stroke);
+      border-radius: 4px;
+      background: var(--admin-white);
+      color: var(--admin-text);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .admin-planning-nav a:hover {
+      border-color: var(--admin-red);
+      color: var(--admin-red);
+    }
+
+    .admin-planning-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .admin-planning-kpi {
+      min-height: 108px;
+      padding: 16px;
+      border: 1px solid var(--admin-stroke);
+      border-radius: 4px;
+      background: var(--admin-white);
+    }
+
+    .admin-planning-kpi--primary {
+      border-color: rgba(237, 55, 15, 0.32);
+      background: #fff;
+    }
+
+    .admin-planning-kpi__label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--admin-text);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    .admin-planning-kpi__value {
+      margin-top: 12px;
+      color: var(--admin-heading);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28px;
+      letter-spacing: 0;
+      word-break: keep-all;
+    }
+
+    .admin-planning-kpi__sub {
+      margin-top: 6px;
+      color: var(--admin-muted);
+      font-size: 12px;
+    }
+
+    .admin-planning-filter {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(130px, 1fr)) auto;
+      gap: 10px 12px;
+      align-items: end;
+    }
+
+    .admin-planning-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .admin-planning-field label {
+      color: var(--admin-muted);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+
+    .admin-planning-field input,
+    .admin-planning-field select {
+      width: 100%;
+      height: 36px;
+      padding: 0 12px;
+      border: 0.5px solid var(--admin-stroke);
+      border-radius: 4px;
+      background: var(--admin-white);
+      color: var(--admin-text);
+      font: inherit;
+      font-size: 14px;
+    }
+
+    .admin-planning-field input:focus,
+    .admin-planning-field select:focus {
+      outline: none;
+      border-color: var(--admin-red);
+    }
+
+    .admin-planning-chart {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      align-items: end;
+      gap: 6px;
+      min-height: 210px;
+      padding: 18px 14px 10px;
+      border: 1px solid var(--admin-stroke);
+      border-radius: 4px;
+      background:
+        linear-gradient(to top, #eef2f7 1px, transparent 1px) 0 0 / 100% 25%,
+        var(--admin-white);
+    }
+
+    .admin-planning-bar {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      height: 180px;
+    }
+
+    .admin-planning-bar span:first-child {
+      width: 100%;
+      max-width: 24px;
+      min-height: 12px;
+      border-radius: 4px 4px 0 0;
+      background: var(--admin-red);
+    }
+
+    .admin-planning-bar span:last-child {
+      color: var(--admin-muted);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .admin-planning-section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+      gap: 16px;
+    }
+
+    .admin-planning-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .admin-planning-tab {
+      flex: 0 0 auto;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 0.5px solid var(--admin-stroke);
+      border-radius: 4px;
+      background: var(--admin-white);
+      color: var(--admin-text);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .admin-planning-tab.is-active {
+      border-color: var(--admin-red);
+      background: var(--admin-red);
+      color: var(--admin-white);
+    }
+
+    .admin-planning-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .admin-planning-mini-card {
+      padding: 12px;
+      border: 1px solid var(--admin-stroke);
+      border-radius: 4px;
+      background: var(--admin-white);
+    }
+
+    .admin-planning-mini-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--admin-heading);
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    .admin-planning-mini-card p {
+      margin: 0;
+      color: var(--admin-muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .admin-planning-url {
+      display: inline-block;
+      max-width: 360px;
+      color: var(--admin-red);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
+
+    .admin-planning-right {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .admin-planning-table-actions {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1200px) {
+      .admin-planning-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .admin-planning-filter {
+        grid-template-columns: repeat(3, minmax(130px, 1fr));
+      }
+
+      .admin-planning-section-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .admin-mobile-header {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 56px;
+        background: var(--admin-sidebar-top);
+        z-index: 150;
+        padding: 0 16px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .admin-hamburger {
+        display: inline-flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 4px;
+        border: 0;
+        background: transparent;
+      }
+
+      .admin-hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--admin-white);
+        border-radius: 2px;
+      }
+
+      .admin-sidebar {
+        transform: translateX(-100%);
+        transition: transform .2s;
+      }
+
+      .admin-sidebar.is-open {
+        transform: translateX(0);
+      }
+
+      .admin-overlay.is-visible {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.45);
+        z-index: 90;
+      }
+
+      .admin-main {
+        margin-left: 0;
+        padding: 76px 16px 24px;
+      }
+
+      .admin-planning-header {
+        align-items: stretch;
+      }
+
+      .admin-planning-nav {
+        width: 100%;
+      }
+
+      .admin-planning-nav a {
+        flex: 1 1 calc(50% - 8px);
+        justify-content: center;
+      }
+
+      .admin-planning-kpi-grid,
+      .admin-planning-filter,
+      .admin-planning-detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-planning-chart {
+        overflow-x: auto;
+        grid-template-columns: repeat(12, 40px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 모바일 헤더 -->
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <!-- 사이드바는 기존 admin.js가 렌더링합니다. -->
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main admin-planning-page">
+    <div class="admin-planning-header">
+      <div>
+        <h1 class="admin-page-title t-title-1-md">매출관리 업데이트 초안</h1>
+        <p class="admin-planning-subtitle">배송비 제외 순매출, 기간별 매출, 셀러별 매출, 상품별 매출을 확인하는 어드민 화면 초안입니다.</p>
+      </div>
+      <nav class="admin-planning-nav" aria-label="초안 화면 바로가기">
+        <a href="#sales-overview">매출 현황</a>
+        <a href="#sales-detail">매출 상세</a>
+        <a href="#seller-sales">셀러별 매출</a>
+        <a href="#product-sales">상품별 매출</a>
+        <a href="admin-seller-list-draft.html">셀러 목록</a>
+      </nav>
+    </div>
+
+    <p class="admin-planning-note">
+      이 파일은 병합 전 검토용 매출관리 페이지입니다. 기존 <strong>admin.css</strong>, <strong>admin.js</strong>를 그대로 연결하지만 기존 파일은 수정하지 않습니다.
+      셀러 상품, 판매 링크, 수수료, 정산 상세는 별도 셀러 목록에서 확인합니다.
+    </p>
+
+    <!-- ══════════════════════════════════════
+         매출 현황
+         ══════════════════════════════════════ -->
+    <section class="admin-card" id="sales-overview">
+      <div class="admin-card__header">
+        <h2 class="admin-card__title t-title-2-sb">매출 현황</h2>
+        <span class="admin-badge admin-badge--notice t-label-2-sb">배송비 제외 순매출 기준</span>
+      </div>
+      <div class="admin-card__body">
+        <!-- [MOCK] GET /api/admin/sales/summary?period=today -->
+        <div class="admin-planning-kpi-grid" aria-label="오늘의 순매출 현황">
+          <article class="admin-planning-kpi admin-planning-kpi--primary">
+            <div class="admin-planning-kpi__label">오늘의 순매출 <span>전일 대비 +8.4%</span></div>
+            <div class="admin-planning-kpi__value">8,421,500원</div>
+            <div class="admin-planning-kpi__sub">총 결제금액 - 배송비 - 환불/취소금액</div>
+          </article>
+          <article class="admin-planning-kpi">
+            <div class="admin-planning-kpi__label">총 결제금액 <span>결제 286건</span></div>
+            <div class="admin-planning-kpi__value">9,640,000원</div>
+            <div class="admin-planning-kpi__sub">오늘 결제 완료 주문 합계</div>
+          </article>
+          <article class="admin-planning-kpi">
+            <div class="admin-planning-kpi__label">환불금액 <span>환불 11건</span></div>
+            <div class="admin-planning-kpi__value">742,000원</div>
+            <div class="admin-planning-kpi__sub">환불 완료 기준 집계</div>
+          </article>
+          <article class="admin-planning-kpi">
+            <div class="admin-planning-kpi__label">취소/교환/반품 <span>총 19건</span></div>
+            <div class="admin-planning-kpi__value">19건</div>
+            <div class="admin-planning-kpi__sub">취소 8 · 교환 4 · 반품 7</div>
+          </article>
+          <article class="admin-planning-kpi">
+            <div class="admin-planning-kpi__label">배송처리 <span>출고 기준</span></div>
+            <div class="admin-planning-kpi__value">172건</div>
+            <div class="admin-planning-kpi__sub">배송 준비 또는 출고 처리</div>
+          </article>
+          <article class="admin-planning-kpi">
+            <div class="admin-planning-kpi__label">배송완료 <span>완료 기준</span></div>
+            <div class="admin-planning-kpi__value">138건</div>
+            <div class="admin-planning-kpi__sub">택배사 배송 완료 반영</div>
+          </article>
+          <article class="admin-planning-kpi">
+            <div class="admin-planning-kpi__label">셀러 유입 매출 <span>추적 링크 기준</span></div>
+            <div class="admin-planning-kpi__value">6,190,000원</div>
+            <div class="admin-planning-kpi__sub">셀러별 링크/UTM으로 귀속된 매출</div>
+          </article>
+          <article class="admin-planning-kpi">
+            <div class="admin-planning-kpi__label">미정산 금액 <span>이번 달</span></div>
+            <div class="admin-planning-kpi__value">18,430,000원</div>
+            <div class="admin-planning-kpi__sub">정산 완료 전 예정 금액</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         공통 필터
+         ══════════════════════════════════════ -->
+    <section class="admin-card" aria-labelledby="filterTitle">
+      <div class="admin-card__header">
+        <h2 class="admin-card__title t-title-2-sb" id="filterTitle">공통 조회 조건</h2>
+      </div>
+      <div class="admin-card__body">
+        <div class="admin-planning-filter">
+          <div class="admin-planning-field">
+            <label for="draftPeriod">기간</label>
+            <select id="draftPeriod">
+              <option>오늘</option>
+              <option>최근 7일</option>
+              <option>최근 30일</option>
+              <option>이번 달</option>
+              <option>직접 선택</option>
+            </select>
+          </div>
+          <div class="admin-planning-field">
+            <label for="draftSalesUnit">매출 기준</label>
+            <select id="draftSalesUnit">
+              <option>일별</option>
+              <option>주별</option>
+              <option>월별</option>
+              <option>전체</option>
+            </select>
+          </div>
+          <div class="admin-planning-field">
+            <label for="draftSeller">셀러</label>
+            <input type="text" id="draftSeller" placeholder="셀러명 또는 셀러 ID" />
+          </div>
+          <div class="admin-planning-field">
+            <label for="draftProduct">상품</label>
+            <input type="text" id="draftProduct" placeholder="상품명 또는 상품코드" />
+          </div>
+          <div class="admin-planning-field">
+            <label for="draftOrderStatus">주문 상태</label>
+            <select id="draftOrderStatus">
+              <option>전체</option>
+              <option>결제완료</option>
+              <option>배송처리</option>
+              <option>배송완료</option>
+              <option>취소/교환/반품</option>
+              <option>환불</option>
+            </select>
+          </div>
+          <button type="button" class="admin-order-btn admin-order-btn--primary">조회</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         매출 상세
+         ══════════════════════════════════════ -->
+    <section class="admin-planning-section-grid" id="sales-detail">
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <h2 class="admin-card__title t-title-2-sb">매출 상세 관리</h2>
+          <div class="admin-planning-tabs" role="tablist" aria-label="매출 기준">
+            <button type="button" class="admin-planning-tab is-active">일별</button>
+            <button type="button" class="admin-planning-tab">주별</button>
+            <button type="button" class="admin-planning-tab">월별</button>
+            <button type="button" class="admin-planning-tab">전체</button>
+          </div>
+        </div>
+        <div class="admin-card__body">
+          <!-- [MOCK] GET /api/admin/sales/net?unit=daily -->
+          <div class="admin-planning-chart" aria-label="순매출 차트 예시">
+            <div class="admin-planning-bar"><span style="height: 42%;"></span><span>05.07</span></div>
+            <div class="admin-planning-bar"><span style="height: 58%;"></span><span>05.08</span></div>
+            <div class="admin-planning-bar"><span style="height: 48%;"></span><span>05.09</span></div>
+            <div class="admin-planning-bar"><span style="height: 64%;"></span><span>05.10</span></div>
+            <div class="admin-planning-bar"><span style="height: 51%;"></span><span>05.11</span></div>
+            <div class="admin-planning-bar"><span style="height: 76%;"></span><span>05.12</span></div>
+            <div class="admin-planning-bar"><span style="height: 68%;"></span><span>05.13</span></div>
+            <div class="admin-planning-bar"><span style="height: 74%;"></span><span>05.14</span></div>
+            <div class="admin-planning-bar"><span style="height: 62%;"></span><span>05.15</span></div>
+            <div class="admin-planning-bar"><span style="height: 82%;"></span><span>05.16</span></div>
+            <div class="admin-planning-bar"><span style="height: 71%;"></span><span>05.17</span></div>
+            <div class="admin-planning-bar"><span style="height: 88%;"></span><span>05.18</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <h2 class="admin-card__title t-title-2-sb">집계 기준</h2>
+        </div>
+        <div class="admin-card__body">
+          <div class="admin-planning-detail-grid">
+            <div class="admin-planning-mini-card">
+              <strong>순매출</strong>
+              <p>총 결제금액에서 배송비, 환불금액, 취소금액을 제외한 실매출</p>
+            </div>
+            <div class="admin-planning-mini-card">
+              <strong>셀러 귀속</strong>
+              <p>셀러 전용 링크 또는 UTM 파라미터 기준으로 매출 매핑</p>
+            </div>
+            <div class="admin-planning-mini-card">
+              <strong>수수료</strong>
+              <p>개별 수수료율이 있으면 우선 적용, 없으면 기본 수수료율 적용</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-card">
+      <div class="admin-card__header">
+        <h2 class="admin-card__title t-title-2-sb">매출 상세 테이블</h2>
+        <button type="button" class="admin-order-btn admin-order-btn--action">Excel 다운로드</button>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>기간</th>
+              <th class="admin-planning-right">총 결제금액</th>
+              <th class="admin-planning-right">배송비</th>
+              <th class="admin-planning-right">환불금액</th>
+              <th class="admin-planning-right">취소금액</th>
+              <th class="admin-planning-right">순매출</th>
+              <th class="admin-planning-right">결제 건수</th>
+              <th class="admin-planning-right">취소/환불 건수</th>
+              <th style="text-align:center;">상세</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2026.05.18</td>
+              <td class="admin-planning-right">9,640,000원</td>
+              <td class="admin-planning-right">476,500원</td>
+              <td class="admin-planning-right">742,000원</td>
+              <td class="admin-planning-right">0원</td>
+              <td class="admin-planning-right"><strong>8,421,500원</strong></td>
+              <td class="admin-planning-right">286건</td>
+              <td class="admin-planning-right">19건</td>
+              <td style="text-align:center;"><button type="button" class="admin-btn admin-btn--sm admin-btn--outline">보기</button></td>
+            </tr>
+            <tr>
+              <td>2026.05.17</td>
+              <td class="admin-planning-right">8,420,000원</td>
+              <td class="admin-planning-right">402,000원</td>
+              <td class="admin-planning-right">248,000원</td>
+              <td class="admin-planning-right">0원</td>
+              <td class="admin-planning-right"><strong>7,770,000원</strong></td>
+              <td class="admin-planning-right">241건</td>
+              <td class="admin-planning-right">12건</td>
+              <td style="text-align:center;"><button type="button" class="admin-btn admin-btn--sm admin-btn--outline">보기</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         셀러별 매출
+         ══════════════════════════════════════ -->
+    <section class="admin-card" id="seller-sales">
+      <div class="admin-card__header">
+        <h2 class="admin-card__title t-title-2-sb">셀러별 매출</h2>
+        <button type="button" class="admin-order-btn admin-order-btn--action">정산 대상만 보기</button>
+      </div>
+      <div class="admin-table-wrap">
+        <!-- [MOCK] GET /api/admin/sales/sellers -->
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>셀러명</th>
+              <th>셀러 ID</th>
+              <th class="admin-planning-right">총 결제금액</th>
+              <th class="admin-planning-right">순매출</th>
+              <th class="admin-planning-right">판매 건수</th>
+              <th class="admin-planning-right">환불/취소</th>
+              <th class="admin-planning-right">수수료율</th>
+              <th class="admin-planning-right">수수료 금액</th>
+              <th class="admin-planning-right">정산 예정</th>
+              <th style="text-align:center;">상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>바이린</td>
+              <td>SELLER001</td>
+              <td class="admin-planning-right">18,400,000원</td>
+              <td class="admin-planning-right"><strong>16,920,000원</strong></td>
+              <td class="admin-planning-right">512건</td>
+              <td class="admin-planning-right">21건</td>
+              <td class="admin-planning-right">12%</td>
+              <td class="admin-planning-right">2,030,400원</td>
+              <td class="admin-planning-right">14,889,600원</td>
+              <td style="text-align:center;"><span class="admin-badge admin-badge--pending t-label-2-sb">미정산</span></td>
+            </tr>
+            <tr>
+              <td>모어데이</td>
+              <td>SELLER014</td>
+              <td class="admin-planning-right">12,110,000원</td>
+              <td class="admin-planning-right"><strong>11,320,000원</strong></td>
+              <td class="admin-planning-right">326건</td>
+              <td class="admin-planning-right">14건</td>
+              <td class="admin-planning-right">10%</td>
+              <td class="admin-planning-right">1,132,000원</td>
+              <td class="admin-planning-right">10,188,000원</td>
+              <td style="text-align:center;"><span class="admin-badge admin-badge--active t-label-2-sb">정산 완료</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         상품별 매출
+         ══════════════════════════════════════ -->
+    <section class="admin-card" id="product-sales">
+      <div class="admin-card__header">
+        <h2 class="admin-card__title t-title-2-sb">상품별 매출 · 판매 상품 순위</h2>
+        <button type="button" class="admin-order-btn admin-order-btn--action">순매출순</button>
+      </div>
+      <div class="admin-table-wrap">
+        <!-- [MOCK] GET /api/admin/sales/products?sort=netSales -->
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width:60px; text-align:center;">순위</th>
+              <th>상품명</th>
+              <th>상품코드</th>
+              <th class="admin-planning-right">판매수량</th>
+              <th class="admin-planning-right">결제금액</th>
+              <th class="admin-planning-right">순매출</th>
+              <th class="admin-planning-right">환불/취소</th>
+              <th>주요 셀러</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align:center;">1</td>
+              <td>로켓스튜디오 무선 3 in 1 충전기</td>
+              <td>PRD-10031</td>
+              <td class="admin-planning-right">1,240개</td>
+              <td class="admin-planning-right">48,260,000원</td>
+              <td class="admin-planning-right"><strong>44,920,000원</strong></td>
+              <td class="admin-planning-right">34건</td>
+              <td>바이린, 민마켓</td>
+            </tr>
+            <tr>
+              <td style="text-align:center;">2</td>
+              <td>모어데이 세라믹 머그컵 세트</td>
+              <td>PRD-10088</td>
+              <td class="admin-planning-right">914개</td>
+              <td class="admin-planning-right">20,839,200원</td>
+              <td class="admin-planning-right"><strong>19,660,000원</strong></td>
+              <td class="admin-planning-right">18건</td>
+              <td>모어데이</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="admin.js"></script>
+<script>
+  (function () {
+    var sidebar = document.getElementById("adminSidebar");
+    if (!sidebar) return;
+
+    sidebar.innerHTML =
+      '<div class="admin-sidebar__logo">' +
+        '<a href="index.html" class="admin-sidebar__logo-link">link it</a>' +
+      '</div>' +
+      '<nav class="admin-sidebar__nav">' +
+        '<div class="admin-sidebar__group">' +
+          '<a href="index.html" class="admin-sidebar__main"><span>대시보드</span></a>' +
+        '</div>' +
+        '<div class="admin-sidebar__group">' +
+          '<a href="product-list.html" class="admin-sidebar__main"><span>상품관리</span></a>' +
+          '<a href="product-create.html" class="admin-sidebar__sub">상품등록</a>' +
+          '<a href="category.html" class="admin-sidebar__sub">카테고리 관리</a>' +
+          '<a href="product-list.html" class="admin-sidebar__sub">상품목록</a>' +
+          '<a href="product-display.html" class="admin-sidebar__sub">상품진열</a>' +
+        '</div>' +
+        '<div class="admin-sidebar__group">' +
+          '<a href="order-list.html" class="admin-sidebar__main"><span>주문관리</span></a>' +
+          '<a href="order-list.html" class="admin-sidebar__sub">주문내역</a>' +
+        '</div>' +
+        '<div class="admin-sidebar__group">' +
+          '<a href="admin-sales-management-draft.html" class="admin-sidebar__main is-active"><span>매출관리</span></a>' +
+          '<a href="admin-sales-management-draft.html#sales-overview" class="admin-sidebar__sub is-active">매출현황</a>' +
+          '<a href="admin-sales-management-draft.html#sales-detail" class="admin-sidebar__sub">매출상세</a>' +
+          '<a href="admin-sales-management-draft.html#seller-sales" class="admin-sidebar__sub">셀러별 매출</a>' +
+          '<a href="admin-sales-management-draft.html#product-sales" class="admin-sidebar__sub">상품별 매출</a>' +
+        '</div>' +
+        '<div class="admin-sidebar__group">' +
+          '<a href="design.html" class="admin-sidebar__main"><span>디자인</span></a>' +
+          '<a href="design.html" class="admin-sidebar__sub">디자인 관리</a>' +
+        '</div>' +
+        '<div class="admin-sidebar__group">' +
+          '<a href="seller-list.html" class="admin-sidebar__main"><span>셀러관리</span></a>' +
+          '<a href="admin-seller-list-draft.html" class="admin-sidebar__sub">셀러목록</a>' +
+          '<a href="admin-seller-detail-draft.html" class="admin-sidebar__sub">셀러상세 → 셀러매출</a>' +
+          '<a href="admin-seller-link-draft.html" class="admin-sidebar__sub">상품판매페이지 링크 관리</a>' +
+          '<a href="admin-seller-settlement-draft.html" class="admin-sidebar__sub">정산</a>' +
+        '</div>' +
+        '<div class="admin-sidebar__group">' +
+          '<a href="notice.html" class="admin-sidebar__main"><span>공지사항</span></a>' +
+        '</div>' +
+        '<div class="admin-sidebar__group">' +
+          '<a href="settings.html" class="admin-sidebar__main"><span>환경설정</span></a>' +
+        '</div>' +
+        '<div class="admin-sidebar__divider"></div>' +
+        '<div class="admin-sidebar__group">' +
+          '<a href="../login.html" class="admin-sidebar__main"><span>로그아웃</span></a>' +
+        '</div>' +
+      '</nav>';
+
+    var hamburger = document.getElementById("adminHamburger");
+    var overlay = document.getElementById("adminOverlay");
+    function closeSidebar() {
+      sidebar.classList.remove("is-open");
+      if (overlay) overlay.classList.remove("is-visible");
+    }
+    if (hamburger) {
+      hamburger.addEventListener("click", function () {
+        sidebar.classList.toggle("is-open");
+        if (overlay) overlay.classList.toggle("is-visible");
+      });
+    }
+    if (overlay) overlay.addEventListener("click", closeSidebar);
+  })();
+</script>
+</body>
+</html>
