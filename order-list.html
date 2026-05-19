@@ -132,7 +132,146 @@
             </tr>
           </thead>
           <tbody id="orderTableBody">
-            <!-- JS(initOrderListPage)로 렌더링 -->
+            <tr data-order-id="1">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="1" aria-label="주문 1 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>1</td>
+              <td><div class="admin-order-product__img"><img src="assets/긴팔.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456789</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">(국내제작)(여리핏/데일리룩/쫀쫀신축성) 메이드 스퀘어넥 슬림 골지 긴팔 티셔츠</span></div></td>
+              <td><div class="admin-order-purchase-info">레드/S*1 = 35,000원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 2,500원</div><div class="admin-order-payment__total">총 37,500원</div></div></td>
+              <td><div class="admin-order-buyer">이정인<br />01073752743</div></td>
+              <td><button type="button" class="admin-order-address" data-name="이정인" data-phone="01073752743" data-addr="서울시 강남구 테헤란로 123" data-addr-detail="456호" aria-label="배송지 수정">이정인<br />01073752743<br />서울시 강남구 테헤란로 123<br />456호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--preparing t-label-2-md" data-order-current="1">상품 준비중</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option is-current" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-30<br /><span class="admin-order-date__time">00:00</span></div></td>
+              <td><div class="admin-order-date">2026-05-01</div></td>
+            </tr>
+            <tr data-order-id="2">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="2" aria-label="주문 2 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>2</td>
+              <td><div class="admin-order-product__img"><img src="assets/블라우스.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456790</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">(단독진행)(봄신상/러블리무드/레이어드추천) 루에느 리본 퍼프 블라우스</span></div></td>
+              <td><div class="admin-order-purchase-info">블루/S*2 = 70,000원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 0원</div><div class="admin-order-payment__total">총 70,000원</div></div></td>
+              <td><div class="admin-order-buyer">김수연<br />01012345678</div></td>
+              <td><button type="button" class="admin-order-address" data-name="김수연" data-phone="01012345678" data-addr="경기도 성남시 분당구 판교로 200" data-addr-detail="101동 1502호" aria-label="배송지 수정">김수연<br />01012345678<br />경기도 성남시 분당구 판교로 200<br />101동 1502호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--cancel-pending t-label-2-md" data-order-current="2">취소 준비중</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option is-current" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-29<br /><span class="admin-order-date__time">02:00</span></div></td>
+              <td><div class="admin-order-date">2026-04-30</div></td>
+            </tr>
+            <tr data-order-id="3">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="3" aria-label="주문 3 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>3</td>
+              <td><div class="admin-order-product__img"><img src="assets/mug.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456791</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">(1+1구성) 모던 세라믹 머그컵 세트</span></div></td>
+              <td><div class="admin-order-purchase-info">올리브그린/4P*1 = 22,800원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 2,500원</div><div class="admin-order-payment__total">총 25,300원</div></div></td>
+              <td><div class="admin-order-buyer">박민준<br />01098765432</div></td>
+              <td><button type="button" class="admin-order-address" data-name="박민준" data-phone="01098765432" data-addr="서울시 마포구 홍익로 10" data-addr-detail="202호" aria-label="배송지 수정">박민준<br />01098765432<br />서울시 마포구 홍익로 10<br />202호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--cancel t-label-2-md" data-order-current="3">취소완료</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option is-current" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-28<br /><span class="admin-order-date__time">04:00</span></div></td>
+              <td><div class="admin-order-date">2026-04-29</div></td>
+            </tr>
+            <tr data-order-id="4">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="4" aria-label="주문 4 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>4</td>
+              <td><div class="admin-order-product__img"><img src="assets/pants.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456792</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">(기획특가) 와이드 핀턱 밴딩 슬랙스</span></div></td>
+              <td><div class="admin-order-purchase-info">블랙/M*1 = 28,000원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 3,000원</div><div class="admin-order-payment__total">총 31,000원</div></div></td>
+              <td><div class="admin-order-buyer">최지혜<br />01055556666</div></td>
+              <td><button type="button" class="admin-order-address" data-name="최지혜" data-phone="01055556666" data-addr="부산시 해운대구 마린시티로 50" data-addr-detail="305호" aria-label="배송지 수정">최지혜<br />01055556666<br />부산시 해운대구 마린시티로 50<br />305호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--delivery-ready t-label-2-md" data-order-current="4">배송준비중</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option is-current" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-27<br /><span class="admin-order-date__time">06:00</span></div></td>
+              <td><div class="admin-order-date">2026-04-28</div></td>
+            </tr>
+            <tr data-order-id="5">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="5" aria-label="주문 5 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>5</td>
+              <td><div class="admin-order-product__img"><img src="assets/longsleeves.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456793</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">[써머세일] 오가닉 코튼 스트라이프 오버핏 셔츠</span></div></td>
+              <td><div class="admin-order-purchase-info">화이트/L*1 = 32,000원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 2,500원</div><div class="admin-order-payment__total">총 34,500원</div></div></td>
+              <td><div class="admin-order-buyer">정하은<br />01033334444</div></td>
+              <td><button type="button" class="admin-order-address" data-name="정하은" data-phone="01033334444" data-addr="서울시 송파구 올림픽로 300" data-addr-detail="701호" aria-label="배송지 수정">정하은<br />01033334444<br />서울시 송파구 올림픽로 300<br />701호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--shipping t-label-2-md" data-order-current="5">배송중</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option is-current" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-26<br /><span class="admin-order-date__time">08:00</span></div></td>
+              <td><div class="admin-order-date">2026-04-27</div></td>
+            </tr>
+            <tr data-order-id="6">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="6" aria-label="주문 6 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>6</td>
+              <td><div class="admin-order-product__img"><img src="assets/sleeveless.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456794</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">ELLE PARIS PDRN 콜라겐 녹는실 탄력 앰플</span></div></td>
+              <td><div class="admin-order-purchase-info">1개 = 49,000원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 0원</div><div class="admin-order-payment__total">총 49,000원</div></div></td>
+              <td><div class="admin-order-buyer">윤서진<br />01077778888</div></td>
+              <td><button type="button" class="admin-order-address" data-name="윤서진" data-phone="01077778888" data-addr="인천시 연수구 송도국제대로 100" data-addr-detail="1204호" aria-label="배송지 수정">윤서진<br />01077778888<br />인천시 연수구 송도국제대로 100<br />1204호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--preparing t-label-2-md" data-order-current="6">상품 준비중</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option is-current" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-25<br /><span class="admin-order-date__time">10:00</span></div></td>
+              <td><div class="admin-order-date">2026-04-26</div></td>
+            </tr>
+            <tr data-order-id="7">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="7" aria-label="주문 7 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>7</td>
+              <td><div class="admin-order-product__img"><img src="assets/minibag.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456795</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">[기획] 프리미엄 레더 미니 크로스백</span></div></td>
+              <td><div class="admin-order-purchase-info">카멜/1개 = 99,000원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 3,000원</div><div class="admin-order-payment__total">총 102,000원</div></div></td>
+              <td><div class="admin-order-buyer">강현우<br />01011112222</div></td>
+              <td><button type="button" class="admin-order-address" data-name="강현우" data-phone="01011112222" data-addr="대구시 수성구 범어로 77" data-addr-detail="803호" aria-label="배송지 수정">강현우<br />01011112222<br />대구시 수성구 범어로 77<br />803호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--cancel-pending t-label-2-md" data-order-current="7">취소 준비중</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option is-current" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-24<br /><span class="admin-order-date__time">12:00</span></div></td>
+              <td><div class="admin-order-date">2026-04-25</div></td>
+            </tr>
+            <tr data-order-id="8">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="8" aria-label="주문 8 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>8</td>
+              <td><div class="admin-order-product__img"><img src="assets/긴팔-1.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456796</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">청량한 여름 린넨 블렌드 와이드 팬츠</span></div></td>
+              <td><div class="admin-order-purchase-info">베이지/M*1 = 55,000원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 0원</div><div class="admin-order-payment__total">총 55,000원</div></div></td>
+              <td><div class="admin-order-buyer">이서연<br />01099990000</div></td>
+              <td><button type="button" class="admin-order-address" data-name="이서연" data-phone="01099990000" data-addr="서울시 용산구 이태원로 55" data-addr-detail="102호" aria-label="배송지 수정">이서연<br />01099990000<br />서울시 용산구 이태원로 55<br />102호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--cancel t-label-2-md" data-order-current="8">취소완료</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option is-current" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-23<br /><span class="admin-order-date__time">14:00</span></div></td>
+              <td><div class="admin-order-date">2026-04-24</div></td>
+            </tr>
+            <tr data-order-id="9">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="9" aria-label="주문 9 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>9</td>
+              <td><div class="admin-order-product__img"><img src="assets/hood.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456797</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">내추럴 우드 스탠딩 데스크 라이트</span></div></td>
+              <td><div class="admin-order-purchase-info">화이트/1개 = 75,000원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 2,500원</div><div class="admin-order-payment__total">총 77,500원</div></div></td>
+              <td><div class="admin-order-buyer">한지수<br />01044445555</div></td>
+              <td><button type="button" class="admin-order-address" data-name="한지수" data-phone="01044445555" data-addr="광주시 서구 상무대로 999" data-addr-detail="501호" aria-label="배송지 수정">한지수<br />01044445555<br />광주시 서구 상무대로 999<br />501호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--delivery-ready t-label-2-md" data-order-current="9">배송준비중</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option is-current" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-22<br /><span class="admin-order-date__time">16:00</span></div></td>
+              <td><div class="admin-order-date">2026-04-23</div></td>
+            </tr>
+            <tr data-order-id="10">
+              <td style="text-align:center;"><input type="checkbox" class="order-row-check" data-order-id="10" aria-label="주문 10 선택" style="accent-color:var(--admin-red);cursor:pointer;" /></td>
+              <td>10</td>
+              <td><div class="admin-order-product__img"><img src="assets/블라우스.png" alt="상품 이미지" /></div></td>
+              <td><button type="button" class="admin-order-no">20260123456798</button></td>
+              <td><div class="admin-order-product"><span class="admin-order-product__name">비건 시카 진정 수분 크림 50ml</span></div></td>
+              <td><div class="admin-order-purchase-info">1개 = 29,000원</div></td>
+              <td><div class="admin-order-payment"><div class="admin-order-payment__shipping">배송비: 0원</div><div class="admin-order-payment__total">총 29,000원</div></div></td>
+              <td><div class="admin-order-buyer">오민서<br />01066667777</div></td>
+              <td><button type="button" class="admin-order-address" data-name="오민서" data-phone="01066667777" data-addr="대전시 유성구 대학로 99" data-addr-detail="303호" aria-label="배송지 수정">오민서<br />01066667777<br />대전시 유성구 대학로 99<br />303호</button></td>
+              <td style="text-align:center;"><div class="admin-order-status"><button type="button" class="admin-order-status__toggle" aria-haspopup="true" aria-label="상태 변경"><span class="admin-badge admin-badge--shipping t-label-2-md" data-order-current="10">배송중</span><span class="admin-order-status__change-label">상태변경</span></button><div class="admin-order-status__dropdown" role="menu"><button type="button" class="admin-order-status__option" data-status="상품 준비중" role="menuitem">상품 준비중</button><button type="button" class="admin-order-status__option" data-status="취소 준비중" role="menuitem">취소 준비중</button><button type="button" class="admin-order-status__option" data-status="취소완료" role="menuitem">취소완료</button><button type="button" class="admin-order-status__option" data-status="배송준비중" role="menuitem">배송준비중</button><button type="button" class="admin-order-status__option is-current" data-status="배송중" role="menuitem">배송중</button></div></div></td>
+              <td><div class="admin-order-date">2026-04-21<br /><span class="admin-order-date__time">18:00</span></div></td>
+              <td><div class="admin-order-date">2026-04-22</div></td>
+            </tr>
           </tbody>
         </table>
       </div>

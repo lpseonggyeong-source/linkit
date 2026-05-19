@@ -3080,7 +3080,6 @@
 
     filteredOrders = orderData.slice();
     currentPage    = 1;
-    renderOrderList();
 
     pag.addEventListener("click", function (e) {
       var btn = e.target.closest("[data-ol-page]");
