@@ -51,8 +51,13 @@
       "product-list.html":    "product-list.html",
       "product-display.html": "product-list.html",
       "order-list.html":      "order-list.html",
-      "design.html":          "design.html",
-      "design-editor.html":   "design.html",
+      "design.html":                  "design.html",
+      "design-editor.html":           "design.html",
+      "design-editor-minimal.html":   "design.html",
+      "design-editor-modern.html":    "design.html",
+      "design-editor-lovely.html":    "design.html",
+      "design-editor-linklist.html":  "design.html",
+      "design-editor-organic.html":   "design.html",
       "seller-list.html":     "seller-list.html",
       "notice.html":          "notice.html",
       "settings.html":        "settings.html",
@@ -2719,7 +2724,7 @@
   /* ── 진입점 ── */
   function initSellerPage() {
     if (!getRoot()) return;
-    renderSellerList();
+    bindRowActions();
     initSellerSearch();
     initSellerCreateModal();
     initSellerEditModal();
