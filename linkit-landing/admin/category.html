@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>카테고리 관리 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- 모바일 헤더 -->
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+
+  <!-- ── 사이드바 (admin.js 로 렌더링) ── -->
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+  <!-- /사이드바 -->
+
+  <!-- ── 메인 콘텐츠 ── -->
+  <main class="admin-main">
+
+    <h1 class="admin-page-title t-title-1-md">카테고리 관리</h1>
+
+    <div class="category-grid">
+
+      <!-- ── 좌측 카드: 카테고리 구조 ── -->
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <h2 class="admin-card__title t-title-2-sb">카테고리 구조</h2>
+        </div>
+        <div class="admin-card__body">
+          <ul class="category-list" id="categoryList" aria-label="상위 카테고리 목록">
+            <!-- JavaScript로 렌더링 -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- ── 우측 카드: 하위 카테고리 목록 ── -->
+      <div class="admin-card" id="subCategoryCard">
+
+        <!-- 초기 빈 상태 -->
+        <div class="category-empty" id="categoryEmpty">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color:#d0d8e8; margin-bottom:12px;">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+          <p>상위 카테고리를 선택하세요</p>
+        </div>
+
+        <!-- 카테고리 선택 후 콘텐츠 -->
+        <div id="subCategoryContent" style="display:none;">
+          <div class="admin-card__header">
+            <h2 class="admin-card__title t-title-2-sb">하위 카테고리 목록</h2>
+            <button type="button" class="admin-btn admin-btn--outline admin-btn--sm t-label-2-md" id="addSubCategoryBtn" aria-label="하위 카테고리 추가">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              하위 카테고리 추가
+            </button>
+          </div>
+          <div class="admin-card__body">
+            <p class="category-hint t-body-3-rg">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+              </svg>
+              드래그앤 드롭하여 카테고리 순서를 변경할 수 있습니다.
+            </p>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th style="width:36px;"></th>
+                    <th style="width:56px;">순서</th>
+                    <th>카테고리명</th>
+                    <th style="width:80px;">상품 수</th>
+                    <th style="width:90px;">노출 상태</th>
+                    <th style="width:80px;">관리</th>
+                  </tr>
+                </thead>
+                <tbody id="subCategoryTableBody">
+                  <!-- JavaScript로 렌더링 -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /우측 카드 -->
+
+    </div>
+    <!-- /category-grid -->
+
+  </main>
+</div>
+
+<!-- ══════════════════════════════════════
+     하위 카테고리 추가 모달
+     ══════════════════════════════════════ -->
+<div class="category-modal" id="categoryAddModal" role="dialog" aria-modal="true" aria-labelledby="addModalTitle">
+  <div class="category-modal__overlay" id="addModalOverlay"></div>
+  <div class="category-modal__box">
+    <h3 class="category-modal__title t-title-2-sb" id="addModalTitle">하위 카테고리 추가</h3>
+
+    <form class="admin-form" id="categoryAddForm" novalidate>
+
+      <div class="admin-field">
+        <label for="newSubCatName" class="t-label-1-md">카테고리명</label>
+        <input
+          type="text"
+          id="newSubCatName"
+          name="name"
+          placeholder="하위 카테고리명을 입력하세요"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="admin-field">
+        <label for="newSubCatParent" class="t-label-1-md">상위 카테고리</label>
+        <select id="newSubCatParent" name="parentId">
+          <option value="1">의류</option>
+          <option value="2">뷰티</option>
+          <option value="3">인테리어</option>
+          <option value="4">가전</option>
+          <option value="5">캠핑</option>
+        </select>
+      </div>
+
+      <div class="category-modal__footer">
+        <button type="button" class="admin-btn admin-btn--outline t-label-1-md" id="addModalCancelBtn">취소</button>
+        <button type="submit" class="admin-btn admin-btn--primary t-label-1-md">저장</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     카테고리 삭제 확인 모달
+     ══════════════════════════════════════ -->
+<div class="category-modal" id="categoryDeleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+  <div class="category-modal__overlay" id="deleteModalOverlay"></div>
+  <div class="category-modal__box">
+
+    <div class="category-modal__warning">
+      <div class="category-modal__warning-icon" aria-hidden="true">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="26" fill="#fff0ee"/>
+          <circle cx="26" cy="26" r="20" stroke="var(--admin-red)" stroke-width="1.5" fill="none"/>
+          <path d="M26 18v10" stroke="var(--admin-red)" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="26" cy="33" r="1.5" fill="var(--admin-red)"/>
+        </svg>
+      </div>
+      <h3 class="category-modal__warning-title t-title-2-sb" id="deleteModalTitle">카테고리를 삭제하시겠습니까?</h3>
+      <p class="category-modal__warning-desc t-body-3-rg">
+        '<strong id="deleteSubName">상의</strong>'에 포함된 <strong id="deleteSubCount">15</strong>개의 상품이 있습니다.<br />
+        삭제 후 상품을 이동할 카테고리를 선택해주세요.
+      </p>
+    </div>
+
+    <div class="admin-field">
+      <label for="deleteMoveTarget" class="t-label-1-md">상품 이동 카테고리 선택</label>
+      <select id="deleteMoveTarget" name="moveTargetId">
+        <option value="">카테고리를 선택하세요</option>
+        <!-- JavaScript로 옵션 채움 -->
+      </select>
+    </div>
+
+    <div class="category-modal__checkbox-row">
+      <input type="checkbox" id="deleteMoveCheck" name="moveCheck" checked />
+      <label for="deleteMoveCheck" class="t-body-3-rg">선택한 상품을 다른 카테고리로 이동합니다.</label>
+    </div>
+
+    <div class="category-modal__footer">
+      <button type="button" class="admin-btn admin-btn--outline t-label-1-md" id="deleteModalCancelBtn">취소</button>
+      <button type="button" class="admin-btn admin-btn--primary t-label-1-md" id="deleteConfirmBtn">삭제 및 이동</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

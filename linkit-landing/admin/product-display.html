@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상품 진열 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- 모바일 헤더 -->
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <h1 class="admin-page-title t-title-1-md">상품 진열</h1>
+
+    <div class="admin-display-layout">
+
+      <!-- ══════════════════════════════
+           좌측 카드 — 상품 진열 관리
+           ══════════════════════════════ -->
+      <div class="admin-card admin-display-panel admin-display-panel--left">
+
+        <div class="admin-card__header">
+          <span class="admin-card__title">상품 진열 관리</span>
+        </div>
+
+        <!-- 섹션 선택 + 카운트 -->
+        <div class="admin-display-ctrl">
+
+          <div class="admin-display-section-field">
+            <div class="admin-display-section-label">
+              <label for="displaySectionSelect" class="t-label-1-md">섹션 선택</label>
+              <span class="admin-display-tooltip-wrap">
+                <button type="button" class="admin-display-tooltip-btn" aria-label="섹션 도움말">?</button>
+                <span class="admin-display-tooltip-box" role="tooltip">
+                  섹션은 디자인 관리에서 추가하거나 수정할 수 있습니다.
+                </span>
+              </span>
+            </div>
+            <div class="admin-order-select-wrap admin-display-select-full">
+              <select id="displaySectionSelect" aria-label="섹션 선택">
+                <option value="">섹션을 선택하세요</option>
+                <option value="1">오늘의 라이브 쇼핑</option>
+                <option value="2">BEST 상품</option>
+                <option value="3">이번주 HOT</option>
+                <option value="4">SALE 상품</option>
+                <option value="5">신상품 추천</option>
+                <option value="6">MD 추천 상품</option>
+              </select>
+              <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
+
+          <p class="admin-display-count t-body-3-rg">
+            상품 목록 <strong id="displayProductCount" class="admin-text-red">0</strong>개
+          </p>
+
+        </div>
+
+        <!-- 진열 상품 스크롤 영역 -->
+        <div class="admin-display-scroll" id="displayProductListWrap">
+
+          <!-- empty 상태 -->
+          <div class="admin-display-empty" id="displayEmptyMsg">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true" class="admin-display-empty__icon">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+            </svg>
+            <p class="admin-display-empty__title">현재 등록된 상품이 없어요</p>
+            <p class="admin-display-empty__sub">새로운 상품을 추가해<br>상품 목록을 구성해보세요</p>
+          </div>
+
+          <!-- 진열 상품 테이블 -->
+          <table class="admin-table" id="displayProductTable" style="display:none;">
+            <thead>
+              <tr>
+                <th scope="col" style="width:32px;"></th>
+                <th scope="col" style="width:68px;">사진</th>
+                <th scope="col" style="text-align:left;">제품명</th>
+                <th scope="col" style="width:60px;">상태</th>
+                <th scope="col" style="width:40px;">관리</th>
+              </tr>
+            </thead>
+            <tbody id="displayProductBody"></tbody>
+          </table>
+
+        </div><!-- /scroll -->
+
+        <!-- + 상품 추가 -->
+        <div class="admin-display-addbtn-wrap">
+          <button type="button" id="displayAddProductBtn"
+            class="admin-btn admin-btn--danger admin-display-add-btn"
+            disabled aria-disabled="true">
+            + 상품 추가
+          </button>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="admin-display-footer">
+          <button type="button" id="displayResetBtn"
+            class="admin-btn admin-btn--outline"
+            disabled aria-disabled="true" aria-label="되돌리기">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+            되돌리기
+          </button>
+          <button type="button" id="displayApplyBtn"
+            class="admin-btn admin-btn--primary"
+            disabled aria-disabled="true">
+            적용
+          </button>
+        </div>
+
+      </div><!-- /left panel -->
+
+      <!-- ══════════════════════════════
+           우측 카드 — 상품 추가
+           ══════════════════════════════ -->
+      <div class="admin-card admin-display-panel admin-display-panel--right">
+
+        <div class="admin-card__header">
+          <span class="admin-card__title">상품 추가</span>
+        </div>
+
+        <!-- 필터 + 정렬 -->
+        <div class="admin-display-ctrl">
+
+          <!-- 필터 행 -->
+          <div class="admin-display-filter-row">
+            <div class="admin-order-select-wrap">
+              <select id="displayCat1Filter" aria-label="상위 카테고리 필터">
+                <option value="">상위 카테고리</option>
+                <option value="의류">의류</option>
+                <option value="뷰티">뷰티</option>
+                <option value="인테리어">인테리어</option>
+                <option value="가전">가전</option>
+              </select>
+              <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <div class="admin-order-select-wrap">
+              <select id="displayCat2Filter" aria-label="하위 카테고리 필터">
+                <option value="">하위 카테고리</option>
+              </select>
+              <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+            <div class="admin-display-search-wrap">
+              <input type="text" id="displaySearchInput" placeholder="상품명 검색"
+                class="admin-order-search-input" aria-label="상품명 검색" />
+            </div>
+            <button type="button" id="displaySearchBtn"
+              class="admin-order-btn admin-order-btn--primary">검색</button>
+          </div>
+
+          <!-- 정렬 행 -->
+          <div class="admin-display-sort-row">
+            <div class="admin-order-select-wrap">
+              <select id="displaySortSelect" aria-label="정렬 기준">
+                <option value="newest">최근 등록된 상품이 위로</option>
+                <option value="oldest">최근 등록된 상품이 아래로</option>
+                <option value="updatedDesc">최근 수정 상품이 위로</option>
+                <option value="updatedAsc">최근 수정 상품이 아래로</option>
+                <option value="nameAsc">상품명 가나다순</option>
+                <option value="nameDesc">상품명 가나다 역순</option>
+              </select>
+              <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
+          </div>
+
+        </div><!-- /ctrl -->
+
+        <!-- 전체 상품 스크롤 영역 -->
+        <div class="admin-display-scroll" id="displayAllListWrap">
+
+          <!-- 초기 상태: 섹션 미선택 또는 버튼 미클릭 -->
+          <div class="admin-display-empty" id="displayAllInitEmpty">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true" class="admin-display-empty__icon">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <p class="admin-display-empty__title">섹션을 선택해주세요</p>
+            <p class="admin-display-empty__sub">섹션 선택 후 좌측의<br>+ 상품 추가 버튼을 클릭하세요</p>
+          </div>
+
+          <!-- 검색 결과 없음 -->
+          <div class="admin-display-empty admin-display-empty--sm" id="displayAllEmpty" style="display:none;">
+            <p class="admin-display-empty__title" style="margin-bottom:0; font-size:13px;">검색 결과가 없습니다.</p>
+          </div>
+
+          <!-- 전체 상품 테이블 -->
+          <table class="admin-table" id="displayAllTable" style="display:none;">
+            <thead>
+              <tr>
+                <th scope="col" style="width:36px;">
+                  <input type="checkbox" id="displaySelectAll" aria-label="전체 선택"
+                    style="accent-color:var(--admin-red);cursor:pointer;" />
+                </th>
+                <th scope="col" style="width:68px;">사진</th>
+                <th scope="col" style="text-align:left;">제품명</th>
+              </tr>
+            </thead>
+            <tbody id="displayAllBody"></tbody>
+          </table>
+
+        </div>
+
+        <!-- 푸터 -->
+        <div class="admin-display-footer">
+          <button type="button" id="displayClearBtn"
+            class="admin-btn admin-btn--outline"
+            disabled aria-disabled="true">선택 해제</button>
+          <button type="button" id="displayAddBtn"
+            class="admin-btn admin-btn--primary"
+            disabled aria-disabled="true">추가</button>
+        </div>
+
+      </div><!-- /right panel -->
+
+    </div><!-- /admin-display-layout -->
+
+  </main>
+</div>
+
+<!-- ── 상품 진열 확인 모달 ── -->
+<div class="admin-product-modal" id="displayConfirmModal" role="dialog"
+  aria-modal="true" aria-labelledby="displayConfirmModalTitle">
+  <div class="admin-product-modal__overlay" id="displayConfirmOverlay"></div>
+  <div class="admin-product-modal__box">
+    <h2 class="admin-product-modal__title" id="displayConfirmModalTitle">상품 진열</h2>
+    <p class="admin-display-modal-desc" id="displayConfirmDesc" style="margin-bottom:0;"></p>
+    <div class="admin-product-modal__footer">
+      <button type="button" id="displayConfirmCancelBtn" class="admin-btn admin-btn--outline">취소</button>
+      <button type="button" id="displayConfirmOkBtn" class="admin-btn admin-btn--primary">진열하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 상품 진열 완료 모달 ── -->
+<div class="admin-product-modal" id="displayCompleteModal" role="dialog"
+  aria-modal="true" aria-labelledby="displayCompleteModalTitle">
+  <div class="admin-product-modal__overlay" id="displayCompleteOverlay"></div>
+  <div class="admin-product-modal__box">
+    <div class="admin-product-modal__warning">
+      <div class="admin-product-modal__warning-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" fill="#e8f5e9" stroke="#81c784" stroke-width="1.5"/>
+          <path d="M8 12l3 3 5-5" stroke="#2e7d32" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="admin-product-modal__warning-title" id="displayCompleteModalTitle">상품 진열 완료</h2>
+      <p class="admin-product-modal__warning-desc admin-display-modal-desc" id="displayCompleteDesc"></p>
+    </div>
+    <div class="admin-product-modal__footer" style="justify-content:center;">
+      <button type="button" id="displayCompleteOkBtn"
+        class="admin-btn admin-btn--primary" style="min-width:100px;">확인</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
