@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=390, initial-scale=1.0" />
+  <title>Linkit Market – Mordern (Skeleton)</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+  />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brown: #8d7a67;
+      --brown-dark: #6e5b47;
+      --text-dark: #2d2d2d;
+      --text-mid: #3e3e3e;
+      --text-body: #4e4e4e;
+      --text-muted: #7a7a7a;
+      --text-price: #301a0b;
+      --text-title: #484848;
+      --divider: #e8e8e8;
+      --placeholder: #e0e0e0;
+      --placeholder-dark: #c8c8c8;
+    }
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .phone {
+      width: 390px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.15);
+    }
+
+    /* ── Placeholder ── */
+    .ph {
+      background: var(--placeholder);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ph svg { opacity: 0.45; }
+
+    /* ── Status bar ── */
+    .status-bar {
+      height: 44px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px 0 22px;
+      border-bottom: 0.5px solid rgba(0,0,0,0.12);
+    }
+    .status-time {
+      font-family: -apple-system, sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.165px;
+    }
+    .status-icons { display: flex; align-items: center; gap: 6px; }
+    .status-icons svg { display: block; }
+
+    /* ── Nav bar ── */
+    .nav-bar {
+      height: 40px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      border-bottom: 0.5px solid var(--divider);
+    }
+    .nav-bar button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-mid);
+    }
+
+    /* ── Category pills ── */
+    .category-pills {
+      display: flex;
+      background: #fff;
+    }
+    .pill {
+      flex: 1;
+      text-align: center;
+      padding: 8px 4px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #6b6b6b;
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      font-family: inherit;
+    }
+    .pill.active {
+      color: #1d1d1d;
+      font-weight: 500;
+      border-bottom: 2px solid #1d1d1d;
+    }
+
+    /* ── Hero banner ── */
+    .hero-banner {
+      width: 100%;
+      height: 182px;
+      background: var(--placeholder);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Shop info ── */
+    .shop-info {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .shop-info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .shop-name-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .shop-logo-ph {
+      width: 24px;
+      height: 24px;
+      border-radius: 2px;
+      background: var(--placeholder-dark);
+      flex-shrink: 0;
+    }
+    .shop-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+      letter-spacing: -0.32px;
+    }
+    .shop-actions { display: flex; gap: 4px; align-items: center; }
+    .shop-action-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      background: var(--text-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .shop-action-btn svg { display: block; }
+    .shop-desc {
+      font-size: 14px;
+      color: #3c3c3c;
+      letter-spacing: -0.32px;
+      line-height: 21px;
+    }
+
+    /* ── Divider ── */
+    .divider { height: 2px; background: var(--divider); }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-title);
+      letter-spacing: -0.5px;
+      padding: 20px 20px 0;
+    }
+
+    /* ── Live shopping grid ── */
+    .live-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 16px 20px 0;
+    }
+    .live-item { display: flex; flex-direction: column; gap: 10px; }
+    .live-item-img {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      background: var(--placeholder);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .item-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-body);
+      letter-spacing: 0.5px;
+      line-height: 1.35;
+    }
+    .item-discount-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .item-original { text-decoration: line-through; }
+    .item-price {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-price);
+      margin-top: 2px;
+    }
+
+    /* ── More button ── */
+    .more-btn {
+      margin: 20px 20px 0;
+      display: block;
+      width: calc(100% - 40px);
+      padding: 12px;
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      font-weight: 400;
+      text-align: center;
+      cursor: pointer;
+      line-height: 1.4;
+    }
+
+    /* ── Product list ── */
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      padding: 16px 20px 0;
+    }
+    .product-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+    }
+    .product-item + .product-item { border-top: 1px solid var(--divider); }
+    .product-thumb {
+      width: 109px;
+      height: 109px;
+      border-radius: 8px;
+      background: var(--placeholder);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-info { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .product-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-body);
+      letter-spacing: 0.5px;
+      line-height: 1.35;
+    }
+    .product-price-wrap { display: flex; flex-direction: column; gap: 3px; }
+
+    /* ── Banner placeholder ── */
+    .banner-ph {
+      margin-top: 24px;
+      width: 100%;
+      height: 185px;
+      background: var(--placeholder);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .banner-text-block {
+      background: #b8a898;
+      padding: 20px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--brown-dark);
+      padding: 40px 20px 30px;
+      text-align: center;
+    }
+    .footer-phone {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.24px;
+      margin-bottom: 8px;
+    }
+    .footer-hours {
+      font-size: 13px;
+      color: #dedede;
+      line-height: 1.6;
+      letter-spacing: 0.28px;
+      margin-bottom: 24px;
+    }
+    .footer-biz {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+    /* ── Bottom tab bar ── */
+    .tab-bar {
+      height: 78px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 0.5px solid rgba(0,0,0,0.15);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 6px 14px 0;
+      box-shadow: 0 -1px 5px rgba(130,130,130,0.1);
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .home-indicator {
+      height: 5px;
+      width: 135px;
+      background: #000;
+      border-radius: 100px;
+      margin: 6px auto 0;
+    }
+
+    /* ── Image icon SVG ── */
+    .img-icon { color: #aaa; }
+  </style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <div class="status-icons">
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
+        <rect x="0" y="6" width="3" height="6" rx="0.5" fill="black"/>
+        <rect x="4.5" y="4" width="3" height="8" rx="0.5" fill="black"/>
+        <rect x="9" y="2" width="3" height="10" rx="0.5" fill="black"/>
+        <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="black" opacity="0.3"/>
+      </svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="black">
+        <path d="M8 9.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+        <path d="M8 6.5C9.8 6.5 11.4 7.2 12.6 8.3l1.4-1.4C12.4 5.3 10.3 4.5 8 4.5s-4.4.8-6 2.4l1.4 1.4C4.6 7.2 6.2 6.5 8 6.5z" opacity="0.7"/>
+        <path d="M8 3.5c2.8 0 5.3 1.1 7.1 2.9l1.4-1.4A12 12 0 0 0 8 1.5a12 12 0 0 0-8.5 3.5L1 6.4C2.7 4.6 5.2 3.5 8 3.5z" opacity="0.4"/>
+      </svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+        <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="black" stroke-opacity="0.35"/>
+        <rect x="1.5" y="1.5" width="18" height="9" rx="2.5" fill="black"/>
+        <path d="M23 4v4a2 2 0 0 0 0-4z" fill="black" fill-opacity="0.4"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Nav Bar -->
+  <div class="nav-bar">
+    <button aria-label="뒤로 가기">
+      <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
+        <path d="M9 1L1 9l8 8" stroke="#3e3e3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <span class="nav-title">Mordern</span>
+    <button aria-label="공유">
+      <svg width="18" height="20" viewBox="0 0 18 20" fill="none">
+        <rect x="3" y="7" width="12" height="12" rx="2" stroke="#3e3e3e" stroke-width="1.6"/>
+        <path d="M9 1v12M6 4l3-3 3 3" stroke="#3e3e3e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Category Pills -->
+  <div class="category-pills">
+    <button class="pill active">ALL</button>
+    <button class="pill">테이블웨어</button>
+    <button class="pill">조명</button>
+    <button class="pill">가구</button>
+  </div>
+
+  <!-- Hero Banner (placeholder) -->
+  <div class="hero-banner">
+    <svg class="hero-banner-icon" width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <rect x="4" y="10" width="40" height="28" rx="4" stroke="#aaa" stroke-width="2"/>
+      <circle cx="17" cy="20" r="4" stroke="#aaa" stroke-width="2"/>
+      <path d="M4 32l10-8 8 6 7-5 15 11" stroke="#aaa" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+
+  </div>
+
+  <!-- Shop Info -->
+  <div class="shop-info">
+    <div class="shop-info-row">
+      <div class="shop-name-group">
+        <div class="shop-logo-ph"></div>
+        <span class="shop-name">Linkit Market</span>
+      </div>
+      <div class="shop-actions">
+        <div class="shop-action-btn" title="검색">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <circle cx="5" cy="5" r="3.5" stroke="white" stroke-width="1.4"/>
+            <path d="M8 8l2.5 2.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="shop-action-btn" title="공유">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M8.5 1.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM3.5 4.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM8.5 7.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" stroke="white" stroke-width="1.3"/>
+            <path d="M5 5.5l2 1.5M5 6.5l2-1.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="shop-action-btn" title="더보기">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="white">
+            <circle cx="2" cy="6" r="1.2"/>
+            <circle cx="6" cy="6" r="1.2"/>
+            <circle cx="10" cy="6" r="1.2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <p class="shop-desc">링크만 있으면 나만의 상점 완성</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Today's Live Shopping -->
+  <p class="section-heading">오늘의 라이브쇼핑</p>
+
+  <div class="live-grid">
+    <!-- Item 1 -->
+    <div class="live-item">
+      <div class="live-item-img">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="3" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="13" r="3" stroke="#bbb" stroke-width="1.5"/>
+          <path d="M2 22l7-5 6 4 5-3 10 8" stroke="#bbb" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="item-name">모스 테이블 조명 43cm</p>
+        <div class="item-discount-row">
+          <span>52%</span>
+          <span class="item-original">323,990</span>
+        </div>
+        <p class="item-price">158,500원</p>
+      </div>
+    </div>
+    <!-- Item 2 -->
+    <div class="live-item">
+      <div class="live-item-img">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="3" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="13" r="3" stroke="#bbb" stroke-width="1.5"/>
+          <path d="M2 22l7-5 6 4 5-3 10 8" stroke="#bbb" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="item-name">페어 테이블 조명 34cm</p>
+        <div class="item-discount-row">
+          <span>42%</span>
+          <span class="item-original">323,990</span>
+        </div>
+        <p class="item-price">178,500원</p>
+      </div>
+    </div>
+    <!-- Item 3 -->
+    <div class="live-item">
+      <div class="live-item-img">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="3" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="13" r="3" stroke="#bbb" stroke-width="1.5"/>
+          <path d="M2 22l7-5 6 4 5-3 10 8" stroke="#bbb" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="item-name">프래클 머그 38cl</p>
+        <div class="item-discount-row">
+          <span>72%</span>
+          <span class="item-original">23,990</span>
+        </div>
+        <p class="item-price">8,500원</p>
+      </div>
+    </div>
+    <!-- Item 4 -->
+    <div class="live-item">
+      <div class="live-item-img">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="3" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="13" r="3" stroke="#bbb" stroke-width="1.5"/>
+          <path d="M2 22l7-5 6 4 5-3 10 8" stroke="#bbb" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <p class="item-name">모니카 컵 &amp; 소서</p>
+        <div class="item-discount-row">
+          <span>72%</span>
+          <span class="item-original">33,990</span>
+        </div>
+        <p class="item-price">21,500원</p>
+      </div>
+    </div>
+  </div>
+
+  <button class="more-btn">더보기</button>
+
+  <!-- All Products -->
+  <p class="section-heading" style="margin-top:28px;">전체 상품</p>
+
+  <div class="product-list">
+    <!-- Product 1 -->
+    <div class="product-item">
+      <div class="product-thumb">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="3" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="13" r="3" stroke="#bbb" stroke-width="1.5"/>
+          <path d="M2 22l7-5 6 4 5-3 10 8" stroke="#bbb" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <p class="product-name">세타고 JH27 테이블 조명</p>
+        <div class="product-price-wrap">
+          <div class="item-discount-row"><span>32%</span><span class="item-original">223,990</span></div>
+          <p class="item-price">158,500원</p>
+        </div>
+      </div>
+    </div>
+    <!-- Product 2 -->
+    <div class="product-item">
+      <div class="product-thumb">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="3" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="13" r="3" stroke="#bbb" stroke-width="1.5"/>
+          <path d="M2 22l7-5 6 4 5-3 10 8" stroke="#bbb" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <p class="product-name">고블린 잔 듀얼 세트</p>
+        <div class="product-price-wrap">
+          <div class="item-discount-row"><span>43%</span><span class="item-original">45,000</span></div>
+          <p class="item-price">38,500원</p>
+        </div>
+      </div>
+    </div>
+    <!-- Product 3 -->
+    <div class="product-item">
+      <div class="product-thumb">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="3" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="13" r="3" stroke="#bbb" stroke-width="1.5"/>
+          <path d="M2 22l7-5 6 4 5-3 10 8" stroke="#bbb" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <p class="product-name">아르네야콥센 스테이션 탁상 시계 green</p>
+        <div class="product-price-wrap">
+          <div class="item-discount-row"><span>52%</span><span class="item-original">319,900</span></div>
+          <p class="item-price">119,900원</p>
+        </div>
+      </div>
+    </div>
+    <!-- Product 4 -->
+    <div class="product-item">
+      <div class="product-thumb">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="3" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="13" r="3" stroke="#bbb" stroke-width="1.5"/>
+          <path d="M2 22l7-5 6 4 5-3 10 8" stroke="#bbb" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <p class="product-name">멜로우 어린이용 커트러리 세트 3개 세트</p>
+        <div class="product-price-wrap">
+          <div class="item-discount-row"><span>20%</span><span class="item-original">36,000</span></div>
+          <p class="item-price">19,990원</p>
+        </div>
+      </div>
+    </div>
+    <!-- Product 5 -->
+    <div class="product-item">
+      <div class="product-thumb">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="2" y="6" width="28" height="20" rx="3" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="13" r="3" stroke="#bbb" stroke-width="1.5"/>
+          <path d="M2 22l7-5 6 4 5-3 10 8" stroke="#bbb" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <p class="product-name">에른스트 받침 네추럴</p>
+        <div class="product-price-wrap">
+          <div class="item-discount-row"><span>12%</span><span class="item-original">13,990</span></div>
+          <p class="item-price">10,500원</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="more-btn" style="margin-bottom:0;">더보기</button>
+
+  <!-- Banner (placeholder) -->
+  <div class="banner-ph">
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <rect x="4" y="10" width="40" height="28" rx="4" stroke="#aaa" stroke-width="2"/>
+      <circle cx="17" cy="20" r="4" stroke="#aaa" stroke-width="2"/>
+      <path d="M4 32l10-8 8 6 7-5 15 11" stroke="#aaa" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+
+  <!-- Footer -->
+  <div class="footer">
+    <p class="footer-phone">고객센터 02-1234-1234</p>
+    <p class="footer-hours">
+      평일 10:00 - 18:00 (주말/공휴일 제외)<br>
+      help@linkit.com
+    </p>
+    <div class="footer-biz">
+      <p>상호명 (주)링크잇 | 대표이사 000 | 사업자등록번호 123-45-67890</p>
+      <p>통신판매업신고번호 2024-서울강남-0000 |<br>본사 서울특별시 강남구 테헤란로 123</p>
+      <p style="margin-top:4px;">이용약관 | 개인정보처리방침</p>
+    </div>
+    <p class="footer-copy">© 2026 LINKIT Inc. All rights reserved.</p>
+  </div>
+
+  <!-- Bottom Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn" aria-label="뒤로">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M14 5L8 11l6 6" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="tab-btn" aria-label="앞으로" style="opacity:0.35;">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M8 5l6 6-6 6" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="tab-btn" aria-label="새 탭">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect x="5" y="5" width="18" height="18" rx="4" stroke="#555" stroke-width="1.6"/>
+        <path d="M14 10v8M10 14h8" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <button class="tab-btn" aria-label="탭 목록">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <rect x="4" y="7" width="11" height="11" rx="2.5" stroke="#555" stroke-width="1.5"/>
+        <path d="M8 7V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-1" stroke="#555" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <button class="tab-btn" aria-label="더보기">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="#555">
+        <circle cx="5" cy="11" r="1.5"/>
+        <circle cx="11" cy="11" r="1.5"/>
+        <circle cx="17" cy="11" r="1.5"/>
+      </svg>
+    </button>
+  </div>
+  <div style="background:#fff; padding:4px 0 10px; text-align:center;">
+    <div class="home-indicator"></div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

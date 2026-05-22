@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CA 셀러 관리 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    .pg-tabs { display:flex; border-bottom:2px solid var(--admin-stroke); margin-bottom:16px; }
+    .pg-tab { padding:10px 18px; font-size:14px; font-weight:500; color:var(--admin-muted); cursor:pointer; border:none; border-bottom:2px solid transparent; margin-bottom:-2px; background:none; font-family:inherit; transition:color .15s,border-color .15s; }
+    .pg-tab.is-active { color:var(--admin-heading); border-bottom-color:var(--admin-heading); font-weight:600; }
+    .pg-tab:hover:not(.is-active) { color:var(--admin-text); }
+    .f-label { font-size:13px; font-weight:500; color:var(--admin-heading); white-space:nowrap; }
+    .f-input, .f-select { height:36px; padding:0 10px; border:1px solid var(--admin-stroke); border-radius:6px; background:var(--admin-white); font-size:13px; font-family:inherit; color:var(--admin-text); outline:none; }
+    .f-input:focus, .f-select:focus { border-color:var(--admin-heading); }
+    .f-select { padding-right:28px; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 8px center; cursor:pointer; }
+    .brand-tags { display:flex; flex-wrap:wrap; gap:4px; }
+    .brand-tag { display:inline-block; padding:2px 7px; background:rgba(40,49,80,.07); border:1px solid rgba(40,49,80,.18); border-radius:20px; font-size:11px; color:var(--admin-heading); white-space:nowrap; }
+    .badge-company { display:inline-flex; align-items:center; padding:2px 8px; background:rgba(40,49,80,.08); border:1px solid rgba(40,49,80,.22); border-radius:4px; font-size:11px; font-weight:600; color:var(--admin-heading); }
+    .badge-brand-direct { display:inline-flex; align-items:center; padding:2px 8px; background:rgba(237,55,15,.08); border:1px solid #f5a090; border-radius:4px; font-size:11px; font-weight:600; color:#c8300c; }
+    .action-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .action-bar-right { display:flex; gap:8px; }
+    .sm-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:200; align-items:center; justify-content:center; }
+    .sm-overlay.is-open { display:flex; }
+    .sm-modal { background:var(--admin-white); border-radius:10px; width:560px; max-width:calc(100vw - 32px); max-height:calc(100vh - 64px); overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,.18); }
+    .sm-head { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--admin-stroke); }
+    .sm-head h3 { font-size:15px; font-weight:700; color:var(--admin-heading); margin:0; }
+    .sm-close { background:none; border:none; font-size:22px; color:var(--admin-muted); cursor:pointer; line-height:1; padding:0; }
+    .sm-body { padding:20px; }
+    .sm-foot { display:flex; justify-content:flex-end; gap:8px; padding:14px 20px; border-top:1px solid var(--admin-stroke); }
+    .sm-row { display:flex; align-items:flex-start; padding:9px 0; border-bottom:1px solid var(--admin-stroke); gap:16px; }
+    .sm-row:last-child { border-bottom:none; }
+    .sm-lbl { font-size:12px; color:var(--admin-muted); width:90px; flex-shrink:0; padding-top:2px; }
+    .sm-val { font-size:14px; font-weight:500; color:var(--admin-heading); }
+    .sm-field { margin-bottom:14px; }
+    .sm-field label { display:block; font-size:12px; font-weight:600; color:var(--admin-muted); margin-bottom:4px; }
+    .sm-inp, .sm-sel { width:100%; padding:8px 12px; border:1px solid var(--admin-stroke); border-radius:6px; font-size:14px; font-family:inherit; background:#fafafa; box-sizing:border-box; }
+    .ca-context-bar { background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:10px 16px; margin-bottom:14px; font-size:13px; color:#1e40af; display:flex; align-items:center; gap:10px; }
+  </style>
+</head>
+<body>
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <h1 class="admin-page-title t-title-1-md">CA 셀러 관리</h1>
+    <p style="font-size:13px; color:var(--admin-muted); margin-bottom:14px;">업체 소속 및 브랜드 직접 등록 셀러를 통합 조회합니다. 셀러는 여러 브랜드에 연결될 수 있습니다.</p>
+
+    <div class="ca-context-bar">
+      <strong>업체 기준 뷰</strong>
+      <span>계약 업체 전체 셀러 및 연결 브랜드를 확인합니다.</span>
+      <span style="margin-left:auto;">업체 필터: </span>
+      <select id="companyFilter" style="height:28px;padding:0 8px;border:1px solid #bfdbfe;border-radius:4px;font-size:12px;background:#eff6ff;color:#1e40af;">
+        <option value="">전체 업체</option>
+        <option>오로라</option><option>테우</option><option>링크파트너스</option>
+      </select>
+    </div>
+
+    <!-- 탭 -->
+    <div class="pg-tabs" id="sellerTabs">
+      <button class="pg-tab is-active" data-tab="all">전체</button>
+      <button class="pg-tab" data-tab="company">업체 소속 셀러</button>
+      <button class="pg-tab" data-tab="brand">브랜드 직접 셀러</button>
+    </div>
+
+    <!-- 필터 -->
+    <div class="admin-filter-card">
+      <div class="admin-filter-row">
+        <span class="f-label">셀러명</span>
+        <input type="text" class="f-input" id="fName" placeholder="셀러명 검색" style="min-width:130px;" />
+        <span class="f-label">연결 브랜드</span>
+        <select class="f-select" id="fBrand">
+          <option value="">전체</option>
+          <option>어반무드</option><option>바이엘르</option>
+          <option>루미데이</option><option>모노픽</option><option>소프트블랭크</option>
+        </select>
+        <span class="f-label">상태</span>
+        <select class="f-select" id="fStatus">
+          <option value="">전체</option><option>활성</option><option>비활성</option>
+        </select>
+        <button class="admin-btn admin-btn--primary" id="searchBtn">검색</button>
+      </div>
+    </div>
+
+    <!-- 액션바 -->
+    <div class="action-bar">
+      <span style="font-size:14px; color:var(--admin-muted);">전체 <strong id="totalCount" style="color:var(--admin-heading);">6</strong>명</span>
+      <div class="action-bar-right">
+        <a href="ca-seller-brand.html" class="admin-btn admin-btn--outline admin-btn--sm">셀러-브랜드 연결 관리</a>
+        <button class="admin-btn admin-btn--primary">+ 셀러 등록</button>
+      </div>
+    </div>
+
+    <!-- 테이블 -->
+    <div class="admin-card">
+      <div class="admin-card__body--flush">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width:40px;"><input type="checkbox" id="selectAll" /></th>
+                <th>셀러명</th><th>셀러ID</th><th>소속유형</th><th>소속업체</th>
+                <th>연결 브랜드</th><th>판매상품수</th><th>주문수</th>
+                <th style="text-align:right;">매출</th><th>상태</th><th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="sellerTableBody"></tbody>
+          </table>
+        </div>
+        <div id="emptyState" style="display:none; text-align:center; padding:40px 16px; color:var(--admin-muted); font-size:14px;">조회된 셀러가 없습니다.</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- 셀러 상세 모달 -->
+<div class="sm-overlay" id="sellerDetailOverlay">
+  <div class="sm-modal">
+    <div class="sm-head"><h3>셀러 상세</h3><button class="sm-close" id="sellerDetailClose">×</button></div>
+    <div class="sm-body" id="sellerDetailBody"></div>
+  </div>
+</div>
+
+<!-- 셀러 수정 모달 -->
+<div class="sm-overlay" id="sellerEditOverlay">
+  <div class="sm-modal">
+    <div class="sm-head"><h3>셀러 수정</h3><button class="sm-close" id="sellerEditClose">×</button></div>
+    <div class="sm-body">
+      <div class="sm-field"><label>셀러명</label><input type="text" class="sm-inp" id="editSellerName" /></div>
+      <div class="sm-field"><label>셀러 ID</label><input type="text" class="sm-inp" id="editSellerId" readonly style="background:#f3f4f6;cursor:not-allowed;" /></div>
+      <div class="sm-field"><label>소속유형</label><select class="sm-sel" id="editSellerType"><option>업체 소속</option><option>브랜드 직접</option></select></div>
+      <div class="sm-field"><label>소속업체</label><input type="text" class="sm-inp" id="editSellerCompany" /></div>
+      <div class="sm-field"><label>상태</label><select class="sm-sel" id="editSellerStatus"><option>활성</option><option>비활성</option></select></div>
+    </div>
+    <div class="sm-foot">
+      <button class="admin-btn admin-btn--outline" id="sellerEditCancel">취소</button>
+      <button class="admin-btn admin-btn--primary" id="sellerEditSave">저장</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function fc(n) { return (n < 0 ? "-" : "") + Math.abs(n).toLocaleString() + "원"; }
+  function typeBadge(type) {
+    return type === "업체 소속"
+      ? '<span class="badge-company">' + type + '</span>'
+      : '<span class="badge-brand-direct">' + type + '</span>';
+  }
+  function statusBadge(s) {
+    return s === "활성"
+      ? '<span class="admin-badge admin-badge--active t-label-2-sb">' + s + '</span>'
+      : '<span class="admin-badge admin-badge--inactive t-label-2-sb">' + s + '</span>';
+  }
+
+  var ALL_SELLERS = [
+    { idx:0, name:"셀러A", id:"seller_a_001",   type:"업체 소속",   company:"오로라",        brands:["어반무드","루미데이"],       products:23, orders:312, sales:12500000, status:"활성" },
+    { idx:1, name:"셀러B", id:"seller_b_002",   type:"업체 소속",   company:"테우",          brands:["바이엘르","소프트블랭크"],   products:18, orders:245, sales:9800000,  status:"활성" },
+    { idx:2, name:"셀러C", id:"urbanmood_003",  type:"브랜드 직접", company:"—",             brands:["어반무드"],                  products:15, orders:198, sales:7200000,  status:"활성" },
+    { idx:3, name:"셀러D", id:"byelle_004",     type:"브랜드 직접", company:"—",             brands:["바이엘르"],                  products:12, orders:187, sales:6820000,  status:"활성" },
+    { idx:4, name:"셀러E", id:"softblank_005",  type:"브랜드 직접", company:"—",             brands:["소프트블랭크"],              products:8,  orders:142, sales:2600000,  status:"활성" },
+    { idx:5, name:"셀러F", id:"objecthome_006", type:"업체 소속",   company:"링크파트너스",  brands:["모노픽"],                    products:5,  orders:92,  sales:1800000,  status:"비활성" },
+  ];
+
+  var currentTab = "all";
+  var filtered = ALL_SELLERS.slice();
+
+  function applyFilter() {
+    var n = document.getElementById("fName").value.trim();
+    var b = document.getElementById("fBrand").value;
+    var s = document.getElementById("fStatus").value;
+    var c = document.getElementById("companyFilter").value;
+    filtered = ALL_SELLERS.filter(function (sel) {
+      if (currentTab === "company" && sel.type !== "업체 소속") return false;
+      if (currentTab === "brand"   && sel.type !== "브랜드 직접") return false;
+      if (n && sel.name.indexOf(n) < 0) return false;
+      if (b && sel.brands.indexOf(b) < 0) return false;
+      if (s && sel.status !== s) return false;
+      if (c && sel.company !== c) return false;
+      return true;
+    });
+    render();
+  }
+
+  function render() {
+    var tbody = document.getElementById("sellerTableBody");
+    var empty = document.getElementById("emptyState");
+    document.getElementById("totalCount").textContent = filtered.length;
+    if (!filtered.length) { tbody.innerHTML = ""; empty.style.display = ""; return; }
+    empty.style.display = "none";
+    tbody.innerHTML = filtered.map(function (s) {
+      var brandHtml = '<div class="brand-tags">' + s.brands.map(function(b){ return '<span class="brand-tag">' + b + '</span>'; }).join("") + '</div>';
+      return '<tr>' +
+        '<td style="text-align:center;"><input type="checkbox" /></td>' +
+        '<td style="font-weight:600;">' + s.name + '</td>' +
+        '<td style="font-size:12px;color:var(--admin-muted);">' + s.id + '</td>' +
+        '<td style="text-align:center;">' + typeBadge(s.type) + '</td>' +
+        '<td>' + s.company + '</td>' +
+        '<td>' + brandHtml + '</td>' +
+        '<td style="text-align:center;">' + s.products + '</td>' +
+        '<td style="text-align:center;">' + s.orders.toLocaleString() + '</td>' +
+        '<td style="text-align:right;">' + fc(s.sales) + '</td>' +
+        '<td style="text-align:center;">' + statusBadge(s.status) + '</td>' +
+        '<td style="text-align:center;">' +
+          '<button class="admin-btn admin-btn--outline admin-btn--sm sm-detail-btn" data-idx="' + s.idx + '">상세</button> ' +
+          '<button class="admin-btn admin-btn--outline admin-btn--sm sm-edit-btn"   data-idx="' + s.idx + '">수정</button>' +
+        '</td></tr>';
+    }).join("");
+  }
+
+  function openDetail(s) {
+    var brandHtml = s.brands.map(function(b){ return '<span style="display:inline-block;padding:2px 8px;background:#f3f4f6;border-radius:4px;font-size:12px;margin-right:4px;">' + b + '</span>'; }).join("");
+    document.getElementById("sellerDetailBody").innerHTML = [
+      ["셀러명",    '<span style="font-weight:700;">' + s.name + '</span>'],
+      ["셀러 ID",   '<span style="font-family:monospace;font-size:13px;">' + s.id + '</span>'],
+      ["소속유형",  typeBadge(s.type)],
+      ["소속업체",  s.company],
+      ["연결 브랜드", brandHtml],
+      ["판매상품수", s.products + "개"],
+      ["주문수",    s.orders.toLocaleString() + "건"],
+      ["매출",      fc(s.sales)],
+      ["상태",      statusBadge(s.status)],
+    ].map(function(r){ return '<div class="sm-row"><span class="sm-lbl">' + r[0] + '</span><span class="sm-val">' + r[1] + '</span></div>'; }).join("");
+    document.getElementById("sellerDetailOverlay").classList.add("is-open");
+  }
+
+  function openEdit(s) {
+    document.getElementById("editSellerName").value    = s.name;
+    document.getElementById("editSellerId").value      = s.id;
+    document.getElementById("editSellerType").value    = s.type;
+    document.getElementById("editSellerCompany").value = s.company === "—" ? "" : s.company;
+    document.getElementById("editSellerStatus").value  = s.status;
+    document.getElementById("sellerEditOverlay").dataset.editIdx = s.idx;
+    document.getElementById("sellerEditOverlay").classList.add("is-open");
+  }
+
+  function closeDetail() { document.getElementById("sellerDetailOverlay").classList.remove("is-open"); }
+  function closeEdit()   { document.getElementById("sellerEditOverlay").classList.remove("is-open"); }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    render();
+
+    document.getElementById("searchBtn").addEventListener("click", applyFilter);
+    document.getElementById("companyFilter").addEventListener("change", applyFilter);
+    document.getElementById("selectAll").addEventListener("change", function () {
+      document.querySelectorAll("#sellerTableBody input[type=checkbox]").forEach(function (c) { c.checked = this.checked; }, this);
+    });
+
+    document.getElementById("sellerTabs").addEventListener("click", function (e) {
+      var btn = e.target.closest(".pg-tab");
+      if (!btn) return;
+      document.querySelectorAll(".pg-tab").forEach(function (t) { t.classList.remove("is-active"); });
+      btn.classList.add("is-active");
+      currentTab = btn.dataset.tab;
+      applyFilter();
+    });
+
+    document.getElementById("sellerTableBody").addEventListener("click", function (e) {
+      var d = e.target.closest(".sm-detail-btn");
+      var ed = e.target.closest(".sm-edit-btn");
+      if (d)  openDetail(ALL_SELLERS[+d.dataset.idx]);
+      if (ed) openEdit(ALL_SELLERS[+ed.dataset.idx]);
+    });
+
+    document.getElementById("sellerDetailClose").addEventListener("click", closeDetail);
+    document.getElementById("sellerDetailOverlay").addEventListener("click", function(e){ if (e.target===this) closeDetail(); });
+    document.getElementById("sellerEditClose").addEventListener("click", closeEdit);
+    document.getElementById("sellerEditCancel").addEventListener("click", closeEdit);
+    document.getElementById("sellerEditOverlay").addEventListener("click", function(e){ if (e.target===this) closeEdit(); });
+
+    document.getElementById("sellerEditSave").addEventListener("click", function () {
+      var idx = +document.getElementById("sellerEditOverlay").dataset.editIdx;
+      var s = ALL_SELLERS[idx];
+      s.name    = document.getElementById("editSellerName").value.trim() || s.name;
+      s.type    = document.getElementById("editSellerType").value;
+      s.company = document.getElementById("editSellerCompany").value.trim() || "—";
+      s.status  = document.getElementById("editSellerStatus").value;
+      closeEdit(); applyFilter();
+    });
+  });
+})();
+</script>
+</body>
+</html>

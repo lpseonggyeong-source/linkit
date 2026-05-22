@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CA 정산 관리 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    .f-label  { font-size:13px; font-weight:500; color:var(--admin-heading); white-space:nowrap; }
+    .f-input  { height:36px; padding:0 10px; border:1px solid var(--admin-stroke); border-radius:6px; background:var(--admin-white); font-size:13px; font-family:inherit; color:var(--admin-text); outline:none; }
+    .f-input:focus { border-color:var(--admin-heading); }
+    .f-select { height:36px; padding:0 28px 0 10px; border:1px solid var(--admin-stroke); border-radius:6px; background:var(--admin-white); font-size:13px; font-family:inherit; color:var(--admin-text); outline:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 8px center; cursor:pointer; }
+    /* 요약 카드 */
+    .sett-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+    @media(max-width:900px){ .sett-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:500px){ .sett-grid { grid-template-columns:1fr; } }
+    .sett-card { background:var(--admin-white); border:1px solid var(--admin-stroke); border-radius:8px; padding:18px 20px; }
+    .sett-card__label { font-size:12px; color:var(--admin-muted); margin-bottom:8px; }
+    .sett-card__value { font-size:20px; font-weight:700; color:var(--admin-heading); }
+    .sett-card__value--red   { color:#e83828; }
+    .sett-card__value--amber { color:#e67e22; }
+    .sett-card__value--green { color:#2e7d32; }
+    .sett-card__sub { font-size:12px; color:var(--admin-muted); margin-top:4px; }
+    /* 날짜 범위 */
+    .date-range { display:flex; align-items:center; gap:6px; }
+    .date-sep { color:var(--admin-muted); font-size:13px; }
+    /* 2열 그리드 */
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+    @media(max-width:768px){ .two-col { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <h1 class="admin-page-title t-title-1-md">CA 정산 관리</h1>
+    <p style="font-size:13px; color:var(--admin-muted); margin-bottom:20px;">계약 업체 기준 정산을 조회합니다. 정산 단위: 계약 업체 × 정산 기간</p>
+
+    <!-- 요약 카드 -->
+    <div class="sett-grid">
+      <div class="sett-card">
+        <div class="sett-card__label">미정산 금액</div>
+        <div class="sett-card__value sett-card__value--red">15,066,000원</div>
+        <div class="sett-card__sub">3건 — 정산 신청 전</div>
+      </div>
+      <div class="sett-card">
+        <div class="sett-card__label">정산중 금액</div>
+        <div class="sett-card__value sett-card__value--amber">9,010,000원</div>
+        <div class="sett-card__sub">1건 — 신청완료 / 입금 전</div>
+      </div>
+      <div class="sett-card">
+        <div class="sett-card__label">정산완료 금액</div>
+        <div class="sett-card__value sett-card__value--green">34,285,000원</div>
+        <div class="sett-card__sub">4건 — 입금 완료</div>
+      </div>
+      <div class="sett-card">
+        <div class="sett-card__label">이번달 순매출</div>
+        <div class="sett-card__value">38,920,000원</div>
+        <div class="sett-card__sub">전월 대비 +12%</div>
+      </div>
+    </div>
+
+    <!-- 필터 -->
+    <div class="admin-filter-card">
+      <div class="admin-filter-row">
+        <span class="f-label">정산기간</span>
+        <div class="date-range">
+          <input type="date" class="f-input" id="fFrom" />
+          <span class="date-sep">~</span>
+          <input type="date" class="f-input" id="fTo" />
+        </div>
+        <span class="f-label">브랜드</span>
+        <select class="f-select" id="fBrand">
+          <option value="">전체</option>
+          <option>어반무드</option><option>바이엘르</option>
+          <option>루미데이</option><option>모노픽</option><option>소프트블랭크</option>
+        </select>
+        <span class="f-label">정산상태</span>
+        <select class="f-select" id="fStatus">
+          <option value="">전체</option>
+          <option>미정산</option><option>정산중</option><option>정산완료</option>
+        </select>
+        <button class="admin-btn admin-btn--primary" id="searchBtn">검색</button>
+      </div>
+    </div>
+
+    <!-- 브랜드별 / 셀러별 테이블 -->
+    <div class="two-col">
+      <div class="admin-card">
+        <div class="admin-card__header"><h2 class="admin-card__title t-title-2-sb">브랜드별 매출</h2></div>
+        <div class="admin-card__body--flush">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr>
+                <th>브랜드</th><th style="text-align:center;">주문수</th>
+                <th style="text-align:right;">총매출</th><th style="text-align:right;">취소차감</th>
+                <th style="text-align:right;">정산예정</th><th style="text-align:center;">정산상태</th>
+              </tr></thead>
+              <tbody id="brandSalesBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card__header"><h2 class="admin-card__title t-title-2-sb">셀러별 매출</h2></div>
+        <div class="admin-card__body--flush">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr>
+                <th>셀러명</th><th>소속유형</th><th style="text-align:center;">주문수</th>
+                <th style="text-align:right;">총매출</th><th style="text-align:right;">취소차감</th>
+                <th style="text-align:right;">정산예정</th><th style="text-align:center;">정산상태</th>
+              </tr></thead>
+              <tbody id="sellerPerfBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; margin-bottom:8px;">
+      <a href="ca-settlement-detail.html" class="admin-btn admin-btn--primary">정산 상세 보기 →</a>
+    </div>
+
+  </main>
+</div>
+
+<script src="admin.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function fc(n) { return (n < 0 ? "-" : "") + Math.abs(n).toLocaleString() + "원"; }
+
+  function typeBadge(type) {
+    return type === "업체 소속"
+      ? '<span style="display:inline-flex;align-items:center;padding:2px 8px;background:rgba(40,49,80,.08);border:1px solid rgba(40,49,80,.22);border-radius:4px;font-size:11px;font-weight:600;color:#283150;">' + type + '</span>'
+      : '<span style="display:inline-flex;align-items:center;padding:2px 8px;background:rgba(237,55,15,.08);border:1px solid #f5a090;border-radius:4px;font-size:11px;font-weight:600;color:#c8300c;">' + type + '</span>';
+  }
+
+  function settBadge(status) {
+    var cfg = {
+      "미정산":  { bg:"#fff0ee", color:"#e83828" },
+      "정산중":  { bg:"#fff8f0", color:"#e67e22" },
+      "정산완료":{ bg:"#f0fdf4", color:"#2e7d32" },
+    };
+    var c = cfg[status] || { bg:"#f9fafb", color:"#6b7280" };
+    return '<span style="display:inline-flex;align-items:center;padding:2px 10px;background:' + c.bg + ';color:' + c.color + ';border:1px solid ' + c.color + ';border-radius:12px;font-size:11px;font-weight:600;">' + status + '</span>';
+  }
+
+  var BRAND_SALES = [
+    { brand:"어반무드", orders:312, sales:12500000, cancel:-500000,  sett:11375000, status:"정산완료" },
+    { brand:"바이엘르", orders:245, sales:9800000,  cancel:-300000,  sett:8910000,  status:"미정산"  },
+    { brand:"루미데이", orders:198, sales:7200000,  cancel:-180000,  sett:6498000,  status:"정산중"  },
+    { brand:"모노픽",   orders:92,  sales:1800000,  cancel:-50000,   sett:1620000,  status:"미정산"  },
+    { brand:"소프트블랭크", orders:142, sales:2600000, cancel:-70000, sett:2340000, status:"정산완료" },
+  ];
+
+  var SELLER_PERF = [
+    { name:"셀러A", type:"업체 소속",   orders:312, sales:12500000, cancel:-500000,  sett:11375000, status:"정산완료" },
+    { name:"셀러B", type:"업체 소속",   orders:245, sales:9800000,  cancel:-300000,  sett:8910000,  status:"미정산"  },
+    { name:"셀러C", type:"브랜드 직접", orders:198, sales:7200000,  cancel:-180000,  sett:6498000,  status:"정산중"  },
+    { name:"셀러D", type:"브랜드 직접", orders:187, sales:6820000,  cancel:-160000,  sett:6138000,  status:"미정산"  },
+    { name:"셀러E", type:"브랜드 직접", orders:142, sales:2600000,  cancel:-70000,   sett:2340000,  status:"정산완료" },
+    { name:"셀러F", type:"업체 소속",   orders:92,  sales:1800000,  cancel:-50000,   sett:1620000,  status:"미정산"  },
+  ];
+
+  function render() {
+    document.getElementById("brandSalesBody").innerHTML = BRAND_SALES.map(function (d) {
+      return '<tr>' +
+        '<td style="font-weight:600;">' + d.brand + '</td>' +
+        '<td style="text-align:center;">' + d.orders.toLocaleString() + '건</td>' +
+        '<td style="text-align:right;">' + fc(d.sales) + '</td>' +
+        '<td style="text-align:right;color:#e83828;">' + fc(d.cancel) + '</td>' +
+        '<td style="text-align:right;">' + fc(d.sett) + '</td>' +
+        '<td style="text-align:center;">' + settBadge(d.status) + '</td>' +
+      '</tr>';
+    }).join("");
+
+    document.getElementById("sellerPerfBody").innerHTML = SELLER_PERF.map(function (d) {
+      return '<tr>' +
+        '<td style="font-weight:600;">' + d.name + '</td>' +
+        '<td style="text-align:center;">' + typeBadge(d.type) + '</td>' +
+        '<td style="text-align:center;">' + d.orders.toLocaleString() + '건</td>' +
+        '<td style="text-align:right;">' + fc(d.sales) + '</td>' +
+        '<td style="text-align:right;color:#e83828;">' + fc(d.cancel) + '</td>' +
+        '<td style="text-align:right;">' + fc(d.sett) + '</td>' +
+        '<td style="text-align:center;">' + settBadge(d.status) + '</td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    render();
+    document.getElementById("searchBtn").addEventListener("click", render);
+  });
+})();
+</script>
+</body>
+</html>

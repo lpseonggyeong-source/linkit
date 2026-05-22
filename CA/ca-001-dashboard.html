@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>대시보드 — link it CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
+  <main class="admin-main">
+
+    <h1 class="admin-page-title">대시보드</h1>
+    <p class="admin-page-subtitle">업체: 오로라 | 전체 계약 브랜드 현황</p>
+
+    <!-- 브랜드 선택 바 -->
+    <div class="ca-brand-bar">
+      <span class="ca-brand-bar__label">브랜드 선택</span>
+      <div class="ca-brand-bar__select-wrap">
+        <select class="ca-brand-bar__select" id="caBrandSelect">
+          <option value="">전체 브랜드</option>
+          <option>어반무드</option><option>바이엘르</option>
+          <option>루미데이</option><option>모노픽</option><option>소프트블랭크</option>
+        </select>
+        <svg class="ca-brand-bar__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="ca-brand-bar__info">
+        <div class="ca-brand-bar__info-item">계약 브랜드 <strong>5개</strong></div>
+        <div class="ca-brand-bar__info-item">활성 셀러 <strong>6명</strong></div>
+        <div class="ca-brand-bar__info-item">이번 달 총매출 <strong>38,920,000원</strong></div>
+      </div>
+    </div>
+
+    <!-- KPI -->
+    <div class="admin-kpi-grid" id="kpiGrid"></div>
+
+    <!-- Row 1 -->
+    <div class="admin-dashboard-row admin-dashboard-row--2col" style="margin-bottom:16px;">
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <span class="admin-card__title">계약 브랜드별 매출</span>
+          <a href="ca-013-settlement.html" class="admin-more-link">정산 관리 →</a>
+        </div>
+        <div class="admin-card__body--flush">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>브랜드명</th><th>주문수</th><th class="text-right">매출</th><th>정산상태</th></tr></thead>
+              <tbody id="brandSalesBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <span class="admin-card__title">셀러별 성과 TOP 5</span>
+          <a href="ca-009-seller-list.html" class="admin-more-link">셀러 관리 →</a>
+        </div>
+        <div class="admin-card__body--flush">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>셀러명</th><th>브랜드</th><th class="text-right">매출</th><th>주문수</th></tr></thead>
+              <tbody id="sellerPerfBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="admin-dashboard-row admin-dashboard-row--2col">
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <span class="admin-card__title">최근 주문 내역</span>
+          <a href="ca-007-order-list.html" class="admin-more-link">전체 보기 →</a>
+        </div>
+        <div class="admin-card__body--flush">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>주문번호</th><th>브랜드</th><th>셀러</th><th class="text-left">상품명</th><th class="text-right">금액</th><th>상태</th></tr></thead>
+              <tbody id="recentOrderBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <span class="admin-card__title">공지사항</span>
+          <a href="ca-016-notice.html" class="admin-more-link">전체 보기 →</a>
+        </div>
+        <div class="admin-notice-list" id="noticeList"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<script src="shared.js"></script>
+<script>
+(function() {
+  "use strict";
+  var fc = AdminShared.formatCurrency;
+
+  var kpiData = [
+    { label: "전체 주문 수",     value: "1,284",        unit: "건",  highlight: false },
+    { label: "총 매출",          value: "38,920,000",    unit: "원",  highlight: false },
+    { label: "배송중",           value: "342",           unit: "건",  highlight: false },
+    { label: "주문취소",         value: "87",            unit: "건",  highlight: false },
+    { label: "정산 예정 금액",   value: "12,400,000",    unit: "원",  highlight: true  },
+  ];
+
+  var brandSales = [
+    { name:"어반무드",    orders:312, sales:12500000, status:"정산 예정" },
+    { name:"바이엘르",   orders:245, sales:9800000,  status:"정산 확정" },
+    { name:"루미데이",   orders:198, sales:7200000,  status:"지급 완료" },
+    { name:"모노픽",     orders:287, sales:6820000,  status:"정산 예정" },
+    { name:"소프트블랭크",orders:242,sales:2600000,  status:"정산 예정" },
+  ];
+
+  var sellerPerf = [
+    { name:"sellerA",    brand:"어반무드",    sales:4200000, orders:120 },
+    { name:"sellerB",    brand:"바이엘르",   sales:3800000, orders:98  },
+    { name:"urbanmood",  brand:"어반무드",    sales:3200000, orders:87  },
+    { name:"byelle",     brand:"바이엘르",   sales:2900000, orders:76  },
+    { name:"softblank",  brand:"소프트블랭크",sales:2100000, orders:65  },
+  ];
+
+  var recentOrders = [
+    { no:"ORD-20260520-001", brand:"어반무드",    seller:"sellerA",   name:"리넨 와이드 팬츠",  amt:45000,  status:"배송중" },
+    { no:"ORD-20260520-002", brand:"바이엘르",   seller:"byelle",    name:"바디로션 세트",     amt:68000,  status:"상품 준비중" },
+    { no:"ORD-20260519-015", brand:"루미데이",   seller:"sellerB",   name:"퍼퓸 캔들",         amt:42000,  status:"배송준비중" },
+    { no:"ORD-20260519-014", brand:"모노픽",     seller:"objecthome",name:"원목 선반 세트",    amt:89000,  status:"배송중" },
+    { no:"ORD-20260519-013", brand:"소프트블랭크",seller:"softblank", name:"캐시미어 담요",    amt:128000, status:"취소완료" },
+  ];
+
+  var notices = [
+    { title:"[중요] 5월 정산 예정일 안내", date:"2026.05.15" },
+    { title:"서비스 이용약관 변경 안내",   date:"2026.05.10" },
+    { title:"배송사 정산 연동 업데이트",   date:"2026.05.05" },
+    { title:"링크잇 어드민 리뉴얼 안내",   date:"2026.04.28" },
+  ];
+
+  function renderKPI() {
+    var g = document.getElementById("kpiGrid");
+    if (!g) return;
+    g.innerHTML = kpiData.map(function(d) {
+      return '<div class="admin-kpi-card">' +
+        '<div class="admin-kpi-card__label">' + d.label + '</div>' +
+        '<div class="admin-kpi-card__value' + (d.highlight ? ' admin-kpi-card__value--red' : '') + '">' +
+          d.value + '<span style="font-size:14px;font-weight:500;margin-left:2px;">' + d.unit + '</span>' +
+        '</div>' +
+      '</div>';
+    }).join("");
+  }
+
+  function renderBrandSales() {
+    var b = document.getElementById("brandSalesBody");
+    if (!b) return;
+    b.innerHTML = brandSales.map(function(d) {
+      return '<tr><td>' + d.name + '</td><td style="text-align:center;">' + d.orders.toLocaleString() + '건</td>' +
+        '<td class="text-right">' + fc(d.sales) + '</td>' +
+        '<td style="text-align:center;">' + AdminShared.settlementBadge(d.status) + '</td></tr>';
+    }).join("");
+  }
+
+  function renderSellerPerf() {
+    var b = document.getElementById("sellerPerfBody");
+    if (!b) return;
+    b.innerHTML = sellerPerf.map(function(d) {
+      return '<tr><td>' + d.name + '</td><td>' + d.brand + '</td>' +
+        '<td class="text-right">' + fc(d.sales) + '</td>' +
+        '<td style="text-align:center;">' + d.orders.toLocaleString() + '건</td></tr>';
+    }).join("");
+  }
+
+  function renderRecentOrders() {
+    var b = document.getElementById("recentOrderBody");
+    if (!b) return;
+    b.innerHTML = recentOrders.map(function(d) {
+      return '<tr><td style="font-size:12px;">' + d.no + '</td><td>' + d.brand + '</td><td>' + d.seller + '</td>' +
+        '<td class="text-left">' + d.name + '</td>' +
+        '<td class="text-right">' + fc(d.amt) + '</td>' +
+        '<td style="text-align:center;">' + AdminShared.orderBadge(d.status) + '</td></tr>';
+    }).join("");
+  }
+
+  function renderNotices() {
+    var n = document.getElementById("noticeList");
+    if (!n) return;
+    n.innerHTML = notices.map(function(d) {
+      return '<div class="admin-notice-item"><span class="admin-notice-title">' + d.title + '</span>' +
+        '<span class="admin-notice-date">' + d.date + '</span></div>';
+    }).join("");
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    renderKPI(); renderBrandSales(); renderSellerPerf(); renderRecentOrders(); renderNotices();
+  });
+})();
+</script>
+</body>
+</html>

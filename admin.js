@@ -58,11 +58,13 @@
       "design-editor-lovely.html":    "design.html",
       "design-editor-linklist.html":  "design.html",
       "design-editor-organic.html":   "design.html",
-      "seller-list.html":     "seller-list.html",
-      "notice.html":          "notice.html",
-      "settings.html":        "settings.html",
-      "index-after.html":     "index.html",
-      "index-before.html":    "index.html",
+      "seller-list.html":          "seller-list.html",
+      "settlement-sales.html":     "settlement-sales.html",
+      "settlement-manage.html":    "settlement-sales.html",
+      "notice.html":               "notice.html",
+      "settings.html":             "settings.html",
+      "index-after.html":          "index.html",
+      "index-before.html":         "index.html",
     };
     var activeMain = SUB_TO_MAIN[page] || page;
 
@@ -122,6 +124,15 @@
             '<span>셀러 관리</span>' +
           '</a>' +
           '<a href="seller-list.html" class="' + sc("seller-list.html") + '">셀러 목록</a>' +
+        '</div>' +
+
+        '<div class="admin-sidebar__group">' +
+          '<a href="settlement-sales.html" class="' + mc("settlement-sales.html") + '">' +
+            '<svg class="admin-sidebar__nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>' +
+            '<span>정산 관리</span>' +
+          '</a>' +
+          '<a href="settlement-sales.html" class="' + sc("settlement-sales.html") + '">매출 관리</a>' +
+          '<a href="settlement-manage.html" class="' + sc("settlement-manage.html") + '">정산 관리</a>' +
         '</div>' +
 
         '<div class="admin-sidebar__group">' +
@@ -473,21 +484,7 @@
     if (!categoryList) return;
 
     /* [MOCK] GET /api/categories — { id, name, sub: [{ id, name, count, visible }] } */
-    var CATEGORIES = [
-      {
-        id: 1, name: "의류",
-        sub: [
-          { id: 11, name: "상의",          count: 120, visible: true  },
-          { id: 12, name: "하의",          count: 120, visible: true  },
-          { id: 13, name: "홈웨어",        count: 120, visible: true  },
-          { id: 14, name: "하위 카테고리 1", count: 0,   visible: false }
-        ]
-      },
-      { id: 2, name: "뷰티",    sub: [] },
-      { id: 3, name: "인테리어", sub: [] },
-      { id: 4, name: "가전",    sub: [] },
-      { id: 5, name: "캠핑",    sub: [] }
-    ];
+    var CATEGORIES = window.MOCK_CATEGORIES || [];
 
     var selectedCatId    = null;
     var pendingDeleteSubId = null;
@@ -1405,61 +1402,11 @@
 
   /* ── [MOCK] 아래 세 변수는 백엔드 연동 시 API 응답으로 교체 ── */
 
-  /* [MOCK] GET /api/display/sections — { id, name, source } */
-  var SECTIONS = [
-    { id: 1, name: "오늘의 라이브 쇼핑", source: "default" },
-    { id: 2, name: "BEST 상품",           source: "default" },
-    { id: 3, name: "이번주 HOT",          source: "default" },
-    { id: 4, name: "SALE 상품",           source: "default" },
-    { id: 5, name: "신상품 추천",         source: "custom"  },
-    { id: 6, name: "MD 추천 상품",        source: "custom"  }
-  ];
-
-  /* [MOCK] GET /api/display/sections/{id}/products — { id, productName, thumbnail, sellerName, displayStatus } */
-  var SECTION_PRODUCTS = {
-    1: [
-      { id: 101, productName: "(국내제작)(여리핏/데일리룩) 긴팔 티셔츠", thumbnail: "", sellerName: "어반무드",   displayStatus: "공개" },
-      { id: 102, productName: "(단독진행) 러블리무드 리본 블라우스",       thumbnail: "", sellerName: "루미데이",   displayStatus: "공개" },
-      { id: 103, productName: "(1+1구성) 모던 세라믹 머그컵 세트",        thumbnail: "", sellerName: "바이엘로",   displayStatus: "비공개" },
-      { id: 104, productName: "프리미엄 캐시미어 터틀넥 니트",            thumbnail: "", sellerName: "소프트플랭크", displayStatus: "공개" },
-      { id: 105, productName: "수분 진정 에센스 50ml",                   thumbnail: "", sellerName: "루미데이",   displayStatus: "공개" }
-    ],
-    2: [
-      { id: 106, productName: "(한정수량) 미니멀 우드 사이드 테이블",      thumbnail: "", sellerName: "소프트플랭크", displayStatus: "공개" },
-      { id: 107, productName: "고밀도 메모리폼 방석",                     thumbnail: "", sellerName: "바이엘로",   displayStatus: "공개" }
-    ],
-    3: [],
-    4: [
-      { id: 108, productName: "SALE - 린넨 와이드 팬츠 (30% 할인)",      thumbnail: "", sellerName: "어반무드",   displayStatus: "공개" },
-      { id: 109, productName: "SALE - 콜드브루 글라스 세트",             thumbnail: "", sellerName: "바이엘로",   displayStatus: "비공개" }
-    ],
-    5: [],
-    6: []
-  };
-
-  /* [MOCK] GET /api/products — { id, productName, thumbnail, sellerName, categoryDepth1, categoryDepth2, salesPeriod, createdAt, updatedAt } */
-  var ALL_PRODUCTS = [
-    { id: 201, productName: "(한정수량) 미니멀 우드 사이드 테이블",      thumbnail: "", sellerName: "소프트플랭크", categoryDepth1: "인테리어", categoryDepth2: "가구",    salesPeriod: "2026-05-15\n10:02", createdAt: "2026-05-15", updatedAt: "2026-05-16" },
-    { id: 202, productName: "(국내제작) 쫀쫀 신축성 슬림 티셔츠",       thumbnail: "", sellerName: "어반무드",    categoryDepth1: "의류",    categoryDepth2: "상의",    salesPeriod: "2026-05-15\n10:02", createdAt: "2026-05-14", updatedAt: "2026-05-15" },
-    { id: 203, productName: "수분 진정 에센스 50ml",                    thumbnail: "", sellerName: "루미데이",    categoryDepth1: "뷰티",    categoryDepth2: "스킨케어", salesPeriod: "2026-05-20\n00:00", createdAt: "2026-05-13", updatedAt: "2026-05-14" },
-    { id: 204, productName: "고밀도 메모리폼 방석 (라지)",               thumbnail: "", sellerName: "바이엘로",   categoryDepth1: "인테리어", categoryDepth2: "가구",    salesPeriod: "2026-05-18\n10:00", createdAt: "2026-05-12", updatedAt: "2026-05-13" },
-    { id: 205, productName: "린넨 와이드 팬츠 (베이지/블랙)",           thumbnail: "", sellerName: "어반무드",    categoryDepth1: "의류",    categoryDepth2: "하의",    salesPeriod: "2026-05-25\n10:00", createdAt: "2026-05-11", updatedAt: "2026-05-12" },
-    { id: 206, productName: "세라믹 머그컵 2P 세트",                   thumbnail: "", sellerName: "바이엘로",   categoryDepth1: "인테리어", categoryDepth2: "주방",    salesPeriod: "2026-05-22\n09:00", createdAt: "2026-05-10", updatedAt: "2026-05-11" },
-    { id: 207, productName: "두피 케어 샴푸 300ml",                    thumbnail: "", sellerName: "루미데이",    categoryDepth1: "뷰티",    categoryDepth2: "헤어",    salesPeriod: "2026-06-01\n10:00", createdAt: "2026-05-09", updatedAt: "2026-05-10" },
-    { id: 208, productName: "캐시미어 터틀넥 니트 (그레이)",            thumbnail: "", sellerName: "소프트플랭크", categoryDepth1: "의류",    categoryDepth2: "상의",    salesPeriod: "2026-05-30\n10:00", createdAt: "2026-05-08", updatedAt: "2026-05-09" },
-    { id: 209, productName: "미니 무선 청소기 (화이트)",               thumbnail: "", sellerName: "바이엘로",   categoryDepth1: "가전",    categoryDepth2: "청소",    salesPeriod: "2026-06-05\n10:00", createdAt: "2026-05-07", updatedAt: "2026-05-08" },
-    { id: 210, productName: "리본 블라우스 (크림/핑크)",               thumbnail: "", sellerName: "루미데이",    categoryDepth1: "의류",    categoryDepth2: "상의",    salesPeriod: "2026-05-28\n10:00", createdAt: "2026-05-06", updatedAt: "2026-05-07" },
-    { id: 211, productName: "아로마 디퓨저 세트 (유칼립투스)",         thumbnail: "", sellerName: "소프트플랭크", categoryDepth1: "인테리어", categoryDepth2: "인테리어소품", salesPeriod: "2026-06-10\n10:00", createdAt: "2026-05-05", updatedAt: "2026-05-06" },
-    { id: 212, productName: "스킨케어 기초 4종 세트",                 thumbnail: "", sellerName: "루미데이",    categoryDepth1: "뷰티",    categoryDepth2: "스킨케어", salesPeriod: "2026-06-15\n10:00", createdAt: "2026-05-04", updatedAt: "2026-05-05" }
-  ];
-
-  /* [MOCK] GET /api/categories/{id}/subcategories — { [categoryName]: string[] } */
-  var SUB_CATEGORY_MAP = {
-    "의류":    ["상의", "하의", "홈웨어", "잡화"],
-    "뷰티":    ["스킨케어", "헤어", "메이크업"],
-    "인테리어": ["가구", "주방", "인테리어소품"],
-    "가전":    ["청소", "주방가전", "영상음향"]
-  };
+  var _DISPLAY = window.MOCK_DISPLAY || {};
+  var SECTIONS = _DISPLAY.sections || [];
+  var SECTION_PRODUCTS = _DISPLAY.sectionProducts || {};
+  var ALL_PRODUCTS = _DISPLAY.allProducts || [];
+  var SUB_CATEGORY_MAP = _DISPLAY.subCategoryMap || {};
 
   /* ── 상태 변수 ── */
   var selectedSectionId   = null;
@@ -2060,39 +2007,13 @@
 
   /* [MOCK] GET /api/notices — { id, title, author, date, time, isImportant, content } */
   function getNoticeMockData() {
-    var c1 = "안녕하세요. 링크잇입니다.\n보다 안정적인 서비스 제공을 위해 아래와 같이 시스템 점검을 진행할 예정입니다.\n\n■ 점검 일정: 2026년 05월 30일(토) 23:00 ~ 23:59 (약 1시간)\n■ 점검 대상: 전체 서비스\n■ 점검 내용: 서버 안정화 및 기능 업데이트\n\n점검 시간 동안 서비스 이용이 제한될 수 있으니 양해 부탁드립니다.\n더 나은 서비스로 보답하겠습니다.\n\n감사합니다.";
-    var c2 = "안녕하세요. 링크잇입니다.\n보다 안정적인 서비스 제공을 위해 아래와 같이 긴급 시스템 점검을 진행합니다.\n\n■ 점검 일정: 2026년 05월 20일(수) 10:00 ~ 11:00 (약 1시간)\n■ 점검 대상: 전체 서비스\n■ 점검 내용: 서버 성능 개선 및 긴급 패치 적용\n\n중요 공지: 해당 점검은 서비스 안정화를 위한 필수 작업으로, 점검 시간 준수를 부탁드립니다.\n이용에 불편을 드려 죄송합니다.\n\n감사합니다.";
-    var c3 = "안녕하세요. 링크잇입니다.\n고객님의 더욱 편리한 쇼핑 경험을 위해 모바일 앱이 새롭게 업데이트되었습니다.\n\n■ 업데이트 버전: v3.2.0\n■ 업데이트 일시: 2026-05-01 00:05\n■ 주요 변경 사항\n  - 상품 상세 페이지 이미지 슬라이더 개선\n  - 장바구니 UX 개선 및 속도 향상\n  - 결제 프로세스 안정성 향상\n  - 기타 버그 수정\n\n앱스토어 및 구글플레이에서 최신 버전으로 업데이트하시면 이용 가능합니다.\n감사합니다.";
-    var c4 = "안녕하세요. 링크잇입니다.\n보다 편리한 쇼핑 경험을 위한 앱 업데이트가 진행되었습니다.\n\n■ 업데이트 버전: v3.1.5\n■ 업데이트 일시: 2026-04-30\n■ 주요 변경 사항\n  - 검색 기능 개선\n  - 찜하기 기능 안정성 향상\n  - 기타 UI/UX 개선\n\n자동 업데이트가 지원되지 않는 경우 앱스토어에서 직접 업데이트해 주세요.\n감사합니다.";
-    var c5 = "안녕하세요. 링크잇입니다.\n더 나은 사용자 경험을 위해 앱 업데이트가 진행되었습니다.\n\n■ 업데이트 버전: v3.1.4\n■ 업데이트 일시: 2026-04-27\n■ 주요 변경 사항\n  - 알림 기능 개선\n  - 로그인 프로세스 안정화\n  - 성능 최적화\n\n감사합니다.";
-    var c6 = "안녕하세요. 링크잇입니다.\n아래와 같이 서비스 점검을 진행할 예정입니다.\n\n■ 점검 일정: 2026년 04월 30일(목) 23:00 ~ 23:59 (약 1시간)\n■ 점검 대상: 전체 서비스\n■ 점검 내용: 서버 안정화 작업\n\n점검 시간 동안 서비스 이용이 일시 제한됩니다.\n이용에 불편을 드려 죄송합니다.\n\n감사합니다.";
-    var c7 = "안녕하세요. 링크잇입니다.\n2026년 4월 1일 기준으로 모바일 앱 기능이 새롭게 개선되었습니다.\n\n■ 주요 변경 사항\n  - 홈 화면 개편 (개인화 추천 기능 추가)\n  - 쿠폰 및 포인트 UI 개선\n  - 배송 조회 기능 강화\n  - 접근성 개선 (시각 장애 지원)\n\n더욱 편리해진 링크잇 앱을 이용해 주세요.\n감사합니다.";
-    var c8 = "안녕하세요. 링크잇입니다.\n아래와 같이 정기 서비스 점검을 진행합니다.\n\n■ 점검 일정: 2026년 03월 22일(일) 10:03 ~ 11:03 (약 1시간)\n■ 점검 대상: 전체 서비스\n■ 점검 내용: 정기 유지보수 및 보안 패치\n\n이용에 불편을 드려 죄송합니다.\n감사합니다.";
-    var c9 = "안녕하세요. 링크잇입니다.\n아래와 같이 서비스 점검을 진행할 예정입니다.\n\n■ 점검 일정: 2026년 03월 30일(월) 23:00 ~ 23:59 (약 1시간)\n■ 점검 대상: 전체 서비스\n■ 점검 내용: 3월 말 정기 점검 및 기능 업데이트\n\n감사합니다.";
-    var c10 = "안녕하세요. 링크잇 운영팀입니다.\n안정적인 서비스 제공을 위한 서버 이전 작업을 아래와 같이 진행합니다.\n\n■ 작업 일시: 2026년 03월 15일(일) 09:03 ~ 11:03 (약 2시간)\n■ 영향 범위: 전체 서비스\n■ 작업 내용: 서버 인프라 이전 및 네트워크 성능 개선\n\n작업 시간 동안 일시적으로 서비스 접속이 불가할 수 있습니다.\n불편을 드려 죄송하며, 보다 빠르고 안정적인 서비스로 보답하겠습니다.\n\n감사합니다.";
-    var c11 = "안녕하세요. 링크잇입니다.\n2026년 3월 1일부터 링크잇 서비스 이용 약관이 개정됩니다.\n\n■ 시행 일자: 2026년 03월 01일\n■ 주요 변경 내용\n  - 제7조 (서비스 이용 범위) 일부 개정\n  - 제12조 (개인정보 처리) 항목 추가\n  - 제15조 (분쟁 해결) 조항 명확화\n\n변경된 약관은 링크잇 앱 내 '설정 > 이용약관'에서 확인하실 수 있습니다.\n\n감사합니다.";
-    var c12 = "안녕하세요. 링크잇입니다.\n개인정보 보호법 개정에 따라 개인정보 처리방침이 아래와 같이 변경됩니다.\n\n■ 시행 일자: 2026년 02월 15일\n■ 주요 변경 내용\n  - 수집하는 개인정보 항목 명확화\n  - 개인정보 보유 기간 세분화\n  - 이용자 권리 행사 절차 구체화\n\n변경된 처리방침은 링크잇 홈페이지 및 앱 내에서 확인하실 수 있습니다.\n궁금한 사항은 고객센터로 문의해 주세요.\n\n감사합니다.";
-
-    return [
-      { id: 1,  title: "서비스 점검 안내(5/30)",                                                                                    author: "링크잇", date: "2026-05-23", time: "12:00", isImportant: false, content: c1  },
-      { id: 2,  title: "서비스 안정화를 위한 시스템 점검 안내드립니다",                                                             author: "링크잇", date: "2026-05-20", time: "10:00", isImportant: true,  content: c2  },
-      { id: 3,  title: "고객님의 더욱 편리한 쇼핑 경험을 위해 모바일 앱 기능이 새롭게 개선되었습니다(2026/05/01기준)",              author: "관리자", date: "2026-05-01", time: "00:05", isImportant: false, content: c3  },
-      { id: 4,  title: "보다 편리한 쇼핑 경험을 위한 앱 업데이트가 진행되었습니다",                                                 author: "링크잇", date: "2026-04-30", time: "16:03", isImportant: false, content: c4  },
-      { id: 5,  title: "보다 편리한 쇼핑 경험을 위한 앱 업데이트가 진행되었습니다",                                                 author: "링크잇", date: "2026-04-27", time: "18:00", isImportant: false, content: c5  },
-      { id: 6,  title: "서비스 점검 안내(4/30)",                                                                                    author: "링크잇", date: "2026-04-20", time: "16:03", isImportant: false, content: c6  },
-      { id: 7,  title: "모바일 앱 기능이 새롭게 개선되었습니다(2026/04/01기준)",                                                    author: "링크잇", date: "2026-03-30", time: "00:03", isImportant: false, content: c7  },
-      { id: 8,  title: "서비스 점검 안내",                                                                                          author: "링크잇", date: "2026-03-22", time: "10:03", isImportant: false, content: c8  },
-      { id: 9,  title: "서비스 점검 안내(3/30)",                                                                                    author: "관리자", date: "2026-03-20", time: "16:03", isImportant: false, content: c9  },
-      { id: 10, title: "안정적인 서비스 제공을 위한 서버 이전 작업 안내",                                                          author: "관리자", date: "2026-03-15", time: "09:03", isImportant: false, content: c10 },
-      { id: 11, title: "링크잇 서비스 이용 약관 개정 안내",                                                                        author: "링크잇", date: "2026-02-28", time: "09:00", isImportant: false, content: c11 },
-      { id: 12, title: "개인정보 처리방침 변경 안내",                                                                              author: "링크잇", date: "2026-02-10", time: "09:00", isImportant: false, content: c12 }
-    ];
+    return window.MOCK_NOTICES || [];
   }
 
   /* ── 대시보드 공지사항 렌더링 ── */
   function renderDashboardNotices() {
     var list = document.getElementById("dashboardNoticeList");
-    if (!list) return;
+    if (!list || list.children.length > 0) return;
     var notices = getNoticeMockData().slice(0, 5);
     list.innerHTML = notices.map(function (n) {
       var badgeClass = n.isImportant ? "admin-badge--important" : "admin-badge--notice";
@@ -2333,36 +2254,9 @@
   var ICON_EDIT = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
   var ICON_DEL  = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
 
-  /* [MOCK] GET /api/sellers — { id, sellerName, sellerId, productCount, status, registeredDate } */
-  var sellerData = [
-    { id: 1,  sellerName: "어반무드",     sellerId: "urbanmood",     productCount: 128, status: "승인", registeredDate: "2026-04-30" },
-    { id: 2,  sellerName: "바이엘르",     sellerId: "byelle",        productCount: 54,  status: "승인", registeredDate: "2026-04-30" },
-    { id: 3,  sellerName: "루미데이",     sellerId: "lumiday",       productCount: 305, status: "정지", registeredDate: "2026-04-30" },
-    { id: 4,  sellerName: "모노픽",       sellerId: "monopick",      productCount: 0,   status: "정지", registeredDate: "2026-04-30" },
-    { id: 5,  sellerName: "소프트블랭크", sellerId: "softblank",     productCount: 89,  status: "승인", registeredDate: "2026-04-27" },
-    { id: 6,  sellerName: "오브젝트홈",   sellerId: "objecthome",    productCount: 211, status: "승인", registeredDate: "2026-04-24" },
-    { id: 7,  sellerName: "헤이클로젯",   sellerId: "heycloset",     productCount: 17,  status: "정지", registeredDate: "2026-04-23" },
-    { id: 8,  sellerName: "포레스트키친", sellerId: "forestkitchen", productCount: 220, status: "승인", registeredDate: "2026-04-10" },
-    { id: 9,  sellerName: "라이크선데이", sellerId: "likesunday",    productCount: 3,   status: "승인", registeredDate: "2026-04-05" },
-    { id: 10, sellerName: "누벨르",       sellerId: "nouvelle",      productCount: 442, status: "승인", registeredDate: "2026-03-30" },
-    { id: 11, sellerName: "밀라노키친",   sellerId: "milanokitchen", productCount: 76,  status: "승인", registeredDate: "2026-03-25" },
-    { id: 12, sellerName: "그레이룸",     sellerId: "greyroom",      productCount: 188, status: "승인", registeredDate: "2026-03-20" },
-    { id: 13, sellerName: "블루포레",     sellerId: "bluefore",      productCount: 34,  status: "정지", registeredDate: "2026-03-15" },
-    { id: 14, sellerName: "라라클로젯",   sellerId: "laracloset",    productCount: 95,  status: "승인", registeredDate: "2026-03-10" },
-    { id: 15, sellerName: "소울홈",       sellerId: "soulhome",      productCount: 147, status: "승인", registeredDate: "2026-03-05" },
-    { id: 16, sellerName: "핑크무드",     sellerId: "pinkmood",      productCount: 23,  status: "정지", registeredDate: "2026-02-28" },
-    { id: 17, sellerName: "데일리하우스", sellerId: "dailyhouse",    productCount: 312, status: "승인", registeredDate: "2026-02-20" },
-    { id: 18, sellerName: "블랑제리",     sellerId: "boulangerie",   productCount: 8,   status: "승인", registeredDate: "2026-02-15" },
-    { id: 19, sellerName: "마르쉐",       sellerId: "marche",        productCount: 67,  status: "승인", registeredDate: "2026-02-10" },
-    { id: 20, sellerName: "비아블루",     sellerId: "viablue",       productCount: 155, status: "정지", registeredDate: "2026-02-05" },
-    { id: 21, sellerName: "플로라홈",     sellerId: "florahome",     productCount: 41,  status: "승인", registeredDate: "2026-01-30" },
-    { id: 22, sellerName: "오뜨쿠진",     sellerId: "hautecuisine",  productCount: 280, status: "승인", registeredDate: "2026-01-25" },
-    { id: 23, sellerName: "모닝글로리",   sellerId: "morningglory",  productCount: 119, status: "승인", registeredDate: "2026-01-20" },
-    { id: 24, sellerName: "르블랑",       sellerId: "leblanc",       productCount: 0,   status: "정지", registeredDate: "2026-01-15" },
-    { id: 25, sellerName: "세이지그린",   sellerId: "sagegreen",     productCount: 73,  status: "승인", registeredDate: "2026-01-10" },
-    { id: 26, sellerName: "플럼스튜디오", sellerId: "plumstudio",    productCount: 198, status: "승인", registeredDate: "2026-01-05" }
-  ];
-  var nextId = 27;
+  /* [MOCK] GET /api/sellers — seller-list.html uses its own inline ALL_SELLERS data */
+  var sellerData = [];
+  var nextId = 1;
 
   /* ── 검색·페이지 상태 ── */
   var currentStatusFilter = "";
@@ -2746,55 +2640,11 @@
   "use strict";
 
   /* [MOCK] 아래 IMGS·CHANNELS는 productData의 img·channel 값과 쌍임 — API 연동 시 productData로 통합 */
-  var IMGS = [
-    "assets/긴팔.png","assets/긴팔-1.png","assets/sleeveless.png",
-    "assets/블라우스.png","assets/mug.png","assets/pants.png",
-    "assets/hood.png","assets/longsleeves.png","assets/minibag.png"
-  ];
-  var CHANNELS = ["오로라","셀러A","셀러B","루미","어반무드"];
-  var STATUSES = [
-    {key:"판매중",  cls:"admin-product-status-btn--active"},
-    {key:"판매마감",cls:"admin-product-status-btn--closed"},
-    {key:"품절",   cls:"admin-product-status-btn--soldout"}
-  ];
-
-  /* [MOCK] GET /api/products — { id, img, name, orig, sale, period, periodEnd, statusIdx, stock, sold, channel, regDate } */
-  var productData = [
-    {id:1,  img:"assets/긴팔.png",     name:"(국내제작)(여리핏/데일리룩/쫀쫀신축성) 메이드 스퀘어넥 슬림 골지 긴팔 티셔츠", orig:"40,000원", sale:"35,000원", period:"2026-07-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:125, sold:88,  channel:"오로라", regDate:"2026-04-01"},
-    {id:2,  img:"assets/sleeveless.png",name:"ELLE PARIS PDRN 콜라겐 녹는실 탄력 앰플",                                      orig:"55,000원", sale:"49,000원", period:"2026-06-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:200, sold:156, channel:"오로라", regDate:"2026-04-05"},
-    {id:3,  img:"assets/블라우스.png",  name:"(단독진행)(봄신상/러블리무드/레이어드추천) 루에느 리본 퍼프 블라우스",          orig:"45,000원", sale:"38,000원", period:"2026-05-15", periodEnd:"10:00 까지 판매", statusIdx:1, stock:0,   sold:210, channel:"셀러A", regDate:"2026-03-20"},
-    {id:4,  img:"assets/mug.png",      name:"(1+1구성) 모던 세라믹 머그컵 세트",                                             orig:"28,000원", sale:"22,000원", period:"2026-08-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:80,  sold:45,  channel:"셀러B", regDate:"2026-04-10"},
-    {id:5,  img:"assets/pants.png",    name:"(기획특가) 와이드 핀턱 밴딩 슬랙스",                                            orig:"58,000원", sale:"52,000원", period:"2026-06-01", periodEnd:"18:00 까지 판매", statusIdx:2, stock:0,   sold:320, channel:"오로라", regDate:"2026-03-15"},
-    {id:6,  img:"assets/longsleeves.png",name:"[써머세일] 오가닉 코튼 스트라이프 오버핏 셔츠",                               orig:"39,000원", sale:"32,000원", period:"2026-09-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:150, sold:72,  channel:"셀러A", regDate:"2026-04-15"},
-    {id:7,  img:"assets/minibag.png",  name:"[기획] 프리미엄 레더 미니 크로스백",                                            orig:"120,000원",sale:"99,000원", period:"2026-12-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:30,  sold:15,  channel:"오로라", regDate:"2026-04-20"},
-    {id:8,  img:"assets/긴팔-1.png",   name:"청량한 여름 린넨 블렌드 와이드 팬츠",                                           orig:"62,000원", sale:"55,000원", period:"2026-07-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:95,  sold:63,  channel:"셀러B", regDate:"2026-04-25"},
-    {id:9,  img:"assets/hood.png",     name:"내추럴 우드 스탠딩 데스크 라이트",                                              orig:"89,000원", sale:"75,000원", period:"2026-05-31", periodEnd:"23:59 까지 판매", statusIdx:1, stock:10,  sold:28,  channel:"셀러A", regDate:"2026-04-02"},
-    {id:10, img:"assets/블라우스.png",  name:"비건 시카 진정 수분 크림 50ml",                                                orig:"35,000원", sale:"29,000원", period:"2026-10-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:180, sold:94,  channel:"오로라", regDate:"2026-05-01"},
-    {id:11, img:"assets/긴팔.png",     name:"캐시미어 블렌드 터틀넥 니트 풀오버",                                            orig:"89,000원", sale:"72,000원", period:"2026-11-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:60,  sold:41,  channel:"루미",  regDate:"2026-04-08"},
-    {id:12, img:"assets/sleeveless.png",name:"[리뉴얼] 비타민C 브라이트닝 세럼 30ml",                                       orig:"42,000원", sale:"36,000원", period:"2026-08-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:300, sold:187, channel:"셀러B", regDate:"2026-03-25"},
-    {id:13, img:"assets/pants.png",    name:"(데일리룩) 스트레치 조거 팬츠 / 베이지",                                        orig:"32,000원", sale:"27,000원", period:"2026-07-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:110, sold:98,  channel:"오로라", regDate:"2026-04-12"},
-    {id:14, img:"assets/hood.png",     name:"[봄기획] 오버핏 루즈핏 후드 집업",                                              orig:"55,000원", sale:"45,000원", period:"2026-06-15", periodEnd:"23:59 까지 판매", statusIdx:2, stock:0,   sold:253, channel:"셀러A", regDate:"2026-03-10"},
-    {id:15, img:"assets/mug.png",      name:"핸드메이드 도자기 머그컵 / 민트",                                               orig:"22,000원", sale:"18,500원", period:"2026-09-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:45,  sold:32,  channel:"루미",  regDate:"2026-04-18"},
-    {id:16, img:"assets/minibag.png",  name:"[단독] 리얼 스웨이드 버킷백 / 카멜",                                            orig:"98,000원", sale:"82,000원", period:"2026-12-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:20,  sold:11,  channel:"어반무드",regDate:"2026-04-22"},
-    {id:17, img:"assets/긴팔-1.png",   name:"(국내제작) 실크 터치 플리츠 스커트 / 아이보리",                                  orig:"48,000원", sale:"41,000원", period:"2026-08-20", periodEnd:"23:59 까지 판매", statusIdx:0, stock:75,  sold:54,  channel:"셀러B", regDate:"2026-04-03"},
-    {id:18, img:"assets/블라우스.png",  name:"[기획전] 리넨 나시 블라우스 3color",                                            orig:"29,000원", sale:"24,000원", period:"2026-06-30", periodEnd:"23:59 까지 판매", statusIdx:1, stock:0,   sold:178, channel:"오로라", regDate:"2026-03-05"},
-    {id:19, img:"assets/longsleeves.png",name:"프리미엄 메리노울 롱슬리브 티셔츠",                                           orig:"65,000원", sale:"55,000원", period:"2026-11-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:88,  sold:67,  channel:"루미",  regDate:"2026-04-28"},
-    {id:20, img:"assets/sleeveless.png",name:"히알루론산 콜라겐 스킨 에센스 50ml",                                           orig:"38,000원", sale:"32,000원", period:"2026-09-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:220, sold:143, channel:"셀러A", regDate:"2026-05-02"},
-    {id:21, img:"assets/pants.png",    name:"[써머] 린넨 와이드 팬츠 2color",                                                orig:"45,000원", sale:"38,000원", period:"2026-07-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:135, sold:112, channel:"어반무드",regDate:"2026-04-14"},
-    {id:22, img:"assets/긴팔.png",     name:"(기획특가) 쿨링 기능성 스포츠 레깅스",                                          orig:"35,000원", sale:"29,000원", period:"2026-08-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:160, sold:128, channel:"셀러B", regDate:"2026-04-07"},
-    {id:23, img:"assets/hood.png",     name:"[단독진행] 클래식 체크 울 머플러",                                              orig:"52,000원", sale:"44,000원", period:"2026-12-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:40,  sold:22,  channel:"루미",  regDate:"2026-04-16"},
-    {id:24, img:"assets/mug.png",      name:"오가닉 핸드크림 3종 선물세트",                                                  orig:"28,000원", sale:"23,000원", period:"2026-10-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:85,  sold:61,  channel:"오로라", regDate:"2026-04-19"},
-    {id:25, img:"assets/minibag.png",  name:"[봄신상] 미니멀 캔버스 에코백",                                                 orig:"18,000원", sale:"15,000원", period:"2026-09-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:250, sold:198, channel:"셀러A", regDate:"2026-04-24"},
-    {id:26, img:"assets/긴팔-1.png",   name:"자수 포인트 셔링 원피스 / 플라워",                                              orig:"58,000원", sale:"49,000원", period:"2026-07-20", periodEnd:"23:59 까지 판매", statusIdx:0, stock:55,  sold:43,  channel:"어반무드",regDate:"2026-04-26"},
-    {id:27, img:"assets/블라우스.png",  name:"[기획] 싱글 버튼 트위드 자켓",                                                  orig:"115,000원",sale:"95,000원", period:"2026-11-01", periodEnd:"23:59 까지 판매", statusIdx:2, stock:0,   sold:87,  channel:"루미",  regDate:"2026-03-18"},
-    {id:28, img:"assets/sleeveless.png",name:"바이오 셀룰로오스 마스크팩 10매",                                              orig:"32,000원", sale:"26,000원", period:"2026-08-10", periodEnd:"23:59 까지 판매", statusIdx:0, stock:500, sold:312, channel:"셀러B", regDate:"2026-03-28"},
-    {id:29, img:"assets/longsleeves.png",name:"(국내제작) 레이어드 티셔츠 세트",                                             orig:"42,000원", sale:"35,000원", period:"2026-07-25", periodEnd:"23:59 까지 판매", statusIdx:0, stock:90,  sold:76,  channel:"오로라", regDate:"2026-04-29"},
-    {id:30, img:"assets/pants.png",    name:"[단독] 스트라이프 테일러드 팬츠",                                                orig:"68,000원", sale:"58,000원", period:"2026-10-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:35,  sold:19,  channel:"셀러A", regDate:"2026-05-03"},
-    {id:31, img:"assets/긴팔.png",     name:"퍼프 소매 크롭 니트 가디건",                                                    orig:"48,000원", sale:"40,000원", period:"2026-09-20", periodEnd:"23:59 까지 판매", statusIdx:0, stock:70,  sold:55,  channel:"어반무드",regDate:"2026-04-11"},
-    {id:32, img:"assets/hood.png",     name:"[특가] 오가닉 코튼 남여공용 후드티",                                            orig:"38,000원", sale:"32,000원", period:"2026-08-25", periodEnd:"23:59 까지 판매", statusIdx:0, stock:120, sold:89,  channel:"루미",  regDate:"2026-04-13"},
-    {id:33, img:"assets/minibag.png",  name:"이탈리안 크로코 패턴 클러치백",                                                 orig:"78,000원", sale:"65,000원", period:"2026-12-20", periodEnd:"23:59 까지 판매", statusIdx:1, stock:0,   sold:134, channel:"셀러B", regDate:"2026-04-17"},
-    {id:34, img:"assets/mug.png",      name:"핸드드립 전용 도자기 드리퍼 세트",                                              orig:"55,000원", sale:"46,000원", period:"2026-11-20", periodEnd:"23:59 까지 판매", statusIdx:0, stock:28,  sold:14,  channel:"오로라", regDate:"2026-05-05"}
-  ];
+  var _PL = window.MOCK_PRODUCT_LIST || {};
+  var IMGS = _PL.imgs || [];
+  var CHANNELS = _PL.channels || [];
+  var STATUSES = _PL.statuses || [];
+  var productData = _PL.products || [];
 
   var ICON_EDIT = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
   var ICON_DEL  = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
@@ -2936,23 +2786,11 @@
 
   /* [MOCK] GET /api/orders — 아래 NAMES·PHONES·ADDRS·PRODUCTS·buildOrderData()를 실제 API 응답으로 교체
      응답 스키마: { id, orderNo, img, name, opt, ship, total, buyerName, buyerPhone, addr, addrDetail, status, orderDate, orderTime, procDate } */
-  var NAMES   = ["이정인","김수연","박민준","최지혜","정하은","윤서진","강현우","이서연","한지수","오민서","류지호","나윤지","백승현","임채원","조예린","서동현","허가은","신민호","권소연","안재원","황지은","문성훈","김다은","이승우","박지연","최현진","윤아름","정민성","강다희","오준혁","홍나리","배성민","장은서","노태양"];
-  var PHONES  = ["01073752743","01012345678","01098765432","01055556666","01033334444","01077778888","01011112222","01099990000","01044445555","01066667777","01022223333","01088889999","01055544433","01077766655","01033322211","01099988877","01011100099","01022211188","01055533377","01077755544","01088877766","01033311155","01099933344","01011155566","01022244477","01055566688","01077788899","01099900011","01011133344","01022255566","01055511122","01088833344","01033366677","01077700088"];
-  var ADDRS   = ["서울시 강남구 테헤란로 123/456호","경기도 성남시 분당구 판교로 200/101동 1502호","서울시 마포구 홍익로 10/202호","부산시 해운대구 마린시티로 50/305호","서울시 송파구 올림픽로 300/701호","인천시 연수구 송도국제대로 100/1204호","대구시 수성구 범어로 77/803호","서울시 용산구 이태원로 55/102호","광주시 서구 상무대로 999/501호","대전시 유성구 대학로 99/303호","서울시 종로구 세종대로 100/201호","경기도 수원시 영통구 광교로 52/505호","서울시 강서구 마곡중앙로 161/1001호","부산시 부산진구 중앙대로 668/402호","서울시 서초구 반포대로 58/302호","경기도 고양시 일산동구 중앙로 1200/801호","서울시 중구 남대문로 81/603호","대구시 달서구 달구벌대로 1700/301호","서울시 동작구 노량진로 1/102호","경기도 안양시 만안구 안양로 155/704호","서울시 영등포구 여의대방로 65/506호","인천시 남동구 인주대로 585/201호","경기도 의정부시 의정부로 140/303호","서울시 성북구 화랑로 32/401호","경기도 부천시 원미구 중동로 155/802호","서울시 강북구 도봉로 339/201호","경기도 김포시 사우동 사우로 77/903호","서울시 노원구 동일로 1322/1105호","경기도 평택시 평택로 101/201호","서울시 광진구 능동로 120/501호","경기도 화성시 동탄대로 537/702호","서울시 관악구 관악로 1/301호","경기도 파주시 금빛로 100/401호","서울시 은평구 은평로 195/203호"];
-
-  /* [MOCK] 주문용 상품 표본 — 실제 주문 API 응답의 orderItems 배열로 교체 */
-  var PRODUCTS = [
-    {name:"(국내제작)(여리핏/데일리룩/쫀쫀신축성) 메이드 스퀘어넥 슬림 골지 긴팔 티셔츠", img:"assets/긴팔.png",      opt:"레드/S*1 = 35,000원",     ship:2500,  total:37500},
-    {name:"(단독진행)(봄신상/러블리무드/레이어드추천) 루에느 리본 퍼프 블라우스",         img:"assets/블라우스.png",   opt:"블루/S*2 = 70,000원",     ship:0,     total:70000},
-    {name:"(1+1구성) 모던 세라믹 머그컵 세트",                                          img:"assets/mug.png",        opt:"올리브그린/4P*1 = 22,800원",ship:2500, total:25300},
-    {name:"(기획특가) 와이드 핀턱 밴딩 슬랙스",                                         img:"assets/pants.png",      opt:"블랙/M*1 = 28,000원",     ship:3000,  total:31000},
-    {name:"[써머세일] 오가닉 코튼 스트라이프 오버핏 셔츠",                               img:"assets/longsleeves.png",opt:"화이트/L*1 = 32,000원",   ship:2500,  total:34500},
-    {name:"ELLE PARIS PDRN 콜라겐 녹는실 탄력 앰플",                                    img:"assets/sleeveless.png", opt:"1개 = 49,000원",           ship:0,     total:49000},
-    {name:"[기획] 프리미엄 레더 미니 크로스백",                                          img:"assets/minibag.png",    opt:"카멜/1개 = 99,000원",     ship:3000,  total:102000},
-    {name:"청량한 여름 린넨 블렌드 와이드 팬츠",                                         img:"assets/긴팔-1.png",     opt:"베이지/M*1 = 55,000원",   ship:0,     total:55000},
-    {name:"내추럴 우드 스탠딩 데스크 라이트",                                            img:"assets/hood.png",       opt:"화이트/1개 = 75,000원",   ship:2500,  total:77500},
-    {name:"비건 시카 진정 수분 크림 50ml",                                               img:"assets/블라우스.png",   opt:"1개 = 29,000원",           ship:0,     total:29000}
-  ];
+  var _OD = window.MOCK_ORDER_DATA || {};
+  var NAMES   = _OD.names    || [];
+  var PHONES  = _OD.phones   || [];
+  var ADDRS   = _OD.addrs    || [];
+  var PRODUCTS = _OD.products || [];
 
   function pad2(n) { return n < 10 ? '0' + n : '' + n; }
   function orderStatusDropdown(current) {
@@ -3125,31 +2963,15 @@
   "use strict";
 
   /* ── Mock Data ── */
-  var settingsData = {
-    login: {
-      id: "링크페이먼츠"
-    },
+  var settingsData = window.MOCK_SETTINGS || {
+    login: { id: "" },
     business: {
-      businessName:    "링크페이먼츠",
-      businessNumber:  "012-34-56789",
-      mailOrderNumber: "1234-서울강남-1234",
-      address:         "서울시 서초구 바우뫼로 200",
-      weekdayStart:    "09:00",
-      weekdayEnd:      "18:00",
-      lunchStart:      "12:00",
-      lunchEnd:        "13:00",
-      phone:           "010-1234-5678",
-      bankAccount:     "12-01345-4567",
-      accountHolder:   "홍길동",
-      courier:         "cj 대한통운",
-      jejuFee:         "3500",
-      islandFee:       "5000"
+      businessName: "", businessNumber: "", mailOrderNumber: "", address: "",
+      weekdayStart: "", weekdayEnd: "", lunchStart: "", lunchEnd: "",
+      phone: "", bankAccount: "", accountHolder: "", courier: "",
+      jejuFee: "0", islandFee: "0"
     },
-    cancelReturn: {
-      mode:   "image",
-      text:   "",
-      images: []
-    }
+    cancelReturn: { mode: "image", text: "", images: [] }
   };
 
   /* ── 헬퍼: 모달 열기/닫기 ── */

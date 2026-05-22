@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=390, initial-scale=1.0" />
+  <title>Linkit Market – Lovely (Skeleton)</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #d4639a;
+      --purple: #8b5cf6;
+      --pink-light: #fce7f3;
+      --purple-light: #f5f3ff;
+      --text-dark: #2d2d2d;
+      --text-mid: #8b5cf6;
+      --text-body: #4e4e4e;
+      --text-muted: #7a7a7a;
+      --text-price: #6b21a8;
+      --text-title: #484848;
+      --divider: #e8e8e8;
+      --placeholder: #e0e0e0;
+      --placeholder-dark: #c8c8c8;
+    }
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      background: #f0eef5;
+      display: flex; justify-content: center; min-height: 100vh;
+    }
+
+    .phone { width: 390px; background: #fff; box-shadow: 0 4px 40px rgba(0,0,0,0.15); }
+
+    /* Status bar */
+    .status-bar {
+      height: 44px; background: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px 0 22px; border-bottom: 0.5px solid rgba(0,0,0,0.1);
+    }
+    .status-time { font-weight: 600; font-size: 15px; }
+    .status-icons { display: flex; align-items: center; gap: 6px; }
+
+    /* Nav bar */
+    .nav-bar {
+      height: 40px; background: #fff;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 18px;
+      border-bottom: 0.5px solid var(--divider);
+    }
+    .nav-bar button { background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; }
+    .nav-title { font-weight: 700; font-size: 16px; color: var(--text-mid); }
+
+    /* Category pills – purple active */
+    .category-pills { display: flex; background: #fff; padding: 6px 12px; gap: 8px; }
+    .pill {
+      flex-shrink: 0; padding: 5px 16px; border-radius: 100px;
+      font-size: 13px; font-family: inherit; cursor: pointer;
+      border: 1px solid var(--divider); background: none; color: #6b6b6b;
+    }
+    .pill.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+    /* Hero banner */
+    .hero-banner {
+      width: 100%; height: 340px;
+      background: var(--placeholder);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Shop info */
+    .shop-info { padding: 14px 20px; display: flex; flex-direction: column; gap: 4px; }
+    .shop-info-row { display: flex; align-items: center; justify-content: space-between; }
+    .shop-name-group { display: flex; align-items: center; gap: 6px; }
+    .shop-logo-ph { width: 24px; height: 24px; border-radius: 2px; background: var(--placeholder-dark); flex-shrink: 0; }
+    .shop-name { font-size: 18px; font-weight: 600; color: var(--text-dark); }
+    .shop-actions { display: flex; gap: 4px; }
+    .shop-action-btn { width: 28px; height: 28px; border-radius: 4px; background: var(--text-mid); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .shop-desc { font-size: 14px; color: #3c3c3c; line-height: 21px; }
+
+    .divider { height: 2px; background: var(--divider); }
+
+    /* Category icon shortcuts */
+    .shortcut-row {
+      display: flex; justify-content: space-around;
+      padding: 16px 20px;
+    }
+    .shortcut-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
+    .shortcut-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--placeholder);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .shortcut-label { font-size: 11px; font-weight: 600; color: var(--text-body); letter-spacing: 0.5px; }
+
+    /* Section heading */
+    .section-heading { font-size: 18px; font-weight: 700; color: var(--text-title); letter-spacing: -0.5px; padding: 16px 20px 0; }
+
+    /* BEST 상품 3-col grid */
+    .best-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; padding: 12px 20px 0;
+    }
+    .best-card { display: flex; flex-direction: column; gap: 6px; }
+    .best-card-img {
+      width: 100%; aspect-ratio: 1; border-radius: 10px;
+      background: var(--placeholder);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .best-card-name { font-size: 11px; font-weight: 500; color: var(--text-body); line-height: 1.4; }
+    .best-card-discount { font-size: 10px; color: var(--text-muted); display: flex; gap: 3px; }
+    .line-through { text-decoration: line-through; }
+    .best-card-price { font-size: 12px; font-weight: 700; color: var(--text-price); }
+
+    /* HOT 상품 scroll */
+    .hot-scroll {
+      display: flex; gap: 10px;
+      padding: 12px 20px 0;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .hot-scroll::-webkit-scrollbar { display: none; }
+    .hot-card { flex-shrink: 0; width: 100px; display: flex; flex-direction: column; gap: 6px; }
+    .hot-card-img {
+      width: 100px; height: 100px; border-radius: 10px;
+      background: var(--placeholder);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hot-card-name { font-size: 11px; color: var(--text-body); line-height: 1.3; }
+    .hot-card-price { font-size: 12px; font-weight: 700; color: var(--text-price); }
+    .hot-card-discount { font-size: 10px; color: var(--text-muted); display: flex; gap: 2px; }
+
+    /* New season banner */
+    .new-season-banner {
+      margin: 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fce7f3, #f5f3ff);
+      padding: 24px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .new-season-ph {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(139,92,246,0.15);
+      margin: 0 auto 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .new-season-label { font-size: 11px; font-weight: 600; color: var(--purple); letter-spacing: 2px; margin-bottom: 4px; }
+    .new-season-title { font-size: 20px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+    .new-season-sub { font-size: 12px; color: var(--text-muted); }
+
+    /* Footer */
+    .footer { background: #4a3060; padding: 36px 20px 28px; text-align: center; }
+    .footer-phone { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .footer-hours { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 20px; }
+    .footer-biz { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.8; margin-bottom: 10px; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+    /* Tab bar */
+    .tab-bar {
+      height: 78px; background: rgba(255,255,255,0.92); backdrop-filter: blur(14px);
+      border-top: 0.5px solid rgba(0,0,0,0.15);
+      display: flex; align-items: flex-start; justify-content: space-between; padding: 6px 14px 0;
+    }
+    .tab-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; }
+    .home-indicator { height: 5px; width: 135px; background: #000; border-radius: 100px; margin: 6px auto 0; }
+    .img-icon { opacity: 0.4; }
+  </style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <div class="status-icons">
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="6" width="3" height="6" rx="0.5" fill="black"/><rect x="4.5" y="4" width="3" height="8" rx="0.5" fill="black"/><rect x="9" y="2" width="3" height="10" rx="0.5" fill="black"/><rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="black" opacity="0.3"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="black"><path d="M8 9.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/><path d="M8 6.5C9.8 6.5 11.4 7.2 12.6 8.3l1.4-1.4C12.4 5.3 10.3 4.5 8 4.5s-4.4.8-6 2.4l1.4 1.4C4.6 7.2 6.2 6.5 8 6.5z" opacity="0.7"/><path d="M8 3.5c2.8 0 5.3 1.1 7.1 2.9l1.4-1.4A12 12 0 0 0 8 1.5a12 12 0 0 0-8.5 3.5L1 6.4C2.7 4.6 5.2 3.5 8 3.5z" opacity="0.4"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="black" stroke-opacity="0.35"/><rect x="1.5" y="1.5" width="18" height="9" rx="2.5" fill="black"/><path d="M23 4v4a2 2 0 0 0 0-4z" fill="black" fill-opacity="0.4"/></svg>
+    </div>
+  </div>
+
+  <!-- Nav Bar -->
+  <div class="nav-bar">
+    <button><svg width="10" height="18" viewBox="0 0 10 18" fill="none"><path d="M9 1L1 9l8 8" stroke="#3e3e3e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <span class="nav-title">Lovely</span>
+    <button><svg width="18" height="20" viewBox="0 0 18 20" fill="none"><rect x="3" y="7" width="12" height="12" rx="2" stroke="#3e3e3e" stroke-width="1.6"/><path d="M9 1v12M6 4l3-3 3 3" stroke="#3e3e3e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+
+  <!-- Category Pills (capsule style) -->
+  <div class="category-pills">
+    <button class="pill active">ALL</button>
+    <button class="pill">뷰티</button>
+    <button class="pill">판매</button>
+    <button class="pill">인기/신제품</button>
+  </div>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <svg width="56" height="56" viewBox="0 0 48 48" fill="none" style="opacity:0.3;">
+      <rect x="4" y="10" width="40" height="28" rx="4" stroke="#bbb" stroke-width="2"/>
+      <circle cx="17" cy="20" r="4" stroke="#bbb" stroke-width="2"/>
+      <path d="M4 32l10-8 8 6 7-5 15 11" stroke="#bbb" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <!-- Shop Info -->
+  <div class="shop-info">
+    <div class="shop-info-row">
+      <div class="shop-name-group">
+        <div class="shop-logo-ph"></div>
+        <span class="shop-name">Linkit Market</span>
+      </div>
+      <div class="shop-actions">
+        <div class="shop-action-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="5" cy="5" r="3.5" stroke="white" stroke-width="1.4"/><path d="M8 8l2.5 2.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+        <div class="shop-action-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="white"><circle cx="2" cy="6" r="1.2"/><circle cx="6" cy="6" r="1.2"/><circle cx="10" cy="6" r="1.2"/></svg></div>
+        <div class="shop-action-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M8.5 1.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM3.5 4.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM8.5 7.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" stroke="white" stroke-width="1.3"/></svg></div>
+      </div>
+    </div>
+    <p class="shop-desc">링크만 있으면 나만의 상점 완성</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Category Shortcut Icons -->
+  <div class="shortcut-row">
+    <div class="shortcut-item">
+      <div class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" stroke="#c084fc" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+      <span class="shortcut-label">BEST</span>
+    </div>
+    <div class="shortcut-item">
+      <div class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7zM9 3v4M15 3v4M9 17v4M15 17v4" stroke="#f472b6" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <span class="shortcut-label">SALE</span>
+    </div>
+    <div class="shortcut-item">
+      <div class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2c5.5 0 10 4.5 10 10S17.5 22 12 22 2 17.5 2 12 6.5 2 12 2z" stroke="#fb7185" stroke-width="1.5"/><path d="M12 7v5l3 3" stroke="#fb7185" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <span class="shortcut-label">HOT</span>
+    </div>
+    <div class="shortcut-item">
+      <div class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#a78bfa" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <span class="shortcut-label">EVENT</span>
+    </div>
+    <div class="shortcut-item">
+      <div class="shortcut-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <span class="shortcut-label">NEW</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BEST 상품 3-col -->
+  <p class="section-heading">BEST 상품</p>
+  <div class="best-grid">
+    <div class="best-card">
+      <div class="best-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/><circle cx="11" cy="13" r="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="best-card-name">시크라와 토끼 다이어리 노트</p>
+      <div class="best-card-discount"><span>72%</span><span class="line-through">45,000</span></div>
+      <p class="best-card-price">16,500원</p>
+    </div>
+    <div class="best-card">
+      <div class="best-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/><circle cx="11" cy="13" r="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="best-card-name">필리아 텀블러 비밀패턴 스크림...</p>
+      <div class="best-card-discount"><span>72%</span><span class="line-through">32,000</span></div>
+      <p class="best-card-price">8,500원</p>
+    </div>
+    <div class="best-card">
+      <div class="best-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/><circle cx="11" cy="13" r="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="best-card-name">시크라와 토끼 키링 타워 세트</p>
+      <div class="best-card-discount"><span>72%</span><span class="line-through">18,000</span></div>
+      <p class="best-card-price">8,500원</p>
+    </div>
+    <div class="best-card">
+      <div class="best-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/><circle cx="11" cy="13" r="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="best-card-name">플라워 텀블러 세트</p>
+      <div class="best-card-discount"><span>52%</span><span class="line-through">24,000</span></div>
+      <p class="best-card-price">11,500원</p>
+    </div>
+    <div class="best-card">
+      <div class="best-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/><circle cx="11" cy="13" r="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="best-card-name">레트로 팝 바비 텀블러 핑크</p>
+      <div class="best-card-discount"><span>72%</span><span class="line-through">9,800</span></div>
+      <p class="best-card-price">3,600원</p>
+    </div>
+    <div class="best-card">
+      <div class="best-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/><circle cx="11" cy="13" r="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="best-card-name">스노우 보이 편의점 빽백 케어 팝</p>
+      <div class="best-card-discount"><span>45%</span><span class="line-through">10,000</span></div>
+      <p class="best-card-price">5,500원</p>
+    </div>
+  </div>
+
+  <!-- HOT 상품 -->
+  <p class="section-heading" style="margin-top:20px;">HOT 상품</p>
+  <div class="hot-scroll">
+    <div class="hot-card">
+      <div class="hot-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="hot-card-name">시나리오 로즈 스크림</p>
+      <div class="hot-card-discount"><span>72%</span><span class="line-through">30,000</span></div>
+      <p class="hot-card-price">11,500원</p>
+    </div>
+    <div class="hot-card">
+      <div class="hot-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="hot-card-name">시나리오 로즈 냉 날 빽백 화이트</p>
+      <div class="hot-card-discount"><span>72%</span><span class="line-through">9,800</span></div>
+      <p class="hot-card-price">3,600원</p>
+    </div>
+    <div class="hot-card">
+      <div class="hot-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="hot-card-name">시나리오 로즈 빽백 타이어 핑크</p>
+      <div class="hot-card-discount"><span>45%</span><span class="line-through">10,000</span></div>
+      <p class="hot-card-price">5,500원</p>
+    </div>
+    <div class="hot-card">
+      <div class="hot-card-img"><svg class="img-icon" width="24" height="24" viewBox="0 0 32 32" fill="none"><rect x="2" y="6" width="28" height="20" rx="3" stroke="#c9b0d8" stroke-width="1.5"/></svg></div>
+      <p class="hot-card-name">시나리오 로즈 팝 텀블러</p>
+      <div class="hot-card-discount"><span>30%</span><span class="line-through">18,000</span></div>
+      <p class="hot-card-price">12,600원</p>
+    </div>
+  </div>
+
+  <!-- Banner -->
+  <div style="margin: 20px; height: 140px; background: var(--placeholder); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+    <svg width="36" height="36" viewBox="0 0 48 48" fill="none" style="opacity:0.3;"><rect x="4" y="10" width="40" height="28" rx="4" stroke="#bbb" stroke-width="2"/><circle cx="17" cy="20" r="4" stroke="#bbb" stroke-width="2"/></svg>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p class="footer-phone">고객센터 02-1234-1234</p>
+    <p class="footer-hours">평일 10:00 - 18:00 (주말/공휴일 제외)<br>help@linkit.com</p>
+    <div class="footer-biz">
+      <p>상호명 (주)링크잇 | 대표이사 000 | 사업자등록번호 123-45-67890</p>
+      <p>통신판매업신고번호 2024-서울강남-0000 |<br>본사 서울특별시 강남구 테헤란로 123</p>
+      <p style="margin-top:4px;">이용약관 | 개인정보처리방침</p>
+    </div>
+    <p class="footer-copy">© 2026 LINKIT Inc. All rights reserved.</p>
+  </div>
+
+  <!-- Bottom Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M14 5L8 11l6 6" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="tab-btn" style="opacity:0.35;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M8 5l6 6-6 6" stroke="#555" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="tab-btn"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="5" y="5" width="18" height="18" rx="4" stroke="#555" stroke-width="1.6"/><path d="M14 10v8M10 14h8" stroke="#555" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <button class="tab-btn"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="4" y="7" width="11" height="11" rx="2.5" stroke="#555" stroke-width="1.5"/><path d="M8 7V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-1" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+    <button class="tab-btn"><svg width="22" height="22" viewBox="0 0 22 22" fill="#555"><circle cx="5" cy="11" r="1.5"/><circle cx="11" cy="11" r="1.5"/><circle cx="17" cy="11" r="1.5"/></svg></button>
+  </div>
+  <div style="background:#fff; padding:4px 0 10px; text-align:center;"><div class="home-indicator"></div></div>
+
+</div>
+<script>
+  document.querySelectorAll('.pill').forEach(p => p.addEventListener('click', function() {
+    document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
+    this.classList.add('active');
+  }));
+</script>
+</body>
+</html>

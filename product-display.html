@@ -293,6 +293,58 @@
   </div>
 </div>
 
+<script>
+window.MOCK_DISPLAY = {
+  sections: [
+    { id: 1, name: "오늘의 라이브 쇼핑", source: "default" },
+    { id: 2, name: "BEST 상품",           source: "default" },
+    { id: 3, name: "이번주 HOT",          source: "default" },
+    { id: 4, name: "SALE 상품",           source: "default" },
+    { id: 5, name: "신상품 추천",         source: "custom"  },
+    { id: 6, name: "MD 추천 상품",        source: "custom"  }
+  ],
+  sectionProducts: {
+    1: [
+      { id: 101, productName: "(국내제작)(여리핏/데일리룩) 긴팔 티셔츠", thumbnail: "", sellerName: "어반무드",   displayStatus: "공개" },
+      { id: 102, productName: "(단독진행) 러블리무드 리본 블라우스",       thumbnail: "", sellerName: "루미데이",   displayStatus: "공개" },
+      { id: 103, productName: "(1+1구성) 모던 세라믹 머그컵 세트",        thumbnail: "", sellerName: "바이엘로",   displayStatus: "비공개" },
+      { id: 104, productName: "프리미엄 캐시미어 터틀넥 니트",            thumbnail: "", sellerName: "소프트플랭크", displayStatus: "공개" },
+      { id: 105, productName: "수분 진정 에센스 50ml",                   thumbnail: "", sellerName: "루미데이",   displayStatus: "공개" }
+    ],
+    2: [
+      { id: 106, productName: "(한정수량) 미니멀 우드 사이드 테이블",      thumbnail: "", sellerName: "소프트플랭크", displayStatus: "공개" },
+      { id: 107, productName: "고밀도 메모리폼 방석",                     thumbnail: "", sellerName: "바이엘로",   displayStatus: "공개" }
+    ],
+    3: [],
+    4: [
+      { id: 108, productName: "SALE - 린넨 와이드 팬츠 (30% 할인)",      thumbnail: "", sellerName: "어반무드",   displayStatus: "공개" },
+      { id: 109, productName: "SALE - 콜드브루 글라스 세트",             thumbnail: "", sellerName: "바이엘로",   displayStatus: "비공개" }
+    ],
+    5: [],
+    6: []
+  },
+  allProducts: [
+    { id: 201, productName: "(한정수량) 미니멀 우드 사이드 테이블",      thumbnail: "", sellerName: "소프트플랭크", categoryDepth1: "인테리어", categoryDepth2: "가구",    salesPeriod: "2026-05-15\n10:02", createdAt: "2026-05-15", updatedAt: "2026-05-16" },
+    { id: 202, productName: "(국내제작) 쫀쫀 신축성 슬림 티셔츠",       thumbnail: "", sellerName: "어반무드",    categoryDepth1: "의류",    categoryDepth2: "상의",    salesPeriod: "2026-05-15\n10:02", createdAt: "2026-05-14", updatedAt: "2026-05-15" },
+    { id: 203, productName: "수분 진정 에센스 50ml",                    thumbnail: "", sellerName: "루미데이",    categoryDepth1: "뷰티",    categoryDepth2: "스킨케어", salesPeriod: "2026-05-20\n00:00", createdAt: "2026-05-13", updatedAt: "2026-05-14" },
+    { id: 204, productName: "고밀도 메모리폼 방석 (라지)",               thumbnail: "", sellerName: "바이엘로",   categoryDepth1: "인테리어", categoryDepth2: "가구",    salesPeriod: "2026-05-18\n10:00", createdAt: "2026-05-12", updatedAt: "2026-05-13" },
+    { id: 205, productName: "린넨 와이드 팬츠 (베이지/블랙)",           thumbnail: "", sellerName: "어반무드",    categoryDepth1: "의류",    categoryDepth2: "하의",    salesPeriod: "2026-05-25\n10:00", createdAt: "2026-05-11", updatedAt: "2026-05-12" },
+    { id: 206, productName: "세라믹 머그컵 2P 세트",                   thumbnail: "", sellerName: "바이엘로",   categoryDepth1: "인테리어", categoryDepth2: "주방",    salesPeriod: "2026-05-22\n09:00", createdAt: "2026-05-10", updatedAt: "2026-05-11" },
+    { id: 207, productName: "두피 케어 샴푸 300ml",                    thumbnail: "", sellerName: "루미데이",    categoryDepth1: "뷰티",    categoryDepth2: "헤어",    salesPeriod: "2026-06-01\n10:00", createdAt: "2026-05-09", updatedAt: "2026-05-10" },
+    { id: 208, productName: "캐시미어 터틀넥 니트 (그레이)",            thumbnail: "", sellerName: "소프트플랭크", categoryDepth1: "의류",    categoryDepth2: "상의",    salesPeriod: "2026-05-30\n10:00", createdAt: "2026-05-08", updatedAt: "2026-05-09" },
+    { id: 209, productName: "미니 무선 청소기 (화이트)",               thumbnail: "", sellerName: "바이엘로",   categoryDepth1: "가전",    categoryDepth2: "청소",    salesPeriod: "2026-06-05\n10:00", createdAt: "2026-05-07", updatedAt: "2026-05-08" },
+    { id: 210, productName: "리본 블라우스 (크림/핑크)",               thumbnail: "", sellerName: "루미데이",    categoryDepth1: "의류",    categoryDepth2: "상의",    salesPeriod: "2026-05-28\n10:00", createdAt: "2026-05-06", updatedAt: "2026-05-07" },
+    { id: 211, productName: "아로마 디퓨저 세트 (유칼립투스)",         thumbnail: "", sellerName: "소프트플랭크", categoryDepth1: "인테리어", categoryDepth2: "인테리어소품", salesPeriod: "2026-06-10\n10:00", createdAt: "2026-05-05", updatedAt: "2026-05-06" },
+    { id: 212, productName: "스킨케어 기초 4종 세트",                 thumbnail: "", sellerName: "루미데이",    categoryDepth1: "뷰티",    categoryDepth2: "스킨케어", salesPeriod: "2026-06-15\n10:00", createdAt: "2026-05-04", updatedAt: "2026-05-05" }
+  ],
+  subCategoryMap: {
+    "의류":    ["상의", "하의", "홈웨어", "잡화"],
+    "뷰티":    ["스킨케어", "헤어", "메이크업"],
+    "인테리어": ["가구", "주방", "인테리어소품"],
+    "가전":    ["청소", "주방가전", "영상음향"]
+  }
+};
+</script>
 <script src="admin.js"></script>
 </body>
 </html>

@@ -248,6 +248,11 @@ body {
   font-size: 20px;
   font-weight: 500;
   color: var(--admin-heading);
+  margin-bottom: 8px;
+}
+.admin-page-subtitle {
+  font-size: 14px;
+  color: var(--admin-muted);
   margin-bottom: 24px;
 }
 
@@ -377,16 +382,17 @@ body {
 .admin-badge {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  justify-content: center;
   padding: 2px 8px;
   border-radius: 4px;
-  border: 1px solid transparent;
-  font-size: 12px;   /* t-label-2-md */
+  font-size: 12px;
   font-weight: 500;
   line-height: 16px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: none;
+  font-family: inherit;
   white-space: nowrap;
-  flex-shrink: 0;
+  transition: opacity .15s;
 }
 
 /* Dropdown variant — appends a chevron icon */
@@ -413,6 +419,24 @@ body {
 .admin-badge--pending   { background: rgba(255,199,0,.2); border-color: #ffc700; color: #ffa100; }
 .admin-badge--shipping  { background: rgba(0,196,164,.2); border-color: #00c4a4; color: #00987f; }
 .admin-badge--cancel    { background: rgba(255,106,79,.2); border-color: #ff6a4f; color: #ff421f; }
+
+/* Seller / approval variants */
+.admin-badge--approved      { background: #e8f5e9; border-color: #81c784; color: #2e7d32; }
+.admin-badge--wait          { background: rgba(255,199,0,.15); border-color: #ffc700; color: #b37f00; }
+.admin-badge--rejected      { background: rgba(237,55,15,.1); border-color: #ed370f; color: #c8300c; }
+.admin-badge--company       { background: rgba(40,49,80,.08); border-color: #b0bad0; color: var(--admin-heading); }
+.admin-badge--brand-direct  { background: rgba(237,55,15,.08); border-color: #f5a090; color: #c8300c; }
+
+/* Settlement variants */
+.admin-badge--sett-expected  { background: rgba(100,149,237,.15); border-color: #6495ed; color: #3a6ac8; }
+.admin-badge--sett-confirmed { background: rgba(255,199,0,.15); border-color: #ffc700; color: #b37f00; }
+.admin-badge--sett-paid      { background: #e8f5e9; border-color: #81c784; color: #2e7d32; }
+
+/* Settlement status (정산 필요 / 정산중 / 정산완료 / 정산보류) */
+.admin-badge--sett-need { background: #fff8f0; border-color: #e67e22; color: #e67e22; }
+.admin-badge--sett-ing  { background: #eff6ff; border-color: #3a6ac8; color: #3a6ac8; }
+.admin-badge--sett-done { background: #f0fdf4; border-color: #2e7d32; color: #2e7d32; }
+.admin-badge--sett-hold { background: #fff0ee; border-color: #e83828; color: #e83828; }
 
 /* ─── Table ─── */
 .admin-table-wrap {
@@ -478,6 +502,24 @@ body {
   font-size: 12px;
   border-radius: 4px;
 }
+
+.admin-btn--icon {
+  padding: 6px;
+  line-height: 1;
+}
+
+.admin-btn--xs {
+  padding: 3px 8px;
+  font-size: 11px;
+  border-radius: 3px;
+}
+
+.admin-btn--blue {
+  background: #3a6ac8;
+  color: var(--admin-white);
+  border: 1px solid #3a6ac8;
+}
+.admin-btn--blue:hover { background: #2f57a8; }
 
 .admin-btn--danger {
   background: var(--admin-white);
@@ -556,6 +598,49 @@ body {
   flex-wrap: wrap;
 }
 .admin-filter-row .admin-field { margin-bottom: 0; }
+.admin-filter-row + .admin-filter-row { margin-top: 10px; }
+
+.admin-filter-select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  background: var(--admin-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 8px center;
+  padding: 7px 28px 7px 10px;
+  font-size: 13px;
+  color: var(--admin-text);
+  cursor: pointer;
+  outline: none;
+  min-width: 120px;
+}
+.admin-filter-select:focus { border-color: var(--admin-heading); }
+
+.admin-filter-input {
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  background: var(--admin-white);
+  padding: 7px 10px;
+  font-size: 13px;
+  color: var(--admin-text);
+  outline: none;
+  min-width: 160px;
+}
+.admin-filter-input:focus { border-color: var(--admin-heading); }
+
+.admin-filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--admin-muted);
+  white-space: nowrap;
+  align-self: center;
+}
+
+.admin-filter-date-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.admin-filter-date-range span { font-size: 12px; color: var(--admin-muted); }
 
 /* ─── Shortcut Grid ─── */
 .admin-shortcut-grid {
@@ -630,6 +715,13 @@ body {
   flex-wrap: wrap;
   gap: 8px;
 }
+.admin-action-bar__left,
+.admin-action-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 
 /* ─── Pagination (basic) ─── */
 .admin-pagination {
@@ -688,6 +780,9 @@ body {
 .admin-text-muted { color: var(--admin-muted); }
 .admin-text-red   { color: var(--admin-red); }
 .admin-text-right { text-align: right; }
+.text-right { text-align: right; }
+.admin-table td.text-right, .admin-table th.text-right { text-align: right; }
+.admin-table td.text-left,  .admin-table th.text-left  { text-align: left; }
 
 /* ─── Form Actions ─── */
 .admin-form-actions {
@@ -1991,6 +2086,91 @@ body {
   color: var(--admin-text);
 }
 .admin-order-date__time { color: var(--admin-muted); font-size: 12px; }
+
+/* ── 공용 모달 (.admin-modal) ── */
+.admin-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+}
+.admin-modal.is-open { display: flex; }
+.admin-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+.admin-modal__box {
+  position: relative;
+  z-index: 1;
+  background: var(--admin-white);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+}
+.admin-modal__box--lg { max-width: 720px; }
+.admin-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.admin-modal__title { font-size: 16px; font-weight: 600; color: var(--admin-heading); }
+.admin-modal__close { color: var(--admin-muted); transition: color 0.15s; }
+.admin-modal__close:hover { color: var(--admin-text); }
+.admin-modal__footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 1px solid var(--admin-stroke);
+  margin-top: 20px;
+}
+
+/* ── 토글 스위치 ── */
+.admin-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+.admin-toggle__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.admin-toggle__track {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  background: #d1d5db;
+  border-radius: 11px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.admin-toggle__track::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.admin-toggle__input:checked + .admin-toggle__track { background: #2e7d32; }
+.admin-toggle__input:checked + .admin-toggle__track::after { transform: translateX(18px); }
+.admin-toggle__label { font-size: 13px; font-weight: 500; color: var(--admin-text); }
 
 /* ── 배송지 수정 모달 (category-modal 패턴 재사용) ── */
 .admin-order-modal {
@@ -4242,3 +4422,377 @@ a.admin-notice-item:hover .admin-notice-title {
   padding: 20px 24px 8px;
 }
 .admin-design-edit-panel.is-active { display: block; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   sales-settlement — 매출 관리 / 정산 페이지 전용 스타일
+   기존 어드민 디자인 시스템(변수, 클래스, 패턴)을 최대한 재사용
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── 페이지 타이틀 + 설명 헤더 ── */
+.settlement-page-header {
+  margin-bottom: 24px;
+}
+.settlement-page-subtitle {
+  font-size: 14px;    /* t-body-2-rg */
+  color: var(--admin-muted);
+  margin-top: 4px;
+  line-height: 20px;
+}
+
+/* ── 매출 요약 카드 그리드 ── */
+/* PC: 4열 2행 / 태블릿: 2열 / 모바일: 1열 */
+.settlement-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.settlement-summary-card {
+  background: var(--admin-white);
+  border: 1px solid var(--admin-stroke);
+  border-radius: 8px;          /* admin-card 동일 */
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.settlement-summary-card__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--admin-muted);
+  line-height: 20px;
+}
+
+.settlement-summary-card__amount {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--admin-heading);
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+}
+
+.settlement-summary-card__sub {
+  font-size: 11px;             /* t-body-3-rg 보다 작게 */
+  color: #aab0bf;
+  line-height: 1.5;
+}
+
+/* ── 정산 상태 배지 (기존 admin-badge 시스템 확장) ── */
+/* 정산 예정: 어드민 헤딩 컬러(다크 블루) 계열 */
+.admin-badge--settlement-expected {
+  background: rgba(40, 49, 80, 0.08);
+  border-color: rgba(40, 49, 80, 0.35);
+  color: var(--admin-heading);
+}
+/* 정산 완료: 기존 --shipping(초록) 계열과 동일 */
+.admin-badge--settlement-done {
+  background: rgba(0, 196, 164, 0.2);
+  border-color: #00c4a4;
+  color: #00987f;
+}
+/* 보류: 기존 --cancel(빨간) 계열과 동일 */
+.admin-badge--settlement-hold {
+  background: rgba(255, 106, 79, 0.2);
+  border-color: #ff6a4f;
+  color: #d63a1a;
+}
+
+/* ── 필터 툴바 내 날짜 구분자 ── */
+.settlement-date-sep {
+  font-size: 14px;
+  color: var(--admin-muted);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* 기존 admin-order-date-input 폭 재정의 (날짜 2개 나란히) */
+.settlement-date-input {
+  width: 138px;
+}
+
+/* 필터 select 폭 */
+#settlementStatusFilter       { width: 120px; }
+#settlementOrderStatusFilter  { width: 120px; }
+#settlementSellerFilter       { width: 120px; }
+
+/* ── 로딩 상태 영역 ── */
+.settlement-loading-state {
+  background: var(--admin-white);
+  border: 1px solid var(--admin-stroke);
+  border-radius: 8px;
+  padding: 56px 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--admin-muted);
+  margin-bottom: 16px;
+}
+
+/* ── 빈 결과 상태 (공통) ── */
+.settlement-empty-state {
+  padding: 56px 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--admin-muted);
+}
+
+/* ── 저장 버튼 비활성화 스타일 ──
+   기존 admin-btn--primary disabled 상태 (브라우저 기본 흐림 보정)
+── */
+.admin-btn--primary:disabled,
+.admin-btn--primary[disabled] {
+  background: #c8cdd8;
+  border-color: #c8cdd8;
+  color: var(--admin-white);
+  cursor: not-allowed;
+  opacity: 1;   /* 브라우저 기본 투명도 제거 후 색상으로만 표현 */
+}
+
+/* ── 정산 상세 모달 ── */
+/* category-modal / admin-order-modal 패턴 재사용 */
+.settlement-detail-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+.settlement-detail-modal.is-open { display: flex; }
+
+.settlement-detail-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  z-index: 0;
+}
+
+.settlement-detail-modal__box {
+  position: relative;
+  z-index: 1;
+  background: var(--admin-white);
+  border-radius: 10px;        /* admin-order-modal__box 동일 */
+  width: 580px;
+  max-width: 100%;
+  padding: 28px 24px 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+  margin: auto;
+}
+
+.settlement-detail-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.settlement-detail-modal__title {
+  font-size: 16px;    /* t-title-2-sb */
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--admin-heading);
+}
+
+.settlement-detail-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  color: var(--admin-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.settlement-detail-modal__close:hover {
+  background: #f0f0f0;
+  color: var(--admin-text);
+}
+
+.settlement-detail-modal__footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--admin-stroke);
+}
+
+/* ── 읽기 전용 정보 블록 ── */
+.settlement-detail-readonly {
+  background: #f9fafc;       /* admin-input-bg 동일 */
+  border: 1px solid var(--admin-stroke);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 4px;
+}
+
+.settlement-detail-section-title {
+  font-size: 14px;           /* t-label-1-sb */
+  font-weight: 600;
+  color: var(--admin-heading);
+  margin-bottom: 10px;
+  line-height: 20px;
+}
+
+.settlement-detail-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--admin-stroke);
+}
+.settlement-detail-row:last-child { border-bottom: none; }
+
+.settlement-detail-label {
+  font-size: 13px;
+  color: var(--admin-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.settlement-detail-value {
+  font-size: 14px;           /* t-body-2-rg */
+  color: var(--admin-text);
+  font-weight: 500;
+  text-align: right;
+  word-break: break-all;
+}
+.settlement-detail-value--highlight {
+  font-weight: 700;
+  color: var(--admin-heading);
+  font-size: 15px;
+}
+
+/* ── 구분선 ── */
+.settlement-detail-divider {
+  height: 1px;
+  background: var(--admin-stroke);
+  margin: 16px 0;
+}
+
+/* ── 필수 표시 ── */
+.settlement-required {
+  color: var(--admin-red);
+  margin-left: 2px;
+}
+
+/* ── 유효성 에러 메시지 ── */
+.settlement-error-msg {
+  display: block;
+  font-size: 12px;           /* t-label-2-md */
+  color: var(--admin-red);
+  margin-top: 4px;
+  line-height: 16px;
+}
+
+/* ── 모바일 카드 리스트 래퍼 ── */
+/* PC에서 숨김 / 모바일에서 표시 (media query로 전환) */
+.settlement-mobile-wrap {
+  display: none;
+}
+
+.settlement-mobile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 모바일 개별 주문 카드 */
+.settlement-mobile-card {
+  background: var(--admin-white);
+  border: 1px solid var(--admin-stroke);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.settlement-mobile-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.settlement-mobile-card__order-no {
+  font-size: 12px;           /* t-label-2-sb */
+  font-weight: 600;
+  color: var(--admin-heading);
+}
+
+.settlement-mobile-card__product {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--admin-text);
+  margin-bottom: 4px;
+  line-height: 1.45;
+}
+
+.settlement-mobile-card__seller {
+  font-size: 12px;           /* t-body-3-rg */
+  color: var(--admin-muted);
+  margin-bottom: 10px;
+}
+
+.settlement-mobile-card__amount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-top: 1px solid var(--admin-stroke);
+}
+
+.settlement-mobile-card__amount-label {
+  font-size: 12px;
+  color: var(--admin-muted);
+}
+
+.settlement-mobile-card__amount-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--admin-heading);
+}
+
+/* ── 반응형: 매출/정산 페이지 ── */
+@media (max-width: 1280px) {
+  /* 요약 카드: 4열 유지 */
+  .settlement-summary-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  /* 요약 카드: 2열 전환 */
+  .settlement-summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  /* 요약 카드: 1열 전환 */
+  .settlement-summary-grid { grid-template-columns: 1fr; }
+
+  /* PC 테이블 숨김 → 모바일 카드 표시 */
+  .settlement-table-card { display: none !important; }
+  .settlement-mobile-wrap { display: block; }
+
+  /* 상세 모달 폭 축소 */
+  .settlement-detail-modal__box {
+    padding: 20px 16px;
+  }
+  .settlement-detail-modal__footer {
+    flex-wrap: wrap;
+  }
+  .settlement-detail-modal__footer .admin-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .settlement-summary-card__amount { font-size: 16px; }
+  .settlement-date-input { width: 120px; }
+}

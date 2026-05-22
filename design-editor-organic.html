@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>디자인 편집 (오가닉) — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <div id="designEditorScreen" class="admin-design-editor-screen">
+      <div class="admin-design-editor-layout">
+
+        <!-- 좌: 미리보기 -->
+        <div class="admin-design-preview-area">
+          <div class="admin-design-mall-wrap" id="designMallWrap">
+            <iframe src="linkit-skeleton/organic.html" style="width:100%;height:900px;border:none;display:block;" scrolling="yes"></iframe>
+          </div>
+        </div>
+
+        <!-- 우: 편집 패널 -->
+        <div class="admin-design-right-panel">
+          <div class="admin-design-edit-tabs" role="tablist">
+            <button class="admin-design-edit-tab is-active" data-tab="basic" role="tab" aria-selected="true">기본 정보</button>
+            <button class="admin-design-edit-tab" data-tab="sections" role="tab" aria-selected="false">섹션 이름</button>
+            <button class="admin-design-edit-tab" data-tab="banner" role="tab" aria-selected="false">서브 배너</button>
+            <button class="admin-design-edit-tab" data-tab="footer" role="tab" aria-selected="false">푸터 정보</button>
+          </div>
+          <div class="admin-design-edit-panels">
+            <div class="admin-design-edit-panel is-active" id="designPanelBasic" role="tabpanel">
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">헤더/기본정보</p>
+                <div class="admin-field"><label for="designHeaderName">헤더 이름</label><input type="text" id="designHeaderName" value="Organic" maxlength="30" /></div>
+              </div>
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">메인 배너 이미지 변경</p>
+                <div class="admin-field">
+                  <label>레이아웃</label>
+                  <div class="admin-design-radio-group">
+                    <label class="admin-design-radio-label"><input type="radio" name="designMainBannerLayout" value="fill" /> 가득 채우기</label>
+                    <label class="admin-design-radio-label"><input type="radio" name="designMainBannerLayout" value="fixed" checked /> 고정 크기</label>
+                  </div>
+                  <p class="admin-design-radio-hint">업로드한 이미지 기준으로 고정되어 노출됩니다.</p>
+                </div>
+                <div class="admin-field">
+                  <label>이미지 선택</label>
+                  <div class="admin-design-upload-zone" id="designMainBannerUpload" data-target="main">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <span class="admin-design-upload-zone__label">메인 배너</span>
+                    <span class="admin-design-upload-zone__sub">JPG/PNG 클릭하거나 파일을 여기에 끌어다 놓으세요</span>
+                    <button type="button" class="admin-design-upload-zone__remove" aria-label="이미지 제거">×</button>
+                    <img class="admin-design-upload-zone__preview" alt="배너 미리보기" />
+                    <input type="file" accept="image/*" class="admin-design-upload-input" />
+                  </div>
+                  <p class="admin-design-upload-hint">메인 배너 권장 사이즈는 780 x 370 입니다.</p>
+                </div>
+              </div>
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">기본 정보 수정</p>
+                <div class="admin-field"><label for="designMarketName">마켓이름</label><input type="text" id="designMarketName" value="Linkit Market" maxlength="40" /></div>
+                <div class="admin-field">
+                  <div class="admin-design-field-counter"><label for="designMarketDesc">설명</label><span><span id="designMarketDescLen">18</span>/50</span></div>
+                  <input type="text" id="designMarketDesc" value="링크만 있으면 나만의 상점 완성" maxlength="50" />
+                </div>
+              </div>
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">링크</p>
+                <div class="admin-field"><label for="designMarketHomeUrl">홈페이지링크</label><input type="text" id="designMarketHomeUrl" value="https://link-it.com" /></div>
+                <div class="admin-field"><label for="designMarketInstagram">인스타 링크</label><input type="text" id="designMarketInstagram" value="instagram.com/username" /></div>
+                <div class="admin-field"><label for="designMarketYoutube">유튜브 링크</label><input type="text" id="designMarketYoutube" value="youtube.com/username" /></div>
+              </div>
+            </div>
+            <div class="admin-design-edit-panel" id="designPanelSections" role="tabpanel">
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">섹션 이름 수정</p>
+                <div class="admin-design-section-row"><label for="designSection1Name">섹션1</label><input type="text" id="designSection1Name" value="BEST 상품" maxlength="30" /></div>
+                <div class="admin-design-section-row"><label for="designSection2Name">섹션2</label><input type="text" id="designSection2Name" value="전체 상품" maxlength="30" /></div>
+              </div>
+            </div>
+            <div class="admin-design-edit-panel" id="designPanelBanner" role="tabpanel">
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">이미지 변경</p>
+                <div class="admin-field">
+                  <label>레이아웃</label>
+                  <div class="admin-design-radio-group">
+                    <label class="admin-design-radio-label"><input type="radio" name="designSubBannerLayout" value="fill" /> 가득 채우기</label>
+                    <label class="admin-design-radio-label"><input type="radio" name="designSubBannerLayout" value="fixed" checked /> 고정 크기</label>
+                  </div>
+                  <p class="admin-design-radio-hint">업로드한 이미지 기준으로 고정되어 노출됩니다.</p>
+                </div>
+                <div class="admin-field">
+                  <label>이미지 선택</label>
+                  <div class="admin-design-upload-zone" id="designSubBannerUpload" data-target="sub">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <span class="admin-design-upload-zone__label">서브 배너</span>
+                    <span class="admin-design-upload-zone__sub">JPG/PNG 클릭하거나 파일을 여기에 끌어다 놓으세요</span>
+                    <button type="button" class="admin-design-upload-zone__remove" aria-label="이미지 제거">×</button>
+                    <img class="admin-design-upload-zone__preview" alt="서브배너 미리보기" />
+                    <input type="file" accept="image/*" class="admin-design-upload-input" />
+                  </div>
+                  <p class="admin-design-upload-hint">서브 배너 권장 사이즈는 780 x 370 입니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="admin-design-edit-panel" id="designPanelFooter" role="tabpanel">
+              <div class="admin-design-sub-section">
+                <p class="admin-design-sub-section-title">푸터 정보 설정</p>
+                <div class="admin-field"><label for="designFooterPhone">고객센터 전화번호</label><input type="text" id="designFooterPhone" value="02-1234-1234" /></div>
+                <div class="admin-field"><label for="designFooterHours">영업시간</label><input type="text" id="designFooterHours" value="평일 10:00 - 18:00 (주말/공휴일 제외)" /></div>
+                <div class="admin-field"><label for="designFooterEmail">이메일</label><input type="text" id="designFooterEmail" value="help@linkit.com" /></div>
+                <div class="admin-field"><label for="designFooterCompany">상호명</label><input type="text" id="designFooterCompany" value="(주)링크잇" /></div>
+                <div class="admin-field"><label for="designFooterCeo">대표이사</label><input type="text" id="designFooterCeo" value="000" /></div>
+                <div class="admin-field"><label for="designFooterBizNum">사업자 등록번호</label><input type="text" id="designFooterBizNum" value="123-45-67890" /></div>
+                <div class="admin-field"><label for="designFooterCommerceNum">통신판매업신고번호</label><input type="text" id="designFooterCommerceNum" value="2024-서울강남-0000" /></div>
+                <div class="admin-field"><label for="designFooterAddr">주소</label><input type="text" id="designFooterAddr" value="본사 서울특별시 강남구 테헤란로 123" /></div>
+                <div class="admin-field"><label for="designFooterTermsUrl">이용약관 링크</label><input type="text" id="designFooterTermsUrl" value="termsandcondition.html" /></div>
+                <div class="admin-field"><label for="designFooterPrivacyUrl">개인정보 처리방침 링크</label><input type="text" id="designFooterPrivacyUrl" value="privacy.html" /></div>
+                <div class="admin-field"><label for="designFooterCopy">저작권</label><input type="text" id="designFooterCopy" value="© 2026 LINKIT Inc. All rights reserved." /></div>
+              </div>
+            </div>
+          </div>
+          <div class="admin-design-panel-save-bar">
+            <button type="button" class="admin-btn admin-btn--primary" id="designSaveBtn" disabled>저장</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

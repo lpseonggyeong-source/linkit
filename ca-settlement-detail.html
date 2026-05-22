@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CA 정산 상세 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    .pg-tabs { display:flex; border-bottom:2px solid var(--admin-stroke); margin-bottom:0; overflow-x:auto; }
+    .pg-tab { padding:10px 16px; font-size:13px; font-weight:500; color:var(--admin-muted); cursor:pointer; border:none; border-bottom:2px solid transparent; margin-bottom:-2px; background:none; font-family:inherit; transition:color .15s,border-color .15s; white-space:nowrap; flex-shrink:0; }
+    .pg-tab.is-active { color:var(--admin-heading); border-bottom-color:var(--admin-heading); font-weight:600; }
+    .pg-tab:hover:not(.is-active) { color:var(--admin-heading); }
+    /* 정산기본정보 */
+    .si-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 32px; }
+    @media(max-width:700px){ .si-grid { grid-template-columns:1fr; } }
+    .si-row { display:flex; align-items:center; padding:8px 0; border-bottom:1px solid var(--admin-stroke); gap:16px; }
+    .si-row:last-child { border-bottom:none; }
+    .si-lbl { font-size:12px; color:var(--admin-muted); width:90px; flex-shrink:0; }
+    .si-val { font-size:14px; font-weight:500; color:var(--admin-heading); }
+    /* 금액 카드 */
+    .sn-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+    @media(max-width:900px){ .sn-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:480px){ .sn-grid { grid-template-columns:1fr; } }
+    .sn-card { background:var(--admin-white); border:1px solid var(--admin-stroke); border-radius:8px; padding:16px; }
+    .sn-card__label { font-size:12px; color:var(--admin-muted); margin-bottom:6px; }
+    .sn-card__value { font-size:20px; font-weight:700; color:var(--admin-heading); }
+    .sn-card__value--red   { color:#e83828; }
+    .sn-card__value--green { color:#2e7d32; }
+    /* 행 선택 */
+    .sett-list-row { cursor:pointer; }
+    .sett-list-row:hover td { background:#f8f9fa !important; }
+    .sett-list-row.is-selected td { background:#fef3f2 !important; }
+    /* 상태 변경 모달 */
+    .status-option { display:flex; align-items:center; gap:8px; padding:12px 20px; border:2px solid var(--admin-stroke); border-radius:8px; cursor:pointer; font-size:14px; font-weight:500; transition:border-color .15s; }
+    .status-option:has(input:checked) { border-color:#e83828; background:#fff5f5; }
+    .sm-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:200; align-items:center; justify-content:center; }
+    .sm-overlay.is-open { display:flex; }
+    .sm-modal { background:var(--admin-white); border-radius:10px; width:480px; max-width:calc(100vw - 32px); max-height:calc(100vh - 64px); overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,.18); }
+    .sm-head { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--admin-stroke); }
+    .sm-head h3 { font-size:15px; font-weight:700; color:var(--admin-heading); margin:0; }
+    .sm-close { background:none; border:none; font-size:22px; color:var(--admin-muted); cursor:pointer; line-height:1; padding:0; }
+    .sm-body { padding:20px; }
+    .sm-foot { display:flex; justify-content:flex-end; gap:8px; padding:14px 20px; border-top:1px solid var(--admin-stroke); }
+    .tr { text-align:right; }
+    .tc { text-align:center; }
+  </style>
+</head>
+<body>
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px; flex-wrap:wrap;">
+      <a href="ca-settlement.html" class="admin-btn admin-btn--outline admin-btn--sm">← CA 정산 관리</a>
+      <h1 class="admin-page-title t-title-1-md" style="margin-bottom:0;">CA 정산 상세</h1>
+    </div>
+
+    <!-- 정산 기본 정보 -->
+    <div class="admin-card" style="margin-bottom:16px;" id="settInfoCard">
+      <div class="admin-card__header" style="flex-wrap:wrap; gap:8px;">
+        <h2 class="admin-card__title t-title-2-sb">정산 기본 정보</h2>
+        <span id="settInfoBadge"></span>
+        <button class="admin-btn admin-btn--outline admin-btn--sm" id="statusEditBtn" style="display:none;">상태 수정</button>
+        <span style="font-size:12px; color:var(--admin-muted); margin-left:auto;" id="settInfoHint">목록에서 행을 클릭하면 정보가 표시됩니다</span>
+      </div>
+      <div class="admin-card__body" id="settInfoBody">
+        <p style="text-align:center; color:var(--admin-muted); padding:20px 0; font-size:14px;">정산 내역 목록에서 항목을 선택하세요</p>
+      </div>
+    </div>
+
+    <!-- 금액 카드 -->
+    <div class="sn-grid" id="settAmtGrid">
+      <div class="sn-card"><div class="sn-card__label">총 주문금액</div><div class="sn-card__value" id="snTotal">—</div></div>
+      <div class="sn-card"><div class="sn-card__label">취소/반품 차감</div><div class="sn-card__value sn-card__value--red" id="snDeduct">—</div></div>
+      <div class="sn-card"><div class="sn-card__label">수수료</div><div class="sn-card__value sn-card__value--red" id="snFee">—</div></div>
+      <div class="sn-card"><div class="sn-card__label">최종 정산액</div><div class="sn-card__value sn-card__value--green" id="snFinal">—</div></div>
+    </div>
+
+    <!-- 탭 -->
+    <div class="admin-card">
+      <div style="padding:0 20px;">
+        <div class="pg-tabs" id="detailTabs">
+          <button class="pg-tab is-active" data-tab="list">정산내역 목록</button>
+          <button class="pg-tab" data-tab="brand">브랜드 정산 내역</button>
+          <button class="pg-tab" data-tab="seller">셀러 정산 내역</button>
+        </div>
+      </div>
+
+      <div id="tab-list" class="admin-card__body--flush">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr>
+              <th>정산번호</th><th>정산기간</th><th>브랜드</th><th>셀러</th>
+              <th>결제코드</th><th class="tr">총주문금액</th><th class="tr">반품 차감</th>
+              <th class="tr">PG수수료</th><th class="tr">최종정산액</th><th>정산상태</th>
+            </tr></thead>
+            <tbody id="settlementListBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-brand" class="admin-card__body--flush" style="display:none;">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr>
+              <th>정산번호</th><th>정산기간</th><th>브랜드명</th>
+              <th class="tc">주문수</th><th class="tr">총매출</th><th class="tr">취소차감</th>
+              <th class="tr">수수료</th><th class="tr">정산금액</th><th>정산상태</th>
+            </tr></thead>
+            <tbody id="brandDetailBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="tab-seller" class="admin-card__body--flush" style="display:none;">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr>
+              <th>정산번호</th><th>정산기간</th><th>셀러명</th><th>소속유형</th>
+              <th class="tc">주문수</th><th class="tr">총매출</th><th class="tr">취소차감</th>
+              <th class="tr">수수료</th><th class="tr">정산금액</th><th>정산상태</th>
+            </tr></thead>
+            <tbody id="sellerDetailBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- 상태 변경 모달 -->
+<div class="sm-overlay" id="statusModal">
+  <div class="sm-modal">
+    <div class="sm-head"><h3>정산 상태 변경</h3><button class="sm-close" id="statusModalClose">×</button></div>
+    <div class="sm-body">
+      <p style="font-size:13px; color:var(--admin-muted); margin-bottom:20px;" id="modalCurStatus"></p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px;">
+        <label class="status-option">
+          <input type="radio" name="newStatus" value="미정산" style="accent-color:#e83828;" />
+          <span>미정산</span><span style="font-size:11px;color:var(--admin-muted);margin-left:4px;">(정산 신청 전)</span>
+        </label>
+        <label class="status-option">
+          <input type="radio" name="newStatus" value="정산중" style="accent-color:#e83828;" />
+          <span>정산중</span><span style="font-size:11px;color:var(--admin-muted);margin-left:4px;">(신청완료/입금 전)</span>
+        </label>
+        <label class="status-option">
+          <input type="radio" name="newStatus" value="정산완료" style="accent-color:#e83828;" />
+          <span>정산완료</span><span style="font-size:11px;color:var(--admin-muted);margin-left:4px;">(입금 완료)</span>
+        </label>
+      </div>
+      <div>
+        <label style="font-size:13px;color:var(--admin-muted);display:block;margin-bottom:6px;">메모 (선택)</label>
+        <textarea id="statusMemo" style="width:100%;padding:10px 12px;border:1px solid var(--admin-stroke);border-radius:6px;font-size:14px;font-family:inherit;resize:vertical;min-height:80px;box-sizing:border-box;" placeholder="상태 변경 사유"></textarea>
+      </div>
+    </div>
+    <div class="sm-foot">
+      <button class="admin-btn admin-btn--outline" id="statusModalCancel">취소</button>
+      <button class="admin-btn admin-btn--primary" id="statusModalSave">저장</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function fc(n) { return (n < 0 ? "-" : "") + Math.abs(n).toLocaleString() + "원"; }
+
+  function typeBadge(type) {
+    return type === "업체 소속"
+      ? '<span style="display:inline-flex;padding:2px 8px;background:rgba(40,49,80,.08);border:1px solid rgba(40,49,80,.22);border-radius:4px;font-size:11px;font-weight:600;color:#283150;">' + type + '</span>'
+      : '<span style="display:inline-flex;padding:2px 8px;background:rgba(237,55,15,.08);border:1px solid #f5a090;border-radius:4px;font-size:11px;font-weight:600;color:#c8300c;">' + type + '</span>';
+  }
+
+  function settBadge(status) {
+    var cfg = { "미정산":{ bg:"#fff0ee",color:"#e83828" }, "정산중":{ bg:"#fff8f0",color:"#e67e22" }, "정산완료":{ bg:"#f0fdf4",color:"#2e7d32" } };
+    var c = cfg[status] || { bg:"#f9fafb",color:"#6b7280" };
+    return '<span style="display:inline-flex;padding:2px 10px;background:' + c.bg + ';color:' + c.color + ';border:1px solid ' + c.color + ';border-radius:12px;font-size:11px;font-weight:600;">' + status + '</span>';
+  }
+
+  var SETTLEMENTS = [
+    { no:"SETT-2026-001", period:"2026.04.01~04.30", brand:"어반무드",  code:"PAY-AURORA-001", total:12500000, deduct:-500000, fee:-600000,  final:11400000, status:"정산완료", date:"2026.05.15", bank:"국민은행 123-456-789012", holder:"㈜오로라" },
+    { no:"SETT-2026-002", period:"2026.04.01~04.30", brand:"루미데이",  code:"PAY-AURORA-002", total:7200000,  deduct:-180000, fee:-351000,  final:6669000,  status:"정산중",   date:"—",          bank:"국민은행 123-456-789012", holder:"㈜오로라" },
+    { no:"SETT-2026-003", period:"2026.03.01~03.31", brand:"어반무드",  code:"PAY-AURORA-001", total:11200000, deduct:-380000, fee:-541000,  final:10279000, status:"정산완료", date:"2026.04.15", bank:"국민은행 123-456-789012", holder:"㈜오로라" },
+    { no:"SETT-2026-004", period:"2026.03.01~03.31", brand:"루미데이",  code:"PAY-AURORA-002", total:6500000,  deduct:-160000, fee:-317000,  final:6023000,  status:"정산완료", date:"2026.04.18", bank:"국민은행 123-456-789012", holder:"㈜오로라" },
+    { no:"SETT-2026-005", period:"2026.02.01~02.28", brand:"바이엘르", code:"PAY-TEU-001",    total:9800000,  deduct:-300000, fee:-475000,  final:9025000,  status:"미정산",   date:"—",          bank:"신한은행 456-789-012345", holder:"㈜테우" },
+    { no:"SETT-2026-006", period:"2026.02.01~02.28", brand:"소프트블랭크",code:"PAY-TEU-002",   total:2600000,  deduct:-70000,  fee:-126500,  final:2403500,  status:"미정산",   date:"—",          bank:"신한은행 456-789-012345", holder:"㈜테우" },
+  ];
+
+  var BRAND_DETAIL = {
+    "SETT-2026-001": [{ name:"어반무드",    orders:312, sales:12500000, cancel:-500000, fee:-600000, final:11400000 }],
+    "SETT-2026-002": [{ name:"루미데이",    orders:198, sales:7200000,  cancel:-180000, fee:-351000, final:6669000  }],
+    "SETT-2026-003": [{ name:"어반무드",    orders:298, sales:11200000, cancel:-380000, fee:-541000, final:10279000 }],
+    "SETT-2026-004": [{ name:"루미데이",    orders:175, sales:6500000,  cancel:-160000, fee:-317000, final:6023000  }],
+    "SETT-2026-005": [{ name:"바이엘르",   orders:245, sales:9800000,  cancel:-300000, fee:-475000, final:9025000  }],
+    "SETT-2026-006": [{ name:"소프트블랭크",orders:142, sales:2600000,  cancel:-70000,  fee:-126500, final:2403500  }],
+  };
+
+  var SELLER_DETAIL = {
+    "SETT-2026-001": [
+      { name:"셀러A", type:"업체 소속",   orders:180, sales:7500000,  fee:-361000, final:6639000 },
+      { name:"셀러C", type:"브랜드 직접", orders:132, sales:5000000,  fee:-239000, final:4761000 },
+    ],
+    "SETT-2026-002": [
+      { name:"셀러A", type:"업체 소속",   orders:110, sales:4200000,  fee:-203000, final:3997000 },
+      { name:"셀러C", type:"브랜드 직접", orders:88,  sales:3000000,  fee:-148000, final:2852000 },
+    ],
+    "SETT-2026-003": [
+      { name:"셀러A", type:"업체 소속",   orders:165, sales:6700000,  fee:-324000, final:5955000 },
+      { name:"셀러C", type:"브랜드 직접", orders:133, sales:4500000,  fee:-217000, final:4324000 },
+    ],
+    "SETT-2026-004": [
+      { name:"셀러A", type:"업체 소속",   orders:95,  sales:3800000,  fee:-184000, final:3616000 },
+      { name:"셀러C", type:"브랜드 직접", orders:80,  sales:2700000,  fee:-133000, final:2407000 },
+    ],
+    "SETT-2026-005": [
+      { name:"셀러B", type:"업체 소속",   orders:145, sales:6000000,  fee:-291000, final:5709000 },
+      { name:"셀러D", type:"브랜드 직접", orders:100, sales:3800000,  fee:-184000, final:3316000 },
+    ],
+    "SETT-2026-006": [
+      { name:"셀러B", type:"업체 소속",   orders:85,  sales:1600000,  fee:-78000,  final:1522000 },
+      { name:"셀러E", type:"브랜드 직접", orders:57,  sales:1000000,  fee:-48500,  final:881500  },
+    ],
+  };
+
+  var CA_TYPES = ["업체 소속"];
+  var selectedIdx = -1;
+
+  function getCASellerNames(settNo) {
+    return (SELLER_DETAIL[settNo] || [])
+      .filter(function(r){ return CA_TYPES.indexOf(r.type) >= 0; })
+      .map(function(r){ return r.name; }).join(" · ") || "—";
+  }
+
+  var BRAND_LIST = [], SELLER_LIST = [];
+  SETTLEMENTS.forEach(function(s, si) {
+    (BRAND_DETAIL[s.no]  || []).forEach(function(r){ BRAND_LIST.push({ no:s.no, period:s.period, settIdx:si, name:r.name, orders:r.orders, sales:r.sales, cancel:r.cancel, fee:r.fee, final:r.final }); });
+    (SELLER_DETAIL[s.no] || []).forEach(function(r){ SELLER_LIST.push({ no:s.no, period:s.period, settIdx:si, name:r.name, type:r.type, orders:r.orders, sales:r.sales, cancel:r.final - r.sales - r.fee, fee:r.fee, final:r.final }); });
+  });
+
+  function renderList() {
+    document.getElementById("settlementListBody").innerHTML = SETTLEMENTS.map(function(d, i){
+      return '<tr class="sett-list-row' + (i === selectedIdx ? " is-selected" : "") + '" data-idx="' + i + '">' +
+        '<td style="font-size:12px;">' + d.no + '</td>' +
+        '<td style="font-size:12px;">' + d.period + '</td>' +
+        '<td style="font-weight:600;">' + d.brand + '</td>' +
+        '<td style="font-size:12px;color:var(--admin-muted);">' + getCASellerNames(d.no) + '</td>' +
+        '<td style="font-size:12px;color:var(--admin-muted);">' + d.code + '</td>' +
+        '<td class="tr">' + fc(d.total) + '</td>' +
+        '<td class="tr" style="color:#e83828;">' + fc(d.deduct) + '</td>' +
+        '<td class="tr" style="color:var(--admin-muted);">' + fc(d.fee) + '</td>' +
+        '<td class="tr" style="font-weight:600;">' + fc(d.final) + '</td>' +
+        '<td class="tc">' + settBadge(d.status) + '</td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  function renderBrandList() {
+    document.getElementById("brandDetailBody").innerHTML = BRAND_LIST.map(function(r, i){
+      return '<tr class="sett-list-row" data-listidx="' + i + '">' +
+        '<td style="font-size:12px;color:var(--admin-muted);">' + r.no + '</td>' +
+        '<td style="font-size:12px;">' + r.period + '</td>' +
+        '<td style="font-weight:600;">' + r.name + '</td>' +
+        '<td class="tc">' + r.orders.toLocaleString() + '건</td>' +
+        '<td class="tr">' + fc(r.sales) + '</td>' +
+        '<td class="tr" style="color:#e83828;">' + fc(r.cancel) + '</td>' +
+        '<td class="tr" style="color:var(--admin-muted);">' + fc(r.fee) + '</td>' +
+        '<td class="tr" style="font-weight:600;">' + fc(r.final) + '</td>' +
+        '<td class="tc">' + settBadge(SETTLEMENTS[r.settIdx].status) + '</td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  function renderSellerList() {
+    document.getElementById("sellerDetailBody").innerHTML = SELLER_LIST.map(function(r, i){
+      return '<tr class="sett-list-row" data-listidx="' + i + '">' +
+        '<td style="font-size:12px;color:var(--admin-muted);">' + r.no + '</td>' +
+        '<td style="font-size:12px;">' + r.period + '</td>' +
+        '<td style="font-weight:600;">' + r.name + '</td>' +
+        '<td class="tc">' + typeBadge(r.type) + '</td>' +
+        '<td class="tc">' + r.orders.toLocaleString() + '건</td>' +
+        '<td class="tr">' + fc(r.sales) + '</td>' +
+        '<td class="tr" style="color:#e83828;">' + fc(r.cancel) + '</td>' +
+        '<td class="tr" style="color:var(--admin-muted);">' + fc(r.fee) + '</td>' +
+        '<td class="tr" style="font-weight:600;">' + fc(r.final) + '</td>' +
+        '<td class="tc">' + settBadge(SETTLEMENTS[r.settIdx].status) + '</td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  function updateInfoPanel(d) {
+    document.getElementById("settInfoBadge").innerHTML = settBadge(d.status);
+    document.getElementById("statusEditBtn").style.display = "";
+    document.getElementById("settInfoHint").style.display = "none";
+    document.getElementById("settInfoBody").innerHTML =
+      '<div class="si-grid">' +
+        '<div>' +
+          '<div class="si-row"><span class="si-lbl">정산번호</span><span class="si-val" style="font-family:monospace;font-size:13px;">' + d.no + '</span></div>' +
+          '<div class="si-row"><span class="si-lbl">정산기간</span><span class="si-val">' + d.period.replace("~"," ~ ") + '</span></div>' +
+          '<div class="si-row"><span class="si-lbl">브랜드</span><span class="si-val">' + d.brand + '</span></div>' +
+          '<div class="si-row"><span class="si-lbl">결제코드</span><span class="si-val" style="font-family:monospace;font-size:13px;">' + d.code + '</span></div>' +
+        '</div>' +
+        '<div>' +
+          '<div class="si-row"><span class="si-lbl">정산일</span><span class="si-val">' + d.date + '</span></div>' +
+          '<div class="si-row"><span class="si-lbl">지급계좌</span><span class="si-val">' + d.bank + '</span></div>' +
+          '<div class="si-row"><span class="si-lbl">예금주</span><span class="si-val">' + d.holder + '</span></div>' +
+        '</div>' +
+      '</div>';
+    document.getElementById("snTotal").textContent  = fc(d.total);
+    document.getElementById("snDeduct").textContent = fc(d.deduct);
+    document.getElementById("snFee").textContent    = fc(d.fee);
+    document.getElementById("snFinal").textContent  = fc(d.final);
+  }
+
+  function openStatusModal() {
+    var d = SETTLEMENTS[selectedIdx];
+    document.getElementById("modalCurStatus").textContent = "현재 상태: " + d.status;
+    document.querySelectorAll("input[name=newStatus]").forEach(function(r){ r.checked = r.value === d.status; });
+    document.getElementById("statusMemo").value = "";
+    document.getElementById("statusModal").classList.add("is-open");
+  }
+  function closeStatusModal() { document.getElementById("statusModal").classList.remove("is-open"); }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    renderList(); renderBrandList(); renderSellerList();
+
+    document.getElementById("detailTabs").addEventListener("click", function(e){
+      var btn = e.target.closest(".pg-tab");
+      if (!btn) return;
+      document.querySelectorAll(".pg-tab").forEach(function(t){ t.classList.remove("is-active"); });
+      btn.classList.add("is-active");
+      ["list","brand","seller"].forEach(function(id){
+        document.getElementById("tab-" + id).style.display = btn.dataset.tab === id ? "" : "none";
+      });
+    });
+
+    document.getElementById("settlementListBody").addEventListener("click", function(e){
+      var row = e.target.closest(".sett-list-row"); if (!row) return;
+      selectedIdx = +row.dataset.idx;
+      renderList(); updateInfoPanel(SETTLEMENTS[selectedIdx]);
+    });
+
+    document.getElementById("brandDetailBody").addEventListener("click", function(e){
+      var row = e.target.closest(".sett-list-row"); if (!row) return;
+      var r = BRAND_LIST[+row.dataset.listidx]; if (!r) return;
+      selectedIdx = r.settIdx; updateInfoPanel(SETTLEMENTS[selectedIdx]);
+    });
+
+    document.getElementById("sellerDetailBody").addEventListener("click", function(e){
+      var row = e.target.closest(".sett-list-row"); if (!row) return;
+      var r = SELLER_LIST[+row.dataset.listidx]; if (!r) return;
+      selectedIdx = r.settIdx; updateInfoPanel(SETTLEMENTS[selectedIdx]);
+    });
+
+    document.getElementById("statusEditBtn").addEventListener("click", openStatusModal);
+    document.getElementById("statusModalClose").addEventListener("click", closeStatusModal);
+    document.getElementById("statusModalCancel").addEventListener("click", closeStatusModal);
+    document.getElementById("statusModal").addEventListener("click", function(e){ if (e.target===this) closeStatusModal(); });
+
+    document.getElementById("statusModalSave").addEventListener("click", function(){
+      var checked = document.querySelector("input[name=newStatus]:checked");
+      if (!checked) { alert("변경할 상태를 선택해주세요."); return; }
+      SETTLEMENTS[selectedIdx].status = checked.value;
+      renderList(); renderBrandList(); renderSellerList();
+      updateInfoPanel(SETTLEMENTS[selectedIdx]);
+      closeStatusModal();
+      alert("정산 상태가 [" + checked.value + "]로 변경되었습니다.");
+    });
+  });
+})();
+</script>
+</body>
+</html>

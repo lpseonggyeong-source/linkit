@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>매출 관리 — link it 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="admin.css" />
+<style>
+/* === 페이지 전용 스타일 === */
+.page-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+.page-header__title { font-size:20px; font-weight:500; color:var(--admin-heading); margin-bottom:6px; }
+.page-header__sub { font-size:14px; color:var(--admin-muted); }
+
+/* KPI 그리드 */
+.ba-kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+@media(max-width:900px) { .ba-kpi-grid { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:480px) { .ba-kpi-grid { grid-template-columns:1fr 1fr; } }
+.ba-kpi { background:var(--admin-white); border:1px solid var(--admin-stroke); border-radius:8px; padding:18px 16px; }
+.ba-kpi__label { font-size:12px; font-weight:600; color:var(--admin-muted); margin-bottom:8px; }
+.ba-kpi__value { font-size:19px; font-weight:700; color:var(--admin-heading); line-height:1.2; word-break:break-all; }
+.ba-kpi__value--red   { color:#e83828; }
+.ba-kpi__value--amber { color:#e67e22; }
+.ba-kpi__value--green { color:#2e7d32; }
+.ba-kpi__sub { font-size:12px; color:var(--admin-muted); margin-top:4px; }
+
+/* 기간 버튼 그룹 */
+.period-group { display:flex; border:1px solid var(--admin-border); border-radius:6px; overflow:hidden; }
+.period-btn { padding:6px 12px; font-size:13px; border:none; border-right:1px solid var(--admin-border); background:var(--admin-white); color:var(--admin-muted); cursor:pointer; font-family:inherit; white-space:nowrap; transition:background .15s,color .15s; }
+.period-btn:last-child { border-right:none; }
+.period-btn.is-active { background:var(--admin-heading); color:#fff; font-weight:600; }
+
+/* 단위 토글 */
+.unit-toggle { display:flex; border:1px solid var(--admin-border); border-radius:6px; overflow:hidden; }
+.unit-btn { padding:6px 16px; font-size:13px; border:none; border-right:1px solid var(--admin-border); background:var(--admin-white); color:var(--admin-muted); cursor:pointer; font-family:inherit; transition:background .15s,color .15s; }
+.unit-btn:last-child { border-right:none; }
+.unit-btn.is-active { background:var(--admin-heading); color:#fff; font-weight:600; }
+
+/* 차트 */
+.chart-wrap { padding:16px 20px 8px; }
+.chart-inner { display:flex; gap:8px; }
+.chart-y { display:flex; flex-direction:column-reverse; justify-content:space-between; height:168px; padding-bottom:28px; }
+.chart-y-label { font-size:10px; color:var(--admin-muted); text-align:right; white-space:nowrap; }
+.chart-plot { flex:1; min-width:0; }
+.chart-bars { display:flex; align-items:flex-end; height:140px; border-left:2px solid var(--admin-stroke); border-bottom:2px solid var(--admin-stroke); padding:0 6px; gap:4px; }
+.chart-col { flex:1; display:flex; flex-direction:column; align-items:center; }
+.chart-bar { width:65%; border-radius:3px 3px 0 0; background:#3a6ac8; cursor:pointer; min-height:3px; transition:opacity .15s; }
+.chart-bar:hover { opacity:.72; }
+.chart-x-labels { display:flex; padding:5px 6px 0; gap:4px; }
+.chart-x-label { flex:1; font-size:10px; color:var(--admin-muted); text-align:center; white-space:nowrap; overflow:hidden; }
+
+/* 정산 계산식 */
+.sett-formula { display:flex; align-items:stretch; border:1px solid var(--admin-stroke); border-radius:8px; overflow:hidden; margin-bottom:20px; }
+.sett-formula__item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:18px 8px; gap:5px; background:#f7f9fc; border-right:1px solid var(--admin-stroke); text-align:center; min-width:0; }
+.sett-formula__item--result { background:#eff6ff; border-right:none; }
+.sett-formula__label { font-size:11px; font-weight:600; color:var(--admin-muted); line-height:1.3; }
+.sett-formula__value { font-size:15px; font-weight:700; color:var(--admin-heading); line-height:1.2; word-break:break-all; }
+.sett-formula__value--red  { color:#e83828; }
+.sett-formula__value--blue { color:#3a6ac8; font-size:16px; }
+.sett-formula__op { display:flex; align-items:center; justify-content:center; padding:0 6px; font-size:18px; font-weight:300; color:var(--admin-muted); background:var(--admin-white); flex-shrink:0; min-width:28px; }
+@media(max-width:900px){
+  .sett-formula { flex-direction:column; }
+  .sett-formula__item { border-right:none; border-bottom:1px solid var(--admin-stroke); }
+  .sett-formula__item--result { border-bottom:none; border-top:2px solid #3a6ac8; }
+  .sett-formula__op { display:none; }
+}
+
+
+/* 판매 상태 배지 */
+.prod-sale   { display:inline-flex;align-items:center;padding:2px 8px;background:#e8f5e9;color:#2e7d32;border:1px solid #81c784;border-radius:4px;font-size:11px;font-weight:600; }
+.prod-soldout{ display:inline-flex;align-items:center;padding:2px 8px;background:#f3f3f3;color:var(--admin-muted);border:1px solid #e0e0e0;border-radius:4px;font-size:11px;font-weight:600; }
+.prod-closed { display:inline-flex;align-items:center;padding:2px 8px;background:#fff0ee;color:#e83828;border:1px solid #f5a090;border-radius:4px;font-size:11px;font-weight:600; }
+
+/* 모달 정보 그리드 */
+.modal-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 24px; margin-bottom:20px; }
+.modal-info-label { font-size:11px; font-weight:600; color:var(--admin-muted); margin-bottom:3px; }
+.modal-info-value { font-size:14px; font-weight:600; color:var(--admin-heading); }
+.modal-info-value--red   { color:#e83828; }
+.modal-info-value--blue  { color:#3a6ac8; }
+.modal-info-value--amber { color:#e67e22; }
+
+/* 정산 이력 */
+.sett-history { border:1px solid var(--admin-stroke); border-radius:6px; overflow:hidden; }
+.sett-history-row { display:flex; align-items:center; padding:9px 14px; gap:12px; border-bottom:1px solid var(--admin-stroke); font-size:13px; }
+.sett-history-row:last-child { border-bottom:none; }
+.sett-history-row:nth-child(even) { background:#fafbfd; }
+.sett-history__date { color:var(--admin-muted); font-size:12px; flex-shrink:0; white-space:nowrap; }
+
+/* 섹션 카드 헤더 */
+.section-hd { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--admin-stroke); gap:12px; flex-wrap:wrap; }
+.section-hd__left { display:flex; align-items:center; gap:14px; }
+.sec-tabs { display:flex; gap:0; border-bottom:none; }
+.sec-tab { padding:5px 14px; font-size:13px; font-weight:500; color:var(--admin-muted); border:none; background:none; cursor:pointer; font-family:inherit; border-bottom:2px solid transparent; transition:color .15s,border-color .15s; white-space:nowrap; }
+.sec-tab:hover { color:var(--admin-text); }
+.sec-tab.is-active { color:var(--admin-heading); border-bottom-color:var(--admin-heading); font-weight:600; }
+
+/* 토스트 */
+.ba-toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(10px); background:rgba(40,49,80,.92); color:#fff; padding:10px 22px; border-radius:6px; font-size:14px; z-index:9999; opacity:0; transition:opacity .25s,transform .25s; pointer-events:none; white-space:nowrap; }
+.ba-toast.is-visible { opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+
+    <!-- 페이지 헤더 -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-header__title">매출 관리</h1>
+        <p class="page-header__sub">브랜드 상품 매출 추이, 상품별 매출, PG 수수료를 확인합니다.</p>
+      </div>
+      <button class="admin-btn admin-btn--outline" id="excelDownloadBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        엑셀 다운로드
+      </button>
+    </div>
+
+    <!-- KPI 4개 -->
+    <div class="ba-kpi-grid">
+      <div class="ba-kpi">
+        <div class="ba-kpi__label">총 매출</div>
+        <div class="ba-kpi__value">18,420,000원</div>
+        <div class="ba-kpi__sub">전월 대비 +12.8%</div>
+      </div>
+      <div class="ba-kpi">
+        <div class="ba-kpi__label">주문수</div>
+        <div class="ba-kpi__value">286건</div>
+        <div class="ba-kpi__sub">전월 대비 +23건</div>
+      </div>
+      <div class="ba-kpi">
+        <div class="ba-kpi__label">취소 / 환불</div>
+        <div class="ba-kpi__value ba-kpi__value--red">320,000원</div>
+        <div class="ba-kpi__sub">이번달 누적</div>
+      </div>
+      <div class="ba-kpi">
+        <div class="ba-kpi__label">PG 수수료</div>
+        <div class="ba-kpi__value ba-kpi__value--red">552,600원</div>
+        <div class="ba-kpi__sub">총매출의 3%</div>
+      </div>
+    </div>
+
+    <!-- 필터 -->
+    <div class="admin-filter-card">
+      <div class="admin-filter-row" style="margin-bottom:10px;">
+        <span class="admin-filter-label">기간</span>
+        <div class="period-group">
+          <button class="period-btn" data-p="today">오늘</button>
+          <button class="period-btn" data-p="7d">7일</button>
+          <button class="period-btn is-active" data-p="month">이번 달</button>
+          <button class="period-btn" data-p="last">지난 달</button>
+          <button class="period-btn" data-p="custom">직접 선택</button>
+        </div>
+        <div class="admin-filter-date-range" id="customDateRange" style="display:none;">
+          <input type="date" class="admin-filter-input" id="fFrom" style="min-width:130px;" />
+          <span>~</span>
+          <input type="date" class="admin-filter-input" id="fTo" style="min-width:130px;" />
+        </div>
+      </div>
+      <div class="admin-filter-row">
+        <span class="admin-filter-label">셀러</span>
+        <select class="admin-filter-select" id="fSeller">
+          <option value="">전체 셀러</option>
+          <option>김민지</option><option>박서윤</option><option>오로라셀러01</option><option>테우셀러03</option>
+        </select>
+        <span class="admin-filter-label">상품</span>
+        <select class="admin-filter-select" id="fProduct">
+          <option value="">전체 상품</option>
+          <option>시그니처 백</option><option>립 틴트</option><option>여름 니트</option>
+        </select>
+        <button class="admin-btn admin-btn--primary" id="searchBtn">조회</button>
+        <button class="admin-btn admin-btn--outline" id="resetBtn">초기화</button>
+      </div>
+    </div>
+
+    <!-- 매출 관리 섹션 -->
+    <div class="admin-card" style="margin-bottom:20px;">
+      <div class="section-hd">
+        <div class="section-hd__left">
+          <div class="sec-tabs" id="salesTabs">
+            <button class="sec-tab is-active" data-stab="s-overview">종합 매출</button>
+            <button class="sec-tab" data-stab="s-product">상품별 매출</button>
+          </div>
+        </div>
+        <div class="unit-toggle">
+          <button class="unit-btn" data-unit="daily">일별</button>
+          <button class="unit-btn is-active" data-unit="monthly">월별</button>
+        </div>
+      </div>
+
+      <!-- 종합 매출 패널 -->
+      <div id="s-overview">
+        <div class="admin-card__body">
+          <div class="chart-inner">
+            <div class="chart-y" id="chartYAxis"></div>
+            <div class="chart-plot">
+              <div class="chart-bars" id="chartBars"></div>
+              <div class="chart-x-labels" id="chartXLabels"></div>
+            </div>
+          </div>
+        </div>
+        <div class="admin-table-wrap" style="border-top:1px solid var(--admin-stroke);">
+          <table class="admin-table">
+            <thead id="chartTableHead"></thead>
+            <tbody id="chartTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 상품별 매출 패널 -->
+      <div id="s-product" style="display:none;">
+        <div class="admin-card__body--flush">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr>
+                <th style="text-align:left; min-width:120px;">상품명</th>
+                <th style="text-align:center;">판매상태</th>
+                <th style="text-align:center;">주문수</th>
+                <th style="text-align:center;">판매수량</th>
+                <th class="text-right">총 매출</th>
+                <th class="text-right">취소 / 환불</th>
+                <th class="text-right">PG 수수료</th>
+                <th class="text-right">정산 예정액</th>
+                <th style="text-align:center;">상세</th>
+              </tr></thead>
+              <tbody id="productBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- 상품 상세 모달 -->
+<div class="admin-modal" id="productModal">
+  <div class="admin-modal__overlay" id="productModalOverlay"></div>
+  <div class="admin-modal__box admin-modal__box--lg" style="max-width:680px;">
+    <div class="admin-modal__header">
+      <span class="admin-modal__title" id="productModalTitle">상품 매출 상세</span>
+      <button class="admin-modal__close admin-btn admin-btn--icon" id="productModalClose">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-info-grid" id="productModalInfo"></div>
+    <div style="font-size:14px; font-weight:600; color:var(--admin-heading); margin-bottom:10px;">주문별 내역 (최근 5건)</div>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead><tr>
+          <th>주문번호</th><th>주문일</th><th>셀러</th>
+          <th class="text-right">결제금액</th>
+          <th class="text-right">PG 수수료</th>
+          <th class="text-right">정산 대상</th>
+        </tr></thead>
+        <tbody id="productModalOrders"></tbody>
+      </table>
+    </div>
+    <div class="admin-modal__footer">
+      <button class="admin-btn admin-btn--outline" id="productModalDownload">엑셀 다운로드</button>
+      <button class="admin-btn admin-btn--outline" id="productModalCloseBtn">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 토스트 -->
+<div class="ba-toast" id="baToast"></div>
+
+<script src="admin.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function fc(n) {
+    if (n == null || n === "") return "—";
+    return Number(n).toLocaleString("ko-KR") + "원";
+  }
+
+  /* ─── Mock Data ─── */
+  var MONTHLY = [
+    { label:"2025.12", orders:198, sales:8900000,  cancel:-156000  },
+    { label:"2026.01", orders:156, sales:6200000,  cancel:-124000  },
+    { label:"2026.02", orders:212, sales:9800000,  cancel:-196000  },
+    { label:"2026.03", orders:245, sales:12400000, cancel:-248000  },
+    { label:"2026.04", orders:231, sales:11200000, cancel:-224000  },
+    { label:"2026.05", orders:286, sales:18420000, cancel:-416000  },
+  ];
+
+  var DAILY = [
+    { label:"05.14", orders:35, sales:2100000, cancel:-60000 },
+    { label:"05.15", orders:28, sales:1680000, cancel:-48000 },
+    { label:"05.16", orders:42, sales:2520000, cancel:-72000 },
+    { label:"05.17", orders:55, sales:3300000, cancel:-96000 },
+    { label:"05.18", orders:38, sales:2280000, cancel:-60000 },
+    { label:"05.19", orders:61, sales:3660000, cancel:-80000 },
+    { label:"05.20", orders:27, sales:1620000, cancel:0      },
+  ];
+
+  var PRODUCTS_DATA = [
+    {
+      name:"시그니처 백", status:"판매중",
+      orders:84, qty:91, sales:7280000, cancel:-320000, pg:-218400, sett:6741600,
+      detail:[
+        { no:"ORD-0501-001", date:"2026.05.03", seller:"김민지",      amt:86800,  pg:-2604, sett:84196  },
+        { no:"ORD-0504-018", date:"2026.05.04", seller:"박서윤",      amt:86800,  pg:-2604, sett:84196  },
+        { no:"ORD-0509-031", date:"2026.05.09", seller:"오로라셀러01", amt:173600, pg:-5208, sett:168392 },
+        { no:"ORD-0512-044", date:"2026.05.12", seller:"김민지",      amt:86800,  pg:-2604, sett:84196  },
+        { no:"ORD-0516-057", date:"2026.05.16", seller:"박서윤",      amt:86800,  pg:-2604, sett:84196  },
+      ]
+    },
+    {
+      name:"립 틴트 세트", status:"판매중",
+      orders:126, qty:148, sales:4736000, cancel:-96000, pg:-142080, sett:4497920,
+      detail:[
+        { no:"ORD-0502-005", date:"2026.05.02", seller:"오로라셀러01", amt:37600, pg:-1128, sett:36472 },
+        { no:"ORD-0507-022", date:"2026.05.07", seller:"김민지",      amt:75200, pg:-2256, sett:72944 },
+        { no:"ORD-0511-039", date:"2026.05.11", seller:"오로라셀러01", amt:37600, pg:-1128, sett:36472 },
+        { no:"ORD-0515-053", date:"2026.05.15", seller:"박서윤",      amt:37600, pg:-1128, sett:36472 },
+        { no:"ORD-0519-068", date:"2026.05.19", seller:"오로라셀러01", amt:37600, pg:-1128, sett:36472 },
+      ]
+    },
+    {
+      name:"여름 니트", status:"품절",
+      orders:42, qty:45, sales:2520000, cancel:0, pg:-75600, sett:2444400,
+      detail:[
+        { no:"ORD-0501-003", date:"2026.05.01", seller:"테우셀러03", amt:60000, pg:-1800, sett:58200 },
+        { no:"ORD-0506-019", date:"2026.05.06", seller:"테우셀러03", amt:60000, pg:-1800, sett:58200 },
+        { no:"ORD-0510-036", date:"2026.05.10", seller:"김민지",     amt:60000, pg:-1800, sett:58200 },
+        { no:"ORD-0514-050", date:"2026.05.14", seller:"테우셀러03", amt:60000, pg:-1800, sett:58200 },
+        { no:"ORD-0518-063", date:"2026.05.18", seller:"테우셀러03", amt:60000, pg:-1800, sett:58200 },
+      ]
+    },
+  ];
+
+  /* ─── Toast ─── */
+  var _toastTimer = null;
+  function showToast(msg) {
+    var el = document.getElementById("baToast");
+    el.textContent = msg;
+    el.classList.add("is-visible");
+    if (_toastTimer) clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function () { el.classList.remove("is-visible"); }, 2600);
+  }
+
+  /* ─── Helpers ─── */
+  function prodBadge(s) {
+    if (s === "판매중") return '<span class="prod-sale">판매중</span>';
+    if (s === "품절")   return '<span class="prod-soldout">품절</span>';
+    return '<span class="prod-closed">' + s + '</span>';
+  }
+
+  function infoRow(label, value, color) {
+    var style = color ? ' style="color:' + color + ';"' : '';
+    return '<div><div class="modal-info-label">' + label + '</div>' +
+      '<div class="modal-info-value"' + style + '>' + value + '</div></div>';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove("is-open");
+  }
+
+  /* ─── Chart ─── */
+  var currentUnit = "monthly";
+
+  function renderChart(data) {
+    var max = Math.max.apply(null, data.map(function (d) { return d.sales; }));
+    var yEl = document.getElementById("chartYAxis");
+    var barsEl = document.getElementById("chartBars");
+    var xlabelsEl = document.getElementById("chartXLabels");
+
+    yEl.innerHTML = [0, Math.round(max * 0.5), max].map(function (v) {
+      return '<div class="chart-y-label">' + (v >= 1000000 ? (v / 10000) + "만" : v.toLocaleString()) + '</div>';
+    }).join("");
+
+    barsEl.innerHTML = data.map(function (d) {
+      var h = max > 0 ? Math.max(3, Math.round((d.sales / max) * 136)) : 3;
+      var tip = d.label + ": " + Math.round(d.sales / 10000) + "만원 (" + d.orders + "건)";
+      return '<div class="chart-col"><div class="chart-bar" style="height:' + h + 'px;" title="' + tip + '"></div></div>';
+    }).join("");
+
+    xlabelsEl.innerHTML = data.map(function (d) {
+      return '<div class="chart-x-label">' + d.label + '</div>';
+    }).join("");
+  }
+
+  function renderChartTable(data) {
+    var isMonthly = currentUnit === "monthly";
+    document.getElementById("chartTableHead").innerHTML =
+      '<tr><th>' + (isMonthly ? "월" : "날짜") + '</th>' +
+      '<th style="text-align:center;">주문수</th>' +
+      '<th class="text-right">총 매출</th>' +
+      '<th class="text-right">취소 / 환불</th>' +
+      '<th class="text-right">PG 수수료</th>' +
+      '<th class="text-right">정산 예정액</th></tr>';
+
+    document.getElementById("chartTableBody").innerHTML = data.map(function (d) {
+      var pg     = -Math.round(d.sales * 0.03);
+      var cancel = d.cancel || 0;
+      var sett   = d.sales + cancel + pg;
+      return '<tr>' +
+        '<td style="font-weight:600;">' + d.label + '</td>' +
+        '<td style="text-align:center;">' + d.orders + '건</td>' +
+        '<td class="text-right">' + fc(d.sales) + '</td>' +
+        '<td class="text-right" style="color:#e83828;">' + (cancel < 0 ? fc(cancel) : '—') + '</td>' +
+        '<td class="text-right" style="color:#e83828;">' + fc(pg) + '</td>' +
+        '<td class="text-right" style="font-weight:600;">' + fc(sett) + '</td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  function updateChart() {
+    var data = currentUnit === "monthly" ? MONTHLY : DAILY;
+    renderChart(data);
+    renderChartTable(data);
+  }
+
+  /* ─── Products ─── */
+  function renderProducts() {
+    document.getElementById("productBody").innerHTML = PRODUCTS_DATA.map(function (p, idx) {
+      return '<tr>' +
+        '<td style="font-weight:600;">' + p.name + '</td>' +
+        '<td style="text-align:center;">' + prodBadge(p.status) + '</td>' +
+        '<td style="text-align:center;">' + p.orders + '건</td>' +
+        '<td style="text-align:center;">' + p.qty + '개</td>' +
+        '<td class="text-right">' + fc(p.sales) + '</td>' +
+        '<td class="text-right" style="color:#e83828;">' + (p.cancel < 0 ? fc(p.cancel) : "—") + '</td>' +
+        '<td class="text-right" style="color:#e83828;">' + fc(p.pg) + '</td>' +
+        '<td class="text-right" style="font-weight:600;">' + fc(p.sett) + '</td>' +
+        '<td style="text-align:center;">' +
+          '<button class="admin-btn admin-btn--outline admin-btn--xs prod-detail-btn" data-idx="' + idx + '">상세</button>' +
+        '</td>' +
+      '</tr>';
+    }).join("");
+
+    document.querySelectorAll(".prod-detail-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () { openProductModal(parseInt(btn.dataset.idx)); });
+    });
+  }
+
+  /* ─── Modals ─── */
+  function openProductModal(idx) {
+    var p = PRODUCTS_DATA[idx];
+    document.getElementById("productModalTitle").textContent = p.name + " — 매출 상세";
+    document.getElementById("productModalInfo").innerHTML =
+      infoRow("상품명", p.name) +
+      infoRow("판매 상태", p.status) +
+      infoRow("주문수", p.orders + "건") +
+      infoRow("판매수량", p.qty + "개") +
+      infoRow("총 매출", fc(p.sales)) +
+      infoRow("취소 / 환불", p.cancel < 0 ? fc(p.cancel) : "—", p.cancel < 0 ? "#e83828" : null) +
+      infoRow("PG 수수료", fc(p.pg), "#e83828") +
+      infoRow("정산 예정액", fc(p.sett), "#3a6ac8");
+
+    document.getElementById("productModalOrders").innerHTML = p.detail.map(function (o) {
+      return '<tr>' +
+        '<td style="font-size:12px;">' + o.no + '</td>' +
+        '<td style="font-size:12px;">' + o.date + '</td>' +
+        '<td>' + o.seller + '</td>' +
+        '<td class="text-right">' + fc(o.amt) + '</td>' +
+        '<td class="text-right" style="color:#e83828;">' + fc(o.pg) + '</td>' +
+        '<td class="text-right" style="font-weight:600;">' + fc(o.sett) + '</td>' +
+      '</tr>';
+    }).join("");
+
+    document.getElementById("productModal").classList.add("is-open");
+  }
+
+  /* ─── Event Binding ─── */
+  document.addEventListener("DOMContentLoaded", function () {
+    updateChart();
+    renderProducts();
+
+    /* 매출 관리 탭 */
+    document.querySelectorAll("#salesTabs .sec-tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        document.querySelectorAll("#salesTabs .sec-tab").forEach(function (t) { t.classList.remove("is-active"); });
+        tab.classList.add("is-active");
+        ["s-overview", "s-product"].forEach(function (id) {
+          document.getElementById(id).style.display = "none";
+        });
+        document.getElementById(tab.dataset.stab).style.display = "";
+      });
+    });
+
+    /* Period buttons */
+    document.querySelectorAll(".period-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".period-btn").forEach(function (b) { b.classList.remove("is-active"); });
+        btn.classList.add("is-active");
+        document.getElementById("customDateRange").style.display = btn.dataset.p === "custom" ? "" : "none";
+      });
+    });
+
+    /* Unit toggle */
+    document.querySelectorAll(".unit-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".unit-btn").forEach(function (b) { b.classList.remove("is-active"); });
+        btn.classList.add("is-active");
+        currentUnit = btn.dataset.unit;
+        updateChart();
+      });
+    });
+
+    /* Search / Reset */
+    document.getElementById("searchBtn").addEventListener("click", function () {
+      showToast("조회 조건이 적용되었습니다.");
+    });
+    document.getElementById("resetBtn").addEventListener("click", function () {
+      document.querySelectorAll(".period-btn").forEach(function (b) { b.classList.remove("is-active"); });
+      document.querySelector(".period-btn[data-p='month']").classList.add("is-active");
+      document.getElementById("customDateRange").style.display = "none";
+      document.getElementById("fSeller").value = "";
+      document.getElementById("fProduct").value = "";
+      showToast("필터가 초기화되었습니다.");
+    });
+
+    /* Excel */
+    document.getElementById("excelDownloadBtn").addEventListener("click", function () {
+      showToast("다운로드 준비 중입니다.");
+    });
+
+    /* Product modal */
+    document.getElementById("productModalOverlay").addEventListener("click", function () { closeModal("productModal"); });
+    document.getElementById("productModalClose").addEventListener("click", function () { closeModal("productModal"); });
+    document.getElementById("productModalCloseBtn").addEventListener("click", function () { closeModal("productModal"); });
+    document.getElementById("productModalDownload").addEventListener("click", function () { showToast("다운로드 준비 중입니다."); });
+
+    /* ESC */
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { closeModal("productModal"); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

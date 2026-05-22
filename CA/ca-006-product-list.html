@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>상품 목록 — link it 어드민</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="admin.css" />
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>상품 목록 — link it CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
 </head>
 <body>
 
@@ -22,8 +21,8 @@
 
 <div class="admin-layout">
 
-  <!-- ── 사이드바 (admin.js 로 렌더링) ── -->
-  <aside class="admin-sidebar" id="adminSidebar"></aside>
+  <!-- ── 사이드바 (shared.js 로 렌더링) ── -->
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
 
   <!-- ── 메인 콘텐츠 ── -->
   <main class="admin-main">
@@ -52,6 +51,8 @@
               <option value="오로라">오로라</option>
               <option value="셀러A">셀러A</option>
               <option value="셀러B">셀러B</option>
+              <option value="루미">루미</option>
+              <option value="어반무드">어반무드</option>
             </select>
             <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </div>
@@ -91,8 +92,6 @@
 
     <!-- ── 상품 리스트 카드 ── -->
     <div class="admin-card">
-
-
       <div class="admin-card__body--flush">
         <div class="admin-table-wrap">
           <table class="admin-table" id="productTable">
@@ -113,7 +112,7 @@
               </tr>
             </thead>
             <tbody id="productTableBody">
-              <!-- JS(initProductListPage)로 렌더링 -->
+              <!-- JS로 렌더링 -->
             </tbody>
           </table>
         </div>
@@ -498,57 +497,321 @@
 </div>
 
 
+<script src="shared.js"></script>
 <script>
-window.MOCK_PRODUCT_LIST = {
-  imgs: [
-    "assets/긴팔.png","assets/긴팔-1.png","assets/sleeveless.png",
-    "assets/블라우스.png","assets/mug.png","assets/pants.png",
-    "assets/hood.png","assets/longsleeves.png","assets/minibag.png"
-  ],
-  channels: ["오로라","셀러A","셀러B","루미","어반무드"],
-  statuses: [
-    {key:"판매중",  cls:"admin-product-status-btn--active"},
-    {key:"판매마감",cls:"admin-product-status-btn--closed"},
-    {key:"품절",   cls:"admin-product-status-btn--soldout"}
-  ],
-  products: [
-    {id:1,  img:"assets/긴팔.png",     name:"(국내제작)(여리핏/데일리룩/쫀쫀신축성) 메이드 스퀘어넥 슬림 골지 긴팔 티셔츠", orig:"40,000원", sale:"35,000원", period:"2026-07-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:125, sold:88,  channel:"오로라", regDate:"2026-04-01"},
-    {id:2,  img:"assets/sleeveless.png",name:"ELLE PARIS PDRN 콜라겐 녹는실 탄력 앰플",                                      orig:"55,000원", sale:"49,000원", period:"2026-06-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:200, sold:156, channel:"오로라", regDate:"2026-04-05"},
-    {id:3,  img:"assets/블라우스.png",  name:"(단독진행)(봄신상/러블리무드/레이어드추천) 루에느 리본 퍼프 블라우스",          orig:"45,000원", sale:"38,000원", period:"2026-05-15", periodEnd:"10:00 까지 판매", statusIdx:1, stock:0,   sold:210, channel:"셀러A", regDate:"2026-03-20"},
-    {id:4,  img:"assets/mug.png",      name:"(1+1구성) 모던 세라믹 머그컵 세트",                                             orig:"28,000원", sale:"22,000원", period:"2026-08-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:80,  sold:45,  channel:"셀러B", regDate:"2026-04-10"},
-    {id:5,  img:"assets/pants.png",    name:"(기획특가) 와이드 핀턱 밴딩 슬랙스",                                            orig:"58,000원", sale:"52,000원", period:"2026-06-01", periodEnd:"18:00 까지 판매", statusIdx:2, stock:0,   sold:320, channel:"오로라", regDate:"2026-03-15"},
-    {id:6,  img:"assets/longsleeves.png",name:"[써머세일] 오가닉 코튼 스트라이프 오버핏 셔츠",                               orig:"39,000원", sale:"32,000원", period:"2026-09-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:150, sold:72,  channel:"셀러A", regDate:"2026-04-15"},
-    {id:7,  img:"assets/minibag.png",  name:"[기획] 프리미엄 레더 미니 크로스백",                                            orig:"120,000원",sale:"99,000원", period:"2026-12-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:30,  sold:15,  channel:"오로라", regDate:"2026-04-20"},
-    {id:8,  img:"assets/긴팔-1.png",   name:"청량한 여름 린넨 블렌드 와이드 팬츠",                                           orig:"62,000원", sale:"55,000원", period:"2026-07-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:95,  sold:63,  channel:"셀러B", regDate:"2026-04-25"},
-    {id:9,  img:"assets/hood.png",     name:"내추럴 우드 스탠딩 데스크 라이트",                                              orig:"89,000원", sale:"75,000원", period:"2026-05-31", periodEnd:"23:59 까지 판매", statusIdx:1, stock:10,  sold:28,  channel:"셀러A", regDate:"2026-04-02"},
-    {id:10, img:"assets/블라우스.png",  name:"비건 시카 진정 수분 크림 50ml",                                                orig:"35,000원", sale:"29,000원", period:"2026-10-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:180, sold:94,  channel:"오로라", regDate:"2026-05-01"},
-    {id:11, img:"assets/긴팔.png",     name:"캐시미어 블렌드 터틀넥 니트 풀오버",                                            orig:"89,000원", sale:"72,000원", period:"2026-11-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:60,  sold:41,  channel:"루미",  regDate:"2026-04-08"},
-    {id:12, img:"assets/sleeveless.png",name:"[리뉴얼] 비타민C 브라이트닝 세럼 30ml",                                       orig:"42,000원", sale:"36,000원", period:"2026-08-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:300, sold:187, channel:"셀러B", regDate:"2026-03-25"},
-    {id:13, img:"assets/pants.png",    name:"(데일리룩) 스트레치 조거 팬츠 / 베이지",                                        orig:"32,000원", sale:"27,000원", period:"2026-07-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:110, sold:98,  channel:"오로라", regDate:"2026-04-12"},
-    {id:14, img:"assets/hood.png",     name:"[봄기획] 오버핏 루즈핏 후드 집업",                                              orig:"55,000원", sale:"45,000원", period:"2026-06-15", periodEnd:"23:59 까지 판매", statusIdx:2, stock:0,   sold:253, channel:"셀러A", regDate:"2026-03-10"},
-    {id:15, img:"assets/mug.png",      name:"핸드메이드 도자기 머그컵 / 민트",                                               orig:"22,000원", sale:"18,500원", period:"2026-09-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:45,  sold:32,  channel:"루미",  regDate:"2026-04-18"},
-    {id:16, img:"assets/minibag.png",  name:"[단독] 리얼 스웨이드 버킷백 / 카멜",                                            orig:"98,000원", sale:"82,000원", period:"2026-12-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:20,  sold:11,  channel:"어반무드",regDate:"2026-04-22"},
-    {id:17, img:"assets/긴팔-1.png",   name:"(국내제작) 실크 터치 플리츠 스커트 / 아이보리",                                  orig:"48,000원", sale:"41,000원", period:"2026-08-20", periodEnd:"23:59 까지 판매", statusIdx:0, stock:75,  sold:54,  channel:"셀러B", regDate:"2026-04-03"},
-    {id:18, img:"assets/블라우스.png",  name:"[기획전] 리넨 나시 블라우스 3color",                                            orig:"29,000원", sale:"24,000원", period:"2026-06-30", periodEnd:"23:59 까지 판매", statusIdx:1, stock:0,   sold:178, channel:"오로라", regDate:"2026-03-05"},
-    {id:19, img:"assets/longsleeves.png",name:"프리미엄 메리노울 롱슬리브 티셔츠",                                           orig:"65,000원", sale:"55,000원", period:"2026-11-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:88,  sold:67,  channel:"루미",  regDate:"2026-04-28"},
-    {id:20, img:"assets/sleeveless.png",name:"히알루론산 콜라겐 스킨 에센스 50ml",                                           orig:"38,000원", sale:"32,000원", period:"2026-09-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:220, sold:143, channel:"셀러A", regDate:"2026-05-02"},
-    {id:21, img:"assets/pants.png",    name:"[써머] 린넨 와이드 팬츠 2color",                                                orig:"45,000원", sale:"38,000원", period:"2026-07-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:135, sold:112, channel:"어반무드",regDate:"2026-04-14"},
-    {id:22, img:"assets/긴팔.png",     name:"(기획특가) 쿨링 기능성 스포츠 레깅스",                                          orig:"35,000원", sale:"29,000원", period:"2026-08-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:160, sold:128, channel:"셀러B", regDate:"2026-04-07"},
-    {id:23, img:"assets/hood.png",     name:"[단독진행] 클래식 체크 울 머플러",                                              orig:"52,000원", sale:"44,000원", period:"2026-12-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:40,  sold:22,  channel:"루미",  regDate:"2026-04-16"},
-    {id:24, img:"assets/mug.png",      name:"오가닉 핸드크림 3종 선물세트",                                                  orig:"28,000원", sale:"23,000원", period:"2026-10-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:85,  sold:61,  channel:"오로라", regDate:"2026-04-19"},
-    {id:25, img:"assets/minibag.png",  name:"[봄신상] 미니멀 캔버스 에코백",                                                 orig:"18,000원", sale:"15,000원", period:"2026-09-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:250, sold:198, channel:"셀러A", regDate:"2026-04-24"},
-    {id:26, img:"assets/긴팔-1.png",   name:"자수 포인트 셔링 원피스 / 플라워",                                              orig:"58,000원", sale:"49,000원", period:"2026-07-20", periodEnd:"23:59 까지 판매", statusIdx:0, stock:55,  sold:43,  channel:"어반무드",regDate:"2026-04-26"},
-    {id:27, img:"assets/블라우스.png",  name:"[기획] 싱글 버튼 트위드 자켓",                                                  orig:"115,000원",sale:"95,000원", period:"2026-11-01", periodEnd:"23:59 까지 판매", statusIdx:2, stock:0,   sold:87,  channel:"루미",  regDate:"2026-03-18"},
-    {id:28, img:"assets/sleeveless.png",name:"바이오 셀룰로오스 마스크팩 10매",                                              orig:"32,000원", sale:"26,000원", period:"2026-08-10", periodEnd:"23:59 까지 판매", statusIdx:0, stock:500, sold:312, channel:"셀러B", regDate:"2026-03-28"},
-    {id:29, img:"assets/longsleeves.png",name:"(국내제작) 레이어드 티셔츠 세트",                                             orig:"42,000원", sale:"35,000원", period:"2026-07-25", periodEnd:"23:59 까지 판매", statusIdx:0, stock:90,  sold:76,  channel:"오로라", regDate:"2026-04-29"},
-    {id:30, img:"assets/pants.png",    name:"[단독] 스트라이프 테일러드 팬츠",                                                orig:"68,000원", sale:"58,000원", period:"2026-10-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:35,  sold:19,  channel:"셀러A", regDate:"2026-05-03"},
-    {id:31, img:"assets/긴팔.png",     name:"퍼프 소매 크롭 니트 가디건",                                                    orig:"48,000원", sale:"40,000원", period:"2026-09-20", periodEnd:"23:59 까지 판매", statusIdx:0, stock:70,  sold:55,  channel:"어반무드",regDate:"2026-04-11"},
-    {id:32, img:"assets/hood.png",     name:"[특가] 오가닉 코튼 남여공용 후드티",                                            orig:"38,000원", sale:"32,000원", period:"2026-08-25", periodEnd:"23:59 까지 판매", statusIdx:0, stock:120, sold:89,  channel:"루미",  regDate:"2026-04-13"},
-    {id:33, img:"assets/minibag.png",  name:"이탈리안 크로코 패턴 클러치백",                                                 orig:"78,000원", sale:"65,000원", period:"2026-12-20", periodEnd:"23:59 까지 판매", statusIdx:1, stock:0,   sold:134, channel:"셀러B", regDate:"2026-04-17"},
-    {id:34, img:"assets/mug.png",      name:"핸드드립 전용 도자기 드리퍼 세트",                                              orig:"55,000원", sale:"46,000원", period:"2026-11-20", periodEnd:"23:59 까지 판매", statusIdx:0, stock:28,  sold:14,  channel:"오로라", regDate:"2026-05-05"}
-  ]
-};
+(function () {
+  "use strict";
+
+  var STATUSES = [
+    { key: "판매중",   cls: "admin-product-status-btn--active"  },
+    { key: "판매마감", cls: "admin-product-status-btn--closed"  },
+    { key: "품절",    cls: "admin-product-status-btn--soldout" }
+  ];
+
+  var productData = [
+    {id:1,  img:"../assets/긴팔.png",      name:"(국내제작)(여리핏/데일리룩/쫀쫀신축성) 메이드 스퀘어넥 슬림 골지 긴팔 티셔츠", orig:"40,000원", sale:"35,000원", period:"2026-07-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:125, sold:88,  channel:"오로라", regDate:"2026-04-01"},
+    {id:2,  img:"../assets/sleeveless.png", name:"ELLE PARIS PDRN 콜라겐 녹는실 탄력 앰플",                                      orig:"55,000원", sale:"49,000원", period:"2026-06-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:200, sold:156, channel:"오로라", regDate:"2026-04-05"},
+    {id:3,  img:"../assets/블라우스.png",   name:"(단독진행)(봄신상/러블리무드/레이어드추천) 루에느 리본 퍼프 블라우스",          orig:"45,000원", sale:"38,000원", period:"2026-05-15", periodEnd:"10:00 까지 판매", statusIdx:1, stock:0,   sold:210, channel:"셀러A", regDate:"2026-03-20"},
+    {id:4,  img:"../assets/mug.png",       name:"(1+1구성) 모던 세라믹 머그컵 세트",                                             orig:"28,000원", sale:"22,000원", period:"2026-08-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:80,  sold:45,  channel:"셀러B", regDate:"2026-04-10"},
+    {id:5,  img:"../assets/pants.png",     name:"(기획특가) 와이드 핀턱 밴딩 슬랙스",                                            orig:"58,000원", sale:"52,000원", period:"2026-06-01", periodEnd:"18:00 까지 판매", statusIdx:2, stock:0,   sold:320, channel:"오로라", regDate:"2026-03-15"},
+    {id:6,  img:"../assets/longsleeves.png",name:"[써머세일] 오가닉 코튼 스트라이프 오버핏 셔츠",                               orig:"39,000원", sale:"32,000원", period:"2026-09-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:150, sold:72,  channel:"셀러A", regDate:"2026-04-15"},
+    {id:7,  img:"../assets/minibag.png",   name:"[기획] 프리미엄 레더 미니 크로스백",                                            orig:"120,000원",sale:"99,000원", period:"2026-12-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:30,  sold:15,  channel:"오로라", regDate:"2026-04-20"},
+    {id:8,  img:"../assets/긴팔-1.png",    name:"청량한 여름 린넨 블렌드 와이드 팬츠",                                           orig:"62,000원", sale:"55,000원", period:"2026-07-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:95,  sold:63,  channel:"셀러B", regDate:"2026-04-25"},
+    {id:9,  img:"../assets/hood.png",      name:"내추럴 우드 스탠딩 데스크 라이트",                                              orig:"89,000원", sale:"75,000원", period:"2026-05-31", periodEnd:"23:59 까지 판매", statusIdx:1, stock:10,  sold:28,  channel:"셀러A", regDate:"2026-04-02"},
+    {id:10, img:"../assets/블라우스.png",   name:"비건 시카 진정 수분 크림 50ml",                                                orig:"35,000원", sale:"29,000원", period:"2026-10-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:180, sold:94,  channel:"오로라", regDate:"2026-05-01"},
+    {id:11, img:"../assets/긴팔.png",      name:"캐시미어 블렌드 터틀넥 니트 풀오버",                                            orig:"89,000원", sale:"72,000원", period:"2026-11-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:60,  sold:41,  channel:"루미",   regDate:"2026-04-08"},
+    {id:12, img:"../assets/sleeveless.png",name:"[리뉴얼] 비타민C 브라이트닝 세럼 30ml",                                       orig:"42,000원", sale:"36,000원", period:"2026-08-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:300, sold:187, channel:"셀러B",  regDate:"2026-03-25"},
+    {id:13, img:"../assets/pants.png",     name:"(데일리룩) 스트레치 조거 팬츠 / 베이지",                                        orig:"32,000원", sale:"27,000원", period:"2026-07-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:110, sold:98,  channel:"오로라", regDate:"2026-04-12"},
+    {id:14, img:"../assets/hood.png",      name:"[봄기획] 오버핏 루즈핏 후드 집업",                                              orig:"55,000원", sale:"45,000원", period:"2026-06-15", periodEnd:"23:59 까지 판매", statusIdx:2, stock:0,   sold:253, channel:"셀러A",  regDate:"2026-03-10"},
+    {id:15, img:"../assets/mug.png",       name:"핸드메이드 도자기 머그컵 / 민트",                                               orig:"22,000원", sale:"18,500원", period:"2026-09-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:45,  sold:32,  channel:"루미",   regDate:"2026-04-18"}
+  ];
+
+  var ICON_EDIT = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+  var ICON_DEL  = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+
+  var PAGE_SIZE    = 10;
+  var currentPage  = 1;
+  var filteredData = productData.slice();
+  var selectedProduct = null;
+
+  /* ── 모달 헬퍼 ── */
+  function openModal(id)  { var m = document.getElementById(id); if (m) m.classList.add("is-open"); }
+  function closeModal(id) { var m = document.getElementById(id); if (m) m.classList.remove("is-open"); }
+
+  /* ── 테이블 렌더링 ── */
+  function renderProductList() {
+    var tbody = document.getElementById("productTableBody");
+    var pag   = document.getElementById("productPagination");
+    if (!tbody) return;
+
+    var start = (currentPage - 1) * PAGE_SIZE;
+    var rows  = filteredData.slice(start, start + PAGE_SIZE);
+
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; padding:40px 16px; color:var(--admin-muted);">검색 결과가 없습니다.</td></tr>';
+      if (pag) pag.innerHTML = "";
+      return;
+    }
+
+    tbody.innerHTML = rows.map(function (p, idx) {
+      var num = start + idx + 1;
+      var st  = STATUSES[p.statusIdx];
+      return '<tr data-product-id="' + p.id + '">' +
+        '<td style="text-align:center;">' + num + '</td>' +
+        '<td style="text-align:center;"><div class="admin-product-thumb"><img src="' + p.img + '" alt="상품 이미지" onerror="this.style.display=\'none\'" /></div></td>' +
+        '<td><span class="admin-product-name">' + p.name + '</span></td>' +
+        '<td><div class="admin-product-price"><span class="admin-product-price__original">' + p.orig + '</span><span class="admin-product-price__sale">' + p.sale + '</span></div></td>' +
+        '<td><div class="admin-product-period">' + p.period + '<br /><span class="admin-product-period__time">' + p.periodEnd + '</span></div></td>' +
+        '<td style="text-align:center;"><button type="button" class="admin-product-option-btn product-option-btn" aria-label="옵션 관리">관리</button></td>' +
+        '<td style="text-align:center;"><button type="button" class="admin-product-status-btn product-status-btn ' + st.cls + '" data-status="' + st.key + '" aria-label="판매 상태 변경">' + st.key + '</button></td>' +
+        '<td style="text-align:center;">' + p.stock + '</td>' +
+        '<td style="text-align:center;">' + p.sold + '</td>' +
+        '<td><div class="admin-product-link"><span class="admin-product-link__channel">' + p.channel + '</span><button type="button" class="admin-product-link__copy product-link-copy-btn" data-link="https://linkit.kr/product/' + p.id + '" aria-label="링크 복사">링크 복사</button></div></td>' +
+        '<td class="t-body-3-rg" style="text-align:center; color:var(--admin-muted);">' + p.regDate + '</td>' +
+        '<td><div class="admin-product-actions">' +
+          '<button type="button" class="admin-btn admin-btn--outline admin-btn--sm product-copy-btn" aria-label="상품 복사">상품복사</button>' +
+          '<button type="button" class="admin-product-icon-btn product-edit-btn" aria-label="상품 수정">' + ICON_EDIT + '</button>' +
+          '<button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger product-delete-btn" aria-label="상품 삭제">' + ICON_DEL + '</button>' +
+        '</div></td>' +
+      '</tr>';
+    }).join("");
+
+    renderPagination();
+  }
+
+  /* ── 페이지네이션 ── */
+  function renderPagination() {
+    var pag = document.getElementById("productPagination");
+    if (!pag) return;
+    var total      = filteredData.length;
+    var totalPages = Math.ceil(total / PAGE_SIZE) || 1;
+    if (totalPages <= 1) { pag.innerHTML = ""; return; }
+
+    var ICON_PREV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>';
+    var ICON_NEXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>';
+
+    var html = "";
+    html += '<button type="button" class="admin-page-btn" data-pl-page="prev" aria-label="이전 페이지"' + (currentPage === 1 ? " disabled" : "") + ">" + ICON_PREV + "</button>";
+    var group  = Math.floor((currentPage - 1) / 5);
+    var startP = group * 5 + 1;
+    var endP   = Math.min(startP + 4, totalPages);
+    for (var i = startP; i <= endP; i++) {
+      html += '<button type="button" class="admin-page-btn' + (i === currentPage ? " is-active" : "") + '" data-pl-page="' + i + '" aria-label="' + i + ' 페이지">' + i + "</button>";
+    }
+    if (endP < totalPages) {
+      html += '<span class="admin-page-btn" style="border:none;background:none;cursor:default;color:var(--admin-muted);" aria-hidden="true">…</span>';
+      html += '<button type="button" class="admin-page-btn" data-pl-page="' + totalPages + '" aria-label="' + totalPages + ' 페이지">' + totalPages + "</button>";
+    }
+    html += '<button type="button" class="admin-page-btn" data-pl-page="next" aria-label="다음 페이지"' + (currentPage === totalPages ? " disabled" : "") + ">" + ICON_NEXT + "</button>";
+    pag.innerHTML = html;
+  }
+
+  /* ── 필터 적용 ── */
+  function applyFilter() {
+    var keyword = (document.getElementById("productSearchInput").value || "").trim().toLowerCase();
+    var statusV = document.getElementById("productStatusFilter").value;
+    var brandV  = document.getElementById("productBrandFilter").value;
+    filteredData = productData.filter(function (p) {
+      var st = STATUSES[p.statusIdx].key;
+      if (statusV && st !== statusV) return false;
+      if (brandV  && p.channel !== brandV) return false;
+      if (keyword && p.name.toLowerCase().indexOf(keyword) < 0) return false;
+      return true;
+    });
+    currentPage = 1;
+    renderProductList();
+  }
+
+  /* ── 카테고리 모달 ── */
+  var CAT_MAP = {
+    "의류": ["상의", "하의", "원피스", "아우터", "언더웨어"],
+    "뷰티": ["스킨케어", "메이크업", "헤어케어", "바디케어", "향수"],
+    "홈/리빙": ["홈웨어", "주방용품", "인테리어", "욕실용품", "잡화"],
+    "식품": ["간식/과자", "음료", "건강식품", "신선식품", "가공식품"]
+  };
+  var selectedCat1 = "", selectedCat2 = "";
+
+  function initCatModal() {
+    var depth1Btns = document.querySelectorAll(".product-cat-depth1-item");
+    var depth2El   = document.getElementById("productCatDepth2");
+    var selectedLbl = document.getElementById("catSelectedLabel");
+
+    depth1Btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        depth1Btns.forEach(function (b) { b.classList.remove("is-selected"); });
+        btn.classList.add("is-selected");
+        selectedCat1 = btn.dataset.cat;
+        selectedCat2 = "";
+        var subs = CAT_MAP[selectedCat1] || [];
+        depth2El.innerHTML = subs.map(function (s) {
+          return '<button type="button" class="admin-product-cat-item product-cat-depth2-item" data-cat="' + s + '" role="option">' + s + "</button>";
+        }).join("");
+        depth2El.querySelectorAll(".product-cat-depth2-item").forEach(function (b2) {
+          b2.addEventListener("click", function () {
+            depth2El.querySelectorAll(".product-cat-depth2-item").forEach(function (x) { x.classList.remove("is-selected"); });
+            b2.classList.add("is-selected");
+            selectedCat2 = b2.dataset.cat;
+            if (selectedLbl) selectedLbl.textContent = selectedCat1 + " > " + selectedCat2;
+          });
+        });
+      });
+    });
+
+    document.getElementById("catModalApplyBtn").addEventListener("click", function () {
+      if (selectedCat1 && selectedCat2) {
+        var display = document.getElementById("editCatDisplay");
+        if (display) display.textContent = selectedCat1 + " > " + selectedCat2;
+      }
+      closeModal("productCatModal");
+    });
+    document.getElementById("catModalCloseBtn").addEventListener("click",   function () { closeModal("productCatModal"); });
+    document.getElementById("catModalOverlay").addEventListener("click",    function () { closeModal("productCatModal"); });
+    document.getElementById("editCatChangeBtn").addEventListener("click",   function () { openModal("productCatModal"); });
+  }
+
+  /* ── 이벤트 위임 (테이블) ── */
+  function initTableEvents() {
+    var tbody = document.getElementById("productTableBody");
+    if (!tbody) return;
+
+    tbody.addEventListener("click", function (e) {
+      var row = e.target.closest("tr[data-product-id]");
+      if (!row) return;
+      var pid = parseInt(row.dataset.productId, 10);
+      selectedProduct = productData.filter(function (p) { return p.id === pid; })[0] || null;
+
+      if (e.target.closest(".product-option-btn")) {
+        if (selectedProduct) {
+          var el = document.getElementById("optionModalProductName");
+          if (el) el.textContent = selectedProduct.name;
+        }
+        openModal("productOptionModal");
+      }
+      if (e.target.closest(".product-edit-btn")) {
+        if (selectedProduct) {
+          var nm = document.getElementById("editProductName");
+          if (nm) nm.value = selectedProduct.name;
+        }
+        openModal("productEditModal");
+      }
+      if (e.target.closest(".product-copy-btn")) {
+        if (selectedProduct) {
+          var cp = document.getElementById("copyModalProductName");
+          if (cp) cp.textContent = selectedProduct.name;
+        }
+        openModal("productCopyModal");
+      }
+      if (e.target.closest(".product-delete-btn")) {
+        openModal("productDeleteModal");
+      }
+      if (e.target.closest(".product-status-btn")) {
+        var btn = e.target.closest(".product-status-btn");
+        var cur = btn.dataset.status;
+        var next = cur === "판매중" ? 1 : cur === "판매마감" ? 2 : 0;
+        var ns = STATUSES[next];
+        btn.dataset.status = ns.key;
+        btn.textContent = ns.key;
+        btn.className = "admin-product-status-btn product-status-btn " + ns.cls;
+        if (selectedProduct) selectedProduct.statusIdx = next;
+      }
+      if (e.target.closest(".product-link-copy-btn")) {
+        var linkBtn = e.target.closest(".product-link-copy-btn");
+        var link = linkBtn.dataset.link;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(link).then(function () {
+            var orig = linkBtn.textContent;
+            linkBtn.textContent = "복사완료!";
+            setTimeout(function () { linkBtn.textContent = orig; }, 1500);
+          });
+        }
+      }
+    });
+  }
+
+  /* ── 모달 닫기 버튼 ── */
+  function initModals() {
+    ["optionModalCloseBtn", "optionModalOverlay"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function () { closeModal("productOptionModal"); });
+    });
+    ["editModalCloseBtn", "editModalOverlay", "editModalSaveBtn"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function () { closeModal("productEditModal"); });
+    });
+    ["copyModalCancelBtn", "copyModalOverlay"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function () { closeModal("productCopyModal"); });
+    });
+    document.getElementById("copyModalConfirmBtn").addEventListener("click", function () {
+      closeModal("productCopyModal");
+    });
+    ["deleteModalCancelBtn", "deleteModalOverlay"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function () { closeModal("productDeleteModal"); });
+    });
+    document.getElementById("deleteModalConfirmBtn").addEventListener("click", function () {
+      if (selectedProduct) {
+        productData = productData.filter(function (p) { return p.id !== selectedProduct.id; });
+        filteredData = filteredData.filter(function (p) { return p.id !== selectedProduct.id; });
+        selectedProduct = null;
+        renderProductList();
+      }
+      closeModal("productDeleteModal");
+    });
+
+    /* 상세 페이지 탭 */
+    document.querySelectorAll(".admin-product-detail-tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        document.querySelectorAll(".admin-product-detail-tab").forEach(function (t) {
+          t.classList.remove("is-active");
+          t.setAttribute("aria-selected", "false");
+        });
+        document.querySelectorAll(".admin-product-tab-panel").forEach(function (p) { p.classList.remove("is-active"); });
+        tab.classList.add("is-active");
+        tab.setAttribute("aria-selected", "true");
+        var panel = document.getElementById(tab.dataset.tab);
+        if (panel) panel.classList.add("is-active");
+      });
+    });
+
+    /* ESC 키 닫기 */
+    var MODAL_IDS = ["productOptionModal", "productEditModal", "productCatModal", "productCopyModal", "productDeleteModal"];
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      MODAL_IDS.forEach(function (id) { closeModal(id); });
+    });
+  }
+
+  /* ── 페이지네이션 이벤트 ── */
+  function initPagination() {
+    var pag = document.getElementById("productPagination");
+    if (!pag) return;
+    pag.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-pl-page]");
+      if (!btn || btn.disabled) return;
+      var val = btn.getAttribute("data-pl-page");
+      var totalPages = Math.ceil(filteredData.length / PAGE_SIZE) || 1;
+      if      (val === "prev") { if (currentPage > 1) currentPage--; }
+      else if (val === "next") { if (currentPage < totalPages) currentPage++; }
+      else { currentPage = parseInt(val, 10); }
+      renderProductList();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    filteredData = productData.slice();
+    renderProductList();
+    initPagination();
+    initTableEvents();
+    initModals();
+    initCatModal();
+
+    document.getElementById("productFilterSearchBtn").addEventListener("click", applyFilter);
+    document.getElementById("productSearchInput").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") applyFilter();
+    });
+  });
+})();
 </script>
-<script src="admin.js"></script>
 </body>
 </html>

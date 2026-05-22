@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>환경설정 — link it CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+.st-info-row { display:flex; align-items:center; padding:12px 0; border-bottom:1px solid var(--admin-stroke,#e5e7eb); gap:16px; }
+.st-info-row:last-child { border-bottom:none; }
+.st-info-label { font-size:13px; color:var(--admin-muted,#9ca3af); width:120px; flex-shrink:0; }
+.st-info-value { font-size:14px; font-weight:500; color:var(--admin-heading,#111); flex:1; }
+/* 비밀번호 변경 모달 */
+.pw-modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:200; align-items:center; justify-content:center; }
+.pw-modal-overlay.is-open { display:flex; }
+.pw-modal { background:var(--admin-white,#fff); border-radius:10px; width:440px; max-width:calc(100vw - 32px); box-shadow:0 8px 32px rgba(0,0,0,.18); }
+.pw-modal__head { padding:20px 24px 14px; border-bottom:1px solid var(--admin-stroke,#e5e7eb); }
+.pw-modal__head h2 { font-size:16px; font-weight:700; color:var(--admin-heading,#111); margin:0 0 4px; }
+.pw-modal__head p { font-size:13px; color:var(--admin-muted,#9ca3af); margin:0; }
+.pw-modal__body { padding:20px 24px; }
+.pw-modal__foot { display:flex; justify-content:flex-end; gap:8px; padding:14px 24px; border-top:1px solid var(--admin-stroke,#e5e7eb); }
+.pw-field { margin-bottom:16px; }
+.pw-field label { display:block; font-size:12px; font-weight:600; color:var(--admin-muted,#9ca3af); margin-bottom:6px; }
+.pw-wrap { position:relative; display:flex; }
+.pw-wrap input { flex:1; padding:9px 40px 9px 12px; border:1px solid var(--admin-stroke,#e5e7eb); border-radius:6px; font-size:14px; font-family:inherit; background:var(--admin-input-bg,#fafafa); }
+.pw-wrap input:focus { outline:none; border-color:var(--admin-red,#e83828); }
+.pw-toggle { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:var(--admin-muted,#9ca3af); padding:0; display:flex; align-items:center; }
+.pw-error { font-size:12px; color:var(--admin-red,#e83828); margin-top:4px; display:none; }
+.pw-error.is-visible { display:block; }
+</style>
+</head>
+<body>
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
+  <main class="admin-main">
+    <h1 class="admin-page-title">환경설정</h1>
+
+    <!-- 로그인 정보 -->
+    <div class="admin-card" style="margin-bottom:16px;">
+      <div class="admin-card__header">
+        <span class="admin-card__title">로그인 정보</span>
+      </div>
+      <div class="admin-card__body">
+        <div class="st-info-row">
+          <span class="st-info-label">아이디</span>
+          <span class="st-info-value">aurora_admin</span>
+        </div>
+        <div class="st-info-row">
+          <span class="st-info-label">비밀번호</span>
+          <div style="display:flex;align-items:center;gap:8px;flex:1;">
+            <span class="st-info-value">**********</span>
+            <button type="button" id="openPwModalBtn" class="admin-btn admin-btn--outline admin-btn--sm">비밀번호 변경</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 계정 정보 -->
+    <div class="admin-card">
+      <div class="admin-card__header">
+        <span class="admin-card__title">업체 기본 정보</span>
+      </div>
+      <div class="admin-card__body">
+        <div class="st-info-row">
+          <span class="st-info-label">업체명</span>
+          <span class="st-info-value">오로라</span>
+        </div>
+        <div class="st-info-row">
+          <span class="st-info-label">대표 이메일</span>
+          <span class="st-info-value">contact@aurora.co.kr</span>
+        </div>
+        <div class="st-info-row">
+          <span class="st-info-label">대표 연락처</span>
+          <span class="st-info-value">02-1234-5678</span>
+        </div>
+        <div class="st-info-row">
+          <span class="st-info-label">계약 만료일</span>
+          <span class="st-info-value">2027.03.14</span>
+        </div>
+        <div class="st-info-row">
+          <span class="st-info-label">계좌번호</span>
+          <span class="st-info-value">국민은행 123-456-789012</span>
+        </div>
+        <div class="st-info-row">
+          <span class="st-info-label">예금주</span>
+          <span class="st-info-value">㈜오로라</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- 비밀번호 변경 모달 -->
+<div class="pw-modal-overlay" id="pwModalOverlay">
+  <div class="pw-modal">
+    <div class="pw-modal__head">
+      <h2>비밀번호 변경</h2>
+      <p>안전한 계정 사용을 위해 주기적으로 비밀번호를 변경해주세요.</p>
+    </div>
+    <div class="pw-modal__body">
+      <div class="pw-field">
+        <label>현재 비밀번호</label>
+        <div class="pw-wrap">
+          <input type="password" id="pwCurrent" placeholder="현재 비밀번호를 입력해주세요" autocomplete="current-password" />
+          <button type="button" class="pw-toggle" data-target="pwCurrent" aria-label="비밀번호 보기">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="pw-field">
+        <label>새 비밀번호</label>
+        <div class="pw-wrap">
+          <input type="password" id="pwNew" placeholder="새 비밀번호를 입력해주세요" autocomplete="new-password" />
+          <button type="button" class="pw-toggle" data-target="pwNew" aria-label="비밀번호 보기">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="pw-field">
+        <label>비밀번호 확인</label>
+        <div class="pw-wrap">
+          <input type="password" id="pwConfirm" placeholder="비밀번호를 한 번 더 입력해주세요" autocomplete="new-password" />
+          <button type="button" class="pw-toggle" data-target="pwConfirm" aria-label="비밀번호 보기">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+        <p class="pw-error" id="pwMismatchError">비밀번호가 일치하지 않습니다.</p>
+      </div>
+    </div>
+    <div class="pw-modal__foot">
+      <button type="button" id="pwCancelBtn" class="admin-btn admin-btn--outline">취소</button>
+      <button type="button" id="pwSubmitBtn" class="admin-btn admin-btn--primary">변경</button>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+(function() {
+  "use strict";
+
+  function openModal() { document.getElementById("pwModalOverlay").classList.add("is-open"); }
+  function closeModal() {
+    document.getElementById("pwModalOverlay").classList.remove("is-open");
+    ["pwCurrent","pwNew","pwConfirm"].forEach(function(id){ document.getElementById(id).value = ""; });
+    document.getElementById("pwMismatchError").classList.remove("is-visible");
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("openPwModalBtn").addEventListener("click", openModal);
+    document.getElementById("pwCancelBtn").addEventListener("click", closeModal);
+    document.getElementById("pwModalOverlay").addEventListener("click", function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    /* 비밀번호 표시/숨김 */
+    document.querySelectorAll(".pw-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var input = document.getElementById(btn.dataset.target);
+        input.type = input.type === "password" ? "text" : "password";
+      });
+    });
+
+    /* 저장 */
+    document.getElementById("pwSubmitBtn").addEventListener("click", function() {
+      var cur     = document.getElementById("pwCurrent").value;
+      var nw      = document.getElementById("pwNew").value;
+      var confirm = document.getElementById("pwConfirm").value;
+      var errEl   = document.getElementById("pwMismatchError");
+      if (!cur || !nw || !confirm) { alert("모든 항목을 입력해주세요."); return; }
+      if (nw !== confirm) { errEl.classList.add("is-visible"); return; }
+      errEl.classList.remove("is-visible");
+      alert("비밀번호가 변경되었습니다.\n(실제 구현 시 API 연결)");
+      closeModal();
+    });
+
+    document.getElementById("pwNew").addEventListener("input", function() {
+      document.getElementById("pwMismatchError").classList.remove("is-visible");
+    });
+    document.getElementById("pwConfirm").addEventListener("input", function() {
+      document.getElementById("pwMismatchError").classList.remove("is-visible");
+    });
+  });
+})();
+</script>
+</body>
+</html>

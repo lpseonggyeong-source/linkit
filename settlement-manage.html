@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>정산 관리 — link it 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="admin.css" />
+<style>
+/* === 페이지 전용 스타일 === */
+.page-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+.page-header__title { font-size:20px; font-weight:500; color:var(--admin-heading); margin-bottom:6px; }
+.page-header__sub { font-size:14px; color:var(--admin-muted); }
+
+/* KPI 그리드 */
+.ba-kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+@media(max-width:900px) { .ba-kpi-grid { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:480px) { .ba-kpi-grid { grid-template-columns:1fr 1fr; } }
+.ba-kpi { background:var(--admin-white); border:1px solid var(--admin-stroke); border-radius:8px; padding:18px 16px; }
+.ba-kpi__label { font-size:12px; font-weight:600; color:var(--admin-muted); margin-bottom:8px; }
+.ba-kpi__value { font-size:19px; font-weight:700; color:var(--admin-heading); line-height:1.2; word-break:break-all; }
+.ba-kpi__value--red   { color:#e83828; }
+.ba-kpi__value--amber { color:#e67e22; }
+.ba-kpi__value--green { color:#2e7d32; }
+.ba-kpi__value--blue  { color:#3a6ac8; }
+.ba-kpi__sub { font-size:12px; color:var(--admin-muted); margin-top:4px; }
+
+/* 기간 버튼 그룹 */
+.period-group { display:flex; border:1px solid var(--admin-border); border-radius:6px; overflow:hidden; }
+.period-btn { padding:6px 12px; font-size:13px; border:none; border-right:1px solid var(--admin-border); background:var(--admin-white); color:var(--admin-muted); cursor:pointer; font-family:inherit; white-space:nowrap; transition:background .15s,color .15s; }
+.period-btn:last-child { border-right:none; }
+.period-btn.is-active { background:var(--admin-heading); color:#fff; font-weight:600; }
+
+/* 정산 계산식 */
+.sett-formula { display:flex; align-items:stretch; border:1px solid var(--admin-stroke); border-radius:8px; overflow:hidden; margin-bottom:0; }
+.sett-formula__item { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:18px 8px; gap:5px; background:#f7f9fc; border-right:1px solid var(--admin-stroke); text-align:center; min-width:0; }
+.sett-formula__item--result { background:#eff6ff; border-right:none; }
+.sett-formula__label { font-size:11px; font-weight:600; color:var(--admin-muted); line-height:1.3; }
+.sett-formula__value { font-size:15px; font-weight:700; color:var(--admin-heading); line-height:1.2; word-break:break-all; }
+.sett-formula__value--red  { color:#e83828; }
+.sett-formula__value--blue { color:#3a6ac8; font-size:16px; }
+.sett-formula__op { display:flex; align-items:center; justify-content:center; padding:0 6px; font-size:18px; font-weight:300; color:var(--admin-muted); background:var(--admin-white); flex-shrink:0; min-width:28px; }
+@media(max-width:900px){
+  .sett-formula { flex-direction:column; }
+  .sett-formula__item { border-right:none; border-bottom:1px solid var(--admin-stroke); }
+  .sett-formula__item--result { border-bottom:none; border-top:2px solid #3a6ac8; }
+  .sett-formula__op { display:none; }
+}
+
+
+/* 모달 정보 그리드 */
+.modal-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 24px; margin-bottom:20px; }
+.modal-info-label { font-size:11px; font-weight:600; color:var(--admin-muted); margin-bottom:3px; }
+.modal-info-value { font-size:14px; font-weight:600; color:var(--admin-heading); }
+
+/* 정산 이력 */
+.sett-history { border:1px solid var(--admin-stroke); border-radius:6px; overflow:hidden; }
+.sett-history-row { display:flex; align-items:center; padding:9px 14px; gap:12px; border-bottom:1px solid var(--admin-stroke); font-size:13px; }
+.sett-history-row:last-child { border-bottom:none; }
+.sett-history-row:nth-child(even) { background:#fafbfd; }
+.sett-history__date { color:var(--admin-muted); font-size:12px; flex-shrink:0; white-space:nowrap; }
+
+/* 섹션 카드 헤더 */
+.section-hd { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--admin-stroke); gap:12px; flex-wrap:wrap; }
+.section-hd__left { display:flex; align-items:center; gap:14px; }
+.sec-tabs { display:flex; gap:0; border-bottom:none; }
+.sec-tab { padding:5px 14px; font-size:13px; font-weight:500; color:var(--admin-muted); border:none; background:none; cursor:pointer; font-family:inherit; border-bottom:2px solid transparent; transition:color .15s,border-color .15s; white-space:nowrap; }
+.sec-tab:hover { color:var(--admin-text); }
+.sec-tab.is-active { color:var(--admin-heading); border-bottom-color:var(--admin-heading); font-weight:600; }
+
+/* 커스텀 상태 드롭다운 */
+.status-dd { position:relative; display:inline-block; min-width:148px; }
+.status-dd__trigger { display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; padding:7px 12px; border-radius:6px; border:1.5px solid; cursor:pointer; font-family:inherit; font-size:13px; font-weight:600; background:#fff; text-align:left; transition:box-shadow .15s; }
+.status-dd__trigger:focus { outline:none; box-shadow:0 0 0 3px rgba(58,106,200,.18); }
+.status-dd__chevron { flex-shrink:0; transition:transform .2s; }
+.status-dd__chevron.is-open { transform:rotate(180deg); }
+.status-dd__menu { position:absolute; top:calc(100% + 4px); left:0; min-width:100%; background:#fff; border:1px solid var(--admin-stroke); border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.12); z-index:200; overflow:hidden; display:none; }
+.status-dd__menu.is-open { display:block; }
+.status-dd__item { display:flex; align-items:center; gap:9px; padding:10px 14px; font-size:13px; font-weight:600; cursor:pointer; transition:background .12s; white-space:nowrap; }
+.status-dd__item:hover { background:#f5f7fb; }
+.status-dd__dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+/* 토스트 */
+.ba-toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(10px); background:rgba(40,49,80,.92); color:#fff; padding:10px 22px; border-radius:6px; font-size:14px; z-index:9999; opacity:0; transition:opacity .25s,transform .25s; pointer-events:none; white-space:nowrap; }
+.ba-toast.is-visible { opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+
+    <!-- 페이지 헤더 -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-header__title">정산 관리</h1>
+        <p class="page-header__sub">셀러별 정산 상태와 정산 흐름을 확인하고 관리합니다.</p>
+      </div>
+      <button class="admin-btn admin-btn--outline" id="excelDownloadBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        엑셀 다운로드
+      </button>
+    </div>
+
+    <!-- KPI 4개 -->
+    <div class="ba-kpi-grid">
+      <div class="ba-kpi">
+        <div class="ba-kpi__label">정산 예정 금액</div>
+        <div class="ba-kpi__value ba-kpi__value--blue">15,847,400원</div>
+        <div class="ba-kpi__sub">수수료 차감 후</div>
+      </div>
+      <div class="ba-kpi">
+        <div class="ba-kpi__label">정산 필요 셀러</div>
+        <div class="ba-kpi__value ba-kpi__value--amber">1명</div>
+        <div class="ba-kpi__sub">미처리 셀러</div>
+      </div>
+      <div class="ba-kpi">
+        <div class="ba-kpi__label">정산 완료 금액</div>
+        <div class="ba-kpi__value ba-kpi__value--green">9,340,000원</div>
+        <div class="ba-kpi__sub">이번달 누적</div>
+      </div>
+      <div class="ba-kpi">
+        <div class="ba-kpi__label">정산 보류 셀러</div>
+        <div class="ba-kpi__value ba-kpi__value--red">1명</div>
+        <div class="ba-kpi__sub">보류 처리 중</div>
+      </div>
+    </div>
+
+    <!-- 필터 -->
+    <div class="admin-filter-card">
+      <div class="admin-filter-row" style="margin-bottom:10px;">
+        <span class="admin-filter-label">기간</span>
+        <div class="period-group">
+          <button class="period-btn" data-p="today">오늘</button>
+          <button class="period-btn" data-p="7d">7일</button>
+          <button class="period-btn is-active" data-p="month">이번 달</button>
+          <button class="period-btn" data-p="last">지난 달</button>
+          <button class="period-btn" data-p="custom">직접 선택</button>
+        </div>
+        <div class="admin-filter-date-range" id="customDateRange" style="display:none;">
+          <input type="date" class="admin-filter-input" id="fFrom" style="min-width:130px;" />
+          <span>~</span>
+          <input type="date" class="admin-filter-input" id="fTo" style="min-width:130px;" />
+        </div>
+      </div>
+      <div class="admin-filter-row">
+        <span class="admin-filter-label">셀러</span>
+        <select class="admin-filter-select" id="fSeller">
+          <option value="">전체 셀러</option>
+          <option>김민지</option><option>박서윤</option><option>오로라셀러01</option><option>테우셀러03</option>
+        </select>
+        <span class="admin-filter-label">정산 상태</span>
+        <select class="admin-filter-select" id="fSettStatus">
+          <option value="">전체</option>
+          <option>정산 필요</option><option>정산중</option><option>정산완료</option><option>정산보류</option>
+        </select>
+        <button class="admin-btn admin-btn--primary" id="searchBtn">조회</button>
+        <button class="admin-btn admin-btn--outline" id="resetBtn">초기화</button>
+      </div>
+    </div>
+
+    <!-- 정산 관리 섹션 -->
+    <div class="admin-card">
+      <div class="section-hd">
+        <div class="section-hd__left">
+          <div class="sec-tabs" id="settTabs">
+            <button class="sec-tab is-active" data-stab="s-summary">정산 요약</button>
+            <button class="sec-tab" data-stab="s-seller">셀러별 정산</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 정산 요약 패널 -->
+      <div id="s-summary">
+        <div class="admin-card__body">
+          <div class="sett-formula">
+            <div class="sett-formula__item">
+              <div class="sett-formula__label">총 매출</div>
+              <div class="sett-formula__value">18,420,000원</div>
+            </div>
+            <div class="sett-formula__op">−</div>
+            <div class="sett-formula__item">
+              <div class="sett-formula__label">취소 / 환불</div>
+              <div class="sett-formula__value sett-formula__value--red">320,000원</div>
+            </div>
+            <div class="sett-formula__op">−</div>
+            <div class="sett-formula__item">
+              <div class="sett-formula__label">PG 수수료 (3%)</div>
+              <div class="sett-formula__value sett-formula__value--red">552,600원</div>
+            </div>
+            <div class="sett-formula__op">−</div>
+            <div class="sett-formula__item">
+              <div class="sett-formula__label">플랫폼 수수료 (9%)</div>
+              <div class="sett-formula__value sett-formula__value--red">1,700,000원</div>
+            </div>
+            <div class="sett-formula__op">=</div>
+            <div class="sett-formula__item sett-formula__item--result">
+              <div class="sett-formula__label">정산 예정액</div>
+              <div class="sett-formula__value sett-formula__value--blue">15,847,400원</div>
+            </div>
+          </div>
+        </div>
+        <div class="admin-table-wrap" style="border-top:1px solid var(--admin-stroke);">
+          <table class="admin-table">
+            <thead><tr>
+              <th>기간</th>
+              <th class="text-right">총 매출</th>
+              <th class="text-right">취소 / 환불</th>
+              <th class="text-right">PG 수수료</th>
+              <th class="text-right">정산 예정액</th>
+              <th style="text-align:center;">상태</th>
+            </tr></thead>
+            <tbody id="summaryBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 셀러별 정산 패널 -->
+      <div id="s-seller" style="display:none;">
+        <div class="admin-card__body--flush">
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr>
+                <th>셀러명</th>
+                <th style="text-align:center;">셀러 유형</th>
+                <th style="text-align:center;">연결 상품수</th>
+                <th style="text-align:center;">주문수</th>
+                <th class="text-right">총 매출</th>
+                <th class="text-right">PG 수수료</th>
+                <th class="text-right">셀러 수수료</th>
+                <th class="text-right">정산 예정액</th>
+                <th style="text-align:center;">정산 상태</th>
+                <th style="text-align:center; min-width:120px;">관리</th>
+              </tr></thead>
+              <tbody id="sellerBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- 셀러 정산 상세 모달 -->
+<div class="admin-modal" id="sellerModal">
+  <div class="admin-modal__overlay" id="sellerModalOverlay"></div>
+  <div class="admin-modal__box admin-modal__box--lg" style="max-width:620px;">
+    <div class="admin-modal__header">
+      <span class="admin-modal__title" id="sellerModalTitle">셀러 정산 상세</span>
+      <button class="admin-modal__close admin-btn admin-btn--icon" id="sellerModalClose">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-info-grid" id="sellerModalInfo"></div>
+    <div style="margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:12px;font-weight:600;color:var(--admin-muted);white-space:nowrap;">정산 상태</span>
+      <div class="status-dd" id="statusDd">
+        <button class="status-dd__trigger" id="statusDdTrigger" type="button">
+          <span id="statusDdLabel"></span>
+          <svg class="status-dd__chevron" id="statusDdChevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <ul class="status-dd__menu" id="statusDdMenu"></ul>
+      </div>
+    </div>
+    <div style="font-size:13px;font-weight:600;color:var(--admin-heading);margin-bottom:8px;">정산 상태 변경 이력</div>
+    <div class="sett-history" id="sellerModalHistory"></div>
+    <div class="admin-modal__footer">
+      <button class="admin-btn admin-btn--outline" id="sellerModalDownload">엑셀 다운로드</button>
+      <button class="admin-btn admin-btn--outline" id="sellerModalCloseBtn">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 토스트 -->
+<div class="ba-toast" id="baToast"></div>
+
+<script src="admin.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function fc(n) {
+    if (n == null || n === "") return "—";
+    return Number(n).toLocaleString("ko-KR") + "원";
+  }
+
+  /* ─── Mock Data ─── */
+  var SUMMARY_DATA = [
+    { period:"2026.05.01 ~ 05.31", sales:18420000, cancel:-320000, pg:-552600, sett:15847400, status:"정산중"   },
+    { period:"2026.04.01 ~ 04.30", sales:11200000, cancel:-180000, pg:-336000, sett:9604000,  status:"정산완료" },
+    { period:"2026.03.01 ~ 03.31", sales:12400000, cancel:-220000, pg:-372000, sett:10724000, status:"정산완료" },
+    { period:"2026.02.01 ~ 02.28", sales:9800000,  cancel:-150000, pg:-294000, sett:8456000,  status:"정산완료" },
+    { period:"2026.01.01 ~ 01.31", sales:6200000,  cancel:-80000,  pg:-186000, sett:5374000,  status:"정산완료" },
+  ];
+
+  var SELLERS_DATA = [
+    {
+      name:"셀러A", type:"브랜드 직접", products:8, orders:72,
+      sales:4320000, pg:-129600, sellerFee:-432000, sett:3758400, status:"정산 필요",
+      history:[
+        { date:"2026.05.20", text:"정산 필요 상태로 전환 (이번달 매출 집계 완료)" },
+        { date:"2026.04.30", text:"정산완료 처리" },
+        { date:"2026.04.01", text:"정산중 전환" },
+      ]
+    },
+    {
+      name:"셀러B", type:"브랜드 직접", products:5, orders:48,
+      sales:2880000, pg:-86400, sellerFee:-288000, sett:2505600, status:"정산중",
+      history:[
+        { date:"2026.05.18", text:"정산중 전환 (정산 확인 완료)" },
+        { date:"2026.05.10", text:"정산 필요 상태로 전환" },
+      ]
+    },
+    {
+      name:"셀러C", type:"업체 소속", products:11, orders:96,
+      sales:6240000, pg:-187200, sellerFee:-624000, sett:5428800, status:"정산완료",
+      history:[
+        { date:"2026.05.15", text:"정산완료 처리" },
+        { date:"2026.05.12", text:"정산중 전환" },
+        { date:"2026.05.05", text:"정산 필요 상태로 전환" },
+      ]
+    },
+    {
+      name:"셀러D", type:"업체 소속", products:4, orders:21,
+      sales:980000, pg:-29400, sellerFee:-98000, sett:852600, status:"정산보류",
+      history:[
+        { date:"2026.05.17", text:"정산보류 처리 (계정 이상 확인 중)" },
+        { date:"2026.05.08", text:"정산 필요 상태로 전환" },
+      ]
+    },
+  ];
+
+  /* ─── Toast ─── */
+  var _toastTimer = null;
+  function showToast(msg) {
+    var el = document.getElementById("baToast");
+    el.textContent = msg;
+    el.classList.add("is-visible");
+    if (_toastTimer) clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function () { el.classList.remove("is-visible"); }, 2600);
+  }
+
+  /* ─── Helpers ─── */
+  function settBadge(s) {
+    var map = { "정산완료":"sett-done", "정산중":"sett-ing", "정산 필요":"sett-need", "정산보류":"sett-hold" };
+    return '<span class="admin-badge admin-badge--' + (map[s] || "sett-ing") + '">' + s + '</span>';
+  }
+
+  function typeBadge(t) {
+    return t === "브랜드 직접"
+      ? '<span class="admin-badge admin-badge--brand-direct">브랜드 직접</span>'
+      : '<span class="admin-badge admin-badge--company">업체 소속</span>';
+  }
+
+  function infoRow(label, value, color) {
+    var style = color ? ' style="color:' + color + ';"' : '';
+    return '<div><div class="modal-info-label">' + label + '</div>' +
+      '<div class="modal-info-value"' + style + '>' + value + '</div></div>';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove("is-open");
+  }
+
+  /* ─── Render Summary ─── */
+  function renderSummary() {
+    document.getElementById("summaryBody").innerHTML = SUMMARY_DATA.map(function (d) {
+      return '<tr>' +
+        '<td style="font-size:12px;">' + d.period + '</td>' +
+        '<td class="text-right">' + fc(d.sales) + '</td>' +
+        '<td class="text-right" style="color:#e83828;">' + (d.cancel < 0 ? fc(d.cancel) : "—") + '</td>' +
+        '<td class="text-right" style="color:#e83828;">' + fc(d.pg) + '</td>' +
+        '<td class="text-right" style="font-weight:600;">' + fc(d.sett) + '</td>' +
+        '<td style="text-align:center;">' + settBadge(d.status) + '</td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  /* ─── Render Sellers ─── */
+  function renderSellers() {
+    document.getElementById("sellerBody").innerHTML = SELLERS_DATA.map(function (s, idx) {
+      var fwdBtn = "";
+      if (s.status === "정산 필요")    { fwdBtn = '<button class="admin-badge admin-btn--primary sett-confirm-btn" data-idx="' + idx + '">정산 확인</button>'; }
+      else if (s.status === "정산중")  { fwdBtn = '<button class="admin-badge admin-btn--blue sett-confirm-btn" data-idx="' + idx + '">완료 처리</button>'; }
+      else if (s.status === "정산보류"){ fwdBtn = '<button class="admin-badge admin-btn--danger sett-confirm-btn" data-idx="' + idx + '">보류 해제</button>'; }
+
+      return '<tr>' +
+        '<td style="font-weight:600;">' + s.name + '</td>' +
+        '<td style="text-align:center;">' + typeBadge(s.type) + '</td>' +
+        '<td style="text-align:center;">' + s.products + '개</td>' +
+        '<td style="text-align:center;">' + s.orders + '건</td>' +
+        '<td class="text-right">' + fc(s.sales) + '</td>' +
+        '<td class="text-right" style="color:#e83828;">' + fc(s.pg) + '</td>' +
+        '<td class="text-right" style="color:#e67e22;">' + fc(s.sellerFee) + '</td>' +
+        '<td class="text-right" style="font-weight:600;">' + fc(s.sett) + '</td>' +
+        '<td style="text-align:center;">' + settBadge(s.status) + '</td>' +
+        '<td style="text-align:center;">' +
+          '<div style="display:flex;gap:4px;justify-content:center;">' +
+            '<button class="admin-btn admin-btn--outline admin-btn--xs seller-detail-btn" data-idx="' + idx + '">상세</button>' +
+            fwdBtn +
+          '</div>' +
+        '</td>' +
+      '</tr>';
+    }).join("");
+
+    document.querySelectorAll(".seller-detail-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () { openSellerModal(parseInt(btn.dataset.idx)); });
+    });
+
+    document.querySelectorAll(".sett-confirm-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var idx = parseInt(btn.dataset.idx);
+        var s = SELLERS_DATA[idx];
+        var next, note;
+        if (s.status === "정산 필요")   { next = "정산중";    note = "정산중 전환 (정산 확인 완료)"; }
+        else if (s.status === "정산중")  { next = "정산완료";  note = "정산완료 처리"; }
+        else if (s.status === "정산보류"){ next = "정산 필요"; note = "보류 해제 → 정산 필요로 전환"; }
+        else return;
+        s.status = next;
+        s.history.unshift({ date:"2026.05.22", text: note });
+        showToast(s.name + " 셀러 상태: [" + next + "]으로 변경되었습니다.");
+        renderSellers();
+      });
+    });
+  }
+
+  var STATUS_CFG = [
+    { key:"정산 필요", color:"#e67e22", bg:"#fff8f0" },
+    { key:"정산중",    color:"#3a6ac8", bg:"#eff6ff" },
+    { key:"정산완료",  color:"#2e7d32", bg:"#f0fdf4" },
+    { key:"정산보류",  color:"#e83828", bg:"#fff0ee" },
+  ];
+  var STATUS_NOTE = {
+    "정산 필요": "정산 필요로 변경",
+    "정산중":    "정산중 전환",
+    "정산완료":  "정산완료 처리",
+    "정산보류":  "정산보류 처리 (수동 보류)",
+  };
+
+  /* ─── Seller Modal ─── */
+  var _currentSellerIdx = null;
+
+  function renderStatusPicker(currentStatus) {
+    var cfg = STATUS_CFG.find(function (c) { return c.key === currentStatus; }) || STATUS_CFG[0];
+    var trigger = document.getElementById("statusDdTrigger");
+    document.getElementById("statusDdLabel").textContent = currentStatus;
+    trigger.style.color = cfg.color;
+    trigger.style.background = cfg.bg;
+    trigger.style.borderColor = cfg.color;
+
+    document.getElementById("statusDdMenu").innerHTML = STATUS_CFG.map(function (c) {
+      var active = c.key === currentStatus;
+      return '<li class="status-dd__item" data-status="' + c.key + '" style="color:' + c.color + (active ? ";background:#f5f7fb;" : "") + '">' +
+        '<span class="status-dd__dot" style="background:' + c.color + ';"></span>' +
+        c.key +
+        (active ? '<svg style="margin-left:auto;" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : "") +
+      '</li>';
+    }).join("");
+  }
+
+  function closeDd() {
+    document.getElementById("statusDdMenu").classList.remove("is-open");
+    document.getElementById("statusDdChevron").classList.remove("is-open");
+  }
+
+  function openSellerModal(idx) {
+    _currentSellerIdx = idx;
+    var s = SELLERS_DATA[idx];
+    document.getElementById("sellerModalTitle").textContent = s.name + " — 정산 상세";
+    document.getElementById("sellerModalInfo").innerHTML =
+      infoRow("셀러명", s.name) +
+      infoRow("셀러 유형", s.type) +
+      infoRow("정산 기간", "2026.05.01 ~ 05.31") +
+      infoRow("총 매출", fc(s.sales)) +
+      infoRow("주문수", s.orders + "건") +
+      infoRow("PG 수수료", fc(s.pg), "#e83828") +
+      infoRow("셀러 수수료", fc(s.sellerFee), "#e67e22") +
+      infoRow("정산 예정액", fc(s.sett), "#3a6ac8") +
+      infoRow("연결 상품수", s.products + "개");
+
+    renderStatusPicker(s.status);
+    refreshHistory();
+    document.getElementById("sellerModal").classList.add("is-open");
+  }
+
+  function refreshHistory() {
+    var s = SELLERS_DATA[_currentSellerIdx];
+    document.getElementById("sellerModalHistory").innerHTML = s.history.map(function (h) {
+      return '<div class="sett-history-row">' +
+        '<span class="sett-history__date">' + h.date + '</span>' +
+        '<span>' + h.text + '</span>' +
+      '</div>';
+    }).join("");
+  }
+
+  /* ─── Event Binding ─── */
+  document.addEventListener("DOMContentLoaded", function () {
+    renderSummary();
+    renderSellers();
+
+    /* 정산 관리 탭 */
+    document.querySelectorAll("#settTabs .sec-tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        document.querySelectorAll("#settTabs .sec-tab").forEach(function (t) { t.classList.remove("is-active"); });
+        tab.classList.add("is-active");
+        ["s-summary", "s-seller"].forEach(function (id) {
+          document.getElementById(id).style.display = "none";
+        });
+        document.getElementById(tab.dataset.stab).style.display = "";
+      });
+    });
+
+    /* Period buttons */
+    document.querySelectorAll(".period-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".period-btn").forEach(function (b) { b.classList.remove("is-active"); });
+        btn.classList.add("is-active");
+        document.getElementById("customDateRange").style.display = btn.dataset.p === "custom" ? "" : "none";
+      });
+    });
+
+    /* Search / Reset */
+    document.getElementById("searchBtn").addEventListener("click", function () {
+      showToast("조회 조건이 적용되었습니다.");
+    });
+    document.getElementById("resetBtn").addEventListener("click", function () {
+      document.querySelectorAll(".period-btn").forEach(function (b) { b.classList.remove("is-active"); });
+      document.querySelector(".period-btn[data-p='month']").classList.add("is-active");
+      document.getElementById("customDateRange").style.display = "none";
+      document.getElementById("fSeller").value = "";
+      document.getElementById("fSettStatus").value = "";
+      showToast("필터가 초기화되었습니다.");
+    });
+
+    /* Excel */
+    document.getElementById("excelDownloadBtn").addEventListener("click", function () {
+      showToast("다운로드 준비 중입니다.");
+    });
+
+    /* Seller modal */
+    document.getElementById("sellerModalOverlay").addEventListener("click", function () { closeModal("sellerModal"); });
+    document.getElementById("sellerModalClose").addEventListener("click", function () { closeModal("sellerModal"); });
+    document.getElementById("sellerModalCloseBtn").addEventListener("click", function () { closeModal("sellerModal"); });
+    document.getElementById("sellerModalDownload").addEventListener("click", function () { showToast("다운로드 준비 중입니다."); });
+
+    /* 드롭다운 토글 */
+    document.getElementById("statusDdTrigger").addEventListener("click", function (e) {
+      e.stopPropagation();
+      var menu    = document.getElementById("statusDdMenu");
+      var chevron = document.getElementById("statusDdChevron");
+      var opening = !menu.classList.contains("is-open");
+      menu.classList.toggle("is-open", opening);
+      chevron.classList.toggle("is-open", opening);
+    });
+
+    /* 항목 선택 */
+    document.getElementById("statusDdMenu").addEventListener("click", function (e) {
+      var item = e.target.closest(".status-dd__item");
+      if (!item || _currentSellerIdx === null) return;
+      var s = SELLERS_DATA[_currentSellerIdx];
+      var newStatus = item.dataset.status;
+      closeDd();
+      if (newStatus === s.status) return;
+      s.history.unshift({ date:"2026.05.22", text: STATUS_NOTE[newStatus] });
+      s.status = newStatus;
+      renderStatusPicker(newStatus);
+      refreshHistory();
+      showToast(s.name + " 셀러 상태: [" + newStatus + "]으로 변경되었습니다.");
+      renderSellers();
+    });
+
+    /* 외부 클릭 시 닫기 */
+    document.addEventListener("click", function () { closeDd(); });
+
+    /* ESC */
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { closeModal("sellerModal"); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

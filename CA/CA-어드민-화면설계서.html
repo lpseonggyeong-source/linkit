@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>link it CA 어드민 화면설계서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #e83828;
+    --red-light: #fff0ee;
+    --text: #111827;
+    --muted: #6b7280;
+    --stroke: #e5e7eb;
+    --bg: #f7f8fa;
+    --white: #fff;
+    --heading: #0f172a;
+    --ca: #2563eb;
+    --ca-light: #eff6ff;
+    --ba: #16a34a;
+    --ba-light: #f0fdf4;
+    --la: #7c3aed;
+    --la-light: #f5f3ff;
+    --warn: #d97706;
+    --warn-light: #fffbeb;
+  }
+
+  body { font-family: 'Noto Sans KR', sans-serif; font-size: 14px; color: var(--text); background: var(--bg); line-height: 1.7; }
+
+  .doc-wrap { max-width: 980px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ─── 표지 ─── */
+  .cover {
+    background: var(--heading); color: #fff;
+    padding: 64px 48px 56px;
+    border-radius: 0 0 12px 12px;
+    margin-bottom: 48px;
+    position: relative; overflow: hidden;
+  }
+  .cover::after {
+    content: ''; position: absolute; right: -60px; top: -60px;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: rgba(232,56,40,.18);
+  }
+  .cover-tag { display:inline-block; background:var(--red); color:#fff; font-size:11px; font-weight:700; letter-spacing:.06em; padding:3px 10px; border-radius:4px; margin-bottom:20px; position:relative; z-index:1; }
+  .cover h1 { font-size:32px; font-weight:700; line-height:1.3; margin-bottom:12px; position:relative; z-index:1; }
+  .cover-sub { font-size:15px; color:rgba(255,255,255,.65); margin-bottom:40px; position:relative; z-index:1; }
+  .cover-meta { display:flex; gap:32px; position:relative; z-index:1; }
+  .cover-meta-item { font-size:13px; color:rgba(255,255,255,.55); }
+  .cover-meta-item strong { display:block; font-size:14px; color:#fff; font-weight:600; margin-bottom:2px; }
+
+  /* ─── TOC ─── */
+  .toc { background:var(--white); border:1px solid var(--stroke); border-radius:8px; padding:28px 32px; margin-bottom:40px; }
+  .toc h2 { font-size:15px; font-weight:700; color:var(--heading); margin-bottom:16px; }
+  .toc ol { padding-left:0; list-style:none; counter-reset:toc; }
+  .toc > ol > li { counter-increment:toc; margin-bottom:10px; }
+  .toc > ol > li::before { content:counter(toc) '. '; font-weight:700; color:var(--red); }
+  .toc a { color:var(--text); text-decoration:none; font-size:14px; }
+  .toc a:hover { color:var(--red); text-decoration:underline; }
+  .toc ul { list-style:none; padding-left:20px; margin-top:6px; }
+  .toc ul li { margin-bottom:4px; font-size:13px; color:var(--muted); }
+  .toc ul li::before { content:'— '; }
+  .toc ul li a { color:var(--muted); font-size:13px; }
+
+  /* ─── 섹션 ─── */
+  .section { margin-bottom:52px; }
+  .section-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; padding-bottom:12px; border-bottom:2px solid var(--heading); }
+  .section-num { width:32px; height:32px; background:var(--heading); color:#fff; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; flex-shrink:0; }
+  .section-title { font-size:20px; font-weight:700; color:var(--heading); }
+
+  .sub-section { margin-bottom:32px; }
+  .sub-section-title { font-size:16px; font-weight:700; color:var(--heading); margin-bottom:12px; padding-left:10px; border-left:3px solid var(--red); }
+
+  /* ─── 카드 ─── */
+  .card { background:var(--white); border:1px solid var(--stroke); border-radius:8px; padding:24px; margin-bottom:16px; }
+  .card--blue { border-left:4px solid var(--ca); }
+  .card--red { border-left:4px solid var(--red); }
+  .card--warn { border-left:4px solid var(--warn); background:var(--warn-light); }
+
+  /* ─── 텍스트 ─── */
+  p { margin-bottom:12px; font-size:14px; color:var(--text); line-height:1.75; }
+  p:last-child { margin-bottom:0; }
+
+  /* ─── 역할 배지 ─── */
+  .role-badge { display:inline-flex; align-items:center; font-size:12px; font-weight:700; padding:3px 10px; border-radius:20px; letter-spacing:.04em; }
+  .role-badge--ca { background:var(--ca-light); color:var(--ca); }
+  .role-badge--ba { background:var(--ba-light); color:var(--ba); }
+  .role-badge--la { background:var(--la-light); color:var(--la); }
+
+  /* ─── 테이블 공통 ─── */
+  .data-table {
+    width:100%; border-collapse:collapse; font-size:13px;
+    background:var(--white); border:1px solid var(--stroke);
+    border-radius:8px; overflow:hidden;
+  }
+  .data-table th {
+    background:#f1f5f9; font-weight:700; font-size:12px;
+    padding:11px 14px; text-align:left;
+    border-bottom:1px solid var(--stroke); color:var(--heading);
+  }
+  .data-table th.col-ca { background:var(--ca-light); color:var(--ca); }
+  .data-table th.col-ba { background:var(--ba-light); color:var(--ba); }
+  .data-table th.col-la { background:var(--la-light); color:var(--la); }
+  .data-table td { padding:10px 14px; border-bottom:1px solid var(--stroke); vertical-align:top; line-height:1.6; font-size:13px; }
+  .data-table td.center { text-align:center; }
+  .data-table tr:last-child td { border-bottom:none; }
+  .data-table tr:hover td { background:#fafbfc; }
+
+  .icon-yes { color:#16a34a; }
+  .icon-no { color:#d1d5db; }
+  .icon-part { color:var(--warn); }
+
+  /* ─── 원칙 그리드 ─── */
+  .principle-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+  .principle-item { background:var(--white); border:1px solid var(--stroke); border-radius:8px; padding:18px 20px; }
+  .principle-num { width:24px; height:24px; background:var(--red); color:#fff; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; margin-bottom:10px; }
+  .principle-item strong { display:block; font-size:14px; color:var(--heading); margin-bottom:6px; }
+  .principle-item p { font-size:13px; color:var(--muted); margin:0; }
+
+  /* ─── 메뉴 트리 ─── */
+  .menu-tree { background:var(--white); border:1px solid var(--stroke); border-radius:8px; overflow:hidden; }
+  .menu-tree-header { background:var(--heading); color:#fff; padding:12px 20px; font-size:13px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .menu-group { border-bottom:1px solid var(--stroke); padding:12px 20px; }
+  .menu-group:last-child { border-bottom:none; }
+  .menu-group-title { font-size:13px; font-weight:700; color:var(--heading); margin-bottom:6px; }
+  .menu-sub-list { list-style:none; padding-left:20px; }
+  .menu-sub-list li { font-size:13px; color:var(--muted); margin-bottom:3px; display:flex; align-items:center; gap:8px; }
+  .menu-sub-list li::before { content:'›'; color:var(--red); font-weight:700; }
+  .file-tag { font-size:11px; background:#f1f5f9; color:#475569; padding:1px 6px; border-radius:3px; font-family:monospace; }
+
+  /* ─── 화면 설계 카드 ─── */
+  .screen-card { background:var(--white); border:1px solid var(--stroke); border-radius:10px; overflow:hidden; margin-bottom:24px; }
+  .screen-card-header { background:var(--heading); color:#fff; padding:16px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .screen-card-number { background:var(--red); color:#fff; font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; letter-spacing:.04em; flex-shrink:0; }
+  .screen-card-title { font-size:16px; font-weight:700; }
+  .screen-card-file { font-size:12px; color:rgba(255,255,255,.5); font-family:monospace; margin-left:auto; flex-shrink:0; }
+  .screen-card-body { padding:20px 24px; }
+
+  .spec-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .spec-block-title { font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; margin-bottom:8px; padding-bottom:5px; border-bottom:1px solid var(--stroke); }
+  .spec-block ul { list-style:none; }
+  .spec-block ul li { font-size:13px; color:var(--text); padding:4px 0; display:flex; align-items:baseline; gap:6px; }
+  .spec-block ul li::before { content:'·'; color:var(--red); font-weight:700; flex-shrink:0; }
+
+  .col-table { width:100%; border-collapse:collapse; font-size:12px; margin-top:8px; }
+  .col-table th { background:#f8fafc; padding:7px 10px; text-align:left; font-weight:700; color:var(--muted); border:1px solid var(--stroke); font-size:11px; }
+  .col-table td { padding:7px 10px; border:1px solid var(--stroke); color:var(--text); vertical-align:top; }
+  .col-table tr:nth-child(even) td { background:#fafbfc; }
+
+  .modal-list { list-style:none; }
+  .modal-list li { font-size:13px; padding:6px 0; border-bottom:1px dashed var(--stroke); display:flex; gap:10px; align-items:baseline; }
+  .modal-list li:last-child { border-bottom:none; }
+  .modal-name { font-weight:600; color:var(--heading); flex-shrink:0; min-width:150px; }
+
+  /* ─── 태그 ─── */
+  .tag { display:inline-block; font-size:11px; padding:2px 7px; border-radius:3px; font-weight:600; }
+  .tag--ca { background:var(--ca-light); color:var(--ca); }
+  .tag--warn { background:var(--warn-light); color:var(--warn); }
+  .tag--new { background:#fef9c3; color:#92400e; }
+
+  /* ─── 안내 박스 ─── */
+  .notice-box { background:var(--red-light); border:1px solid #fca5a5; border-radius:6px; padding:14px 16px; font-size:13px; color:#991b1b; margin-bottom:16px; display:flex; gap:10px; align-items:flex-start; }
+  .info-box { background:var(--ca-light); border:1px solid #bfdbfe; border-radius:6px; padding:14px 16px; font-size:13px; color:#1e40af; margin-bottom:16px; }
+  .info-box strong { display:block; margin-bottom:4px; }
+  .warn-box { background:var(--warn-light); border:1px solid #fcd34d; border-radius:6px; padding:14px 16px; font-size:13px; color:#92400e; margin-bottom:16px; display:flex; gap:10px; align-items:flex-start; }
+
+  /* ─── 플로우 ─── */
+  .flow { display:flex; align-items:center; flex-wrap:wrap; gap:0; margin:12px 0; }
+  .flow-step { background:var(--white); border:1px solid var(--stroke); border-radius:6px; padding:10px 16px; font-size:13px; font-weight:600; color:var(--heading); text-align:center; min-width:120px; }
+  .flow-step--ca { background:var(--ca-light); border-color:#bfdbfe; color:var(--ca); }
+  .flow-step--la { background:var(--la-light); border-color:#c4b5fd; color:var(--la); }
+  .flow-step--ba { background:var(--ba-light); border-color:#bbf7d0; color:var(--ba); }
+  .flow-arrow { font-size:18px; color:var(--muted); padding:0 6px; }
+
+  /* ─── 수정 필요 테이블 ─── */
+  .todo-table { width:100%; border-collapse:collapse; font-size:13px; background:var(--white); border:1px solid var(--stroke); border-radius:8px; overflow:hidden; }
+  .todo-table th { background:#f1f5f9; font-weight:700; font-size:12px; padding:11px 16px; text-align:left; border-bottom:1px solid var(--stroke); color:var(--heading); }
+  .todo-table td { padding:12px 16px; border-bottom:1px solid var(--stroke); vertical-align:top; font-size:13px; line-height:1.65; }
+  .todo-table tr:last-child td { border-bottom:none; }
+  .todo-table tr:hover td { background:#fafbfc; }
+
+  @media (max-width:640px) {
+    .spec-grid, .principle-grid { grid-template-columns:1fr; }
+    .cover { padding:40px 24px; }
+    .cover h1 { font-size:22px; }
+    .cover-meta { flex-direction:column; gap:12px; }
+    .flow { gap:4px; }
+    .flow-step { min-width:80px; font-size:12px; padding:8px 10px; }
+  }
+
+  @media print {
+    body { background:#fff; }
+    .edit-toolbar { display:none !important; }
+    .doc-wrap { padding:0; }
+    .cover { border-radius:0; }
+    .screen-card, .section { page-break-inside:avoid; }
+  }
+
+  /* ─── 문서 편집 툴바 ─── */
+  .edit-toolbar {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(15, 23, 42, .94);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, .24);
+  }
+  .edit-toolbar button {
+    appearance: none;
+    border: 0;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--heading);
+    background: #fff;
+  }
+  .edit-toolbar button.primary { color: #fff; background: var(--red); }
+  .edit-toolbar button.ghost { color: #fff; background: rgba(255,255,255,.16); }
+  .edit-toolbar button[hidden] { display: none; }
+  .edit-status {
+    color: rgba(255,255,255,.72);
+    font-size: 12px;
+    padding: 0 4px;
+    white-space: nowrap;
+  }
+  body.is-editing .doc-wrap {
+    outline: 2px dashed rgba(232,56,40,.45);
+    outline-offset: 8px;
+  }
+  body.is-editing .doc-wrap [contenteditable="true"] {
+    cursor: text;
+  }
+  body.is-editing .doc-wrap [contenteditable="true"]:focus {
+    outline: 2px solid rgba(232,56,40,.55);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="edit-toolbar" aria-label="문서 편집 도구">
+  <span class="edit-status" id="editStatus">보기 모드</span>
+  <button type="button" class="primary" id="editStartBtn">편집</button>
+  <button type="button" class="primary" id="editSaveBtn" hidden>저장</button>
+  <button type="button" class="ghost" id="editCancelBtn" hidden>취소</button>
+  <button type="button" id="editDownloadBtn" hidden>HTML 다운로드</button>
+</div>
+<div class="doc-wrap">
+
+  <!-- ══ 표지 ══ -->
+  <div class="cover">
+    <div class="cover-tag">INTERNAL DOCUMENT</div>
+    <h1>link it<br>CA 어드민 화면설계서</h1>
+    <p class="cover-sub">Company Admin — 계약 업체 전용 운영 콘솔</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><strong>문서 버전</strong>v1.1</div>
+      <div class="cover-meta-item"><strong>작성일</strong>2025. 05. 21</div>
+      <div class="cover-meta-item"><strong>대상</strong>기획자 · 개발자 · 대표</div>
+      <div class="cover-meta-item"><strong>상태</strong>화면 시제작 완료 / 보완사항 정의 중</div>
+    </div>
+  </div>
+
+  <!-- ══ 목차 ══ -->
+  <div class="toc">
+    <h2>목차</h2>
+    <ol>
+      <li><a href="#s1">서비스 역할 구분</a></li>
+      <li><a href="#s2">CA 리뉴얼 핵심 방향</a></li>
+      <li><a href="#s3">CA IA (메뉴 구조)</a></li>
+      <li><a href="#s4">공통 레이아웃</a></li>
+      <li><a href="#s5">화면별 설계 요약</a></li>
+      <li><a href="#s6">주요 화면 상세</a>
+        <ul>
+          <li><a href="#sc1">CA-001 대시보드</a></li>
+          <li><a href="#sc2">CA-002 계약 브랜드 목록</a></li>
+          <li><a href="#sc3">CA-003 브랜드 등록 신청</a></li>
+          <li><a href="#sc4">CA-006 상품 목록</a></li>
+          <li><a href="#sc5">CA-007 전체 주문 내역</a></li>
+          <li><a href="#sc6">CA-009 셀러 목록</a></li>
+          <li><a href="#sc7">CA-012 셀러-브랜드 연결 관리</a></li>
+          <li><a href="#sc8">CA-013 정산 관리</a></li>
+          <li><a href="#sc9">CA-014 정산 상세</a></li>
+          <li><a href="#sc10">CA-016 공지사항</a></li>
+          <li><a href="#sc11">CA-017 환경설정</a></li>
+        </ul>
+      </li>
+      <li><a href="#s7">LA · BA와 연결되는 흐름</a></li>
+      <li><a href="#s8">CA 화면 추가·수정 필요사항</a></li>
+      <li><a href="#s9">결론</a></li>
+    </ol>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       1. 서비스 역할 구분
+  ══════════════════════════════════════════ -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2 class="section-title">서비스 역할 구분</h2>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:90px;">구분</th>
+          <th>목적</th>
+          <th>핵심 기능</th>
+          <th>CA와의 차이</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="role-badge role-badge--la">LA</span><br><small style="color:var(--muted);font-size:11px;">링크잇 내부 어드민</small></td>
+          <td>플랫폼 운영자가 업체·브랜드를 승인하고 결제코드·정산을 통제</td>
+          <td>브랜드 승인, 업체 매핑, 결제코드 등록, 전체 정산 확인</td>
+          <td>CA의 상위 승인·통제자. 직접 판매운영보다 <strong>승인·관리 목적</strong></td>
+        </tr>
+        <tr>
+          <td><span class="role-badge role-badge--ca">CA</span><br><small style="color:var(--muted);font-size:11px;">업체 어드민</small></td>
+          <td>오로라 같은 업체가 계약 브랜드 전체를 운영</td>
+          <td>계약 브랜드 관리, 상품·주문 수정, 셀러 연결, 업체 기준 정산</td>
+          <td><strong>여러 브랜드를 한 업체가 통합 운영</strong></td>
+        </tr>
+        <tr>
+          <td><span class="role-badge role-badge--ba">BA</span><br><small style="color:var(--muted);font-size:11px;">브랜드 어드민</small></td>
+          <td>등록된 브랜드가 자기 브랜드를 운영</td>
+          <td>상품 등록, 주문 처리, 디자인 관리, 연결 셀러 조회, 브랜드 매출 참고</td>
+          <td>단일 브랜드 운영. <strong>업체·타 브랜드 필터 없음</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       2. CA 리뉴얼 핵심 방향
+  ══════════════════════════════════════════ -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2 class="section-title">CA 리뉴얼 핵심 방향</h2>
+    </div>
+
+    <div class="card card--blue" style="margin-bottom:20px;">
+      <p style="font-size:15px; font-weight:700; color:var(--ca); margin-bottom:8px;">CA는 "브랜드 하나의 운영툴"이 아니라, 업체가 계약 브랜드 전체를 관리하는 운영 콘솔이어야 한다.</p>
+      <p style="font-size:13px; margin:0; color:var(--text);">BA를 단순 복제하면 안 됩니다. 브랜드 선택 / 셀러 연결 / 업체 기준 정산이 모든 화면의 중심 축이 되어야 합니다.</p>
+    </div>
+
+    <div class="sub-section-title" style="margin-bottom:14px;">핵심 설계 원칙</div>
+    <div class="principle-grid">
+      <div class="principle-item">
+        <div class="principle-num">1</div>
+        <strong>브랜드·셀러 필터 전면 제공</strong>
+        <p>모든 주요 목록 화면에 브랜드 필터와 셀러 필터를 분리해서 제공. 두 축을 혼용하면 데이터 해석이 불가능해짐.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">2</div>
+        <strong>정산 단위는 계약 업체 기준</strong>
+        <p>브랜드·셀러는 분석 단위일 뿐, 실제 정산 귀속은 "계약 업체 × 정산 기간" 단위로 처리.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">3</div>
+        <strong>업체 최고관리자 직접 수정 권한</strong>
+        <p>CA는 계약 브랜드의 상품·주문을 직접 수정할 수 있어야 함. BA에 위임하지 않고 CA 레벨에서 처리 가능.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">4</div>
+        <strong>셀러-브랜드 연결을 별도 화면으로</strong>
+        <p>셀러는 여러 브랜드에 연결 가능한 N:N 구조. 연결 관리는 독립 화면(CA-012)에서 전담.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">5</div>
+        <strong>브랜드 선택 바 상단 고정</strong>
+        <p>BA와 동일한 디자인 시스템을 쓰되, CA는 전체 브랜드 선택 바를 대시보드와 주요 목록 상단에 고정 노출.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">6</div>
+        <strong>브랜드 등록→승인→운영 상태값 연결</strong>
+        <p>CA 신청 → LA 승인 → CA 반영 → BA 운영 흐름이 화면의 상태 배지로 시각화되어야 함.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       3. CA IA
+  ══════════════════════════════════════════ -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2 class="section-title">CA IA (메뉴 구조)</h2>
+    </div>
+
+    <div class="menu-tree">
+      <div class="menu-tree-header">
+        <span class="role-badge role-badge--ca" style="background:rgba(37,99,235,.3);color:#fff;">CA</span>
+        link it Company Admin — 사이드바 네비게이션
+      </div>
+      <div class="menu-group">
+        <div class="menu-group-title">📊 대시보드</div>
+        <ul class="menu-sub-list">
+          <li>전체 계약 브랜드 현황 &nbsp;<span class="file-tag">ca-001-dashboard.html</span></li>
+        </ul>
+      </div>
+      <div class="menu-group">
+        <div class="menu-group-title">🏷️ 브랜드 관리</div>
+        <ul class="menu-sub-list">
+          <li>계약 브랜드 목록 <span class="file-tag">ca-002-brand-list.html</span></li>
+          <li>브랜드 등록 신청 <span class="file-tag">ca-003-brand-register.html</span></li>
+        </ul>
+      </div>
+      <div class="menu-group">
+        <div class="menu-group-title">📦 상품 관리</div>
+        <ul class="menu-sub-list">
+          <li>상품 목록 <span class="file-tag">ca-006-product-list.html</span></li>
+        </ul>
+      </div>
+      <div class="menu-group">
+        <div class="menu-group-title">🛒 주문 관리</div>
+        <ul class="menu-sub-list">
+          <li>전체 주문 내역 <span class="file-tag">ca-007-order-list.html</span></li>
+        </ul>
+      </div>
+      <div class="menu-group">
+        <div class="menu-group-title">👤 셀러 관리</div>
+        <ul class="menu-sub-list">
+          <li>셀러 목록 <span class="file-tag">ca-009-seller-list.html</span></li>
+          <li>셀러-브랜드 연결 관리 <span class="file-tag">ca-012-seller-brand.html</span></li>
+        </ul>
+      </div>
+      <div class="menu-group">
+        <div class="menu-group-title">💰 정산 관리</div>
+        <ul class="menu-sub-list">
+          <li>정산 요약 <span class="file-tag">ca-013-settlement.html</span></li>
+          <li>정산 상세 <span class="file-tag">ca-014-settlement-detail.html</span></li>
+        </ul>
+      </div>
+      <div class="menu-group">
+        <div class="menu-group-title">📢 공지사항</div>
+        <ul class="menu-sub-list">
+          <li>목록 · 상세 · 작성 (SPA) <span class="file-tag">ca-016-notice.html</span></li>
+        </ul>
+      </div>
+      <div class="menu-group">
+        <div class="menu-group-title">⚙️ 환경설정</div>
+        <ul class="menu-sub-list">
+          <li>업체 정보 · 사업자 · 정산 계좌 · 배송/반품 정책 <span class="file-tag">ca-017-settings.html</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       4. 공통 레이아웃
+  ══════════════════════════════════════════ -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2 class="section-title">공통 레이아웃</h2>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr><th style="width:180px;">영역</th><th>설계</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>좌측 사이드바</strong></td>
+          <td>CA role badge 표시, 대시보드 / 브랜드 / 상품 / 주문 / 셀러 / 정산 / 공지 / 환경설정 네비게이션</td>
+        </tr>
+        <tr>
+          <td><strong>상단 모바일 헤더</strong></td>
+          <td>BA와 동일하게 link it 로고 + 햄버거 메뉴 (오버레이 슬라이드)</td>
+        </tr>
+        <tr>
+          <td><strong>본문 헤더</strong></td>
+          <td>화면명(h1) + 설명문(subtitle p) — 화면 목적 한 줄 안내</td>
+        </tr>
+        <tr>
+          <td><strong>CA 브랜드 선택 바</strong></td>
+          <td>전체 브랜드, 어반무드, 바이엘르, 루미데이, 모노픽, 소프트블랭크 — 대시보드 및 목록 상단 고정 노출</td>
+        </tr>
+        <tr>
+          <td><strong>리스트 화면</strong></td>
+          <td>필터 카드 + 액션바 + 테이블(10행/페이지) + 페이지네이션</td>
+        </tr>
+        <tr>
+          <td><strong>상태값</strong></td>
+          <td>badge 사용 — 승인·정지·배송·정산 상태 구분 (색상 코드 통일)</td>
+        </tr>
+        <tr>
+          <td><strong>디자인 톤</strong></td>
+          <td>BA 리뉴얼과 동일 — white card, light gray bg, red primary button, Noto Sans KR</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       5. 화면별 설계 요약
+  ══════════════════════════════════════════ -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2 class="section-title">화면별 설계 요약</h2>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="data-table" style="min-width:760px;">
+        <thead>
+          <tr>
+            <th style="width:70px;">ID</th>
+            <th style="width:130px;">화면명</th>
+            <th>목적</th>
+            <th>주요 구성</th>
+            <th>주요 액션</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CA-001</strong></td>
+            <td>대시보드</td>
+            <td>오로라 업체의 전체 계약 브랜드 현황 확인</td>
+            <td>브랜드 선택 바, KPI, 계약 브랜드별 매출, 셀러 TOP5, 최근 주문, 공지</td>
+            <td>브랜드별 현황 이동, 정산·셀러·주문 상세 이동</td>
+          </tr>
+          <tr>
+            <td><strong>CA-002</strong></td>
+            <td>계약 브랜드 목록</td>
+            <td>계약 브랜드 조회 및 상태 관리</td>
+            <td>승인상태 필터, 신청출처 필터, 브랜드명 검색, 브랜드 테이블</td>
+            <td>브랜드 등록 신청, 상세 보기, 수정</td>
+          </tr>
+          <tr>
+            <td><strong>CA-003</strong></td>
+            <td>브랜드 등록 신청</td>
+            <td>업체가 신규 브랜드를 대리 신청</td>
+            <td>브랜드 기본정보, 사업자 정보, 담당자 정보, 정산/계좌, 배송/반품 정보</td>
+            <td>신청 제출, 목록 복귀</td>
+          </tr>
+          <tr>
+            <td><strong>CA-006</strong></td>
+            <td>상품 목록</td>
+            <td>계약 브랜드 전체 상품 통합 관리</td>
+            <td>상태/브랜드/카테고리/상품명 필터, 상품 테이블, 수정 모달</td>
+            <td>옵션 확인, 판매상태 변경, 상품 복사, 수정, 삭제</td>
+          </tr>
+          <tr>
+            <td><strong>CA-007</strong></td>
+            <td>전체 주문 내역</td>
+            <td>계약 브랜드 전체 주문 처리</td>
+            <td>브랜드·셀러·상태·기간·상품명·주문번호 필터, 상태 요약, 주문 테이블</td>
+            <td>선택 주문 상태 변경, 배송자료 다운로드, 송장 업로드, 배송지 수정</td>
+          </tr>
+          <tr>
+            <td><strong>CA-009</strong></td>
+            <td>셀러 목록</td>
+            <td>업체·브랜드 연결 셀러 관리</td>
+            <td>전체·업체 소속·브랜드 직접 탭, 셀러 필터, 셀러 테이블</td>
+            <td>셀러 등록, 상세, 수정, 연결 관리 이동</td>
+          </tr>
+          <tr>
+            <td><strong>CA-012</strong></td>
+            <td>셀러-브랜드 연결 관리</td>
+            <td>셀러와 복수 브랜드 연결 관리</td>
+            <td>셀러 선택, 셀러 정보, 현재 연결 브랜드, 연결 가능 브랜드</td>
+            <td>브랜드 연결 추가, 연결 해제, 판매 가능 여부 저장</td>
+          </tr>
+          <tr>
+            <td><strong>CA-013</strong></td>
+            <td>정산 관리</td>
+            <td>업체 기준 정산 요약 확인</td>
+            <td>미정산·정산중·정산완료 카드, 기간·브랜드·상태 필터, 브랜드별·셀러별 매출</td>
+            <td>정산 상세 이동</td>
+          </tr>
+          <tr>
+            <td><strong>CA-014</strong></td>
+            <td>정산 상세</td>
+            <td>정산 건 단위 상세 및 상태 관리</td>
+            <td>정산 기본정보, 금액 요약, 정산내역·브랜드·셀러 탭</td>
+            <td>정산 상태 변경 (조회·신청 범위), 상세 행 선택</td>
+          </tr>
+          <tr>
+            <td><strong>CA-016</strong></td>
+            <td>공지사항</td>
+            <td>링크잇·업체 공지 확인 및 업체 공지 발송</td>
+            <td>공지 목록, 대상 구분, 검색, 상세 뷰, 작성 모달</td>
+            <td>상세 보기, 업체 공지 등록</td>
+          </tr>
+          <tr>
+            <td><strong>CA-017</strong></td>
+            <td>환경설정</td>
+            <td>업체 운영 기본정보 관리</td>
+            <td>업체 정보, 사업자 정보, 정산 계좌, 배송·반품 정책</td>
+            <td>정보 수정, 저장</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       6. 주요 화면 상세
+  ══════════════════════════════════════════ -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2 class="section-title">주요 화면 상세</h2>
+    </div>
+
+    <!-- SC-01 대시보드 -->
+    <div class="screen-card" id="sc1">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-001</span>
+        <span class="screen-card-title">대시보드</span>
+        <span class="screen-card-file">ca-001-dashboard.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">목적</div>
+            <p style="font-size:13px;">업체 오로라가 계약 브랜드 전체 운영 현황을 한 화면에서 확인. BA 대시보드보다 브랜드별·셀러별 집계가 더 앞에 보여야 함.</p>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">KPI 카드 (5종)</div>
+            <ul>
+              <li>전체 주문 수</li>
+              <li>총 매출</li>
+              <li>배송중</li>
+              <li>주문취소</li>
+              <li>정산 예정 금액</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-block-title" style="margin-bottom:8px;">테이블 구성</div>
+        <table class="col-table">
+          <thead><tr><th>테이블</th><th>컬럼</th></tr></thead>
+          <tbody>
+            <tr><td>계약 브랜드별 매출</td><td>브랜드명, 주문수, 매출, 정산상태 → 정산 관리 이동</td></tr>
+            <tr><td>셀러별 성과 TOP 5</td><td>셀러명, 브랜드, 매출, 주문수 → 셀러 관리 이동</td></tr>
+            <tr><td>최근 주문 내역</td><td>주문번호, 브랜드, 셀러, 상품명, 금액, 상태 → 주문 이동</td></tr>
+            <tr><td>공지사항</td><td>최신 공지 목록 → 공지 전체 보기 이동</td></tr>
+          </tbody>
+        </table>
+        <div class="info-box" style="margin-top:12px;">
+          <strong>설계 포인트</strong>
+          브랜드 선택 바로 전체/개별 브랜드를 필터링하면 모든 KPI·테이블이 동시에 갱신됩니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- SC-02 계약 브랜드 목록 -->
+    <div class="screen-card" id="sc2">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-002</span>
+        <span class="screen-card-title">계약 브랜드 목록</span>
+        <span class="screen-card-file">ca-002-brand-list.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">필터</div>
+            <ul>
+              <li>승인상태 (셀렉트)</li>
+              <li>신청출처 (셀렉트)</li>
+              <li>브랜드명 (텍스트 검색)</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">주요 액션</div>
+            <ul>
+              <li>+ 브랜드 등록 신청 (CA-003 이동)</li>
+              <li>상세 모달</li>
+              <li>수정 모달</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-block-title" style="margin-bottom:8px;">테이블 컬럼</div>
+        <table class="col-table">
+          <thead><tr><th>컬럼</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>브랜드명</td><td>로고 + 이름</td></tr>
+            <tr><td>신청출처</td><td>업체 대리 / 브랜드 직접</td></tr>
+            <tr><td>승인상태</td><td>승인 대기 / 승인 완료 / 반려 / 정지 <span class="tag tag--new">확장 필요</span></td></tr>
+            <tr><td>계약업체</td><td>소속 업체명</td></tr>
+            <tr><td>상품수 / 주문수 / 매출</td><td>누적 집계</td></tr>
+            <tr><td>등록일</td><td>YYYY-MM-DD</td></tr>
+            <tr><td>관리</td><td>수정 / 상세</td></tr>
+          </tbody>
+        </table>
+        <div class="warn-box" style="margin-top:12px;">
+          <span>⚠</span>
+          <div><strong>보완 제안:</strong> 현재 승인상태가 승인/정지 2종인데, LA 승인 플로우와 맞추려면 <strong>승인 대기 → 승인 완료 → 반려 → 정지</strong> 4종으로 확장 필요.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SC-03 브랜드 등록 신청 -->
+    <div class="screen-card" id="sc3">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-003</span>
+        <span class="screen-card-title">브랜드 등록 신청</span>
+        <span class="screen-card-file">ca-003-brand-register.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">섹션 구성 (5개)</div>
+            <ul>
+              <li>브랜드 기본 정보</li>
+              <li>사업자 정보</li>
+              <li>담당자 정보</li>
+              <li>정산·계좌 정보 <span class="tag tag--new">추가 필요</span></li>
+              <li>배송·반품 기본 정보 <span class="tag tag--new">추가 필요</span></li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">중요 필드</div>
+            <ul>
+              <li>브랜드명, 카테고리, 신청출처</li>
+              <li>상호명, 사업자등록번호, 대표자명, 사업장 주소</li>
+              <li>담당자명, 이메일, 연락처</li>
+              <li>은행명, 계좌번호, 예금주, 정산 사이클</li>
+            </ul>
+          </div>
+        </div>
+        <div class="info-box">
+          <strong>정책 문구 (화면 상단 노출)</strong>
+          "신청 후 링크잇 내부 관리자 승인이 필요합니다. 평균 2~3 영업일 내 결과를 안내드립니다."
+        </div>
+        <div class="warn-box">
+          <span>⚠</span>
+          <div><strong>LA 연결:</strong> 제출 후 LA의 브랜드 승인 대기 목록으로 자동 이동. CA에서는 "승인 대기" 상태로 CA-002에 즉시 반영.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SC-04 상품 목록 -->
+    <div class="screen-card" id="sc4">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-006</span>
+        <span class="screen-card-title">상품 목록</span>
+        <span class="screen-card-file">ca-006-product-list.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">필터 (5종 — 분리 필수)</div>
+            <ul>
+              <li>판매상태 (셀렉트)</li>
+              <li>브랜드 (셀렉트) <span class="tag tag--warn">브랜드 단독</span></li>
+              <li>상위 카테고리 (셀렉트)</li>
+              <li>하위 카테고리 (셀렉트)</li>
+              <li>상품명 (텍스트 검색)</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">주요 액션</div>
+            <ul>
+              <li>옵션 정보 모달 조회</li>
+              <li>판매상태 인라인 변경</li>
+              <li>판매 링크 URL 복사</li>
+              <li>상품 수정 모달</li>
+              <li>상품 복사 확인 모달</li>
+              <li>상품 삭제 확인 모달</li>
+              <li>카테고리 변경 모달</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-block-title" style="margin-bottom:8px;">테이블 컬럼 (12개)</div>
+        <table class="col-table">
+          <thead><tr><th>#</th><th>컬럼</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>No.</td><td>번호</td></tr>
+            <tr><td>2</td><td>대표사진</td><td>48×48 썸네일</td></tr>
+            <tr><td>3</td><td>제품명</td><td>min-width 180px</td></tr>
+            <tr><td>4</td><td>가격</td><td>원화 포맷</td></tr>
+            <tr><td>5</td><td>기간판매</td><td>날짜 범위 또는 "상시"</td></tr>
+            <tr><td>6</td><td>옵션</td><td>옵션 수 배지 + 모달 버튼</td></tr>
+            <tr><td>7</td><td>판매여부</td><td>판매중 / 판매마감 / 품절 토글</td></tr>
+            <tr><td>8</td><td>재고</td><td>수량</td></tr>
+            <tr><td>9</td><td>판매수</td><td>누적</td></tr>
+            <tr><td>10</td><td>판매링크</td><td>URL 복사 버튼</td></tr>
+            <tr><td>11</td><td>등록일</td><td>YYYY-MM-DD</td></tr>
+            <tr><td>12</td><td>관리</td><td>수정 / 복사 / 삭제 / 카테고리 버튼</td></tr>
+          </tbody>
+        </table>
+        <div class="warn-box" style="margin-top:12px;">
+          <span>⚠</span>
+          <div><strong>보완 필요:</strong> 브랜드 필터와 셀러·채널 필터를 반드시 분리. 현재 브랜드 필터 값에 업체명·셀러명이 혼재되어 있어 수정 필요.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SC-05 전체 주문 내역 -->
+    <div class="screen-card" id="sc5">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-007</span>
+        <span class="screen-card-title">전체 주문 내역</span>
+        <span class="screen-card-file">ca-007-order-list.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">필터 (6종)</div>
+            <ul>
+              <li>브랜드 (셀렉트)</li>
+              <li>셀러 (셀렉트)</li>
+              <li>주문상태 (셀렉트)</li>
+              <li>주문기간 (날짜 범위)</li>
+              <li>상품명 (텍스트)</li>
+              <li>주문번호 (텍스트)</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">상태 요약 카드 (4종)</div>
+            <ul>
+              <li>상품 준비중</li>
+              <li>취소 준비중</li>
+              <li>배송준비중</li>
+              <li>배송중</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-block-title" style="margin-bottom:8px;">테이블 컬럼</div>
+        <table class="col-table">
+          <thead><tr><th>컬럼</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td>□ / 주문번호</td><td>일괄 처리 체크박스 + 주문 ID</td></tr>
+            <tr><td>주문일</td><td>YYYY-MM-DD</td></tr>
+            <tr><td>브랜드</td><td>주문 브랜드명</td></tr>
+            <tr><td>셀러</td><td>판매 셀러명</td></tr>
+            <tr><td>상품명</td><td>좌정렬</td></tr>
+            <tr><td>수량</td><td>주문 수량</td></tr>
+            <tr><td>주문금액</td><td>우정렬</td></tr>
+            <tr><td>주문상태</td><td>결제완료 / 배송준비중 / 배송중 / 배송완료 / 취소</td></tr>
+            <tr><td>배송지수정</td><td>수정 가능 여부 + 액션 버튼</td></tr>
+            <tr><td>관리</td><td>상세 보기</td></tr>
+          </tbody>
+        </table>
+        <div class="info-box" style="margin-top:12px;">
+          <strong>권한 포인트</strong>
+          CA는 계약 브랜드 전체 주문을 직접 수정 가능. 선택 주문 상태 변경 / 배송자료 다운로드 / 송장번호 업로드 / 배송지 수정 모두 포함.
+        </div>
+        <div class="warn-box">
+          <span>⚠</span>
+          <div><strong>추가 정의 필요:</strong> 주문 상세 화면 또는 상세 모달(주문 정보·배송지·상품 내역) 별도 정의 필요.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SC-06 셀러 목록 -->
+    <div class="screen-card" id="sc6">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-009</span>
+        <span class="screen-card-title">셀러 목록</span>
+        <span class="screen-card-file">ca-009-seller-list.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">탭 구성 (3종)</div>
+            <ul>
+              <li>전체</li>
+              <li>업체 소속 셀러</li>
+              <li>브랜드 직접 셀러</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">필터</div>
+            <ul>
+              <li>셀러명 (텍스트)</li>
+              <li>연결 브랜드 (셀렉트)</li>
+              <li>상태 (셀렉트)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-block-title" style="margin-bottom:8px;">테이블 컬럼</div>
+        <table class="col-table">
+          <thead><tr><th>컬럼</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td>셀러명</td><td>이름</td></tr>
+            <tr><td>셀러ID</td><td>고유 식별자</td></tr>
+            <tr><td>소속유형</td><td>업체 소속 / 브랜드 직접 — <strong>핵심 구분 정보</strong></td></tr>
+            <tr><td>소속업체</td><td>소속 업체명</td></tr>
+            <tr><td>연결 브랜드</td><td>연결 수 배지 — <strong>핵심 구분 정보</strong></td></tr>
+            <tr><td>판매상품수</td><td>활성 상품 수</td></tr>
+            <tr><td>주문수 / 매출</td><td>누적</td></tr>
+            <tr><td>상태</td><td>활성 / 비활성 / 정지</td></tr>
+            <tr><td>관리</td><td>수정 / 상세 / 연결 관리 이동</td></tr>
+          </tbody>
+        </table>
+        <div class="info-box" style="margin-top:12px;">
+          <strong>설계 포인트</strong>
+          소속유형과 연결 브랜드 수가 가장 중요한 정보. 브랜드 직접 셀러도 업체 화면에서 조회 가능하되, 출처(소속유형)가 명확히 구분되어야 함.
+        </div>
+        <div class="warn-box">
+          <span>⚠</span>
+          <div><strong>추가 정의 필요:</strong> 셀러 등록 폼 상세 (셀러 기본정보·연락처·소속유형·계좌) 미정의.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SC-07 셀러-브랜드 연결 관리 -->
+    <div class="screen-card" id="sc7">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-012</span>
+        <span class="screen-card-title">셀러-브랜드 연결 관리</span>
+        <span class="screen-card-file">ca-012-seller-brand.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="info-box">
+          <strong>CA 전용 기능 — BA 미제공</strong>
+          셀러에게 브랜드 판매 권한을 부여·회수하는 권한은 CA(업체 단위)에게만 있습니다. 한 셀러가 여러 브랜드에 연결 가능한 N:N 구조.
+        </div>
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">화면 구성</div>
+            <ul>
+              <li>셀러 선택 (셀렉트 또는 검색)</li>
+              <li>소속유형 · 소속업체 표시</li>
+              <li>현재 연결된 브랜드 목록</li>
+              <li>연결 가능한 브랜드 목록</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">주요 액션</div>
+            <ul>
+              <li>브랜드 연결 추가</li>
+              <li>연결 해제 (× 버튼)</li>
+              <li>판매 가능 여부 체크</li>
+              <li>연결 저장</li>
+            </ul>
+          </div>
+        </div>
+        <p style="font-size:13px; color:var(--muted); margin-top:4px;">브랜드 직접 셀러도 업체 화면에서 조회 가능하되, 소속유형(출처)이 명확히 표시되어야 합니다.</p>
+      </div>
+    </div>
+
+    <!-- SC-08 정산 관리 -->
+    <div class="screen-card" id="sc8">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-013</span>
+        <span class="screen-card-title">정산 관리</span>
+        <span class="screen-card-file">ca-013-settlement.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">요약 카드 (4종)</div>
+            <ul>
+              <li>미정산 금액</li>
+              <li>정산중 금액</li>
+              <li>정산완료 금액</li>
+              <li>이번 달 순매출</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">필터</div>
+            <ul>
+              <li>정산기간 (날짜 범위)</li>
+              <li>브랜드 (셀렉트)</li>
+              <li>정산상태 (셀렉트)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-block-title" style="margin-bottom:8px;">테이블 구성 (2종 나란히)</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div>
+            <p style="font-size:12px; font-weight:700; color:var(--muted); margin-bottom:6px;">브랜드별 매출</p>
+            <table class="col-table">
+              <tbody>
+                <tr><td>브랜드</td></tr><tr><td>주문수</td></tr>
+                <tr><td>총매출</td></tr><tr><td>취소차감</td></tr>
+                <tr><td>정산예정</td></tr><tr><td>정산상태</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <p style="font-size:12px; font-weight:700; color:var(--muted); margin-bottom:6px;">셀러별 매출</p>
+            <table class="col-table">
+              <tbody>
+                <tr><td>셀러명</td></tr><tr><td>소속유형</td></tr>
+                <tr><td>주문수</td></tr><tr><td>총매출</td></tr>
+                <tr><td>취소차감</td></tr><tr><td>정산예정</td></tr>
+                <tr><td>정산상태</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top:12px;">
+          <strong>설계 포인트</strong>
+          브랜드·셀러는 분석 단위이고, 실제 정산 귀속은 업체 기준. 정산 상세(CA-014)로 드릴다운.
+        </div>
+      </div>
+    </div>
+
+    <!-- SC-09 정산 상세 -->
+    <div class="screen-card" id="sc9">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-014</span>
+        <span class="screen-card-title">정산 상세</span>
+        <span class="screen-card-file">ca-014-settlement-detail.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">상단 기본 정보</div>
+            <ul>
+              <li>정산번호</li>
+              <li>정산기간</li>
+              <li>브랜드</li>
+              <li>결제코드</li>
+              <li>정산일</li>
+              <li>지급계좌 / 예금주</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">금액 카드 (4종)</div>
+            <ul>
+              <li>총 주문금액</li>
+              <li>취소·반품 차감</li>
+              <li>수수료</li>
+              <li>최종 정산액</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-block-title" style="margin-bottom:8px;">탭 구성 (3종)</div>
+        <ul style="list-style:none; font-size:13px;">
+          <li style="padding:4px 0;">· 정산내역 목록 — 개별 주문 건 단위</li>
+          <li style="padding:4px 0;">· 브랜드 정산 내역 — 브랜드별 소계</li>
+          <li style="padding:4px 0;">· 셀러 정산 내역 — 셀러별 소계</li>
+        </ul>
+        <div class="warn-box" style="margin-top:12px;">
+          <span>⚠</span>
+          <div>
+            <strong>권한 분리 필요:</strong>
+            <ul style="list-style:none; margin-top:4px; font-size:13px;">
+              <li>· CA: 정산 상태 조회 + 신청 수준 (미정산 → 정산 신청)</li>
+              <li>· LA: 정산 최종 확정·지급 처리</li>
+            </ul>
+            현재 CA/LA의 정산 상태 변경 권한이 명확히 분리되지 않음 — 확정 필요.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SC-10 공지사항 -->
+    <div class="screen-card" id="sc10">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-016</span>
+        <span class="screen-card-title">공지사항</span>
+        <span class="screen-card-file">ca-016-notice.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">화면 구성 (SPA)</div>
+            <ul>
+              <li>목록 뷰 → 제목 클릭 → 상세 뷰 전환</li>
+              <li>상세: 이전글·다음글 네비</li>
+              <li>+ 글쓰기 버튼 → 작성 모달</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">공지 구분 (3종)</div>
+            <ul>
+              <li>링크잇 공지 (LA → 전체 발송)</li>
+              <li>업체 공지 (CA → 소속 브랜드 전체)</li>
+              <li>브랜드 대상 공지 (CA → 특정 브랜드 선택)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="spec-block-title" style="margin-bottom:8px;">글쓰기 모달 구성</div>
+        <ul class="modal-list">
+          <li><span class="modal-name">공지 대상</span>전체공지 / 개별공지 (브랜드별 체크박스 펼침)</li>
+          <li><span class="modal-name">중요 공지 여부</span>체크 시 목록에 [중요] 배지 강조</li>
+          <li><span class="modal-name">제목</span>텍스트 입력 (필수)</li>
+          <li><span class="modal-name">팝업용 간단문구</span>textarea + 글자수 카운터 (max 100자)</li>
+          <li><span class="modal-name">본문 에디터</span>contenteditable 리치텍스트 (굵기·기울임·밑줄·정렬·목록·링크·폰트크기)</li>
+          <li><span class="modal-name">팝업용 이미지</span>드래그앤드롭 + 클릭 업로드, 미리보기, 삭제</li>
+          <li><span class="modal-name">액션</span>저장 / 취소</li>
+        </ul>
+        <div class="warn-box" style="margin-top:12px;">
+          <span>⚠</span>
+          <div><strong>보완 필요:</strong> 링크잇 공지 / 업체 공지 / 브랜드 대상 공지의 목록 구분 표시가 현재 미완성. 공지 출처 배지 또는 탭 분리 필요.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SC-11 환경설정 -->
+    <div class="screen-card" id="sc11">
+      <div class="screen-card-header">
+        <span class="screen-card-number">CA-017</span>
+        <span class="screen-card-title">환경설정</span>
+        <span class="screen-card-file">ca-017-settings.html</span>
+      </div>
+      <div class="screen-card-body">
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">섹션 구성</div>
+            <ul>
+              <li>로그인 정보 (아이디 + 비밀번호 변경)</li>
+              <li>업체 기본 정보</li>
+              <li>사업자 정보 <span class="tag tag--new">추가 필요</span></li>
+              <li>정산 계좌 <span class="tag tag--new">추가 필요</span></li>
+              <li>배송·반품 기본 정책 <span class="tag tag--new">추가 필요</span></li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">업체 기본 정보 필드</div>
+            <ul>
+              <li>업체명</li>
+              <li>대표 이메일</li>
+              <li>대표 연락처</li>
+              <li>계약 만료일</li>
+              <li>계좌번호 / 예금주</li>
+            </ul>
+          </div>
+        </div>
+        <div class="warn-box">
+          <span>⚠</span>
+          <div><strong>보완 필요:</strong> 업체 사업자 정보와 브랜드별 배송 정책의 관계 정의가 필요. 환경설정에서 업체 공통 배송 정책을 설정하고, 브랜드별 예외는 BA에서 오버라이드하는 구조 검토 필요.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /s6 -->
+
+
+  <!-- ══════════════════════════════════════════
+       7. LA·BA와 연결되는 흐름
+  ══════════════════════════════════════════ -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <h2 class="section-title">LA · BA와 연결되는 흐름</h2>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title">브랜드 등록 → 승인 → 운영 흐름</h3>
+      <div class="flow">
+        <div class="flow-step flow-step--ca">CA / BA<br>브랜드 등록 신청</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-step--la">LA<br>승인 대기 목록 수신</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-step--la">LA<br>업체 매핑·결제코드 등록</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-step--la">LA<br>승인 확정</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-step--ca">CA<br>계약 브랜드 목록 반영</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-step--ba">BA<br>브랜드 운영 가능</div>
+      </div>
+      <p style="font-size:12px; color:var(--muted); margin-top:8px;">각 단계의 상태값(승인 대기·승인 완료·반려·정지)이 CA-002 브랜드 목록의 배지로 시각화되어야 합니다.</p>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title">상품·주문 운영 흐름</h3>
+      <div class="flow" style="flex-wrap:wrap; gap:8px 0;">
+        <div class="flow-step flow-step--ba">BA<br>자기 브랜드 상품·주문 운영</div>
+        <div class="flow-arrow">←→</div>
+        <div class="flow-step flow-step--ca">CA<br>계약 브랜드 전체 상품·주문 운영</div>
+        <div class="flow-arrow">←→</div>
+        <div class="flow-step flow-step--la">LA<br>전체 조회 + 예외 관리</div>
+      </div>
+      <p style="font-size:12px; color:var(--muted); margin-top:8px;">CA는 계약 브랜드의 상품·주문을 BA와 동등한 수준에서 직접 수정할 수 있습니다.</p>
+    </div>
+
+    <div class="sub-section">
+      <h3 class="sub-section-title">정산 흐름</h3>
+      <div class="flow">
+        <div class="flow-step">주문 발생<br>(셀러 판매링크)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">브랜드·셀러·판매링크 기록</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-step--ca">CA<br>업체 기준 정산 집계</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-step--ca">CA<br>정산 요약·상세 확인</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step flow-step--la">LA<br>정산 최종 확정·지급</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       8. CA 화면 추가·수정 필요사항
+  ══════════════════════════════════════════ -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <h2 class="section-title">CA 화면 추가 · 수정 필요사항</h2>
+    </div>
+
+    <table class="todo-table">
+      <thead>
+        <tr>
+          <th style="width:130px;">구분</th>
+          <th>필요 작업</th>
+          <th style="width:90px;">우선순위</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CA-006 상품 목록</strong></td>
+          <td>브랜드 필터와 셀러·채널 필터 분리. 현재 브랜드 셀렉트에 업체명·셀러명이 혼재되어 있어 데이터 축이 불명확.</td>
+          <td><span class="tag tag--new">높음</span></td>
+        </tr>
+        <tr>
+          <td><strong>CA-002 브랜드 목록</strong></td>
+          <td>승인상태를 <strong>승인 대기 / 승인 완료 / 반려 / 정지</strong> 4종으로 확장. LA 승인 플로우와 상태값 동기화.</td>
+          <td><span class="tag tag--new">높음</span></td>
+        </tr>
+        <tr>
+          <td><strong>CA-003 브랜드 신청</strong></td>
+          <td>정산·계좌 정보 섹션, 배송·반품 기본 정보 섹션 추가. 제출 후 LA 승인 대기 상태로 CA-002에 즉시 반영.</td>
+          <td><span class="tag tag--new">높음</span></td>
+        </tr>
+        <tr>
+          <td><strong>CA-007 주문 내역</strong></td>
+          <td>주문 상세 화면 또는 모달 정의 필요 (주문 정보·배송지·상품 내역·상태 변경 이력).</td>
+          <td><span class="tag tag--warn">중간</span></td>
+        </tr>
+        <tr>
+          <td><strong>CA-009 셀러 목록</strong></td>
+          <td>셀러 등록 폼 상세 정의 필요 (기본정보·연락처·소속유형·계좌).</td>
+          <td><span class="tag tag--warn">중간</span></td>
+        </tr>
+        <tr>
+          <td><strong>CA-014 정산 상세</strong></td>
+          <td>CA와 LA의 정산 상태 변경 권한 분리 확정. CA → 신청 수준(미정산→정산 신청), LA → 최종 확정·지급.</td>
+          <td><span class="tag tag--new">높음</span></td>
+        </tr>
+        <tr>
+          <td><strong>CA-016 공지사항</strong></td>
+          <td>링크잇 공지 / 업체 공지 / 브랜드 대상 공지 구분 표시 추가. 배지 또는 탭 분리 방식 결정 필요.</td>
+          <td><span class="tag tag--warn">중간</span></td>
+        </tr>
+        <tr>
+          <td><strong>CA-017 환경설정</strong></td>
+          <td>사업자 정보 섹션, 정산 계좌 섹션, 배송·반품 기본 정책 섹션 추가. 브랜드별 배송 정책 오버라이드 구조 정의.</td>
+          <td><span class="tag tag--warn">중간</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+       9. 결론
+  ══════════════════════════════════════════ -->
+  <div class="section" id="s9">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <h2 class="section-title">결론</h2>
+    </div>
+
+    <div class="card card--blue">
+      <p style="font-size:15px; font-weight:700; color:var(--ca); margin-bottom:12px;">CA는 BA를 단순 복제하면 안 됩니다.</p>
+      <p>현재 CA 페이지는 방향이 잘 잡혀 있으며, 다음 세 가지가 다음 보완의 핵심입니다.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:4px;">
+      <div class="card" style="text-align:center; padding:24px 16px;">
+        <div style="font-size:28px; margin-bottom:10px;">🔀</div>
+        <strong style="display:block; margin-bottom:8px; color:var(--heading);">① 브랜드·셀러 축 분리</strong>
+        <p style="font-size:13px; color:var(--muted);">모든 목록에서 브랜드 데이터 축과 셀러 데이터 축을 반드시 분리해야 한다.</p>
+      </div>
+      <div class="card" style="text-align:center; padding:24px 16px;">
+        <div style="font-size:28px; margin-bottom:10px;">🔐</div>
+        <strong style="display:block; margin-bottom:8px; color:var(--heading);">② 정산 권한 명확화</strong>
+        <p style="font-size:13px; color:var(--muted);">정산 상태 변경 권한을 LA(확정·지급)와 CA(신청·조회) 사이에서 명확히 분리해야 한다.</p>
+      </div>
+      <div class="card" style="text-align:center; padding:24px 16px;">
+        <div style="font-size:28px; margin-bottom:10px;">🔗</div>
+        <strong style="display:block; margin-bottom:8px; color:var(--heading);">③ 상태값 연결</strong>
+        <p style="font-size:13px; color:var(--muted);">브랜드 등록 신청 → LA 승인 → CA 반영 → BA 운영 흐름을 화면 상태값으로 시각적으로 연결해야 한다.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ 푸터 ══ -->
+  <div style="margin-top:60px; padding-top:24px; border-top:1px solid var(--stroke); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+    <div>
+      <strong style="font-size:15px; color:var(--heading);">link it</strong>
+      <span style="font-size:13px; color:var(--muted); margin-left:8px;">CA 어드민 화면설계서 v1.1</span>
+    </div>
+    <div style="font-size:12px; color:var(--muted);">2025.05.21 · 내부 배포용 · 무단 외부 공유 금지</div>
+  </div>
+
+</div>
+<script>
+(function () {
+  "use strict";
+
+  var STORAGE_KEY = "linkit_ca_screen_spec_html_v1";
+  var doc = document.querySelector(".doc-wrap");
+  var startBtn = document.getElementById("editStartBtn");
+  var saveBtn = document.getElementById("editSaveBtn");
+  var cancelBtn = document.getElementById("editCancelBtn");
+  var downloadBtn = document.getElementById("editDownloadBtn");
+  var status = document.getElementById("editStatus");
+  var originalHtml = "";
+
+  function setEditing(enabled) {
+    document.body.classList.toggle("is-editing", enabled);
+    doc.setAttribute("contenteditable", enabled ? "true" : "false");
+    doc.setAttribute("spellcheck", enabled ? "true" : "false");
+    startBtn.hidden = enabled;
+    saveBtn.hidden = !enabled;
+    cancelBtn.hidden = !enabled;
+    downloadBtn.hidden = !enabled;
+    status.textContent = enabled ? "편집 모드" : "보기 모드";
+    if (enabled) doc.focus();
+  }
+
+  function loadSavedDraft() {
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      doc.innerHTML = saved;
+      status.textContent = "저장본 불러옴";
+      setTimeout(function () { status.textContent = "보기 모드"; }, 1400);
+    }
+  }
+
+  function buildDownloadHtml() {
+    var clone = document.documentElement.cloneNode(true);
+    var toolbar = clone.querySelector(".edit-toolbar");
+    if (toolbar) toolbar.remove();
+    clone.querySelectorAll("[contenteditable], [spellcheck]").forEach(function (el) {
+      el.removeAttribute("contenteditable");
+      el.removeAttribute("spellcheck");
+    });
+    clone.querySelector("body").classList.remove("is-editing");
+    return "<!DOCTYPE html>\n" + clone.outerHTML;
+  }
+
+  startBtn.addEventListener("click", function () {
+    originalHtml = doc.innerHTML;
+    setEditing(true);
+  });
+
+  saveBtn.addEventListener("click", function () {
+    localStorage.setItem(STORAGE_KEY, doc.innerHTML);
+    originalHtml = doc.innerHTML;
+    setEditing(false);
+    status.textContent = "저장 완료";
+    setTimeout(function () { status.textContent = "보기 모드"; }, 1400);
+  });
+
+  cancelBtn.addEventListener("click", function () {
+    if (originalHtml) doc.innerHTML = originalHtml;
+    setEditing(false);
+  });
+
+  downloadBtn.addEventListener("click", function () {
+    var blob = new Blob([buildDownloadHtml()], { type: "text/html;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "CA-어드민-화면설계서_수정본.html";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(a.href);
+  });
+
+  loadSavedDraft();
+  setEditing(false);
+})();
+</script>
+</body>
+</html>

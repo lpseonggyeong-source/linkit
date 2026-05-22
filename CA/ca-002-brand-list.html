@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>계약 브랜드 목록 — link it CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+.bm-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:200; align-items:center; justify-content:center; }
+.bm-overlay.is-open { display:flex; }
+.bm-modal { background:var(--admin-white,#fff); border-radius:10px; width:520px; max-width:calc(100vw - 32px); max-height:calc(100vh - 64px); overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,.18); }
+.bm-head { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--admin-stroke,#e5e7eb); }
+.bm-head h3 { font-size:15px; font-weight:700; color:var(--admin-heading,#111); margin:0; }
+.bm-close { background:none; border:none; font-size:22px; color:var(--admin-muted,#9ca3af); cursor:pointer; line-height:1; padding:0; }
+.bm-body { padding:20px; }
+.bm-foot { display:flex; justify-content:flex-end; gap:8px; padding:14px 20px; border-top:1px solid var(--admin-stroke,#e5e7eb); }
+.bm-row { display:flex; align-items:center; padding:9px 0; border-bottom:1px solid var(--admin-stroke,#e5e7eb); gap:16px; }
+.bm-row:last-child { border-bottom:none; }
+.bm-lbl { font-size:12px; color:var(--admin-muted,#9ca3af); width:90px; flex-shrink:0; }
+.bm-val { font-size:14px; font-weight:500; color:var(--admin-heading,#111); }
+.bm-field { margin-bottom:14px; }
+.bm-field label { display:block; font-size:12px; font-weight:600; color:var(--admin-muted,#9ca3af); margin-bottom:4px; }
+.bm-inp, .bm-sel { width:100%; padding:8px 12px; border:1px solid var(--admin-stroke,#e5e7eb); border-radius:6px; font-size:14px; font-family:inherit; background:var(--admin-input-bg,#fafafa); box-sizing:border-box; }
+</style>
+</head>
+<body>
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
+  <main class="admin-main">
+
+    <h1 class="admin-page-title">계약 브랜드 목록</h1>
+    <p class="admin-page-subtitle">업체 계약 브랜드를 조회하고 승인 상태를 관리합니다.</p>
+
+    <!-- 필터 -->
+    <div class="admin-filter-card">
+      <div class="admin-filter-row">
+        <span class="admin-filter-label">승인상태</span>
+        <select class="admin-filter-select" id="fStatus">
+          <option value="">전체</option>
+          <option>승인</option><option>정지</option>
+        </select>
+        <span class="admin-filter-label">신청출처</span>
+        <select class="admin-filter-select" id="fSource">
+          <option value="">전체</option>
+          <option>업체 신청</option><option>브랜드 직접 신청</option>
+        </select>
+        <span class="admin-filter-label">브랜드명</span>
+        <input type="text" class="admin-filter-input" id="fName" placeholder="브랜드명 검색" />
+        <button class="admin-btn admin-btn--primary" id="searchBtn">검색</button>
+        <button class="admin-btn admin-btn--outline" id="resetBtn">초기화</button>
+      </div>
+    </div>
+
+    <!-- 액션바 -->
+    <div class="admin-action-bar">
+      <div class="admin-action-bar__left">
+        <span style="font-size:14px;color:var(--admin-muted);">전체 <strong id="totalCount" style="color:var(--admin-heading);">10</strong>개</span>
+      </div>
+      <div class="admin-action-bar__right">
+        <a href="ca-003-brand-register.html" class="admin-btn admin-btn--primary">+ 브랜드 등록 신청</a>
+      </div>
+    </div>
+
+    <!-- 테이블 -->
+    <div class="admin-card">
+      <div class="admin-card__body--flush">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width:40px;"><input type="checkbox" id="selectAll" /></th>
+                <th>브랜드명</th>
+                <th>신청출처</th>
+                <th>승인상태</th>
+                <th>계약업체</th>
+                <th>상품수</th>
+                <th>주문수</th>
+                <th class="text-right">매출</th>
+                <th>등록일</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="brandTableBody"></tbody>
+          </table>
+        </div>
+        <div class="admin-empty-state" id="emptyState" style="display:none;">조회된 브랜드가 없습니다.</div>
+      </div>
+      <div class="admin-pagination" id="paginationWrap"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- 브랜드 상세 모달 -->
+<div class="bm-overlay" id="brandDetailOverlay">
+  <div class="bm-modal">
+    <div class="bm-head">
+      <h3>브랜드 상세</h3>
+      <button class="bm-close" id="brandDetailClose">×</button>
+    </div>
+    <div class="bm-body" id="brandDetailBody"></div>
+  </div>
+</div>
+
+<!-- 브랜드 수정 모달 -->
+<div class="bm-overlay" id="brandEditOverlay">
+  <div class="bm-modal">
+    <div class="bm-head">
+      <h3>브랜드 수정</h3>
+      <button class="bm-close" id="brandEditClose">×</button>
+    </div>
+    <div class="bm-body">
+      <div class="bm-field">
+        <label>브랜드명</label>
+        <input type="text" class="bm-inp" id="editBrandName" />
+      </div>
+      <div class="bm-field">
+        <label>신청출처</label>
+        <select class="bm-sel" id="editBrandSrc">
+          <option>업체 신청</option>
+          <option>브랜드 직접 신청</option>
+        </select>
+      </div>
+      <div class="bm-field">
+        <label>승인상태</label>
+        <select class="bm-sel" id="editBrandStatus">
+          <option>승인</option>
+          <option>정지</option>
+        </select>
+      </div>
+      <div class="bm-field">
+        <label>계약업체</label>
+        <input type="text" class="bm-inp" id="editBrandCompany" />
+      </div>
+      <div class="bm-field">
+        <label>수수료 비율 (%)</label>
+        <input type="number" class="bm-inp" id="editBrandFee" min="0" max="100" step="0.1" placeholder="예: 5" />
+      </div>
+    </div>
+    <div class="bm-foot">
+      <button class="admin-btn admin-btn--outline" id="brandEditCancel">취소</button>
+      <button class="admin-btn admin-btn--primary" id="brandEditSave">저장</button>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+(function() {
+  "use strict";
+  var fc = AdminShared.formatCurrency;
+
+  var BRANDS = [
+    { idx:0, name:"어반무드",      src:"업체 신청",        status:"승인", company:"오로라",       fee:5,   products:45, orders:312, sales:12500000, date:"2025.03.15" },
+    { idx:1, name:"바이엘르",     src:"브랜드 직접 신청", status:"승인", company:"테우",         fee:5,   products:38, orders:245, sales:9800000,  date:"2025.03.20" },
+    { idx:2, name:"루미데이",     src:"업체 신청",        status:"승인", company:"오로라",       fee:5,   products:29, orders:198, sales:7200000,  date:"2025.04.01" },
+    { idx:3, name:"모노픽",       src:"업체 신청",        status:"승인", company:"링크파트너스", fee:5,   products:22, orders:287, sales:6820000,  date:"2025.04.10" },
+    { idx:4, name:"소프트블랭크", src:"브랜드 직접 신청", status:"승인", company:"테우",         fee:5,   products:18, orders:242, sales:2600000,  date:"2025.04.18" },
+    { idx:5, name:"그린포레스트", src:"업체 신청",        status:"정지", company:"오로라",       fee:0,   products:0,  orders:0,   sales:0,         date:"2026.05.01" },
+    { idx:6, name:"아임블루",     src:"브랜드 직접 신청", status:"정지", company:"—",            fee:0,   products:0,  orders:0,   sales:0,         date:"2026.05.05" },
+    { idx:7, name:"코티지마켓",   src:"업체 신청",        status:"정지", company:"링크파트너스", fee:0,   products:0,  orders:0,   sales:0,         date:"2026.05.10" },
+    { idx:8, name:"에코바이",     src:"브랜드 직접 신청", status:"정지", company:"—",            fee:0,   products:0,  orders:0,   sales:0,         date:"2026.04.20" },
+    { idx:9, name:"빈티지팩토리", src:"업체 신청",        status:"정지", company:"테우",         fee:0,   products:0,  orders:0,   sales:0,         date:"2026.04.25" },
+  ];
+
+  var filtered = BRANDS.slice();
+  var PAGE_SIZE = 10;
+  var currentPage = 1;
+
+  function applyFilter() {
+    var s = document.getElementById("fStatus").value;
+    var src = document.getElementById("fSource").value;
+    var n = document.getElementById("fName").value.trim();
+    filtered = BRANDS.filter(function(b) {
+      if (s && b.status !== s) return false;
+      if (src && b.src !== src) return false;
+      if (n && b.name.indexOf(n) < 0) return false;
+      return true;
+    });
+    currentPage = 1;
+    render();
+  }
+
+  function render() {
+    var tbody = document.getElementById("brandTableBody");
+    var empty = document.getElementById("emptyState");
+    var total = document.getElementById("totalCount");
+    total.textContent = filtered.length;
+    if (!filtered.length) {
+      tbody.innerHTML = "";
+      empty.style.display = "";
+      document.getElementById("paginationWrap").innerHTML = "";
+      return;
+    }
+    empty.style.display = "none";
+    var start = (currentPage - 1) * PAGE_SIZE;
+    var rows = filtered.slice(start, start + PAGE_SIZE);
+    tbody.innerHTML = rows.map(function(b) {
+      return '<tr>' +
+        '<td style="text-align:center;"><input type="checkbox" /></td>' +
+        '<td style="font-weight:600;">' + b.name + '</td>' +
+        '<td><span style="font-size:12px;color:var(--admin-muted);">' + b.src + '</span></td>' +
+        '<td style="text-align:center;">' + AdminShared.approvalBadge(b.status) + '</td>' +
+        '<td>' + b.company + '</td>' +
+        '<td style="text-align:center;">' + b.products + '</td>' +
+        '<td style="text-align:center;">' + b.orders.toLocaleString() + '</td>' +
+        '<td class="text-right">' + (b.sales ? fc(b.sales) : "—") + '</td>' +
+        '<td style="font-size:12px;">' + b.date + '</td>' +
+        '<td style="text-align:center;">' +
+          '<button class="admin-btn admin-btn--outline admin-btn--sm bm-edit-btn" data-idx="' + b.idx + '">수정</button> ' +
+          '<button class="admin-btn admin-btn--outline admin-btn--sm bm-detail-btn" data-idx="' + b.idx + '">상세</button>' +
+        '</td></tr>';
+    }).join("");
+    AdminShared.renderPagination(
+      document.getElementById("paginationWrap"),
+      filtered.length, currentPage, PAGE_SIZE,
+      function(p) { currentPage = p; render(); }
+    );
+  }
+
+  function openDetail(b) {
+    document.getElementById("brandDetailBody").innerHTML = [
+      ["브랜드명", '<span style="font-weight:700;">' + b.name + '</span>'],
+      ["신청출처", b.src],
+      ["승인상태", AdminShared.approvalBadge(b.status)],
+      ["계약업체", b.company],
+      ["수수료 비율", '<span style="font-weight:600;color:var(--admin-heading);">' + b.fee + '%</span>'],
+      ["상품수",   b.products + "개"],
+      ["주문수",   b.orders.toLocaleString() + "건"],
+      ["매출",     b.sales ? fc(b.sales) : "—"],
+      ["등록일",   b.date],
+    ].map(function(r) {
+      return '<div class="bm-row"><span class="bm-lbl">' + r[0] + '</span><span class="bm-val">' + r[1] + '</span></div>';
+    }).join("");
+    document.getElementById("brandDetailOverlay").classList.add("is-open");
+  }
+
+  function openEdit(b) {
+    document.getElementById("editBrandName").value = b.name;
+    document.getElementById("editBrandSrc").value = b.src;
+    document.getElementById("editBrandStatus").value = b.status;
+    document.getElementById("editBrandCompany").value = b.company;
+    document.getElementById("editBrandFee").value = b.fee;
+    document.getElementById("brandEditOverlay").dataset.editIdx = b.idx;
+    document.getElementById("brandEditOverlay").classList.add("is-open");
+  }
+
+  function closeDetail() { document.getElementById("brandDetailOverlay").classList.remove("is-open"); }
+  function closeEdit()   { document.getElementById("brandEditOverlay").classList.remove("is-open"); }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("searchBtn").addEventListener("click", applyFilter);
+    document.getElementById("resetBtn").addEventListener("click", function() {
+      document.getElementById("fStatus").value = "";
+      document.getElementById("fSource").value = "";
+      document.getElementById("fName").value = "";
+      applyFilter();
+    });
+    document.getElementById("selectAll").addEventListener("change", function() {
+      document.querySelectorAll("#brandTableBody input[type=checkbox]").forEach(function(c) {
+        c.checked = document.getElementById("selectAll").checked;
+      });
+    });
+
+    document.getElementById("brandTableBody").addEventListener("click", function(e) {
+      var editBtn   = e.target.closest(".bm-edit-btn");
+      var detailBtn = e.target.closest(".bm-detail-btn");
+      if (editBtn)   openEdit(BRANDS[+editBtn.dataset.idx]);
+      if (detailBtn) openDetail(BRANDS[+detailBtn.dataset.idx]);
+    });
+
+    document.getElementById("brandDetailClose").addEventListener("click", closeDetail);
+    document.getElementById("brandDetailOverlay").addEventListener("click", function(e) {
+      if (e.target === this) closeDetail();
+    });
+
+    document.getElementById("brandEditClose").addEventListener("click", closeEdit);
+    document.getElementById("brandEditCancel").addEventListener("click", closeEdit);
+    document.getElementById("brandEditOverlay").addEventListener("click", function(e) {
+      if (e.target === this) closeEdit();
+    });
+
+    document.getElementById("brandEditSave").addEventListener("click", function() {
+      var idx = +document.getElementById("brandEditOverlay").dataset.editIdx;
+      BRANDS[idx].name    = document.getElementById("editBrandName").value.trim() || BRANDS[idx].name;
+      BRANDS[idx].src     = document.getElementById("editBrandSrc").value;
+      BRANDS[idx].status  = document.getElementById("editBrandStatus").value;
+      BRANDS[idx].company = document.getElementById("editBrandCompany").value.trim() || BRANDS[idx].company;
+      var feeVal = parseFloat(document.getElementById("editBrandFee").value);
+      if (!isNaN(feeVal) && feeVal >= 0) BRANDS[idx].fee = feeVal;
+      closeEdit();
+      applyFilter();
+    });
+
+    render();
+  });
+})();
+</script>
+</body>
+</html>

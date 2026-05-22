@@ -191,6 +191,23 @@
   </div>
 </div>
 
+<script>
+window.MOCK_CATEGORIES = [
+  {
+    id: 1, name: "의류",
+    sub: [
+      { id: 11, name: "상의",          count: 120, visible: true  },
+      { id: 12, name: "하의",          count: 120, visible: true  },
+      { id: 13, name: "홈웨어",        count: 120, visible: true  },
+      { id: 14, name: "하위 카테고리 1", count: 0,   visible: false }
+    ]
+  },
+  { id: 2, name: "뷰티",    sub: [] },
+  { id: 3, name: "인테리어", sub: [] },
+  { id: 4, name: "가전",    sub: [] },
+  { id: 5, name: "캠핑",    sub: [] }
+];
+</script>
 <script src="admin.js"></script>
 </body>
 </html>

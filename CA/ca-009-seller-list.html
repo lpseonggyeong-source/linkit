@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>셀러 목록 — link it CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+.sm-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:200; align-items:center; justify-content:center; }
+.sm-overlay.is-open { display:flex; }
+.sm-modal { background:var(--admin-white,#fff); border-radius:10px; width:560px; max-width:calc(100vw - 32px); max-height:calc(100vh - 64px); overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,.18); }
+.sm-head { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--admin-stroke,#e5e7eb); }
+.sm-head h3 { font-size:15px; font-weight:700; color:var(--admin-heading,#111); margin:0; }
+.sm-close { background:none; border:none; font-size:22px; color:var(--admin-muted,#9ca3af); cursor:pointer; line-height:1; padding:0; }
+.sm-body { padding:20px; }
+.sm-foot { display:flex; justify-content:flex-end; gap:8px; padding:14px 20px; border-top:1px solid var(--admin-stroke,#e5e7eb); }
+.sm-row { display:flex; align-items:flex-start; padding:9px 0; border-bottom:1px solid var(--admin-stroke,#e5e7eb); gap:16px; }
+.sm-row:last-child { border-bottom:none; }
+.sm-lbl { font-size:12px; color:var(--admin-muted,#9ca3af); width:90px; flex-shrink:0; padding-top:2px; }
+.sm-val { font-size:14px; font-weight:500; color:var(--admin-heading,#111); }
+.sm-field { margin-bottom:14px; }
+.sm-field label { display:block; font-size:12px; font-weight:600; color:var(--admin-muted,#9ca3af); margin-bottom:4px; }
+.sm-inp, .sm-sel { width:100%; padding:8px 12px; border:1px solid var(--admin-stroke,#e5e7eb); border-radius:6px; font-size:14px; font-family:inherit; background:var(--admin-input-bg,#fafafa); box-sizing:border-box; }
+</style>
+</head>
+<body>
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
+  <main class="admin-main">
+
+    <h1 class="admin-page-title">셀러 목록</h1>
+    <p class="admin-page-subtitle">업체 소속 및 브랜드 직접 등록 셀러를 관리합니다. 셀러는 여러 브랜드에 연결될 수 있습니다.</p>
+
+    <div class="ca-brand-bar">
+      <span class="ca-brand-bar__label">브랜드 선택</span>
+      <div class="ca-brand-bar__select-wrap">
+        <select class="ca-brand-bar__select">
+          <option value="">전체 브랜드</option>
+          <option>어반무드</option><option>바이엘르</option>
+          <option>루미데이</option><option>모노픽</option><option>소프트블랭크</option>
+        </select>
+        <svg class="ca-brand-bar__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+
+    <!-- 탭 -->
+    <div class="admin-tabs">
+      <a class="admin-tab is-active" data-tab="all" href="#">전체</a>
+      <a class="admin-tab" data-tab="company" href="#">업체 소속 셀러</a>
+      <a class="admin-tab" data-tab="brand" href="#">브랜드 직접 셀러</a>
+    </div>
+
+    <!-- 필터 -->
+    <div class="admin-filter-card">
+      <div class="admin-filter-row">
+        <span class="admin-filter-label">셀러명</span>
+        <input type="text" class="admin-filter-input" id="fName" placeholder="셀러명 검색" />
+        <span class="admin-filter-label">연결 브랜드</span>
+        <select class="admin-filter-select" id="fBrand">
+          <option value="">전체</option>
+          <option>어반무드</option><option>바이엘르</option>
+          <option>루미데이</option><option>모노픽</option><option>소프트블랭크</option>
+        </select>
+        <span class="admin-filter-label">상태</span>
+        <select class="admin-filter-select" id="fStatus">
+          <option value="">전체</option><option>활성</option><option>비활성</option>
+        </select>
+        <button class="admin-btn admin-btn--primary" id="searchBtn">검색</button>
+      </div>
+    </div>
+
+    <!-- 액션바 -->
+    <div class="admin-action-bar">
+      <div class="admin-action-bar__left">
+        <span style="font-size:14px;color:var(--admin-muted);">전체 <strong id="totalCount" style="color:var(--admin-heading);">6</strong>명</span>
+      </div>
+      <div class="admin-action-bar__right">
+        <a href="ca-012-seller-brand.html" class="admin-btn admin-btn--outline admin-btn--sm">셀러-브랜드 연결 관리</a>
+        <button class="admin-btn admin-btn--primary">+ 셀러 등록</button>
+      </div>
+    </div>
+
+    <!-- 테이블 -->
+    <div class="admin-card">
+      <div class="admin-card__body--flush">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width:40px;"><input type="checkbox" id="selectAll" /></th>
+                <th>셀러명</th><th>셀러ID</th><th>소속유형</th><th>소속업체</th>
+                <th>연결 브랜드</th><th>판매상품수</th><th>주문수</th>
+                <th class="text-right">매출</th><th>상태</th><th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="sellerTableBody"></tbody>
+          </table>
+        </div>
+        <div class="admin-empty-state" id="emptyState" style="display:none;">조회된 셀러가 없습니다.</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- 셀러 상세 모달 -->
+<div class="sm-overlay" id="sellerDetailOverlay">
+  <div class="sm-modal">
+    <div class="sm-head">
+      <h3>셀러 상세</h3>
+      <button class="sm-close" id="sellerDetailClose">×</button>
+    </div>
+    <div class="sm-body" id="sellerDetailBody"></div>
+  </div>
+</div>
+
+<!-- 셀러 수정 모달 -->
+<div class="sm-overlay" id="sellerEditOverlay">
+  <div class="sm-modal">
+    <div class="sm-head">
+      <h3>셀러 수정</h3>
+      <button class="sm-close" id="sellerEditClose">×</button>
+    </div>
+    <div class="sm-body">
+      <div class="sm-field">
+        <label>셀러명</label>
+        <input type="text" class="sm-inp" id="editSellerName" />
+      </div>
+      <div class="sm-field">
+        <label>셀러 ID</label>
+        <input type="text" class="sm-inp" id="editSellerId" readonly style="background:var(--admin-row-hover,#f3f4f6);cursor:not-allowed;" />
+      </div>
+      <div class="sm-field">
+        <label>소속유형</label>
+        <select class="sm-sel" id="editSellerType">
+          <option>업체 소속</option>
+          <option>브랜드 직접</option>
+        </select>
+      </div>
+      <div class="sm-field">
+        <label>소속업체</label>
+        <input type="text" class="sm-inp" id="editSellerCompany" />
+      </div>
+      <div class="sm-field">
+        <label>상태</label>
+        <select class="sm-sel" id="editSellerStatus">
+          <option>활성</option>
+          <option>비활성</option>
+        </select>
+      </div>
+    </div>
+    <div class="sm-foot">
+      <button class="admin-btn admin-btn--outline" id="sellerEditCancel">취소</button>
+      <button class="admin-btn admin-btn--primary" id="sellerEditSave">저장</button>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+(function() {
+  "use strict";
+  var fc = AdminShared.formatCurrency;
+
+  var ALL_SELLERS = [
+    { idx:0, name:"셀러A", id:"seller_a_001",  type:"업체 소속",  company:"오로라",       brands:["어반무드","루미데이"],            products:23, orders:312, sales:12500000, status:"활성" },
+    { idx:1, name:"셀러B", id:"seller_b_002",  type:"업체 소속",  company:"테우",         brands:["바이엘르","소프트블랭크"],        products:18, orders:245, sales:9800000,  status:"활성" },
+    { idx:2, name:"셀러C", id:"urbanmood_003", type:"브랜드 직접",company:"—",            brands:["어반무드"],                       products:15, orders:198, sales:7200000,  status:"활성" },
+    { idx:3, name:"셀러D", id:"byelle_004",    type:"브랜드 직접",company:"—",            brands:["바이엘르"],                       products:12, orders:187, sales:6820000,  status:"활성" },
+    { idx:4, name:"셀러E", id:"softblank_005", type:"브랜드 직접",company:"—",            brands:["소프트블랭크"],                   products:8,  orders:142, sales:2600000,  status:"활성" },
+    { idx:5, name:"셀러F", id:"objecthome_006",type:"업체 소속",  company:"링크파트너스", brands:["모노픽"],                         products:5,  orders:92,  sales:1800000,  status:"비활성" },
+  ];
+
+  var currentTab = "all";
+  var filtered = ALL_SELLERS.slice();
+
+  function applyFilter() {
+    var n = document.getElementById("fName").value.trim();
+    var b = document.getElementById("fBrand").value;
+    var s = document.getElementById("fStatus").value;
+    filtered = ALL_SELLERS.filter(function(sel) {
+      if (currentTab === "company" && sel.type !== "업체 소속") return false;
+      if (currentTab === "brand"   && sel.type !== "브랜드 직접") return false;
+      if (n && sel.name.indexOf(n) < 0) return false;
+      if (b && sel.brands.indexOf(b) < 0) return false;
+      if (s && sel.status !== s) return false;
+      return true;
+    });
+    render();
+  }
+
+  function brandTags(brands) {
+    return '<div class="admin-brand-tags">' +
+      brands.map(function(b) { return '<span class="admin-brand-tag">' + b + '</span>'; }).join("") +
+    '</div>';
+  }
+
+  function render() {
+    var tbody = document.getElementById("sellerTableBody");
+    var empty = document.getElementById("emptyState");
+    document.getElementById("totalCount").textContent = filtered.length;
+    if (!filtered.length) {
+      tbody.innerHTML = "";
+      empty.style.display = "";
+      return;
+    }
+    empty.style.display = "none";
+    tbody.innerHTML = filtered.map(function(s) {
+      return '<tr>' +
+        '<td style="text-align:center;"><input type="checkbox" /></td>' +
+        '<td style="font-weight:600;">' + s.name + '</td>' +
+        '<td style="font-size:12px;color:var(--admin-muted);">' + s.id + '</td>' +
+        '<td style="text-align:center;">' + AdminShared.sellerTypeBadge(s.type) + '</td>' +
+        '<td>' + s.company + '</td>' +
+        '<td>' + brandTags(s.brands) + '</td>' +
+        '<td style="text-align:center;">' + s.products + '</td>' +
+        '<td style="text-align:center;">' + s.orders.toLocaleString() + '</td>' +
+        '<td class="text-right">' + fc(s.sales) + '</td>' +
+        '<td style="text-align:center;"><span class="admin-badge ' + (s.status === "활성" ? "admin-badge--active" : "admin-badge--inactive") + '">' + s.status + '</span></td>' +
+        '<td style="text-align:center;">' +
+          '<button class="admin-btn admin-btn--outline admin-btn--sm sm-detail-btn" data-idx="' + s.idx + '">상세</button> ' +
+          '<button class="admin-btn admin-btn--outline admin-btn--sm sm-edit-btn" data-idx="' + s.idx + '">수정</button>' +
+        '</td></tr>';
+    }).join("");
+  }
+
+  function openDetail(s) {
+    document.getElementById("sellerDetailBody").innerHTML = [
+      ["셀러명",   '<span style="font-weight:700;">' + s.name + '</span>'],
+      ["셀러 ID",  '<span style="font-family:monospace;font-size:13px;">' + s.id + '</span>'],
+      ["소속유형", AdminShared.sellerTypeBadge(s.type)],
+      ["소속업체", s.company],
+      ["연결 브랜드", s.brands.map(function(b){ return '<span style="display:inline-block;padding:2px 8px;background:#f3f4f6;border-radius:4px;font-size:12px;margin-right:4px;">' + b + '</span>'; }).join("")],
+      ["판매상품수", s.products + "개"],
+      ["주문수",   s.orders.toLocaleString() + "건"],
+      ["매출",     fc(s.sales)],
+      ["상태",     '<span class="admin-badge ' + (s.status === "활성" ? "admin-badge--active" : "admin-badge--inactive") + '">' + s.status + '</span>'],
+    ].map(function(r) {
+      return '<div class="sm-row"><span class="sm-lbl">' + r[0] + '</span><span class="sm-val">' + r[1] + '</span></div>';
+    }).join("");
+    document.getElementById("sellerDetailOverlay").classList.add("is-open");
+  }
+
+  function openEdit(s) {
+    document.getElementById("editSellerName").value    = s.name;
+    document.getElementById("editSellerId").value      = s.id;
+    document.getElementById("editSellerType").value    = s.type;
+    document.getElementById("editSellerCompany").value = s.company === "—" ? "" : s.company;
+    document.getElementById("editSellerStatus").value  = s.status;
+    document.getElementById("sellerEditOverlay").dataset.editIdx = s.idx;
+    document.getElementById("sellerEditOverlay").classList.add("is-open");
+  }
+
+  function closeDetail() { document.getElementById("sellerDetailOverlay").classList.remove("is-open"); }
+  function closeEdit()   { document.getElementById("sellerEditOverlay").classList.remove("is-open"); }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    render();
+
+    document.getElementById("searchBtn").addEventListener("click", applyFilter);
+    document.getElementById("selectAll").addEventListener("change", function() {
+      document.querySelectorAll("#sellerTableBody input[type=checkbox]").forEach(function(c) {
+        c.checked = document.getElementById("selectAll").checked;
+      });
+    });
+    document.querySelectorAll(".admin-tab").forEach(function(tab) {
+      tab.addEventListener("click", function(e) {
+        e.preventDefault();
+        document.querySelectorAll(".admin-tab").forEach(function(t) { t.classList.remove("is-active"); });
+        tab.classList.add("is-active");
+        currentTab = tab.dataset.tab;
+        applyFilter();
+      });
+    });
+
+    document.getElementById("sellerTableBody").addEventListener("click", function(e) {
+      var detailBtn = e.target.closest(".sm-detail-btn");
+      var editBtn   = e.target.closest(".sm-edit-btn");
+      if (detailBtn) openDetail(ALL_SELLERS[+detailBtn.dataset.idx]);
+      if (editBtn)   openEdit(ALL_SELLERS[+editBtn.dataset.idx]);
+    });
+
+    document.getElementById("sellerDetailClose").addEventListener("click", closeDetail);
+    document.getElementById("sellerDetailOverlay").addEventListener("click", function(e) {
+      if (e.target === this) closeDetail();
+    });
+
+    document.getElementById("sellerEditClose").addEventListener("click", closeEdit);
+    document.getElementById("sellerEditCancel").addEventListener("click", closeEdit);
+    document.getElementById("sellerEditOverlay").addEventListener("click", function(e) {
+      if (e.target === this) closeEdit();
+    });
+
+    document.getElementById("sellerEditSave").addEventListener("click", function() {
+      var idx = +document.getElementById("sellerEditOverlay").dataset.editIdx;
+      var s = ALL_SELLERS[idx];
+      s.name    = document.getElementById("editSellerName").value.trim() || s.name;
+      s.type    = document.getElementById("editSellerType").value;
+      s.company = document.getElementById("editSellerCompany").value.trim() || "—";
+      s.status  = document.getElementById("editSellerStatus").value;
+      closeEdit();
+      applyFilter();
+    });
+  });
+})();
+</script>
+</body>
+</html>

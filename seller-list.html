@@ -11,7 +11,6 @@
 </head>
 <body>
 
-<!-- 모바일 헤더 -->
 <header class="admin-mobile-header">
   <span class="admin-mobile-header__logo">link it</span>
   <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
@@ -24,353 +23,309 @@
   <aside class="admin-sidebar" id="adminSidebar"></aside>
 
   <main class="admin-main">
-    <h1 class="admin-page-title t-title-1-md">셀러 관리</h1>
 
-    <!-- ── 액션 / 검색 영역 ── -->
-    <div class="admin-seller-action-bar">
-      <button type="button" id="sellerCreateBtn"
-        class="admin-order-btn admin-order-btn--primary">+ 셀러 등록</button>
-      <div class="admin-seller-action-bar__right">
-        <div class="admin-order-select-wrap">
-          <select id="sellerStatusFilter" aria-label="상태 검색">
-            <option value="">전체</option>
-            <option value="승인">승인</option>
-            <option value="정지">정지</option>
-          </select>
-          <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
-        </div>
-        <input type="text" id="sellerSearchInput"
-          class="admin-order-search-input"
-          placeholder="상품명 검색"
-          aria-label="상품명 검색" />
-        <button type="button" id="sellerSearchBtn"
-          class="admin-order-btn admin-order-btn--primary">검색</button>
+    <h1 class="admin-page-title">셀러 관리</h1>
+    <p class="admin-page-subtitle">전체 셀러 <strong id="totalCount">0</strong>명</p>
+
+    <div class="admin-filter-card">
+      <div class="admin-filter-row">
+        <span class="admin-filter-label">셀러명</span>
+        <input type="text" class="admin-filter-input" id="fName" placeholder="셀러명 검색" />
+        <span class="admin-filter-label">정산상태</span>
+        <select class="admin-filter-select" id="fSett">
+          <option value="">전체</option>
+          <option>미정산</option><option>정산중</option><option>정산완료</option>
+        </select>
+        <span class="admin-filter-label">활동상태</span>
+        <select class="admin-filter-select" id="fStatus">
+          <option value="">전체</option><option>승인</option><option>정지</option>
+        </select>
+        <button class="admin-btn admin-btn--primary" id="searchBtn">검색</button>
+        <button class="admin-btn admin-btn--outline" id="resetBtn">초기화</button>
       </div>
     </div>
 
-    <!-- ── 셀러 목록 카드 ── -->
-    <div class="admin-card">
-      <div class="admin-table-wrap">
-        <table class="admin-table" id="sellerTable">
-          <thead>
-            <tr>
-              <th scope="col" style="width:52px; text-align:center;">번호</th>
-              <th scope="col" style="min-width:120px; text-align:left;">셀러명</th>
-              <th scope="col" style="width:140px; text-align:center;">셀러 아이디</th>
-              <th scope="col" style="width:110px; text-align:center;">판매 상품 수</th>
-              <th scope="col" style="width:76px; text-align:center;">상태</th>
-              <th scope="col" style="width:100px; text-align:center;">등록일</th>
-              <th scope="col" style="width:112px; text-align:center;">관리</th>
-            </tr>
-          </thead>
-          <tbody id="sellerTableBody">
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">1</td>
-              <td>어반무드</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">urbanmood</td>
-              <td style="text-align:center;">128</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-approved t-label-2-sb">승인</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-04-30</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="1" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="1" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2</td>
-              <td>바이엘르</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">byelle</td>
-              <td style="text-align:center;">54</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-approved t-label-2-sb">승인</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-04-30</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="2" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="2" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">3</td>
-              <td>루미데이</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">lumiday</td>
-              <td style="text-align:center;">305</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-suspended t-label-2-sb">정지</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-04-30</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="3" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="3" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">4</td>
-              <td>모노픽</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">monopick</td>
-              <td style="text-align:center;">0</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-suspended t-label-2-sb">정지</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-04-30</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="4" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="4" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">5</td>
-              <td>소프트블랭크</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">softblank</td>
-              <td style="text-align:center;">89</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-approved t-label-2-sb">승인</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-04-27</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="5" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="5" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">6</td>
-              <td>오브젝트홈</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">objecthome</td>
-              <td style="text-align:center;">211</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-approved t-label-2-sb">승인</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-04-24</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="6" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="6" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">7</td>
-              <td>헤이클로젯</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">heycloset</td>
-              <td style="text-align:center;">17</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-suspended t-label-2-sb">정지</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-04-23</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="7" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="7" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">8</td>
-              <td>포레스트키친</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">forestkitchen</td>
-              <td style="text-align:center;">220</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-approved t-label-2-sb">승인</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-04-10</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="8" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="8" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">9</td>
-              <td>라이크선데이</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">likesunday</td>
-              <td style="text-align:center;">3</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-approved t-label-2-sb">승인</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-04-05</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="9" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="9" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">10</td>
-              <td>누벨르</td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">nouvelle</td>
-              <td style="text-align:center;">442</td>
-              <td style="text-align:center;"><span class="admin-badge admin-badge--seller-approved t-label-2-sb">승인</span></td>
-              <td style="text-align:center; color:var(--admin-muted);" class="t-body-3-rg">2026-03-30</td>
-              <td>
-                <div class="admin-product-actions" style="justify-content:center;">
-                  <button type="button" class="admin-btn admin-btn--outline admin-btn--sm seller-edit-btn" data-id="10" aria-label="정보수정">정보수정</button>
-                  <button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger seller-del-btn" data-id="10" aria-label="셀러 삭제">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="admin-action-bar">
+      <div class="admin-action-bar__left">
+        <span style="font-size:14px;color:var(--admin-muted);">전체 <strong id="totalLabel" style="color:var(--admin-heading);">0</strong>명</span>
       </div>
-      <div class="admin-pagination" id="sellerPagination" aria-label="페이지 네비게이션"></div>
+      <div class="admin-action-bar__right">
+        <button class="admin-btn admin-btn--primary" id="registerBtn">+ 셀러 등록</button>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <div class="admin-card__body--flush">
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width:40px;"><input type="checkbox" id="selectAll" style="accent-color:var(--admin-red);cursor:pointer;" /></th>
+                <th>셀러명</th>
+                <th>셀러ID</th>
+                <th style="text-align:center;">주문수</th>
+                <th style="text-align:center;">판매상품수</th>
+                <th style="text-align:right;">이번달 매출</th>
+                <th style="text-align:right;">정산예정액</th>
+                <th style="text-align:center;">정산상태</th>
+                <th style="text-align:center;">활동상태</th>
+                <th style="text-align:center;">관리</th>
+              </tr>
+            </thead>
+            <tbody id="sellerBody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
   </main>
 </div>
 
-<!-- ── 셀러 등록 모달 ── -->
-<div class="admin-product-modal" id="sellerCreateModal"
-  role="dialog" aria-modal="true" aria-labelledby="sellerCreateModalTitle">
-  <div class="admin-product-modal__overlay" id="sellerCreateOverlay"></div>
-  <div class="admin-product-modal__box admin-seller-modal-box">
-
-    <h2 class="admin-product-modal__title admin-seller-modal__title"
-      id="sellerCreateModalTitle">셀러 등록 폼</h2>
-
-    <div class="admin-field">
-      <label for="createSellerName">셀러명</label>
-      <input type="text" id="createSellerName"
-        placeholder="셀러명을 입력해주세요" autocomplete="off" />
+<!-- 셀러 상세 모달 -->
+<div class="admin-modal" id="detailModal">
+  <div class="admin-modal__overlay" id="detailOverlay"></div>
+  <div class="admin-modal__box" style="max-width:520px;">
+    <div class="admin-modal__header">
+      <span class="admin-modal__title" id="detailTitle">셀러 상세</span>
+      <button class="admin-modal__close admin-btn admin-btn--icon" id="detailClose">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
     </div>
 
-    <div class="admin-field">
-      <label for="createSellerId">셀러 아이디</label>
-      <input type="text" id="createSellerId"
-        placeholder="셀러 아이디를 입력해주세요" autocomplete="off" />
+    <!-- 통계 (읽기 전용) -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:4px 0 16px;border-bottom:1px solid var(--admin-stroke);margin-bottom:20px;">
+      <div class="admin-field"><label style="font-size:11px;">이번달 매출</label><p id="dSales" style="padding:6px 0;font-weight:600;margin:0;font-size:13px;"></p></div>
+      <div class="admin-field"><label style="font-size:11px;">총 주문수</label><p id="dOrders" style="padding:6px 0;margin:0;font-size:13px;"></p></div>
+      <div class="admin-field"><label style="font-size:11px;">판매 상품수</label><p id="dProducts" style="padding:6px 0;margin:0;font-size:13px;"></p></div>
+      <div class="admin-field"><label style="font-size:11px;">정산상태</label><p id="dSett" style="padding:6px 0;margin:0;"></p></div>
     </div>
 
+    <!-- 계정 관리 (편집 가능) -->
     <div class="admin-field">
-      <label for="createSellerPw">비밀번호</label>
-      <div class="admin-seller-pw-wrap">
-        <input type="password" id="createSellerPw"
-          placeholder="비밀번호를 입력해주세요" autocomplete="new-password" />
-        <button type="button" class="admin-seller-pw-toggle"
-          data-target="createSellerPw" aria-label="비밀번호 보기">
-          <!-- eye-off (기본: 숨김 상태) -->
-          <svg class="icon-eye-off" width="17" height="17" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-            <line x1="1" y1="1" x2="23" y2="23"/>
-          </svg>
-          <!-- eye-on (보기 상태) -->
-          <svg class="icon-eye-on" width="17" height="17" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-            aria-hidden="true" style="display:none;">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-        </button>
-      </div>
+      <label>셀러명</label>
+      <p id="dName" style="padding:8px 0;font-weight:600;margin:0;"></p>
+    </div>
+    <div class="admin-field">
+      <label>아이디</label>
+      <input type="text" id="dIdInput" placeholder="셀러 아이디" />
+    </div>
+    <div class="admin-field">
+      <label>비밀번호 변경 <span style="font-size:11px;color:var(--admin-muted);font-weight:400;">(미입력 시 변경 없음)</span></label>
+      <input type="password" id="dPwInput" placeholder="새 비밀번호를 입력하세요" />
+    </div>
+    <div class="admin-field">
+      <label>활동상태</label>
+      <label class="admin-toggle" style="padding:6px 0;">
+        <input type="checkbox" class="admin-toggle__input" id="dStatusToggle" />
+        <span class="admin-toggle__track"></span>
+        <span class="admin-toggle__label" id="dStatusLabel">승인</span>
+      </label>
     </div>
 
-    <div class="admin-field">
-      <label>셀러상태</label>
-      <div class="admin-seller-toggle-row">
-        <label class="admin-seller-toggle" aria-label="셀러 상태 토글">
-          <input type="checkbox" id="createSellerStatus" class="admin-seller-toggle__input" />
-          <span class="admin-seller-toggle__track"></span>
-        </label>
-        <span class="admin-seller-toggle-label t-body-2-rg" id="createSellerStatusLabel">정지</span>
-      </div>
-      <p class="admin-seller-toggle-hint t-body-3-rg">비활성화 시, 셀러가 정지되고 판매가 제한됩니다.</p>
-    </div>
-
-    <div class="admin-product-modal__footer">
-      <button type="button" id="sellerCreateCancelBtn"
-        class="admin-btn admin-btn--outline">취소</button>
-      <button type="button" id="sellerCreateSubmitBtn"
-        class="admin-btn admin-btn--primary">등록</button>
+    <div class="admin-modal__footer">
+      <button class="admin-btn admin-btn--outline" id="detailClose2">닫기</button>
+      <button class="admin-btn admin-btn--primary" id="detailSave">저장</button>
     </div>
   </div>
 </div>
 
-<!-- ── 셀러 수정 모달 ── -->
-<div class="admin-product-modal" id="sellerEditModal"
-  role="dialog" aria-modal="true" aria-labelledby="sellerEditModalTitle">
-  <div class="admin-product-modal__overlay" id="sellerEditOverlay"></div>
-  <div class="admin-product-modal__box admin-seller-modal-box">
-
-    <h2 class="admin-product-modal__title admin-seller-modal__title"
-      id="sellerEditModalTitle">셀러 수정 폼</h2>
-
-    <input type="hidden" id="editSellerHiddenId" />
-
-    <div class="admin-field">
-      <label for="editSellerName">셀러명</label>
-      <input type="text" id="editSellerName"
-        placeholder="셀러명을 입력해주세요" autocomplete="off" />
+<!-- 셀러 등록 모달 -->
+<div class="admin-modal" id="registerModal">
+  <div class="admin-modal__overlay" id="registerOverlay"></div>
+  <div class="admin-modal__box" style="max-width:480px;">
+    <div class="admin-modal__header">
+      <span class="admin-modal__title">셀러 등록</span>
+      <button class="admin-modal__close admin-btn admin-btn--icon" id="registerClose">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
     </div>
-
     <div class="admin-field">
-      <label for="editSellerLoginId">셀러 아이디</label>
-      <input type="text" id="editSellerLoginId"
-        placeholder="셀러 아이디를 입력해주세요" autocomplete="off" />
+      <label>셀러명 <span style="color:var(--admin-red);">*</span></label>
+      <input type="text" id="rName" placeholder="셀러명" />
     </div>
-
     <div class="admin-field">
-      <label for="editSellerPw">비밀번호</label>
-      <div class="admin-seller-pw-wrap">
-        <input type="password" id="editSellerPw"
-          placeholder="비밀번호를 입력해주세요" autocomplete="new-password" />
-        <button type="button" class="admin-seller-pw-toggle"
-          data-target="editSellerPw" aria-label="비밀번호 보기">
-          <svg class="icon-eye-off" width="17" height="17" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-            <line x1="1" y1="1" x2="23" y2="23"/>
-          </svg>
-          <svg class="icon-eye-on" width="17" height="17" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-            aria-hidden="true" style="display:none;">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-        </button>
-      </div>
+      <label>이메일 <span style="color:var(--admin-red);">*</span></label>
+      <input type="email" id="rEmail" placeholder="email@example.com" />
     </div>
-
     <div class="admin-field">
-      <label>셀러상태</label>
-      <div class="admin-seller-toggle-row">
-        <label class="admin-seller-toggle" aria-label="셀러 상태 토글">
-          <input type="checkbox" id="editSellerStatus" class="admin-seller-toggle__input" />
-          <span class="admin-seller-toggle__track"></span>
-        </label>
-        <span class="admin-seller-toggle-label t-body-2-rg" id="editSellerStatusLabel">정지</span>
-      </div>
-      <p class="admin-seller-toggle-hint t-body-3-rg">비활성화 시, 셀러가 정지되고 판매가 제한됩니다.</p>
+      <label>연락처</label>
+      <input type="tel" id="rPhone" placeholder="010-0000-0000" />
     </div>
-
-    <div class="admin-product-modal__footer">
-      <button type="button" id="sellerEditCancelBtn"
-        class="admin-btn admin-btn--outline">취소</button>
-      <button type="button" id="sellerEditSubmitBtn"
-        class="admin-btn admin-btn--primary">적용</button>
+    <div class="admin-field">
+      <label>메모</label>
+      <textarea id="rMemo" placeholder="셀러 관련 메모를 입력하세요." style="min-height:80px;"></textarea>
+    </div>
+    <div class="admin-modal__footer">
+      <button class="admin-btn admin-btn--outline" id="registerCancel">취소</button>
+      <button class="admin-btn admin-btn--primary" id="registerSave">등록</button>
     </div>
   </div>
 </div>
 
 <script src="admin.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  function fc(n) {
+    if (n == null || n === "") return "—";
+    return Number(n).toLocaleString("ko-KR") + "원";
+  }
+
+  var ALL_SELLERS = [
+    { name:"셀러A", id:"seller_a_001",  products:23, orders:312, sales:4820000, sett:4230000, settStatus:"정산중",   status:"승인" },
+    { name:"셀러B", id:"seller_b_002",  products:8,  orders:92,  sales:1500000, sett:1350000, settStatus:"미정산",   status:"승인" },
+    { name:"셀러C", id:"urbanmood_003", products:15, orders:198, sales:3200000, sett:2880000, settStatus:"정산완료",  status:"승인" },
+    { name:"셀러D", id:"seller_d_004",  products:31, orders:421, sales:7640000, sett:6870000, settStatus:"정산완료",  status:"정지" },
+    { name:"셀러E", id:"seller_e_005",  products:5,  orders:47,  sales:980000,  sett:882000,  settStatus:"미정산",   status:"승인" },
+  ];
+
+  var filtered = ALL_SELLERS.slice();
+  var currentSellerName = "";
+
+  var SETT_BADGE = {
+    "미정산":  "admin-badge--sett-hold",
+    "정산중":  "admin-badge--sett-need",
+    "정산완료":"admin-badge--sett-done",
+  };
+
+  function settBadge(s) {
+    return '<span class="admin-badge ' + (SETT_BADGE[s] || "admin-badge--inactive") + '">' + s + '</span>';
+  }
+
+  function statusBadge(s) {
+    return s === "승인"
+      ? '<span class="admin-badge admin-badge--active">승인</span>'
+      : '<span class="admin-badge admin-badge--rejected">정지</span>';
+  }
+
+  function applyFilter() {
+    var n  = document.getElementById("fName").value.trim();
+    var se = document.getElementById("fSett").value;
+    var st = document.getElementById("fStatus").value;
+    filtered = ALL_SELLERS.filter(function (s) {
+      if (n  && s.name.indexOf(n) < 0) return false;
+      if (se && s.settStatus !== se)   return false;
+      if (st && s.status !== st)       return false;
+      return true;
+    });
+    render();
+  }
+
+  function render() {
+    document.getElementById("totalCount").textContent = filtered.length;
+    document.getElementById("totalLabel").textContent = filtered.length;
+    document.getElementById("sellerBody").innerHTML = filtered.map(function (s) {
+      return '<tr>' +
+        '<td style="text-align:center;"><input type="checkbox" style="accent-color:var(--admin-red);cursor:pointer;" /></td>' +
+        '<td style="font-weight:600;">' + s.name + '</td>' +
+        '<td style="font-size:12px;color:var(--admin-muted);">' + s.id + '</td>' +
+        '<td style="text-align:center;">' + s.orders.toLocaleString() + '건</td>' +
+        '<td style="text-align:center;">' + s.products + '개</td>' +
+        '<td style="text-align:right;">' + fc(s.sales) + '</td>' +
+        '<td style="text-align:right;font-weight:600;">' + fc(s.sett) + '</td>' +
+        '<td style="text-align:center;">' + settBadge(s.settStatus) + '</td>' +
+        '<td style="text-align:center;">' + statusBadge(s.status) + '</td>' +
+        '<td style="text-align:center;">' +
+          '<button class="admin-btn admin-btn--outline admin-btn--sm detail-btn" data-name="' + s.name + '">상세</button>' +
+        '</td>' +
+      '</tr>';
+    }).join("");
+
+    document.querySelectorAll(".detail-btn").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var s = ALL_SELLERS.find(function (x) { return x.name === btn.dataset.name; });
+        if (!s) return;
+        currentSellerName = s.name;
+        document.getElementById("detailTitle").textContent   = s.name + " 셀러 상세";
+        document.getElementById("dName").textContent         = s.name;
+        document.getElementById("dIdInput").value            = s.id;
+        document.getElementById("dPwInput").value            = "";
+        document.getElementById("dSales").textContent        = fc(s.sales);
+        document.getElementById("dOrders").textContent       = s.orders.toLocaleString() + "건";
+        document.getElementById("dProducts").textContent     = s.products + "개";
+        document.getElementById("dSett").innerHTML           = settBadge(s.settStatus);
+        var toggle = document.getElementById("dStatusToggle");
+        toggle.checked = (s.status === "승인");
+        document.getElementById("dStatusLabel").textContent = s.status;
+        document.getElementById("detailModal").classList.add("is-open");
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    render();
+
+    document.getElementById("searchBtn").addEventListener("click", applyFilter);
+    document.getElementById("fName").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") applyFilter();
+    });
+    document.getElementById("resetBtn").addEventListener("click", function () {
+      document.getElementById("fName").value = "";
+      document.getElementById("fSett").value = "";
+      document.getElementById("fStatus").value = "";
+      applyFilter();
+    });
+
+    document.getElementById("selectAll").addEventListener("change", function () {
+      var checked = document.getElementById("selectAll").checked;
+      document.querySelectorAll("#sellerBody input[type=checkbox]").forEach(function (c) {
+        c.checked = checked;
+      });
+    });
+
+    function closeDetail() {
+      document.getElementById("detailModal").classList.remove("is-open");
+      currentSellerName = "";
+    }
+    document.getElementById("detailClose").addEventListener("click", closeDetail);
+    document.getElementById("detailClose2").addEventListener("click", closeDetail);
+    document.getElementById("detailOverlay").addEventListener("click", closeDetail);
+
+    document.getElementById("dStatusToggle").addEventListener("change", function () {
+      document.getElementById("dStatusLabel").textContent = this.checked ? "승인" : "정지";
+    });
+
+    document.getElementById("detailSave").addEventListener("click", function () {
+      if (!currentSellerName) return;
+      var s = ALL_SELLERS.find(function (x) { return x.name === currentSellerName; });
+      if (!s) return;
+      var newId = document.getElementById("dIdInput").value.trim();
+      var newPw = document.getElementById("dPwInput").value.trim();
+      if (!newId) { alert("아이디를 입력해주세요."); return; }
+      s.id = newId;
+      s.status = document.getElementById("dStatusToggle").checked ? "승인" : "정지";
+      if (newPw) { alert("비밀번호가 변경되었습니다."); }
+      applyFilter();
+      closeDetail();
+    });
+
+    function closeRegister() {
+      document.getElementById("registerModal").classList.remove("is-open");
+      document.getElementById("rName").value  = "";
+      document.getElementById("rEmail").value = "";
+      document.getElementById("rPhone").value = "";
+      document.getElementById("rMemo").value  = "";
+    }
+    document.getElementById("registerBtn").addEventListener("click", function () {
+      document.getElementById("registerModal").classList.add("is-open");
+    });
+    document.getElementById("registerClose").addEventListener("click", closeRegister);
+    document.getElementById("registerOverlay").addEventListener("click", closeRegister);
+    document.getElementById("registerCancel").addEventListener("click", closeRegister);
+    document.getElementById("registerSave").addEventListener("click", function () {
+      var name = document.getElementById("rName").value.trim();
+      if (!name) { alert("셀러명을 입력해주세요."); return; }
+      alert("셀러 '" + name + "'이 등록되었습니다.");
+      closeRegister();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { closeDetail(); closeRegister(); }
+    });
+  });
+})();
+</script>
 </body>
 </html>

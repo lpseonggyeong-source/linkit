@@ -195,12 +195,30 @@
             </div>
 
             <div class="admin-field">
-              <label for="sellerAccount">셀러 계정</label>
-              <select id="sellerAccount" name="sellerAccount">
-                <option value="">셀러명</option>
-                <option value="seller1">셀러1</option>
-                <option value="seller2">셀러2</option>
-              </select>
+              <label>셀러 계정</label>
+              <div id="sellerAccountGroup" style="display:flex;flex-direction:column;gap:8px;padding:10px 12px;border:1px solid var(--admin-stroke);border-radius:6px;background:var(--admin-input-bg);max-height:180px;overflow-y:auto;">
+                <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;font-size:14px;">
+                  <input type="checkbox" name="sellerAccount[]" value="urbanmood" style="accent-color:var(--admin-red);cursor:pointer;" />
+                  어반무드
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;font-size:14px;">
+                  <input type="checkbox" name="sellerAccount[]" value="byelle" style="accent-color:var(--admin-red);cursor:pointer;" />
+                  바이엘르
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;font-size:14px;">
+                  <input type="checkbox" name="sellerAccount[]" value="lumiday" style="accent-color:var(--admin-red);cursor:pointer;" />
+                  루미데이
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;font-size:14px;">
+                  <input type="checkbox" name="sellerAccount[]" value="softblank" style="accent-color:var(--admin-red);cursor:pointer;" />
+                  소프트블랭크
+                </label>
+                <label style="display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer;font-size:14px;">
+                  <input type="checkbox" name="sellerAccount[]" value="monopick" style="accent-color:var(--admin-red);cursor:pointer;" />
+                  모노픽
+                </label>
+              </div>
+              <p class="product-hint">복수 선택 가능 — 선택한 셀러의 스토어에 상품이 노출됩니다.</p>
             </div>
 
           </div>
