@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상점 생성 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    /* 카드 그리드: 1개당 255px 고정 */
+    .store-create-step2 .admin-store-tpl-grid {
+      grid-template-columns: repeat(auto-fill, 255px);
+      justify-content: start;
+    }
+    .store-create-step2 .admin-store-tpl-card {
+      width: 255px;
+    }
+
+    /* 썸네일 1:1 비율 */
+    .store-create-step2 .admin-store-tpl-card__thumb {
+      aspect-ratio: 1 / 1;
+    }
+
+    /* CSS :has() 기반 선택 상태 */
+    .admin-store-tpl-card:has(input[name="scTemplate"]:checked) {
+      border-color: var(--admin-red);
+      box-shadow: 0 0 0 1px var(--admin-red);
+    }
+    .admin-store-tpl-card:has(input[name="scTemplate"]:checked) .admin-store-tpl-card__name {
+      color: var(--admin-red);
+    }
+
+    /* 미리보기 버튼 너비 고정 */
+    .sc-tpl-preview-btn {
+      width: 80px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* 모달 */
+    .sc-tpl-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+    }
+    .sc-tpl-modal.is-open { display: flex; }
+    .sc-tpl-modal__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+    }
+    .sc-tpl-modal__box {
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      z-index: 1;
+    }
+    .sc-tpl-modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--admin-stroke);
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 1;
+    }
+    .sc-tpl-modal__body { padding: 16px; }
+    .sc-tpl-modal__body img { width: 100%; display: block; border-radius: 4px; }
+  </style>
+</head>
+<body class="store-create-step2">
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <h1 class="admin-page-title t-title-1-md">상점 생성</h1>
+
+    <!-- 스텝바 -->
+    <div class="admin-store-stepbar" aria-label="상점 생성 단계">
+      <span class="admin-store-step-btn is-done">
+        <span class="admin-store-step-btn__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </span>
+        <span>기본정보 입력</span>
+      </span>
+      <span class="admin-store-step-btn is-active" aria-current="step">
+        <span class="admin-store-step-btn__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </span>
+        <span>디자인 템플릿 선택</span>
+      </span>
+      <span class="admin-store-step-btn">
+        <span class="admin-store-step-btn__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18M3 12h18"/></svg>
+        </span>
+        <span>섹션 설정</span>
+      </span>
+      <span class="admin-store-step-btn">
+        <span class="admin-store-step-btn__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </span>
+        <span>내 상품 진열</span>
+      </span>
+      <span class="admin-store-step-btn">
+        <span class="admin-store-step-btn__icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </span>
+        <span>상점 생성</span>
+      </span>
+    </div>
+
+    <!-- 콘텐츠 -->
+    <div class="admin-store-step-panel is-active">
+      <div class="admin-card product-section">
+        <div class="admin-card__header">
+          <span class="admin-card__title">디자인 템플릿 선택</span>
+        </div>
+        <div class="admin-card__body">
+          <p class="t-body-3-rg admin-text-muted" style="margin-bottom:16px;">
+            상점의 디자인 템플릿을 선택하세요. <span class="product-required">*</span>
+          </p>
+
+          <div class="admin-store-tpl-grid">
+
+            <!-- 미니멀 -->
+            <div class="admin-store-tpl-card" data-template-id="minimal">
+              <label class="admin-store-tpl-card__radio-wrap">
+                <input type="radio" name="scTemplate" value="minimal" aria-label="심플 미니멀 스타일 선택" />
+              </label>
+              <div class="admin-store-tpl-card__thumb">
+                <img src="assets/design-img/minimal.png" alt="미니멀 템플릿 미리보기" />
+              </div>
+              <div class="admin-store-tpl-card__body">
+                <p class="admin-store-tpl-card__name">심플 미니멀/베이직</p>
+                <p class="admin-store-tpl-card__desc">깔끔하고 단순한 구성의 기본 템플릿으로, 상품을 군더더기 없이 보여주는 베이직 스타일</p>
+                <button type="button" class="admin-btn admin-btn--outline admin-btn--sm sc-tpl-preview-btn"
+                  data-preview-src="assets/design-img/preview-img/preview-minimal.png"
+                  data-preview-name="심플 미니멀/베이직">미리보기</button>
+              </div>
+            </div>
+
+            <!-- 모던 -->
+            <div class="admin-store-tpl-card" data-template-id="modern">
+              <label class="admin-store-tpl-card__radio-wrap">
+                <input type="radio" name="scTemplate" value="modern" checked aria-label="정돈된 레이아웃의 모던 스타일 선택" />
+              </label>
+              <div class="admin-store-tpl-card__thumb">
+                <img src="assets/design-img/modern.png" alt="모던 템플릿 미리보기" />
+              </div>
+              <div class="admin-store-tpl-card__body">
+                <p class="admin-store-tpl-card__name">정돈된 레이아웃의 모던 스타일</p>
+                <p class="admin-store-tpl-card__desc">상품을 한눈에 정리된 형태로 보여주며, 가로·세로로 균형 있게 배치된 구성이 특징인 템플릿</p>
+                <button type="button" class="admin-btn admin-btn--outline admin-btn--sm sc-tpl-preview-btn"
+                  data-preview-src="assets/design-img/preview-img/preview-modern.png"
+                  data-preview-name="모던 스타일">미리보기</button>
+              </div>
+            </div>
+
+            <!-- 러블리 -->
+            <div class="admin-store-tpl-card" data-template-id="lovely">
+              <label class="admin-store-tpl-card__radio-wrap">
+                <input type="radio" name="scTemplate" value="lovely" aria-label="감성 중심의 러블리 스타일 선택" />
+              </label>
+              <div class="admin-store-tpl-card__thumb">
+                <img src="assets/design-img/lovely.png" alt="러블리 템플릿 미리보기" />
+              </div>
+              <div class="admin-store-tpl-card__body">
+                <p class="admin-store-tpl-card__name">감성 중심의 러블리 스타일</p>
+                <p class="admin-store-tpl-card__desc">가로로 넘겨보는 배너와 리스트 구성이 함께 어우러져, 다양한 콘텐츠를 재미있게 탐색할 수 있는 템플릿</p>
+                <button type="button" class="admin-btn admin-btn--outline admin-btn--sm sc-tpl-preview-btn"
+                  data-preview-src="assets/design-img/preview-img/preview-lovely.png"
+                  data-preview-name="러블리 스타일">미리보기</button>
+              </div>
+            </div>
+
+            <!-- 링크리스트 -->
+            <div class="admin-store-tpl-card" data-template-id="linklist">
+              <label class="admin-store-tpl-card__radio-wrap">
+                <input type="radio" name="scTemplate" value="linklist" aria-label="링크리스트 레이아웃 스타일(배너X) 선택" />
+              </label>
+              <div class="admin-store-tpl-card__thumb">
+                <img src="assets/design-img/linklist.png" alt="링크리스트 템플릿 미리보기" />
+              </div>
+              <div class="admin-store-tpl-card__body">
+                <p class="admin-store-tpl-card__name">링크리스트 레이아웃 스타일(배너X)</p>
+                <p class="admin-store-tpl-card__desc">불필요한 요소 없이 상품을 링크 형태로 정리해, 원하는 정보를 빠르게 확인하고 이동할 수 있는 템플릿</p>
+                <button type="button" class="admin-btn admin-btn--outline admin-btn--sm sc-tpl-preview-btn"
+                  data-preview-src="assets/design-img/preview-img/preview-linklist.png"
+                  data-preview-name="링크리스트 스타일">미리보기</button>
+              </div>
+            </div>
+
+          </div><!-- /tpl-grid -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 이동 버튼 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+      <a href="store-create-step1.html" class="admin-btn admin-btn--outline">이전</a>
+      <a href="store-create-step3.html" class="admin-btn admin-btn--primary">다음</a>
+    </div>
+
+  </main>
+</div>
+
+<!-- 템플릿 미리보기 모달 -->
+<div class="sc-tpl-modal" id="scTplModal" role="dialog" aria-modal="true" aria-labelledby="scTplModalTitle">
+  <div class="sc-tpl-modal__overlay" id="scTplModalOverlay"></div>
+  <div class="sc-tpl-modal__box">
+    <div class="sc-tpl-modal__header">
+      <span class="t-title-2-sb" id="scTplModalTitle" style="color:var(--admin-heading);">템플릿 미리보기</span>
+      <button type="button" id="scTplModalClose" class="admin-btn admin-btn--icon" aria-label="닫기">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="sc-tpl-modal__body">
+      <img id="scTplModalImg" src="" alt="" />
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+<script>
+(function () {
+  /* ── 미리보기 모달 ── */
+  var modal    = document.getElementById("scTplModal");
+  var overlay  = document.getElementById("scTplModalOverlay");
+  var closeBtn = document.getElementById("scTplModalClose");
+  var titleEl  = document.getElementById("scTplModalTitle");
+  var imgEl    = document.getElementById("scTplModalImg");
+
+  function openModal(src, name) {
+    imgEl.src = src;
+    imgEl.alt = name + " 미리보기";
+    titleEl.textContent = name;
+    modal.classList.add("is-open");
+    closeBtn.focus();
+  }
+  function closeModal() {
+    modal.classList.remove("is-open");
+    imgEl.src = "";
+  }
+
+  document.querySelectorAll(".sc-tpl-preview-btn").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      openModal(btn.dataset.previewSrc, btn.dataset.previewName);
+    });
+  });
+  overlay.addEventListener("click", closeModal);
+  closeBtn.addEventListener("click", closeModal);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+
+  /* ── 카드 전체 클릭으로 라디오 선택 ── */
+  document.querySelectorAll(".admin-store-tpl-card").forEach(function (card) {
+    card.addEventListener("click", function (e) {
+      if (e.target.closest(".sc-tpl-preview-btn")) return;
+      var radio = card.querySelector("input[name='scTemplate']");
+      if (radio) radio.checked = true;
+    });
+  });
+}());
+</script>
+</body>
+</html>

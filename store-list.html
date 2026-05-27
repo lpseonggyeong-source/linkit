@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상점 관리 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- 모바일 헤더 -->
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <h1 class="admin-page-title t-title-1-md">상점 관리</h1>
+
+    <!-- 액션 바 -->
+    <div class="admin-action-bar">
+      <div class="admin-action-bar__left">
+        <h2 class="t-title-2-sb" style="color:var(--admin-heading);">내 상점 리스트</h2>
+      </div>
+      <div class="admin-action-bar__right">
+        <a href="store-create-step1.html" class="admin-btn admin-btn--primary">+ 새 상점 만들기</a>
+      </div>
+    </div>
+
+    <!-- 상점 리스트 카드 -->
+    <div class="admin-card">
+
+      <!-- 테이블 헤더 -->
+      <div class="admin-table-wrap" id="storeTableWrap">
+        <table class="admin-table" id="storeTable">
+          <thead>
+            <tr>
+              <th scope="col" style="width:60px;">넘버</th>
+              <th scope="col" style="width:80px;">로고</th>
+              <th scope="col" style="text-align:left;">상점 이름</th>
+              <th scope="col" style="width:320px;">상점 링크/바로가기</th>
+            </tr>
+          </thead>
+          <tbody id="storeListBody"></tbody>
+        </table>
+      </div>
+
+      <!-- 빈 상태 -->
+      <div class="admin-store-empty" id="storeEmptyState" style="display:none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+          aria-hidden="true" class="admin-store-empty__icon">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <p class="admin-store-empty__title">생성한 상점이 없습니다.</p>
+        <p class="admin-store-empty__sub">상점을 만들어주세요</p>
+        <a href="store-create-step1.html" class="admin-btn admin-btn--primary" style="margin-top:16px;">새 상점 만들기</a>
+      </div>
+
+      <!-- 페이지네이션 -->
+      <div class="admin-pagination" id="storePagination" style="display:none;"></div>
+
+    </div><!-- /card -->
+
+  </main>
+</div><!-- /admin-layout -->
+
+<script src="admin.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════
+   상점 관리 페이지 (store-list.html)
+   ══════════════════════════════════════════════════════ */
+(function () {
+  "use strict";
+
+  /* [MOCK] 백엔드 연동 시 GET /api/stores 로 교체 */
+  var STORE_DATA = [
+    /* 상점 데이터가 없을 경우 빈 배열 — 테스트 시 아래 주석 해제 */
+    // { storeId: "s1", number: 1, logoImageUrl: "", storeName: "어반무드", storeUrl: "https://linkit.io/store/urbanmood" },
+    // { storeId: "s2", number: 2, logoImageUrl: "", storeName: "데일리마켓", storeUrl: "https://linkit.io/store/dailymkt" },
+  ];
+
+  var PAGE_SIZE = 10;
+  var currentPage = 1;
+
+  /* XSS 방지 */
+  function esc(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  /* 로고 썸네일 */
+  var ICON_LOGO = [
+    '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"',
+    ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">',
+    '<rect x="3" y="3" width="18" height="18" rx="2"/>',
+    '<circle cx="8.5" cy="8.5" r="1.5"/>',
+    '<path d="M21 15l-5-5L5 21"/>',
+    '</svg>'
+  ].join("");
+
+  /* 외부 링크 아이콘 */
+  var ICON_LINK = [
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"',
+    ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">',
+    '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+    '<polyline points="15 3 21 3 21 9"/>',
+    '<line x1="10" y1="14" x2="21" y2="3"/>',
+    '</svg>'
+  ].join("");
+
+  function renderList() {
+    var tbody   = document.getElementById("storeListBody");
+    var table   = document.getElementById("storeTableWrap");
+    var empty   = document.getElementById("storeEmptyState");
+    var pagination = document.getElementById("storePagination");
+    if (!tbody) return;
+
+    if (STORE_DATA.length === 0) {
+      if (table) table.style.display = "none";
+      if (empty) empty.style.display = "";
+      if (pagination) pagination.style.display = "none";
+      return;
+    }
+
+    if (table) table.style.display = "";
+    if (empty) empty.style.display = "none";
+
+    var start = (currentPage - 1) * PAGE_SIZE;
+    var pageItems = STORE_DATA.slice(start, start + PAGE_SIZE);
+
+    tbody.innerHTML = "";
+    pageItems.forEach(function (store) {
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        '<td style="text-align:center;" class="t-body-2-rg">' + esc(String(store.number)) + '</td>' +
+        '<td style="text-align:center;">' +
+          '<div class="admin-product-thumb">' +
+            (store.logoImageUrl
+              ? '<img src="' + esc(store.logoImageUrl) + '" alt="' + esc(store.storeName) + ' 로고" />'
+              : ICON_LOGO
+            ) +
+          '</div>' +
+        '</td>' +
+        '<td class="t-body-2-rg">' + esc(store.storeName) + '</td>' +
+        '<td>' +
+          '<div style="display:flex;align-items:center;gap:8px;">' +
+            '<span class="t-body-3-rg admin-text-muted" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' +
+              esc(store.storeUrl) +
+            '</span>' +
+            '<a href="' + esc(store.storeUrl) + '" target="_blank" rel="noopener"' +
+              ' class="admin-btn admin-btn--outline admin-btn--sm" aria-label="바로가기">' +
+              ICON_LINK + ' 바로가기' +
+            '</a>' +
+          '</div>' +
+        '</td>';
+      tbody.appendChild(tr);
+    });
+
+    renderPagination();
+  }
+
+  function renderPagination() {
+    var el = document.getElementById("storePagination");
+    if (!el) return;
+    var total = Math.ceil(STORE_DATA.length / PAGE_SIZE);
+    if (total <= 1) { el.style.display = "none"; return; }
+    el.style.display = "";
+    el.innerHTML = "";
+
+    for (var i = 1; i <= total; i++) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "admin-page-btn" + (i === currentPage ? " is-active" : "");
+      btn.textContent = i;
+      btn.dataset.page = i;
+      el.appendChild(btn);
+    }
+
+    el.addEventListener("click", function (e) {
+      var btn = e.target.closest(".admin-page-btn");
+      if (!btn) return;
+      currentPage = parseInt(btn.dataset.page, 10);
+      renderList();
+    });
+  }
+
+  window.initStoreListPage = function () {
+    if (!document.getElementById("storeListBody")) return;
+    renderList();
+  };
+}());
+</script>
+</body>
+</html>

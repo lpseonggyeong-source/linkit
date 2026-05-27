@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상점 생성 — link it 어드민</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    /* ── Step 3 레이아웃 보정 ── */
+
+    .store-create-step3 .admin-design-editor-screen {
+      margin: 0;
+      border: 1px solid var(--admin-stroke);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--admin-white);
+    }
+
+    /* 레이아웃 전체 높이: 최대한 세로 공간 활용 */
+    .store-create-step3 .admin-design-editor-layout {
+      display: flex;
+      height: min(860px, calc(100vh - 220px));
+      min-height: 600px;
+      overflow: hidden;
+    }
+
+    /* 좌측 미리보기 영역: 스크롤 허용, 패딩 축소 */
+    .store-create-step3 .admin-design-preview-area {
+      min-width: 0;
+      overflow-y: auto;
+      padding: 20px 16px;
+    }
+
+    /* 폰 형태 프리뷰 래퍼: 고정 너비로 핸드폰 비율 */
+    .store-create-step3 .admin-design-mall-wrap {
+      width: 375px;
+      max-width: 100%;
+      flex-shrink: 0;
+    }
+
+    /* iframe: 핸드폰처럼 세로로 길게 */
+    .store-create-step3 #scPreviewIframe {
+      width: 100%;
+      height: 780px;
+      min-height: 640px;
+      border: none;
+      display: block;
+    }
+
+    .store-create-step3 .admin-design-right-panel {
+      height: auto;
+      min-height: 0;
+    }
+
+    .store-create-step3 .admin-design-edit-panels {
+      min-height: 0;
+      overflow-y: auto;
+    }
+
+    /* ── CSS 탭 전환 ── */
+    .sc-tab-root {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .sc-tab-root > input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      width: 0;
+      height: 0;
+    }
+
+    .sc-tab-root .admin-design-edit-panel { display: none !important; }
+
+    .sc-tab-root > #sc-dtab-basic:checked    ~ .admin-design-edit-panels #sc-dpanel-basic    { display: block !important; }
+    .sc-tab-root > #sc-dtab-sections:checked ~ .admin-design-edit-panels #sc-dpanel-sections { display: block !important; }
+    .sc-tab-root > #sc-dtab-banner:checked   ~ .admin-design-edit-panels #sc-dpanel-banner   { display: block !important; }
+    .sc-tab-root > #sc-dtab-footer:checked   ~ .admin-design-edit-panels #sc-dpanel-footer   { display: block !important; }
+
+    .sc-tab-root > #sc-dtab-basic:checked    ~ .admin-design-edit-tabs label[for="sc-dtab-basic"],
+    .sc-tab-root > #sc-dtab-sections:checked ~ .admin-design-edit-tabs label[for="sc-dtab-sections"],
+    .sc-tab-root > #sc-dtab-banner:checked   ~ .admin-design-edit-tabs label[for="sc-dtab-banner"],
+    .sc-tab-root > #sc-dtab-footer:checked   ~ .admin-design-edit-tabs label[for="sc-dtab-footer"] {
+      color: var(--admin-red);
+      border-bottom-color: var(--admin-red);
+      font-weight: 700;
+      background: var(--admin-white);
+    }
+
+    .sc-tab-root .admin-design-edit-tabs label.admin-design-edit-tab {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @media (max-width: 1024px) {
+      .store-create-step3 .admin-design-editor-layout {
+        height: auto;
+        min-height: 0;
+        flex-direction: column;
+      }
+      .store-create-step3 .admin-design-preview-area {
+        height: 520px;
+      }
+      .store-create-step3 .admin-design-right-panel {
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-top: 1px solid var(--admin-border);
+      }
+      .store-create-step3 #scPreviewIframe {
+        height: 100%;
+        min-height: 520px;
+      }
+    }
+  </style>
+</head>
+<body class="store-create-step3">
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">link it</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <main class="admin-main">
+    <h1 class="admin-page-title t-title-1-md">상점 생성</h1>
+
+    <!-- 스텝바 -->
+    <div class="admin-store-stepbar" aria-label="상점 생성 단계">
+      <span class="admin-store-step-btn is-done">
+        <span class="admin-store-step-btn__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+        <span>기본정보 입력</span>
+      </span>
+      <span class="admin-store-step-btn is-done">
+        <span class="admin-store-step-btn__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
+        <span>디자인 템플릿 선택</span>
+      </span>
+      <span class="admin-store-step-btn is-active" aria-current="step">
+        <span class="admin-store-step-btn__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18M3 12h18"/></svg></span>
+        <span>섹션 설정</span>
+      </span>
+      <span class="admin-store-step-btn">
+        <span class="admin-store-step-btn__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+        <span>내 상품 진열</span>
+      </span>
+      <span class="admin-store-step-btn">
+        <span class="admin-store-step-btn__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        <span>상점 생성</span>
+      </span>
+    </div>
+
+    <!-- 콘텐츠 -->
+    <div class="admin-store-step-panel is-active">
+      <div class="admin-design-editor-screen">
+        <div class="admin-design-editor-layout">
+
+          <!-- 좌: 핸드폰 비율 미리보기 -->
+          <div class="admin-design-preview-area">
+            <div class="admin-design-mall-wrap">
+              <iframe id="scPreviewIframe" src="linkit-skeleton/modern.html"
+                scrolling="yes"></iframe>
+            </div>
+          </div>
+
+          <!-- 우: 편집 패널 (CSS 탭 전환) -->
+          <div class="admin-design-right-panel">
+            <div class="sc-tab-root">
+
+              <input type="radio" name="sc-design-tab" id="sc-dtab-basic" checked />
+              <input type="radio" name="sc-design-tab" id="sc-dtab-sections" />
+              <input type="radio" name="sc-design-tab" id="sc-dtab-banner" />
+              <input type="radio" name="sc-design-tab" id="sc-dtab-footer" />
+
+              <div class="admin-design-edit-tabs" role="tablist">
+                <label for="sc-dtab-basic"    class="admin-design-edit-tab" role="tab">기본 정보</label>
+                <label for="sc-dtab-sections" class="admin-design-edit-tab" role="tab">섹션 이름</label>
+                <label for="sc-dtab-banner"   class="admin-design-edit-tab" role="tab">서브 배너</label>
+                <label for="sc-dtab-footer"   class="admin-design-edit-tab" role="tab">푸터 정보</label>
+              </div>
+
+              <div class="admin-design-edit-panels">
+
+                <!-- 기본 정보 -->
+                <div class="admin-design-edit-panel" id="sc-dpanel-basic" role="tabpanel">
+                  <div class="admin-design-sub-section">
+                    <p class="admin-design-sub-section-title">헤더/기본정보</p>
+                    <div class="admin-field">
+                      <label for="scHeaderName">헤더 이름</label>
+                      <input type="text" id="scHeaderName" name="scHeaderName" value="Mordern" maxlength="30" />
+                    </div>
+                  </div>
+                  <div class="admin-design-sub-section">
+                    <p class="admin-design-sub-section-title">메인 배너 이미지 변경</p>
+                    <div class="admin-field">
+                      <label>레이아웃</label>
+                      <div class="admin-design-radio-group">
+                        <label class="admin-design-radio-label"><input type="radio" name="scMainBannerLayout" value="fill" /> 가득 채우기</label>
+                        <label class="admin-design-radio-label"><input type="radio" name="scMainBannerLayout" value="fixed" checked /> 고정 크기</label>
+                      </div>
+                      <p class="admin-design-radio-hint">업로드한 이미지 기준으로 고정되어 노출됩니다.</p>
+                    </div>
+                    <div class="admin-field">
+                      <label>이미지 선택</label>
+                      <div class="admin-design-upload-zone" data-target="main">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span class="admin-design-upload-zone__label">메인 배너</span>
+                        <span class="admin-design-upload-zone__sub">JPG/PNG 클릭하거나 파일을 여기에 끌어다 놓으세요</span>
+                        <!-- [BACKEND] 파일 미리보기는 백엔드 연동 시 처리 -->
+                        <input type="file" accept="image/*" class="admin-design-upload-input" />
+                      </div>
+                      <p class="admin-design-upload-hint">메인 배너 권장 사이즈는 780 x 370 입니다.</p>
+                    </div>
+                  </div>
+                  <div class="admin-design-sub-section">
+                    <p class="admin-design-sub-section-title">기본 정보 수정</p>
+                    <div class="admin-field">
+                      <label for="scMarketName">마켓이름</label>
+                      <input type="text" id="scMarketName" name="scMarketName" value="Linkit Market" maxlength="40" />
+                    </div>
+                    <div class="admin-field">
+                      <div class="admin-design-field-counter">
+                        <label for="scMarketDesc">설명</label>
+                        <span><!-- [BACKEND] 글자 수 -->/50</span>
+                      </div>
+                      <input type="text" id="scMarketDesc" name="scMarketDesc" value="링크만 있으면 나만의 상점 완성" maxlength="50" />
+                    </div>
+                  </div>
+                  <div class="admin-design-sub-section">
+                    <p class="admin-design-sub-section-title">링크</p>
+                    <div class="admin-field"><label for="scHomeUrl">홈페이지링크</label><input type="text" id="scHomeUrl" name="scHomeUrl" value="https://link-it.com" /></div>
+                    <div class="admin-field"><label for="scInstagram">인스타 링크</label><input type="text" id="scInstagram" name="scInstagram" value="instagram.com/username" /></div>
+                    <div class="admin-field"><label for="scYoutube">유튜브 링크</label><input type="text" id="scYoutube" name="scYoutube" value="youtube.com/username" /></div>
+                  </div>
+                </div>
+
+                <!-- 섹션 이름 -->
+                <div class="admin-design-edit-panel" id="sc-dpanel-sections" role="tabpanel">
+                  <div class="admin-design-sub-section">
+                    <p class="admin-design-sub-section-title">섹션 이름 수정</p>
+                    <!-- [BACKEND] 섹션 목록은 백엔드 API에서 동적으로 로드됩니다 -->
+                    <div class="admin-design-section-row">
+                      <label for="scSecName0">섹션1</label>
+                      <input type="text" id="scSecName0" name="scSecName0" maxlength="30" value="오늘의 라이브쇼핑" />
+                    </div>
+                    <div class="admin-design-section-row">
+                      <label for="scSecName1">섹션2</label>
+                      <input type="text" id="scSecName1" name="scSecName1" maxlength="30" value="전체 상품" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 서브 배너 -->
+                <div class="admin-design-edit-panel" id="sc-dpanel-banner" role="tabpanel">
+                  <div class="admin-design-sub-section">
+                    <p class="admin-design-sub-section-title">이미지 변경</p>
+                    <div class="admin-field">
+                      <label>레이아웃</label>
+                      <div class="admin-design-radio-group">
+                        <label class="admin-design-radio-label"><input type="radio" name="scSubBannerLayout" value="fill" /> 가득 채우기</label>
+                        <label class="admin-design-radio-label"><input type="radio" name="scSubBannerLayout" value="fixed" checked /> 고정 크기</label>
+                      </div>
+                      <p class="admin-design-radio-hint">업로드한 이미지 기준으로 고정되어 노출됩니다.</p>
+                    </div>
+                    <div class="admin-field">
+                      <label>이미지 선택</label>
+                      <div class="admin-design-upload-zone" data-target="sub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span class="admin-design-upload-zone__label">서브 배너</span>
+                        <span class="admin-design-upload-zone__sub">JPG/PNG 클릭하거나 파일을 여기에 끌어다 놓으세요</span>
+                        <!-- [BACKEND] 파일 미리보기는 백엔드 연동 시 처리 -->
+                        <input type="file" accept="image/*" class="admin-design-upload-input" />
+                      </div>
+                      <p class="admin-design-upload-hint">서브 배너 권장 사이즈는 780 x 370 입니다.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 푸터 정보 -->
+                <div class="admin-design-edit-panel" id="sc-dpanel-footer" role="tabpanel">
+                  <div class="admin-design-sub-section">
+                    <p class="admin-design-sub-section-title">푸터 정보 설정</p>
+                    <div class="admin-field"><label for="scFooterPhone">고객센터 전화번호</label><input type="text" id="scFooterPhone" name="scFooterPhone" value="02-1234-1234" /></div>
+                    <div class="admin-field"><label for="scFooterHours">영업시간</label><input type="text" id="scFooterHours" name="scFooterHours" value="평일 10:00 - 18:00 (주말/공휴일 제외)" /></div>
+                    <div class="admin-field"><label for="scFooterEmail">이메일</label><input type="text" id="scFooterEmail" name="scFooterEmail" value="help@linkit.com" /></div>
+                    <div class="admin-field"><label for="scFooterCompany">상호명</label><input type="text" id="scFooterCompany" name="scFooterCompany" value="(주)링크잇" /></div>
+                    <div class="admin-field"><label for="scFooterCeo">대표이사</label><input type="text" id="scFooterCeo" name="scFooterCeo" value="000" /></div>
+                    <div class="admin-field"><label for="scFooterBizNum">사업자 등록번호</label><input type="text" id="scFooterBizNum" name="scFooterBizNum" value="123-45-67890" /></div>
+                    <div class="admin-field"><label for="scFooterCommerceNum">통신판매업신고번호</label><input type="text" id="scFooterCommerceNum" name="scFooterCommerceNum" value="2024-서울강남-0000" /></div>
+                    <div class="admin-field"><label for="scFooterAddr">주소</label><input type="text" id="scFooterAddr" name="scFooterAddr" value="본사 서울특별시 강남구 테헤란로 123" /></div>
+                    <div class="admin-field"><label for="scFooterTermsUrl">이용약관 링크</label><input type="text" id="scFooterTermsUrl" name="scFooterTermsUrl" value="termsandcondition.html" /></div>
+                    <div class="admin-field"><label for="scFooterPrivacyUrl">개인정보 처리방침 링크</label><input type="text" id="scFooterPrivacyUrl" name="scFooterPrivacyUrl" value="privacy.html" /></div>
+                    <div class="admin-field"><label for="scFooterCopy">저작권</label><input type="text" id="scFooterCopy" name="scFooterCopy" value="© 2026 LINKIT Inc. All rights reserved." /></div>
+                  </div>
+                </div>
+
+              </div><!-- /edit-panels -->
+            </div><!-- /sc-tab-root -->
+          </div><!-- /right-panel -->
+
+        </div><!-- /editor-layout -->
+      </div><!-- /editor-screen -->
+    </div><!-- /step-panel -->
+
+    <!-- 이동 버튼 (박스 없음) -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+      <a href="store-create-step2.html" class="admin-btn admin-btn--outline">이전</a>
+      <a href="store-create-step4.html" class="admin-btn admin-btn--primary">다음</a>
+    </div>
+
+  </main>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

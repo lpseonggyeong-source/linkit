@@ -65,6 +65,12 @@
       "settings.html":             "settings.html",
       "index-after.html":          "index.html",
       "index-before.html":         "index.html",
+      "store-list.html":             "store-create-step1.html",
+      "store-create-step1.html":    "store-create-step1.html",
+      "store-create-step2.html":    "store-create-step1.html",
+      "store-create-step3.html":    "store-create-step1.html",
+      "store-create-step4.html":    "store-create-step1.html",
+      "store-create-step5.html":    "store-create-step1.html",
     };
     var activeMain = SUB_TO_MAIN[page] || page;
 
@@ -111,11 +117,12 @@
         '</div>' +
 
         '<div class="admin-sidebar__group">' +
-          '<a href="design.html" class="' + mc("design.html") + '">' +
+          '<a href="store-create-step1.html" class="' + mc("store-create-step1.html") + '">' +
             icon("icon-3.svg") +
-            '<span>디자인</span>' +
+            '<span>상점 생성/관리</span>' +
           '</a>' +
-          '<a href="design.html" class="' + sc("design.html") + '">디자인 관리</a>' +
+          '<a href="store-create-step1.html" class="' + sc("store-create-step1.html") + '">상점 생성</a>' +
+          '<a href="store-list.html" class="' + sc("store-list.html") + '">상점 관리</a>' +
         '</div>' +
 
         '<div class="admin-sidebar__group">' +
@@ -1390,6 +1397,9 @@
     /* 디자인 관리 */
     if (window.initDesignPage) window.initDesignPage();
     if (window.initDesignEditorPage) window.initDesignEditorPage();
+    /* 상점 생성/관리 */
+    if (window.initStoreListPage) window.initStoreListPage();
+    if (window.initStoreCreatePage) window.initStoreCreatePage();
   });
 })();
 
