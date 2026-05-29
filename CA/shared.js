@@ -46,8 +46,7 @@
       "ca-007-order-list.html":         "ca-007-order-list.html",
       "ca-009-seller-list.html":        "ca-009-seller-list.html",
       "ca-012-seller-brand.html":       "ca-009-seller-list.html",
-      "ca-013-settlement.html":              "ca-013-settlement.html",
-      "ca-014-settlement-detail.html":       "ca-013-settlement.html",
+      "ca-014-settlement-detail.html":       "ca-014-settlement-detail.html",
       "ca-016-notice.html":                  "ca-016-notice.html",
       "ca-017-settings.html":                "ca-017-settings.html",
     };
@@ -89,9 +88,7 @@
         "</div>" +
 
         '<div class="admin-sidebar__group">' +
-          '<a href="ca-013-settlement.html" class="' + mc("ca-013-settlement.html") + '">' + si("settlement") + "<span>정산 관리</span></a>" +
-          '<a href="ca-013-settlement.html" class="' + sc("ca-013-settlement.html") + '">정산 요약</a>' +
-          '<a href="ca-014-settlement-detail.html" class="' + sc("ca-014-settlement-detail.html") + '">정산 상세</a>' +
+          '<a href="ca-014-settlement-detail.html" class="' + mc("ca-014-settlement-detail.html") + '">' + si("settlement") + "<span>정산관리</span></a>" +
         "</div>" +
 
         '<div class="admin-sidebar__group">' +

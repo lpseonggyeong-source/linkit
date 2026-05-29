@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>정산 상세 — link it CA 어드민</title>
+<title>정산관리 — link it CA 어드민</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -48,6 +48,27 @@
 /* util */
 .tr { text-align:right; }
 .tc { text-align:center; }
+/* 히어로 KPI */
+.hero-kpi-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:16px; }
+@media(max-width:700px){ .hero-kpi-grid { grid-template-columns:1fr; } }
+.hero-kpi-card { background:var(--admin-white,#fff); border:1px solid var(--admin-stroke,#e5e7eb); border-radius:8px; padding:20px 24px; }
+.hero-kpi-card__label { font-size:12px; color:var(--admin-muted,#9ca3af); margin-bottom:8px; }
+.hero-kpi-card__value { font-size:28px; font-weight:700; color:var(--admin-heading,#111); }
+/* 상태 KPI */
+.status-kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+@media(max-width:900px){ .status-kpi-grid { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:480px){ .status-kpi-grid { grid-template-columns:1fr; } }
+.status-kpi-card { background:var(--admin-white,#fff); border:1px solid var(--admin-stroke,#e5e7eb); border-radius:8px; padding:16px; }
+.status-kpi-card__label { font-size:12px; color:var(--admin-muted,#9ca3af); margin-bottom:6px; }
+.status-kpi-card__value { font-size:20px; font-weight:700; }
+.status-kpi-card__value--red { color:var(--admin-red,#e83828); }
+.status-kpi-card__value--amber { color:#b45309; }
+.status-kpi-card__value--green { color:#2e7d32; }
+.status-kpi-card__value--blue { color:#1565c0; }
+/* 필터 행 */
+.sett-filter { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:12px 0 16px; }
+.sett-filter select, .sett-filter input[type="date"] { height:36px; border:1px solid var(--admin-stroke,#e5e7eb); border-radius:6px; padding:0 10px; font-size:13px; font-family:inherit; background:#fff; }
+.sett-filter input[type="text"] { height:36px; border:1px solid var(--admin-stroke,#e5e7eb); border-radius:6px; padding:0 10px; font-size:13px; font-family:inherit; min-width:160px; }
 </style>
 </head>
 <body>
@@ -60,17 +81,63 @@
   <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
   <main class="admin-main">
 
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
-      <a href="ca-013-settlement.html" class="admin-btn admin-btn--outline admin-btn--sm">← 정산 요약</a>
-      <h1 class="admin-page-title" style="margin-bottom:0;">정산 상세</h1>
+    <h1 class="admin-page-title">정산 관리</h1>
+
+    <!-- 히어로 KPI -->
+    <div class="hero-kpi-grid">
+      <div class="hero-kpi-card">
+        <div class="hero-kpi-card__label">오늘의매출</div>
+        <div class="hero-kpi-card__value">10,049,330원</div>
+      </div>
+      <div class="hero-kpi-card">
+        <div class="hero-kpi-card__label">오늘의 브랜드/셀러매출</div>
+        <div class="hero-kpi-card__value">10,049,330원</div>
+      </div>
+    </div>
+
+    <!-- 상태 KPI -->
+    <div class="status-kpi-grid">
+      <div class="status-kpi-card">
+        <div class="status-kpi-card__label">미정산</div>
+        <div class="status-kpi-card__value status-kpi-card__value--red">15,066,000원</div>
+      </div>
+      <div class="status-kpi-card">
+        <div class="status-kpi-card__label">정산중</div>
+        <div class="status-kpi-card__value status-kpi-card__value--amber">9,010,000원</div>
+      </div>
+      <div class="status-kpi-card">
+        <div class="status-kpi-card__label">정산완료</div>
+        <div class="status-kpi-card__value status-kpi-card__value--green">34,285,000원</div>
+      </div>
+      <div class="status-kpi-card">
+        <div class="status-kpi-card__label">이번달 순매출</div>
+        <div class="status-kpi-card__value status-kpi-card__value--blue">38,920,000원</div>
+      </div>
+    </div>
+
+    <!-- 필터 행 -->
+    <div class="sett-filter">
+      <label style="font-size:13px;font-weight:500;">정산기간</label>
+      <input type="date" id="fDateFrom" />
+      <span style="font-size:13px;">~</span>
+      <input type="date" id="fDateTo" />
+      <select id="fBrand"><option value="">브랜드 전체</option><option>어반무드</option><option>루미데이</option></select>
+      <select id="fStatus">
+        <option value="">정산상태 전체</option>
+        <option value="미정산">미정산</option>
+        <option value="정산중">정산중</option>
+        <option value="정산완료">정산완료</option>
+      </select>
+      <input type="text" id="fSearch" placeholder="검색" />
+      <select id="fSeller"><option value="">셀러 전체</option></select>
+      <button class="admin-btn admin-btn--primary admin-btn--sm" id="searchBtn">검색</button>
+      <button class="admin-btn admin-btn--outline admin-btn--sm" id="resetBtn">초기화</button>
     </div>
 
     <!-- 선택된 정산 기본 정보 -->
     <div class="admin-card" style="margin-bottom:16px;" id="settInfoCard">
       <div class="admin-card__header" style="flex-wrap:wrap;gap:8px;">
         <span class="admin-card__title">정산 기본 정보</span>
-        <span id="settInfoBadge"></span>
-        <button class="admin-btn admin-btn--outline admin-btn--sm" id="statusEditBtn" style="display:none;">상태 수정</button>
         <span style="font-size:12px;color:var(--admin-muted);margin-left:auto;" id="settInfoHint">목록에서 행을 클릭하면 정보가 표시됩니다</span>
       </div>
       <div class="admin-card__body" id="settInfoBody">
@@ -91,7 +158,6 @@
       <div style="padding:0 20px;">
         <div class="pg-tabs" id="detailTabs">
           <button class="pg-tab is-active" data-tab="list">정산내역 목록</button>
-          <button class="pg-tab" data-tab="brand">브랜드 정산 내역</button>
           <button class="pg-tab" data-tab="seller">셀러 정산 내역</button>
         </div>
       </div>
@@ -105,7 +171,6 @@
                 <th>정산번호</th><th>정산기간</th><th>브랜드</th><th>셀러</th>
                 <th>결제코드</th><th class="tr">총주문금액</th><th class="tr">반품 차감</th>
                 <th class="tr">PG수수료</th><th class="tr">최종정산액</th>
-                <th>정산상태</th>
               </tr>
             </thead>
             <tbody id="settlementListBody"></tbody>
@@ -117,7 +182,8 @@
       <div id="tab-brand" class="admin-card__body--flush" style="display:none;">
         <div class="admin-table-wrap">
           <table class="admin-table">
-            <thead><tr><th>정산번호</th><th>정산기간</th><th>브랜드명</th><th class="tc">주문수</th><th class="tr">총매출</th><th class="tr">취소차감</th><th class="tr">수수료</th><th class="tr">정산금액</th><th>정산상태</th></tr></thead>
+            <thead><tr><th>정산번호</th><th>정산기간</th><th>브랜드명</th><th class="tc">주문수</th><th class="tr">총매출</th><th class="tr">취소차감</th>
+              <th class="tr">수수료</th><th class="tr">정산금액</th><th>정산상태</th></tr></thead>
             <tbody id="brandDetailBody"></tbody>
           </table>
         </div>
@@ -137,40 +203,7 @@
 
   </main>
 </div>
-<!-- 정산 상태 변경 모달 -->
-<div class="sm-overlay" id="statusModal">
-  <div class="sm-modal">
-    <div class="sm-head">
-      <h3>정산 상태 변경</h3>
-      <button class="sm-close" id="statusModalClose">×</button>
-    </div>
-    <div class="sm-body">
-      <p style="font-size:13px;color:var(--admin-muted);margin-bottom:20px;" id="modalCurStatus"></p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
-        <label class="status-option">
-          <input type="radio" name="newStatus" value="미정산" style="accent-color:var(--admin-red,#e83828);" />
-          <span>미정산</span><span style="font-size:11px;color:var(--admin-muted);margin-left:4px;">(정산 신청 전)</span>
-        </label>
-        <label class="status-option">
-          <input type="radio" name="newStatus" value="정산중" style="accent-color:var(--admin-red,#e83828);" />
-          <span>정산중</span><span style="font-size:11px;color:var(--admin-muted);margin-left:4px;">(신청완료/입금 전)</span>
-        </label>
-        <label class="status-option">
-          <input type="radio" name="newStatus" value="정산완료" style="accent-color:var(--admin-red,#e83828);" />
-          <span>정산완료</span><span style="font-size:11px;color:var(--admin-muted);margin-left:4px;">(입금 완료)</span>
-        </label>
-      </div>
-      <div>
-        <label style="font-size:13px;color:var(--admin-muted);display:block;margin-bottom:6px;">메모 (선택)</label>
-        <textarea id="statusMemo" style="width:100%;padding:10px 12px;border:1px solid var(--admin-stroke,#e5e7eb);border-radius:6px;font-size:14px;font-family:inherit;resize:vertical;min-height:80px;box-sizing:border-box;" placeholder="상태 변경 사유를 입력하세요"></textarea>
-      </div>
-    </div>
-    <div class="sm-foot">
-      <button class="admin-btn admin-btn--outline" id="statusModalCancel">취소</button>
-      <button class="admin-btn admin-btn--primary" id="statusModalSave">저장</button>
-    </div>
-  </div>
-</div>
+
 <script src="shared.js"></script>
 <script>
 (function() {
@@ -270,7 +303,6 @@
         '<td class="tr" style="color:var(--admin-red);">' + fc(d.deduct) + '</td>' +
         '<td class="tr" style="color:var(--admin-muted);">' + fc(d.fee) + '</td>' +
         '<td class="tr" style="font-weight:600;">' + fc(d.final) + '</td>' +
-        '<td class="tc">' + AdminShared.settlementBadge(d.status) + '</td>' +
       '</tr>';
     }).join("");
   }
@@ -310,8 +342,6 @@
   }
 
   function updateInfoPanel(d) {
-    document.getElementById("settInfoBadge").innerHTML = AdminShared.settlementBadge(d.status);
-    document.getElementById("statusEditBtn").style.display = "";
     document.getElementById("settInfoHint").style.display = "none";
     document.getElementById("settInfoBody").innerHTML =
       '<div class="si-grid">' +
@@ -346,6 +376,20 @@
   }
 
   document.addEventListener("DOMContentLoaded", function() {
+    var today = new Date().toISOString().slice(0, 10);
+    document.getElementById("fDateFrom").value = today;
+    document.getElementById("fDateTo").value = today;
+
+    document.getElementById("resetBtn").addEventListener("click", function() {
+      var t = new Date().toISOString().slice(0, 10);
+      document.getElementById("fDateFrom").value = t;
+      document.getElementById("fDateTo").value = t;
+      document.getElementById("fBrand").value = "";
+      document.getElementById("fStatus").value = "";
+      document.getElementById("fSearch").value = "";
+      document.getElementById("fSeller").value = "";
+    });
+
     renderList();
     renderBrandList();
     renderSellerList();
@@ -389,29 +433,9 @@
       selectedIdx = r.settIdx;
       updateInfoPanel(SETTLEMENTS[selectedIdx]);
       var isCA = CA_TYPES.indexOf(r.type) >= 0;
-      document.getElementById("statusEditBtn").style.display = isCA ? "" : "none";
     });
 
-    /* 상태 수정 버튼 */
-    document.getElementById("statusEditBtn").addEventListener("click", openStatusModal);
-
-    /* 모달 닫기 */
-    document.getElementById("statusModalClose").addEventListener("click", closeStatusModal);
-    document.getElementById("statusModalCancel").addEventListener("click", closeStatusModal);
-    document.getElementById("statusModal").addEventListener("click", function(e) { if (e.target === this) closeStatusModal(); });
-
-    /* 상태 저장 */
-    document.getElementById("statusModalSave").addEventListener("click", function() {
-      var checked = document.querySelector("input[name=newStatus]:checked");
-      if (!checked) { alert("변경할 상태를 선택해주세요."); return; }
-      SETTLEMENTS[selectedIdx].status = checked.value;
-      renderList();
-      renderBrandList();
-      renderSellerList();
-      updateInfoPanel(SETTLEMENTS[selectedIdx]);
-      closeStatusModal();
-      alert("정산 상태가 [" + checked.value + "]로 변경되었습니다.");
-    });
+    
   });
 })();
 </script>
