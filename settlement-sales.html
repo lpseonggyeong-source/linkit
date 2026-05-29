@@ -14,7 +14,7 @@
 .page-header__sub { font-size:14px; color:var(--admin-muted); }
 
 /* KPI 그리드 */
-.ba-kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+.ba-kpi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:24px; }
 @media(max-width:900px) { .ba-kpi-grid { grid-template-columns:repeat(2,1fr); } }
 @media(max-width:480px) { .ba-kpi-grid { grid-template-columns:1fr 1fr; } }
 .ba-kpi { background:var(--admin-white); border:1px solid var(--admin-stroke); border-radius:8px; padding:18px 16px; }
@@ -125,28 +125,27 @@
       </button>
     </div>
 
-    <!-- KPI 4개 -->
+    <!-- KPI 6개 — BA 관점: 판매금액 기반 -->
     <div class="ba-kpi-grid">
+      
       <div class="ba-kpi">
-        <div class="ba-kpi__label">총 매출</div>
+        <div class="ba-kpi__label">누적 총 매출</div>
         <div class="ba-kpi__value">18,420,000원</div>
-        <div class="ba-kpi__sub">전월 대비 +12.8%</div>
+        <div class="ba-kpi__sub">선택 기간 판매금액</div>
       </div>
+
       <div class="ba-kpi">
-        <div class="ba-kpi__label">주문수</div>
-        <div class="ba-kpi__value">286건</div>
-        <div class="ba-kpi__sub">전월 대비 +23건</div>
+        <div class="ba-kpi__label">오늘 매출액</div>
+        <div class="ba-kpi__value">583,810원</div>
+        <div class="ba-kpi__sub">오늘 발생한 판매금액</div>
       </div>
+      
       <div class="ba-kpi">
         <div class="ba-kpi__label">취소 / 환불</div>
         <div class="ba-kpi__value ba-kpi__value--red">320,000원</div>
-        <div class="ba-kpi__sub">이번달 누적</div>
+        <div class="ba-kpi__sub">기간 내 누적</div>
       </div>
-      <div class="ba-kpi">
-        <div class="ba-kpi__label">PG 수수료</div>
-        <div class="ba-kpi__value ba-kpi__value--red">552,600원</div>
-        <div class="ba-kpi__sub">총매출의 3%</div>
-      </div>
+
     </div>
 
     <!-- 필터 -->
@@ -154,9 +153,9 @@
       <div class="admin-filter-row" style="margin-bottom:10px;">
         <span class="admin-filter-label">기간</span>
         <div class="period-group">
-          <button class="period-btn" data-p="today">오늘</button>
+          <button class="period-btn is-active" data-p="today">오늘</button>
           <button class="period-btn" data-p="7d">7일</button>
-          <button class="period-btn is-active" data-p="month">이번 달</button>
+          <button class="period-btn" data-p="month">이번 달</button>
           <button class="period-btn" data-p="last">지난 달</button>
           <button class="period-btn" data-p="custom">직접 선택</button>
         </div>
@@ -226,11 +225,11 @@
                 <th style="text-align:center;">판매상태</th>
                 <th style="text-align:center;">주문수</th>
                 <th style="text-align:center;">판매수량</th>
-                <th class="text-right">총 매출</th>
+                <th class="text-right">판매금액</th>
                 <th class="text-right">취소 / 환불</th>
+                <th class="text-right">실입금금액</th>
                 <th class="text-right">PG 수수료</th>
-                <th class="text-right">정산 예정액</th>
-                <th style="text-align:center;">상세</th>
+                <th class="text-right">정산 후 잔액</th>
               </tr></thead>
               <tbody id="productBody"></tbody>
             </table>
@@ -260,13 +259,12 @@
           <th>주문번호</th><th>주문일</th><th>셀러</th>
           <th class="text-right">결제금액</th>
           <th class="text-right">PG 수수료</th>
-          <th class="text-right">정산 대상</th>
+          <th class="text-right">실입금금액</th>
         </tr></thead>
         <tbody id="productModalOrders"></tbody>
       </table>
     </div>
     <div class="admin-modal__footer">
-      <button class="admin-btn admin-btn--outline" id="productModalDownload">엑셀 다운로드</button>
       <button class="admin-btn admin-btn--outline" id="productModalCloseBtn">닫기</button>
     </div>
   </div>
@@ -308,7 +306,7 @@
   var PRODUCTS_DATA = [
     {
       name:"시그니처 백", status:"판매중",
-      orders:84, qty:91, sales:7280000, cancel:-320000, pg:-218400, sett:6741600,
+      orders:84, qty:91, sales:7280000, cancel:-320000, pg:-218400, realRecv:7061600, sett:6741600,
       detail:[
         { no:"ORD-0501-001", date:"2026.05.03", seller:"김민지",      amt:86800,  pg:-2604, sett:84196  },
         { no:"ORD-0504-018", date:"2026.05.04", seller:"박서윤",      amt:86800,  pg:-2604, sett:84196  },
@@ -319,7 +317,7 @@
     },
     {
       name:"립 틴트 세트", status:"판매중",
-      orders:126, qty:148, sales:4736000, cancel:-96000, pg:-142080, sett:4497920,
+      orders:126, qty:148, sales:4736000, cancel:-96000, pg:-142080, realRecv:4593920, sett:4497920,
       detail:[
         { no:"ORD-0502-005", date:"2026.05.02", seller:"오로라셀러01", amt:37600, pg:-1128, sett:36472 },
         { no:"ORD-0507-022", date:"2026.05.07", seller:"김민지",      amt:75200, pg:-2256, sett:72944 },
@@ -330,7 +328,7 @@
     },
     {
       name:"여름 니트", status:"품절",
-      orders:42, qty:45, sales:2520000, cancel:0, pg:-75600, sett:2444400,
+      orders:42, qty:45, sales:2520000, cancel:0, pg:-75600, realRecv:2444400, sett:2444400,
       detail:[
         { no:"ORD-0501-003", date:"2026.05.01", seller:"테우셀러03", amt:60000, pg:-1800, sett:58200 },
         { no:"ORD-0506-019", date:"2026.05.06", seller:"테우셀러03", amt:60000, pg:-1800, sett:58200 },
@@ -397,22 +395,26 @@
     document.getElementById("chartTableHead").innerHTML =
       '<tr><th>' + (isMonthly ? "월" : "날짜") + '</th>' +
       '<th style="text-align:center;">주문수</th>' +
-      '<th class="text-right">총 매출</th>' +
+      '<th class="text-right">판매금액</th>' +
       '<th class="text-right">취소 / 환불</th>' +
+      '<th class="text-right">실입금금액</th>' +
       '<th class="text-right">PG 수수료</th>' +
-      '<th class="text-right">정산 예정액</th></tr>';
+      '<th class="text-right">정산 후 잔액</th></tr>';
 
     document.getElementById("chartTableBody").innerHTML = data.map(function (d) {
-      var pg     = -Math.round(d.sales * 0.03);
-      var cancel = d.cancel || 0;
-      var sett   = d.sales + cancel + pg;
+      var pg       = -Math.round(d.sales * 0.03);
+      var cancel   = d.cancel || 0;
+      var realRecv = d.sales + pg;          // 실입금금액
+      var sellerFee = -Math.round(d.sales * 0.09);
+      var remain   = realRecv + sellerFee + cancel; // 정산 후 잔액
       return '<tr>' +
         '<td style="font-weight:600;">' + d.label + '</td>' +
         '<td style="text-align:center;">' + d.orders + '건</td>' +
         '<td class="text-right">' + fc(d.sales) + '</td>' +
         '<td class="text-right" style="color:#e83828;">' + (cancel < 0 ? fc(cancel) : '—') + '</td>' +
+        '<td class="text-right">' + fc(realRecv) + '</td>' +
         '<td class="text-right" style="color:#e83828;">' + fc(pg) + '</td>' +
-        '<td class="text-right" style="font-weight:600;">' + fc(sett) + '</td>' +
+        '<td class="text-right" style="font-weight:600;">' + fc(remain) + '</td>' +
       '</tr>';
     }).join("");
   }
@@ -434,6 +436,7 @@
         '<td class="text-right">' + fc(p.sales) + '</td>' +
         '<td class="text-right" style="color:#e83828;">' + (p.cancel < 0 ? fc(p.cancel) : "—") + '</td>' +
         '<td class="text-right" style="color:#e83828;">' + fc(p.pg) + '</td>' +
+        '<td class="text-right">' + fc(p.realRecv) + '</td>' +
         '<td class="text-right" style="font-weight:600;">' + fc(p.sett) + '</td>' +
         '<td style="text-align:center;">' +
           '<button class="admin-btn admin-btn--outline admin-btn--xs prod-detail-btn" data-idx="' + idx + '">상세</button>' +
@@ -455,10 +458,11 @@
       infoRow("판매 상태", p.status) +
       infoRow("주문수", p.orders + "건") +
       infoRow("판매수량", p.qty + "개") +
-      infoRow("총 매출", fc(p.sales)) +
+      infoRow("판매금액", fc(p.sales)) +
       infoRow("취소 / 환불", p.cancel < 0 ? fc(p.cancel) : "—", p.cancel < 0 ? "#e83828" : null) +
+      infoRow("실입금금액", fc(p.realRecv)) +
       infoRow("PG 수수료", fc(p.pg), "#e83828") +
-      infoRow("정산 예정액", fc(p.sett), "#3a6ac8");
+      infoRow("정산 후 잔액", fc(p.sett), "#3a6ac8");
 
     document.getElementById("productModalOrders").innerHTML = p.detail.map(function (o) {
       return '<tr>' +
@@ -523,10 +527,7 @@
       showToast("필터가 초기화되었습니다.");
     });
 
-    /* Excel */
-    document.getElementById("excelDownloadBtn").addEventListener("click", function () {
-      showToast("다운로드 준비 중입니다.");
-    });
+    
 
     /* Product modal */
     document.getElementById("productModalOverlay").addEventListener("click", function () { closeModal("productModal"); });
