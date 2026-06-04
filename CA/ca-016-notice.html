@@ -8,228 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="shared.css" />
 <style>
-/* ══════════════════════════════════════════
-   공지 등록 모달
-   ══════════════════════════════════════════ */
-.nw-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 500;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.nw-modal.is-open { display: flex; }
-.nw-modal__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.52);
-}
-.nw-modal__box {
-  position: relative;
-  z-index: 1;
-  background: var(--admin-white);
-  border-radius: 10px;
-  width: 820px;
-  max-width: 100%;
-  max-height: 92vh;
-  overflow-y: auto;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.18);
-  display: flex;
-  flex-direction: column;
-}
-.nw-modal__head {
+.admin-notice-search-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 18px 24px;
-  border-bottom: 1px solid var(--admin-stroke);
-  position: sticky;
-  top: 0;
-  background: var(--admin-white);
-  z-index: 2;
-  flex-shrink: 0;
-}
-.nw-modal__title { font-size: 16px; font-weight: 600; color: var(--admin-heading); }
-.nw-modal__close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: var(--admin-muted);
-  transition: background .15s, color .15s;
-}
-.nw-modal__close:hover { background: #f3f3f3; color: var(--admin-text); }
-.nw-modal__body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 18px; }
-.nw-field { display: flex; flex-direction: column; gap: 6px; }
-.nw-field label { font-size: 13px; font-weight: 600; color: var(--admin-heading); }
-.nw-field input[type="text"],
-.nw-field textarea,
-.nw-field select {
-  width: 100%;
-  padding: 9px 12px;
-  border: 1px solid var(--admin-border);
-  border-radius: 6px;
-  background: var(--admin-input-bg);
-  font-size: 14px;
-  color: var(--admin-text);
-  font-family: inherit;
-  outline: none;
-  transition: border-color .15s;
-}
-.nw-field input[type="text"]:focus,
-.nw-field textarea:focus,
-.nw-field select:focus { border-color: var(--admin-heading); background: var(--admin-white); }
-.nw-field textarea { resize: vertical; min-height: 72px; }
-.nw-target-row { display: flex; gap: 12px; flex-wrap: wrap; }
-.nw-target-row .nw-field { flex: 0 0 180px; }
-.nw-brand-field { flex: 1; min-width: 200px; }
-.nw-brand-field.is-hidden { display: none; }
-.nw-brand-checks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  padding: 10px 12px;
-  border: 1px solid var(--admin-border);
-  border-radius: 6px;
-  background: var(--admin-input-bg);
-  min-height: 42px;
-}
-.nw-brand-checks label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--admin-text);
-  cursor: pointer;
-  white-space: nowrap;
-}
-.nw-brand-checks input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
-.nw-section-divider { border: none; border-top: 1px solid var(--admin-stroke); margin: 0; }
-.nw-section-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .5px;
-  color: var(--admin-muted);
-  text-transform: uppercase;
-  margin-bottom: -4px;
-}
-.nw-editor {
-  border: 1px solid var(--admin-border);
-  border-radius: 6px;
-  overflow: hidden;
-}
-.nw-editor__toolbar {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 6px 10px;
-  background: #f5f7fb;
-  border-bottom: 1px solid var(--admin-border);
-  flex-wrap: wrap;
-}
-.nw-editor__tool {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 28px;
-  height: 26px;
-  border-radius: 3px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: var(--admin-text);
-  font-size: 12px;
-  font-weight: 700;
-  font-family: serif;
-  padding: 0 4px;
-  transition: background .12s;
-}
-.nw-editor__tool:hover { background: #e2e8f0; }
-.nw-editor__tool.is-active { background: var(--admin-heading); color: #fff; }
-.nw-editor__sep { width: 1px; height: 18px; background: var(--admin-border); margin: 0 4px; flex-shrink: 0; }
-.nw-editor__body {
-  min-height: 240px;
-  padding: 14px 16px;
-  font-size: 14px;
-  color: var(--admin-text);
-  outline: none;
-  line-height: 1.8;
-  background: var(--admin-white);
-  font-family: inherit;
-}
-.nw-editor__body:empty::before {
-  content: attr(data-placeholder);
-  color: var(--admin-muted);
-  pointer-events: none;
-  display: block;
-}
-.nw-upload-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 8px;
-  border: 2px dashed #c9d3e6;
-  border-radius: 8px;
-  background: #f5f7fb;
-  padding: 28px 20px;
-  cursor: pointer;
-  transition: border-color .15s, background .15s;
-  text-align: center;
-}
-.nw-upload-label:hover { border-color: var(--admin-heading); background: #edf0f8; }
-.nw-upload-label__icon { color: #b0bac8; }
-.nw-upload-label__main { font-size: 13px; font-weight: 600; color: var(--admin-heading); }
-.nw-upload-label__sub  { font-size: 12px; color: var(--admin-muted); }
-.nw-upload-preview { display: none; margin-top: 12px; position: relative; width: fit-content; }
-.nw-upload-preview img {
-  max-width: 100%;
-  max-height: 200px;
-  border-radius: 6px;
-  border: 1px solid var(--admin-stroke);
-  display: block;
-}
-.nw-upload-preview__del {
-  position: absolute;
-  top: 6px; right: 6px;
-  width: 24px; height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,.55);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 13px;
-  line-height: 1;
-  transition: background .12s;
-}
-.nw-upload-preview__del:hover { background: var(--admin-red); }
-.nw-upload-filename { font-size: 12px; color: var(--admin-muted); margin-top: 6px; }
-.nw-modal__foot {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  padding: 14px 24px;
-  border-top: 1px solid var(--admin-stroke);
-  background: var(--admin-white);
-  position: sticky;
-  bottom: 0;
-  flex-shrink: 0;
-}
-@media (max-width: 768px) {
-  .nw-modal__box { width: 96%; max-height: 90vh; }
-  .nw-target-row { flex-direction: column; }
-  .nw-target-row .nw-field { flex: none; width: 100%; }
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 </style>
 </head>
@@ -248,560 +32,96 @@
   <main class="admin-main">
     <h1 class="admin-page-title t-title-1-md">공지사항</h1>
 
-    <!-- ── 목록 뷰 ── -->
-    <div id="noticeListView">
+    <!-- 검색 영역 -->
+    <div class="admin-notice-search-bar">
+      <input type="text" class="admin-order-search-input" placeholder="키워드 검색" aria-label="키워드 검색" />
+      <button type="button" class="admin-order-btn admin-order-btn--primary">검색</button>
+      <a href="ca-016-notice-write.html" class="admin-btn admin-btn--primary" style="text-decoration:none;">+ 글쓰기</a>
+    </div>
 
-      <!-- 검색 영역 -->
-      <div class="admin-notice-search-bar">
-        <button type="button" id="noticeWriteBtn" class="admin-btn admin-btn--primary" style="margin-right:auto;">+ 글쓰기</button>
-        <input type="text" id="noticeSearchInput"
-          class="admin-order-search-input"
-          placeholder="키워드 검색"
-          aria-label="키워드 검색" />
-        <button type="button" id="noticeSearchBtn"
-          class="admin-order-btn admin-order-btn--primary">검색</button>
+    <div class="admin-card">
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th scope="col" class="admin-notice-col-num">번호</th>
+              <th scope="col" style="text-align:left;">제목</th>
+              <th scope="col" class="admin-notice-col-author">작성자</th>
+              <th scope="col" class="admin-notice-col-date">등록일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="admin-notice-col-num">1</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 2026년 5월 정산 일정 안내</a></td>
+              <td class="admin-notice-col-author">link it 운영팀</td>
+              <td class="admin-notice-col-date">2026-05-12 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">2</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--important t-label-2-sb">중요</span> 셀러 관리 기능 업데이트 안내</a></td>
+              <td class="admin-notice-col-author">link it 개발팀</td>
+              <td class="admin-notice-col-date">2026-05-08 10:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">3</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 정산 상태 3단계 체계 도입 안내</a></td>
+              <td class="admin-notice-col-author">link it 운영팀</td>
+              <td class="admin-notice-col-date">2026-05-01 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">4</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 브랜드 등록 신청 프로세스 변경 안내</a></td>
+              <td class="admin-notice-col-author">link it 운영팀</td>
+              <td class="admin-notice-col-date">2026-04-20 10:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">5</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--important t-label-2-sb">중요</span> 시스템 정기점검 안내 (4/15 02:00~04:00)</a></td>
+              <td class="admin-notice-col-author">link it 개발팀</td>
+              <td class="admin-notice-col-date">2026-04-14 18:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">6</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 2026년 1분기 정산 완료 안내</a></td>
+              <td class="admin-notice-col-author">link it 운영팀</td>
+              <td class="admin-notice-col-date">2026-04-10 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">7</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> link it CA 어드민 서비스 정식 오픈 안내</a></td>
+              <td class="admin-notice-col-author">link it 운영팀</td>
+              <td class="admin-notice-col-date">2026-03-15 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">8</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 개인정보 처리방침 개정 안내</a></td>
+              <td class="admin-notice-col-author">link it 운영팀</td>
+              <td class="admin-notice-col-date">2026-03-01 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">9</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 파트너 약관 업데이트 안내</a></td>
+              <td class="admin-notice-col-author">link it 운영팀</td>
+              <td class="admin-notice-col-date">2026-02-15 09:00</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <div class="admin-card">
-        <div class="admin-table-wrap">
-          <table class="admin-table" id="noticeTable">
-            <thead>
-              <tr>
-                <th scope="col" class="admin-notice-col-num">번호</th>
-                <th scope="col" style="text-align:left;">제목</th>
-                <th scope="col" class="admin-notice-col-author">작성자</th>
-                <th scope="col" class="admin-notice-col-date">등록일</th>
-              </tr>
-            </thead>
-            <tbody id="noticeTableBody"></tbody>
-          </table>
-        </div>
-        <div class="admin-pagination" id="noticePagination" aria-label="페이지 네비게이션"></div>
+      <div class="admin-pagination" aria-label="페이지 네비게이션">
+        <button type="button" class="admin-page-btn" aria-label="이전 페이지">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="admin-page-btn is-active" aria-current="page" aria-label="1 페이지">1</button>
+        <button type="button" class="admin-page-btn" aria-label="다음 페이지">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
-
-    </div><!-- /noticeListView -->
-
-    <!-- ── 상세 뷰 ── -->
-    <div id="noticeDetailView" style="display:none;">
-      <article class="admin-card admin-notice-detail">
-
-        <div class="admin-notice-detail-header">
-          <span id="noticeDetailBadge"></span>
-          <h2 class="admin-notice-detail-title" id="noticeDetailTitle"></h2>
-        </div>
-
-        <div class="admin-notice-meta">
-          <span class="admin-notice-meta__author" id="noticeDetailAuthor"></span>
-          <span id="noticeDetailDate"></span>
-        </div>
-
-        <div class="admin-notice-content" id="noticeDetailContent"></div>
-
-        <div class="admin-notice-back">
-          <button type="button" id="noticeBackBtn" class="admin-btn admin-btn--outline">목록보기</button>
-        </div>
-
-        <nav class="admin-notice-nav" id="noticeNav" aria-label="이전글 다음글 네비게이션"></nav>
-
-      </article>
-    </div><!-- /noticeDetailView -->
+    </div>
 
   </main>
 </div>
 
-
-<!-- ══════════════════════════════════════════════════════════
-     공지사항 등록 모달
-     ══════════════════════════════════════════════════════════ -->
-<div class="nw-modal" id="noticeWriteModal" role="dialog" aria-modal="true" aria-labelledby="nwModalTitle">
-  <div class="nw-modal__overlay" id="nwModalOverlay"></div>
-  <div class="nw-modal__box">
-
-    <div class="nw-modal__head">
-      <span class="nw-modal__title" id="nwModalTitle">공지사항 등록</span>
-      <button type="button" class="nw-modal__close" id="nwModalCloseBtn" aria-label="모달 닫기">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-
-    <div class="nw-modal__body">
-
-      <!-- 공지 대상 -->
-      <div>
-        <p class="nw-section-label">공지 대상</p>
-        <div class="nw-target-row" style="margin-top:8px;">
-          <div class="nw-field">
-            <label for="nwTargetType">공지 유형</label>
-            <select id="nwTargetType" aria-label="공지 유형 선택">
-              <option value="all">전체 공지</option>
-              <option value="brand">개별 공지 (브랜드)</option>
-            </select>
-          </div>
-          <div class="nw-field nw-brand-field is-hidden" id="nwBrandField">
-            <label>브랜드 선택 <span style="font-size:11px;font-weight:400;color:var(--admin-muted);">(복수 선택 가능)</span></label>
-            <div class="nw-brand-checks" id="nwBrandChecks">
-              <label><input type="checkbox" value="어반무드" /> 어반무드</label>
-              <label><input type="checkbox" value="바이엘르" /> 바이엘르</label>
-              <label><input type="checkbox" value="루미데이" /> 루미데이</label>
-              <label><input type="checkbox" value="모노픽" /> 모노픽</label>
-              <label><input type="checkbox" value="소프트블랭크" /> 소프트블랭크</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <hr class="nw-section-divider" />
-
-      <!-- 중요 공지 여부 -->
-      <div class="nw-field" style="flex-direction:row;align-items:center;gap:10px;">
-        <label for="nwIsImportant" style="margin:0;cursor:pointer;font-size:14px;">
-          <input type="checkbox" id="nwIsImportant" style="accent-color:var(--admin-red);cursor:pointer;margin-right:4px;" />
-          중요 공지로 등록
-        </label>
-        <span style="font-size:12px;color:var(--admin-muted);">(체크 시 목록에 <span class="admin-badge admin-badge--important t-label-2-sb" style="vertical-align:middle;">중요</span> 배지 표시)</span>
-      </div>
-
-      <!-- 제목 -->
-      <div class="nw-field">
-        <label for="nwTitle">제목 <span style="color:var(--admin-red);">*</span></label>
-        <input type="text" id="nwTitle" placeholder="공지 제목을 입력해주세요" maxlength="100" autocomplete="off" />
-      </div>
-
-      <!-- 팝업용 간단 문구 -->
-      <div class="nw-field">
-        <label for="nwPopupText">팝업용 간단 문구 <span style="font-size:11px;font-weight:400;color:var(--admin-muted);">(팝업 노출 시 미리보기 문구)</span></label>
-        <textarea id="nwPopupText" rows="2" placeholder="팝업에 표시될 짧은 안내 문구를 입력해주세요 (50자 내외)" maxlength="150"></textarea>
-        <span id="nwPopupTextCount" style="font-size:11px;color:var(--admin-muted);text-align:right;">0 / 150</span>
-      </div>
-
-      <hr class="nw-section-divider" />
-
-      <!-- 본문 에디터 -->
-      <div class="nw-field">
-        <label>본문 내용 <span style="color:var(--admin-red);">*</span></label>
-        <div class="nw-editor" id="nwEditor">
-          <div class="nw-editor__toolbar" role="toolbar" aria-label="텍스트 편집 도구">
-            <button type="button" class="nw-editor__tool" data-cmd="bold"              aria-label="굵게"       title="굵게"><b>B</b></button>
-            <button type="button" class="nw-editor__tool" data-cmd="italic"            aria-label="기울임"     title="기울임"><i>I</i></button>
-            <button type="button" class="nw-editor__tool" data-cmd="underline"         aria-label="밑줄"       title="밑줄"><u>U</u></button>
-            <span class="nw-editor__sep" aria-hidden="true"></span>
-            <button type="button" class="nw-editor__tool" data-cmd="justifyLeft"       aria-label="왼쪽 정렬"  title="왼쪽 정렬">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
-            </button>
-            <button type="button" class="nw-editor__tool" data-cmd="justifyCenter"     aria-label="가운데 정렬" title="가운데 정렬">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
-            </button>
-            <span class="nw-editor__sep" aria-hidden="true"></span>
-            <button type="button" class="nw-editor__tool" data-cmd="insertUnorderedList" aria-label="글머리 목록" title="글머리 목록">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
-            </button>
-            <button type="button" class="nw-editor__tool" data-cmd="insertOrderedList"  aria-label="번호 목록"   title="번호 목록">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><text x="2" y="8" font-size="7" fill="currentColor" stroke="none">1</text><text x="2" y="14" font-size="7" fill="currentColor" stroke="none">2</text><text x="2" y="20" font-size="7" fill="currentColor" stroke="none">3</text></svg>
-            </button>
-            <span class="nw-editor__sep" aria-hidden="true"></span>
-            <button type="button" class="nw-editor__tool" data-cmd="createLink"        aria-label="링크 삽입"   title="링크 삽입">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </button>
-            <span class="nw-editor__sep" aria-hidden="true"></span>
-            <select id="nwFontSize" aria-label="글자 크기" style="height:26px;padding:0 4px;border:1px solid var(--admin-border);border-radius:3px;font-size:12px;background:var(--admin-white);cursor:pointer;font-family:inherit;outline:none;">
-              <option value="">크기</option>
-              <option value="1">소</option>
-              <option value="3">중</option>
-              <option value="5">대</option>
-              <option value="7">특대</option>
-            </select>
-          </div>
-          <div class="nw-editor__body" id="nwEditorBody" contenteditable="true" role="textbox" aria-multiline="true" aria-label="본문 내용 입력"
-            data-placeholder="공지 본문 내용을 입력해주세요."></div>
-        </div>
-      </div>
-
-      <hr class="nw-section-divider" />
-
-      <!-- 팝업용 이미지 업로드 -->
-      <div class="nw-field">
-        <label>팝업용 이미지 <span style="font-size:11px;font-weight:400;color:var(--admin-muted);">(선택 · JPG / PNG · 권장 800×400px)</span></label>
-        <label for="nwPopupImageInput" class="nw-upload-label" id="nwUploadLabel">
-          <span class="nw-upload-label__icon">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="3"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-          </span>
-          <span class="nw-upload-label__main">이미지를 업로드해주세요</span>
-          <span class="nw-upload-label__sub">클릭하거나 파일을 여기에 끌어다 놓으세요</span>
-        </label>
-        <input type="file" id="nwPopupImageInput" accept="image/jpeg,image/png,image/gif,image/webp" style="display:none;" aria-label="팝업 이미지 파일 선택" />
-        <div class="nw-upload-preview" id="nwUploadPreview">
-          <img id="nwPreviewImg" src="" alt="팝업 이미지 미리보기" />
-          <button type="button" class="nw-upload-preview__del" id="nwPreviewDel" aria-label="이미지 삭제">✕</button>
-        </div>
-        <span class="nw-upload-filename" id="nwUploadFilename"></span>
-      </div>
-
-    </div><!-- /nw-modal__body -->
-
-    <div class="nw-modal__foot">
-      <button type="button" class="admin-btn admin-btn--outline" id="nwCancelBtn">취소</button>
-      <button type="button" class="admin-btn admin-btn--primary" id="nwSaveBtn">저장</button>
-    </div>
-
-  </div>
-</div>
-
-
 <script src="shared.js"></script>
-<script>
-(function () {
-  "use strict";
-
-  /* ── 목 데이터 ── */
-  var NOTICES = [
-    { id:9,  title:"2026년 5월 정산 일정 안내",               author:"link it 운영팀", date:"2026-05-12", time:"09:00", isImportant:false, content:"5월 정산 처리는 2026년 5월 25일(월)에 진행될 예정입니다.\n정산 내역은 CA 어드민 > 정산 관리 > 정산 상세에서 확인하실 수 있습니다.\n문의사항이 있으시면 파트너 지원팀으로 연락 주시기 바랍니다." },
-    { id:8,  title:"셀러 관리 기능 업데이트 안내",              author:"link it 개발팀", date:"2026-05-08", time:"10:00", isImportant:true,  content:"셀러 관리 페이지에 상세/수정 기능이 추가되었습니다.\n각 셀러의 [상세] 버튼을 통해 상세 정보를 조회하고 [수정] 버튼을 통해 정보를 변경할 수 있습니다." },
-    { id:7,  title:"정산 상태 3단계 체계 도입 안내",             author:"link it 운영팀", date:"2026-05-01", time:"09:00", isImportant:false, content:"정산 상태 체계가 기존 2단계(정산예정/지급완료)에서 3단계로 변경되었습니다.\n\n• 미정산: 정산 신청 전 상태\n• 정산중: 정산 신청 완료 / 계좌 입금 전\n• 정산완료: 계좌 입금 완료\n\n상세한 내용은 정산 관리 메뉴에서 확인하실 수 있습니다." },
-    { id:6,  title:"브랜드 등록 신청 프로세스 변경 안내",         author:"link it 운영팀", date:"2026-04-20", time:"10:00", isImportant:false, content:"브랜드 등록 신청 프로세스가 일부 변경되었습니다. 신청 후 검토 기간이 기존 7일에서 5일로 단축됩니다." },
-    { id:5,  title:"시스템 정기점검 안내 (4/15 02:00~04:00)",   author:"link it 개발팀", date:"2026-04-14", time:"18:00", isImportant:true,  content:"2026년 4월 15일(화) 새벽 02:00 ~ 04:00 에 시스템 정기점검이 진행됩니다.\n점검 시간 중에는 서비스 이용이 일시 중단됩니다." },
-    { id:4,  title:"2026년 1분기 정산 완료 안내",               author:"link it 운영팀", date:"2026-04-10", time:"09:00", isImportant:false, content:"2026년 1분기(1월~3월) 정산이 완료되었습니다.\n정산 내역은 CA 어드민 > 정산 상세에서 확인하실 수 있습니다." },
-    { id:3,  title:"link it CA 어드민 서비스 정식 오픈 안내",   author:"link it 운영팀", date:"2026-03-15", time:"09:00", isImportant:false, content:"link it CA(업체 최고관리자) 어드민 서비스가 정식 오픈되었습니다.\n브랜드 관리, 상품 관리, 정산 관리 등의 기능을 이용하실 수 있습니다.\n\n문의사항은 파트너 지원팀으로 연락 주시기 바랍니다." },
-    { id:2,  title:"개인정보 처리방침 개정 안내",                 author:"link it 운영팀", date:"2026-03-01", time:"09:00", isImportant:false, content:"개인정보 처리방침이 2026년 3월 1일자로 개정되었습니다.\n주요 변경 사항은 데이터 보유 기간 및 제3자 제공 항목입니다." },
-    { id:1,  title:"파트너 약관 업데이트 안내",                   author:"link it 운영팀", date:"2026-02-15", time:"09:00", isImportant:false, content:"파트너 이용약관이 2026년 3월 1일부로 업데이트될 예정입니다.\n주요 변경 내용은 수수료 정책 및 정산 주기에 관한 내용입니다." }
-  ];
-
-  var PAGE_SIZE    = 10;
-  var currentPage  = 1;
-  var currentFilter = "";
-
-  /* ── 유틸 ── */
-  function esc(s) {
-    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  }
-
-  /* ── 배지 HTML ── */
-  function badgeHtml(n) {
-    return n.isImportant
-      ? '<span class="admin-badge admin-badge--important t-label-2-sb">중요</span>'
-      : '<span class="admin-badge admin-badge--notice t-label-2-sb">공지</span>';
-  }
-
-  /* ── 목록 렌더링 ── */
-  function renderList() {
-    var data = currentFilter
-      ? NOTICES.filter(function(n){ return n.title.toLowerCase().indexOf(currentFilter) !== -1; })
-      : NOTICES.slice();
-
-    var total = data.length;
-    var start = (currentPage - 1) * PAGE_SIZE;
-    var rows  = data.slice(start, start + PAGE_SIZE);
-    var tbody = document.getElementById("noticeTableBody");
-
-    if (!total) {
-      tbody.innerHTML = '<tr><td colspan="4" class="admin-notice-empty">검색 결과가 없습니다.</td></tr>';
-      document.getElementById("noticePagination").innerHTML = "";
-      return;
-    }
-
-    tbody.innerHTML = rows.map(function(n, i) {
-      var num = start + i + 1;
-      return '<tr>' +
-        '<td class="admin-notice-col-num">' + num + '</td>' +
-        '<td>' +
-          '<a href="#" class="admin-notice-title-link" data-id="' + n.id + '">' +
-            badgeHtml(n) + ' ' + esc(n.title) +
-          '</a>' +
-        '</td>' +
-        '<td class="admin-notice-col-author">' + esc(n.author) + '</td>' +
-        '<td class="admin-notice-col-date">' + n.date + ' ' + n.time + '</td>' +
-      '</tr>';
-    }).join("");
-
-    renderPagination(total);
-  }
-
-  /* ── 페이지네이션 ── */
-  function renderPagination(total) {
-    var pag = document.getElementById("noticePagination");
-    var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-    if (totalPages <= 1) { pag.innerHTML = ""; return; }
-
-    var PREV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>';
-    var NEXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>';
-
-    var html = '<button type="button" class="admin-page-btn" data-np="prev" aria-label="이전 페이지">' + PREV + '</button>';
-    for (var i = 1; i <= totalPages; i++) {
-      html += '<button type="button" class="admin-page-btn' + (i === currentPage ? ' is-active' : '') +
-        '" data-np="' + i + '" aria-label="' + i + ' 페이지"' +
-        (i === currentPage ? ' aria-current="page"' : '') + '>' + i + '</button>';
-    }
-    html += '<button type="button" class="admin-page-btn" data-np="next" aria-label="다음 페이지">' + NEXT + '</button>';
-    pag.innerHTML = html;
-
-    pag.addEventListener("click", function(e) {
-      var btn = e.target.closest("[data-np]");
-      if (!btn) return;
-      var v = btn.dataset.np;
-      var tp = Math.max(1, Math.ceil(
-        (currentFilter ? NOTICES.filter(function(n){ return n.title.toLowerCase().indexOf(currentFilter) !== -1; }).length : NOTICES.length) / PAGE_SIZE
-      ));
-      if      (v === "prev") { if (currentPage > 1) { currentPage--; renderList(); } }
-      else if (v === "next") { if (currentPage < tp) { currentPage++; renderList(); } }
-      else { currentPage = parseInt(v, 10); renderList(); }
-    });
-  }
-
-  /* ── 상세 표시 ── */
-  function showDetail(id) {
-    var notice = null;
-    for (var i = 0; i < NOTICES.length; i++) {
-      if (NOTICES[i].id === id) { notice = NOTICES[i]; break; }
-    }
-    if (!notice) return;
-
-    document.getElementById("noticeDetailBadge").innerHTML = badgeHtml(notice);
-    document.getElementById("noticeDetailTitle").textContent  = notice.title;
-    document.getElementById("noticeDetailAuthor").textContent = notice.author;
-    document.getElementById("noticeDetailDate").textContent   = notice.date + " " + notice.time;
-    document.getElementById("noticeDetailContent").textContent = notice.content;
-
-    /* 이전/다음 */
-    var idx = NOTICES.indexOf(notice);
-    var prev = idx > 0 ? NOTICES[idx - 1] : null;
-    var next = idx < NOTICES.length - 1 ? NOTICES[idx + 1] : null;
-    function navRow(label, item) {
-      var inner = item
-        ? '<a href="#" class="admin-notice-nav-link" data-id="' + item.id + '">' + esc(item.title) + '</a>'
-        : '<span class="admin-notice-nav-none">' + label + '이 없습니다.</span>';
-      return '<div class="admin-notice-nav-row"><span class="admin-notice-nav-label">' + label + '</span>' + inner + '</div>';
-    }
-    document.getElementById("noticeNav").innerHTML = navRow("이전글", prev) + navRow("다음글", next);
-
-    document.getElementById("noticeListView").style.display   = "none";
-    document.getElementById("noticeDetailView").style.display = "";
-  }
-
-  /* ── 목록으로 복귀 ── */
-  function showList() {
-    document.getElementById("noticeDetailView").style.display = "none";
-    document.getElementById("noticeListView").style.display   = "";
-  }
-
-  /* ── 이벤트 바인딩 ── */
-  document.addEventListener("DOMContentLoaded", function() {
-    renderList();
-
-    /* 목록 클릭 */
-    document.getElementById("noticeTableBody").addEventListener("click", function(e) {
-      var a = e.target.closest("a[data-id]");
-      if (!a) return;
-      e.preventDefault();
-      showDetail(parseInt(a.dataset.id, 10));
-    });
-
-    /* 상세 → 네비게이션 링크 */
-    document.getElementById("noticeNav").addEventListener("click", function(e) {
-      var a = e.target.closest("a[data-id]");
-      if (!a) return;
-      e.preventDefault();
-      showDetail(parseInt(a.dataset.id, 10));
-    });
-
-    /* 목록 버튼 */
-    document.getElementById("noticeBackBtn").addEventListener("click", showList);
-
-    /* 검색 */
-    document.getElementById("noticeSearchBtn").addEventListener("click", function() {
-      currentFilter = document.getElementById("noticeSearchInput").value.trim().toLowerCase();
-      currentPage = 1;
-      renderList();
-    });
-    document.getElementById("noticeSearchInput").addEventListener("keydown", function(e) {
-      if (e.key === "Enter") document.getElementById("noticeSearchBtn").click();
-    });
-
-    /* 글쓰기 모달 */
-    initWriteModal();
-  });
-
-
-  /* ════════════════════════════════════════
-     공지 등록 모달
-     ════════════════════════════════════════ */
-  function initWriteModal() {
-    var modal      = document.getElementById("noticeWriteModal");
-    var overlay    = document.getElementById("nwModalOverlay");
-    var closeBtn   = document.getElementById("nwModalCloseBtn");
-    var cancelBtn  = document.getElementById("nwCancelBtn");
-    var saveBtn    = document.getElementById("nwSaveBtn");
-    var writeBtn   = document.getElementById("noticeWriteBtn");
-    var targetSel  = document.getElementById("nwTargetType");
-    var brandField = document.getElementById("nwBrandField");
-    var popupText  = document.getElementById("nwPopupText");
-    var textCount  = document.getElementById("nwPopupTextCount");
-    var editorBody = document.getElementById("nwEditorBody");
-    var imageInput = document.getElementById("nwPopupImageInput");
-    var preview    = document.getElementById("nwUploadPreview");
-    var previewImg = document.getElementById("nwPreviewImg");
-    var previewDel = document.getElementById("nwPreviewDel");
-    var filename   = document.getElementById("nwUploadFilename");
-    var fontSizeSel = document.getElementById("nwFontSize");
-    var uploadLabel = document.getElementById("nwUploadLabel");
-
-    function openModal() {
-      resetForm();
-      modal.classList.add("is-open");
-      document.getElementById("nwTitle").focus();
-    }
-    function closeModal() { modal.classList.remove("is-open"); }
-
-    function resetForm() {
-      document.getElementById("nwTitle").value        = "";
-      document.getElementById("nwIsImportant").checked = false;
-      targetSel.value                                  = "all";
-      brandField.classList.add("is-hidden");
-      document.querySelectorAll("#nwBrandChecks input[type=checkbox]").forEach(function(c){ c.checked = false; });
-      popupText.value   = "";
-      textCount.textContent = "0 / 150";
-      editorBody.innerHTML  = "";
-      clearImage();
-    }
-
-    writeBtn.addEventListener("click", openModal);
-    closeBtn.addEventListener("click", closeModal);
-    cancelBtn.addEventListener("click", closeModal);
-    overlay.addEventListener("click", closeModal);
-    document.addEventListener("keydown", function(e) {
-      if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
-    });
-
-    /* 공지 유형 토글 */
-    targetSel.addEventListener("change", function() {
-      if (targetSel.value === "brand") brandField.classList.remove("is-hidden");
-      else {
-        brandField.classList.add("is-hidden");
-        document.querySelectorAll("#nwBrandChecks input[type=checkbox]").forEach(function(c){ c.checked = false; });
-      }
-    });
-
-    /* 글자수 */
-    popupText.addEventListener("input", function() {
-      textCount.textContent = popupText.value.length + " / 150";
-    });
-
-    /* 에디터 툴바 */
-    document.querySelectorAll(".nw-editor__tool[data-cmd]").forEach(function(btn) {
-      btn.addEventListener("mousedown", function(e) {
-        e.preventDefault();
-        if (btn.dataset.cmd === "createLink") {
-          var url = prompt("링크 URL:", "https://");
-          if (url) document.execCommand("createLink", false, url);
-        } else {
-          document.execCommand(btn.dataset.cmd, false, null);
-        }
-        syncToolbar();
-        editorBody.focus();
-      });
-    });
-    fontSizeSel.addEventListener("change", function() {
-      if (!fontSizeSel.value) return;
-      editorBody.focus();
-      document.execCommand("fontSize", false, fontSizeSel.value);
-      fontSizeSel.value = "";
-    });
-    function syncToolbar() {
-      ["bold","italic","underline","justifyLeft","justifyCenter","insertUnorderedList","insertOrderedList"].forEach(function(cmd) {
-        var btn = document.querySelector('.nw-editor__tool[data-cmd="' + cmd + '"]');
-        if (!btn) return;
-        try { btn.classList.toggle("is-active", document.queryCommandState(cmd)); } catch(e) {}
-      });
-    }
-    editorBody.addEventListener("keyup",   syncToolbar);
-    editorBody.addEventListener("mouseup", syncToolbar);
-
-    /* 이미지 업로드 */
-    imageInput.addEventListener("change", function() {
-      var file = imageInput.files[0];
-      if (!file) return;
-      var reader = new FileReader();
-      reader.onload = function(ev) {
-        previewImg.src = ev.target.result;
-        preview.style.display = "block";
-        filename.textContent = file.name + " (" + (file.size / 1024).toFixed(1) + " KB)";
-        uploadLabel.style.display = "none";
-      };
-      reader.readAsDataURL(file);
-    });
-    previewDel.addEventListener("click", clearImage);
-    function clearImage() {
-      imageInput.value = "";
-      previewImg.src = "";
-      preview.style.display = "none";
-      filename.textContent = "";
-      uploadLabel.style.display = "";
-    }
-
-    /* 드래그앤드롭 */
-    uploadLabel.addEventListener("dragover", function(e) {
-      e.preventDefault();
-      uploadLabel.style.borderColor = "var(--admin-heading)";
-      uploadLabel.style.background  = "#edf0f8";
-    });
-    uploadLabel.addEventListener("dragleave", function() {
-      uploadLabel.style.borderColor = "";
-      uploadLabel.style.background  = "";
-    });
-    uploadLabel.addEventListener("drop", function(e) {
-      e.preventDefault();
-      uploadLabel.style.borderColor = "";
-      uploadLabel.style.background  = "";
-      var file = e.dataTransfer.files[0];
-      if (!file || !file.type.startsWith("image/")) return;
-      try {
-        var dt = new DataTransfer();
-        dt.items.add(file);
-        imageInput.files = dt.files;
-      } catch(ex) {}
-      imageInput.dispatchEvent(new Event("change"));
-    });
-
-    /* 저장 */
-    saveBtn.addEventListener("click", function() {
-      var title = document.getElementById("nwTitle").value.trim();
-      var body  = editorBody.innerHTML.trim();
-
-      if (!title) { alert("제목을 입력해주세요."); document.getElementById("nwTitle").focus(); return; }
-      if (!body)  { alert("본문 내용을 입력해주세요."); editorBody.focus(); return; }
-
-      if (targetSel.value === "brand") {
-        var checked = Array.from(document.querySelectorAll("#nwBrandChecks input[type=checkbox]:checked"));
-        if (!checked.length) { alert("개별 공지의 경우 브랜드를 1개 이상 선택해주세요."); return; }
-      }
-
-      var today = new Date();
-      var pad   = function(n){ return String(n).padStart(2, "0"); };
-      var dateStr = today.getFullYear() + "-" + pad(today.getMonth() + 1) + "-" + pad(today.getDate());
-      var timeStr = pad(today.getHours()) + ":" + pad(today.getMinutes());
-
-      var newId = NOTICES.length ? NOTICES[0].id + 1 : 1;
-      NOTICES.unshift({
-        id: newId,
-        title: title,
-        author: "link it CA 운영팀",
-        date: dateStr,
-        time: timeStr,
-        isImportant: document.getElementById("nwIsImportant").checked,
-        content: editorBody.innerText
-      });
-
-      currentPage = 1;
-      currentFilter = "";
-      document.getElementById("noticeSearchInput").value = "";
-      renderList();
-      closeModal();
-    });
-  }
-
-})();
-</script>
 </body>
 </html>
