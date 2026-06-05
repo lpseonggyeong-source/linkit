@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ch6. 정산관리 — Link it 어드민 가이드</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="guide-sidebar.css">
+  <link rel="stylesheet" href="guide-shared.css">
+  <style>
+    :root{--accent:#0d9488}
+  </style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+<div class="chapter-header"><div class="chapter-header__left"><div class="chapter-header__num">CHAPTER 6</div><div class="chapter-header__name">정산관리</div></div><span class="chapter-header__badge c-teal"></span><div class="chapter-header__desc">매출 분석 · 정산 현황</div></div>
+
+  <section class="guide-section" id="sec-sales-overview">
+    <div class="sec-header">
+      <span class="step-pill c-teal">6.1</span>
+      <div>
+        <div class="sec-title">매출 관리 — KPI 요약 &amp; 기간·셀러·상품 필터 조회</div>
+        <div class="sec-goal">누적 매출·오늘 매출·취소 환불을 KPI 카드로 파악하고, 기간별 종합 매출 테이블로 추이를 확인합니다.</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="img-wrap">
+        <img src="guide-images/sales_overview.png" alt="매출 관리 종합">
+        <div class="callout" style="left:28%;top:18%;background:#0d9488;">1</div>
+        <div class="callout" style="left:34%;top:31%;background:#0d9488;">2</div>
+        <div class="callout" style="left:56%;top:56%;background:#0d9488;">3</div>
+      </div>
+      <div>
+        <div class="how-title">사용 방법</div>
+        <div class="divider"></div>
+        <div class="how-item">
+          <div class="how-num c-teal">1</div>
+          <div class="how-body">
+            <div class="how-action">KPI 카드로 핵심 수치 확인</div>
+            <div class="how-desc">누적 총 매출(선택 기간), 오늘 매출액, 취소·환불 금액 3가지를 카드로 한눈에 파악합니다. 붉은 숫자는 차감 항목입니다.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-teal">2</div>
+          <div class="how-body">
+            <div class="how-action">기간·셀러·상품 필터 후 [조회]</div>
+            <div class="how-desc">기간 버튼(오늘·7일·이번 달·지난 달·직접 선택)과 셀러·상품 드롭다운을 설정 후 [조회]합니다.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-teal">3</div>
+          <div class="how-body">
+            <div class="how-action">종합 매출 테이블로 추이 확인</div>
+            <div class="how-desc">주문수·판매금액·취소환불·실입금금액·PG 수수료·정산 후 잔액이 기간별로 표시됩니다. [일별/월별] 토글로 집계 단위를 바꿀 수 있습니다.</div>
+          </div>
+        </div>
+        <div class="notice info">
+          <strong>💡 정산 후 잔액</strong> = 판매금액 − PG 수수료 − 셀러 수수료(9%) − 취소·환불
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide-section" id="sec-sales-product">
+    <div class="sec-header">
+      <span class="step-pill c-teal">6.2</span>
+      <div>
+        <div class="sec-title">매출 관리 — 상품별 매출 분석</div>
+        <div class="sec-goal">상품 단위로 주문수·판매금액·PG 수수료·정산 후 잔액을 비교해 수익 기여도를 파악합니다.</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="img-wrap">
+        <img src="guide-images/sales_product.png" alt="상품별 매출">
+        <div class="callout" style="left:26%;top:44%;background:#0d9488;">1</div>
+        <div class="callout" style="left:55%;top:52%;background:#0d9488;">2</div>
+        <div class="callout" style="left:91%;top:53%;background:#0d9488;">3</div>
+      </div>
+      <div>
+        <div class="how-title">사용 방법</div>
+        <div class="divider"></div>
+        <div class="how-item">
+          <div class="how-num c-teal">1</div>
+          <div class="how-body">
+            <div class="how-action">[상품별 매출] 탭 전환</div>
+            <div class="how-desc">테이블 위 [상품별 매출] 탭으로 전환하면 상품 단위 집계 테이블이 표시됩니다.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-teal">2</div>
+          <div class="how-body">
+            <div class="how-action">판매금액·수수료·정산 후 잔액 비교</div>
+            <div class="how-desc">각 상품의 판매금액·취소환불·PG 수수료·실입금금액·정산 후 잔액이 한 줄에 표시됩니다. 판매상태 배지(판매중·품절)도 확인할 수 있습니다.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-teal">3</div>
+          <div class="how-body">
+            <div class="how-action">[상세]로 주문별 내역 확인</div>
+            <div class="how-desc">행 오른쪽 [상세] 버튼을 클릭하면 해당 상품의 주문별 상세 내역 팝업이 열립니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide-section" id="sec-sales-modal">
+    <div class="sec-header">
+      <span class="step-pill c-teal">6.3</span>
+      <div>
+        <div class="sec-title">매출 관리 — 상품 매출 상세 · 주문별 내역 확인</div>
+        <div class="sec-goal">특정 상품의 주문번호·결제금액·PG 수수료·실입금금액을 건별로 확인합니다.</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="img-wrap">
+        <img src="guide-images/sales_modal.png" alt="상품 매출 상세 모달">
+        <div class="callout" style="left:48%;top:32%;background:#0d9488;">1</div>
+        <div class="callout" style="left:48%;top:62%;background:#0d9488;">2</div>
+        <div class="callout" style="left:67%;top:81%;background:#0d9488;">3</div>
+      </div>
+      <div>
+        <div class="how-title">사용 방법</div>
+        <div class="divider"></div>
+        <div class="how-item">
+          <div class="how-num c-teal">1</div>
+          <div class="how-body">
+            <div class="how-action">상단 요약에서 수익 구조 파악</div>
+            <div class="how-desc">판매금액·취소환불·실입금금액·PG 수수료·정산 후 잔액(파란색)을 요약 그리드에서 확인합니다.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-teal">2</div>
+          <div class="how-body">
+            <div class="how-action">주문별 내역으로 건별 수수료 확인</div>
+            <div class="how-desc">최근 5건의 주문번호·주문일·셀러·결제금액·PG 수수료·실입금금액을 건별로 확인합니다.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-teal">3</div>
+          <div class="how-body">
+            <div class="how-action">[닫기] 또는 ESC로 팝업 닫기</div>
+            <div class="how-desc">확인 완료 후 [닫기] 버튼이나 우상단 ✕, ESC 키로 닫습니다.</div>
+          </div>
+        </div>
+        <div class="notice tip">
+          <strong>💡 우상단 [엑셀 다운로드]</strong>로 현재 조회 조건의 전체 매출 데이터를 파일로 내려받을 수 있습니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide-section" id="sec-sett-list">
+    <div class="sec-header">
+      <span class="step-pill c-green">6.4</span>
+      <div>
+        <div class="sec-title">정산 관리 — 셀러별 정산 현황 조회 &amp; 필터</div>
+        <div class="sec-goal">KPI 카드로 오늘의 매출·수수료·정산예정금액을 파악하고, 기간·셀러별로 정산 데이터를 조회합니다.</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="img-wrap">
+        <img src="guide-images/settlement_list.png" alt="정산 관리 목록">
+        <div class="callout" style="left:28%;top:19.5%;background:#16a34a;">1</div>
+        <div class="callout" style="left:30%;top:33%;background:#16a34a;">2</div>
+        <div class="callout" style="left:87%;top:49%;background:#16a34a;">3</div>
+      </div>
+      <div>
+        <div class="how-title">사용 방법</div>
+        <div class="divider"></div>
+        <div class="how-item">
+          <div class="how-num c-green">1</div>
+          <div class="how-body">
+            <div class="how-action">KPI 카드로 정산 현황 파악</div>
+            <div class="how-desc">총 매출액·오늘 총 매출액·오늘 총 셀러 수수료(빨간)·정산 완료 예정 금액(파란)을 한눈에 확인합니다.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-green">2</div>
+          <div class="how-body">
+            <div class="how-action">기간·셀러 설정 후 [조회]</div>
+            <div class="how-desc">기간 버튼과 셀러 드롭다운으로 조회 조건을 설정 후 [조회]합니다. [초기화]는 오늘·전체 셀러로 되돌립니다.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-green">3</div>
+          <div class="how-body">
+            <div class="how-action">테이블 수수료·잔액 비교 및 [상세] 확인</div>
+            <div class="how-desc">셀러별 연결 상품수·주문수·판매금액·셀러 수수료·정산 후 잔액을 비교합니다. [상세] 버튼으로 셀러 개별 정산 내역을 확인하세요.</div>
+          </div>
+        </div>
+        <div class="notice info">
+          <strong>💡 정산 후 잔액</strong> = 판매금액 − 셀러 수수료 (셀러별 정산 비율 적용)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide-section" id="sec-sett-detail">
+    <div class="sec-header">
+      <span class="step-pill c-green">6.5</span>
+      <div>
+        <div class="sec-title">정산 관리 — 셀러 정산 상세 확인</div>
+        <div class="sec-goal">특정 셀러의 정산 기간, 판매금액, 정산 비율, 셀러 수수료, 연결 상품수를 상세히 확인합니다.</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div class="img-wrap">
+        <img src="guide-images/settlement_detail.png" alt="셀러 정산 상세 모달">
+        <div class="callout" style="left:48%;top:38%;background:#16a34a;">1</div>
+        <div class="callout" style="left:48%;top:49.5%;background:#16a34a;">2</div>
+        <div class="callout" style="left:65%;top:63.5%;background:#16a34a;">3</div>
+      </div>
+      <div>
+        <div class="how-title">사용 방법</div>
+        <div class="divider"></div>
+        <div class="how-item">
+          <div class="how-num c-green">1</div>
+          <div class="how-body">
+            <div class="how-action">정산 기간·판매금액·주문수 확인</div>
+            <div class="how-desc">팝업 상단에서 정산 기간, 판매금액, 주문수를 확인합니다. 조회 기간과 일치하는지 먼저 확인하세요.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-green">2</div>
+          <div class="how-body">
+            <div class="how-action">정산 비율·셀러 수수료 확인</div>
+            <div class="how-desc">정산 비율(초록)과 셀러 수수료(빨간 음수)를 확인합니다. 수수료 = 판매금액 × 정산 비율입니다. 이상이 있으면 셀러 관리에서 비율을 조정하세요.</div>
+          </div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-green">3</div>
+          <div class="how-body">
+            <div class="how-action">[닫기] 또는 ESC로 팝업 닫기</div>
+            <div class="how-desc">[닫기] 버튼, 우상단 ✕, 또는 ESC 키로 팝업을 닫습니다.</div>
+          </div>
+        </div>
+        <div class="notice tip">
+          <strong>💡 우상단 [엑셀 다운로드]</strong>로 현재 조회 조건의 셀러별 정산 데이터를 파일로 저장할 수 있습니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ch-nav"><a class="ch-nav__btn" href="guide-ch5.html">← <div><div class="ch-nav__btn-sub">이전 챕터</div><div>5. 셀러 관리</div></div></a><span class="ch-nav__center">CHAPTER 6 / 8</span><a class="ch-nav__btn" href="guide-ch7.html"><div><div class="ch-nav__btn-sub">다음 챕터</div><div>7. 공지사항</div></div> →</a></div>
+
+
+</div>
+</div>
+<script src="guide-sidebar.js"></script>
+</body>
+</html>
