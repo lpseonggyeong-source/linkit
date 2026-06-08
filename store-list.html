@@ -8,10 +8,136 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="admin.css" />
+  <style>
+    .store-list-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .store-list-subtitle {
+      color: var(--admin-muted);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+    .store-list-count {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+      color: var(--admin-muted);
+    }
+    .store-list-name {
+      color: var(--admin-heading);
+      font-weight: 600;
+    }
+    .store-list-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .store-list-link__text {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--admin-muted);
+      font-size: 13px;
+    }
+    .store-list-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+    .store-list-copy-toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 700;
+      transform: translateY(12px);
+      opacity: 0;
+      pointer-events: none;
+      background: var(--admin-heading);
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      transition: opacity .16s, transform .16s;
+    }
+    .store-list-copy-toast.is-show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .store-footer-modal {
+      display: none;
+    }
+    .store-footer-modal:target {
+      display: flex;
+    }
+    .store-footer-modal-box {
+      width: 460px;
+      max-width: 100%;
+    }
+    .store-footer-modal-desc {
+      color: var(--admin-muted);
+      line-height: 1.6;
+      margin: -4px 0 20px;
+    }
+    .store-footer-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .store-footer-form .admin-field {
+      margin-bottom: 0;
+    }
+    .store-footer-store-name {
+      display: inline-flex;
+      align-items: center;
+      max-width: 100%;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #f4f6f9;
+      color: var(--admin-heading);
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .a_del {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+      border: 1px solid #f5c6cb;
+      background: #fff5f6;
+      color: var(--admin-red);
+    }
+    .a_del:hover {
+      background: var(--admin-red);
+      color: #fff;
+      border-color: var(--admin-red);
+    }
+    @media (max-width: 560px) {
+      .store-list-header { flex-direction: column; }
+      .store-list-header .admin-btn { width: 100%; justify-content: center; }
+      .store-list-count { justify-content: flex-start; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- 모바일 헤더 -->
 <header class="admin-mobile-header">
   <span class="admin-mobile-header__logo">link it</span>
   <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
@@ -24,184 +150,175 @@
   <aside class="admin-sidebar" id="adminSidebar"></aside>
 
   <main class="admin-main">
-    <h1 class="admin-page-title t-title-1-md">상점 관리</h1>
-
-    <!-- 액션 바 -->
-    <div class="admin-action-bar">
-      <div class="admin-action-bar__left">
-        <h2 class="t-title-2-sb" style="color:var(--admin-heading);">내 상점 리스트</h2>
+    <div class="store-list-header">
+      <div>
+        <h1 class="admin-page-title t-title-1-md" style="margin-bottom:0;">상점 관리</h1>
+        <p class="store-list-subtitle t-body-3-rg">생성한 상점의 링크를 확인하고 디자인, 고객센터, 진열, 주문 관리를 바로 수정할 수 있습니다.</p>
       </div>
-      <div class="admin-action-bar__right">
-        <a href="store-create-step1.html" class="admin-btn admin-btn--primary">+ 새 상점 만들기</a>
-      </div>
+      <a href="store-create-step1.html" class="admin-btn admin-btn--primary">+ 새 상점 만들기</a>
     </div>
 
-    <!-- 상점 리스트 카드 -->
+    <p class="store-list-count t-body-3-rg">4개 상점</p>
+
     <div class="admin-card">
-
-      <!-- 테이블 헤더 -->
-      <div class="admin-table-wrap" id="storeTableWrap">
-        <table class="admin-table" id="storeTable">
-          <thead>
-            <tr>
-              <th scope="col" style="width:60px;">넘버</th>
-              <th scope="col" style="width:80px;">로고</th>
-              <th scope="col" style="text-align:left;">상점 이름</th>
-              <th scope="col" style="width:320px;">상점 링크/바로가기</th>
-            </tr>
-          </thead>
-          <tbody id="storeListBody"></tbody>
-        </table>
+      <div class="admin-card__body--flush">
+        <div class="admin-table-wrap" id="storeTableWrap">
+          <table class="admin-table" id="storeTable">
+            <thead>
+              <tr>
+                <th scope="col" style="width:60px;">넘버</th>
+                <th scope="col" style="min-width:180px;text-align:left;">상점이름</th>
+                <th scope="col" style="width:120px;">선택스킨</th>
+                <th scope="col" style="width:120px;">고객센터</th>
+                <th scope="col" style="min-width:240px;">상점 링크</th>
+                <th scope="col" style="width:150px;">관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align:center;">1</td>
+                <td><span class="store-list-name">오로라 셀렉트</span></td>
+                <td style="text-align:center;"><a href="design.html" class="admin-btn admin-btn--outline admin-btn--sm">디자인 수정</a></td>
+                <td style="text-align:center;"><a href="#footer-store-1" class="admin-btn admin-btn--outline admin-btn--sm">수정</a></td>
+                <td>
+                  <div class="store-list-link">
+                    <span class="store-list-link__text">https://linkit.kr/store/aurora-select</span>
+                    <button type="button" class="admin-btn admin-btn--outline admin-btn--sm store-copy-btn" data-copy-url="https://linkit.kr/store/aurora-select">복사</button>
+                    <a href="https://linkit.kr/store/aurora-select" target="_blank" rel="noopener" class="admin-btn admin-btn--outline admin-btn--sm">바로가기</a>
+                  </div>
+                </td>
+                <td><div class="store-list-actions"><a href="product-display.html" class="admin-btn admin-btn--outline admin-btn--sm">진열</a><a href="order-list.html" class="admin-btn admin-btn--outline admin-btn--sm">주문</a><button type="button" class="a_del">삭제</button></div></td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">2</td>
+                <td><span class="store-list-name">데일리 무드</span></td>
+                <td style="text-align:center;"><a href="design.html" class="admin-btn admin-btn--outline admin-btn--sm">디자인 수정</a></td>
+                <td style="text-align:center;"><a href="#footer-store-2" class="admin-btn admin-btn--outline admin-btn--sm">수정</a></td>
+                <td>
+                  <div class="store-list-link">
+                    <span class="store-list-link__text">https://linkit.kr/store/daily-mood</span>
+                    <button type="button" class="admin-btn admin-btn--outline admin-btn--sm store-copy-btn" data-copy-url="https://linkit.kr/store/daily-mood">복사</button>
+                    <a href="https://linkit.kr/store/daily-mood" target="_blank" rel="noopener" class="admin-btn admin-btn--outline admin-btn--sm">바로가기</a>
+                  </div>
+                </td>
+                <td><div class="store-list-actions"><a href="product-display.html" class="admin-btn admin-btn--outline admin-btn--sm">진열</a><a href="order-list.html" class="admin-btn admin-btn--outline admin-btn--sm">주문</a><button type="button" class="a_del">삭제</button></div></td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">3</td>
+                <td><span class="store-list-name">홈테이블 마켓</span></td>
+                <td style="text-align:center;"><a href="design.html" class="admin-btn admin-btn--outline admin-btn--sm">디자인 수정</a></td>
+                <td style="text-align:center;"><a href="#footer-store-3" class="admin-btn admin-btn--outline admin-btn--sm">수정</a></td>
+                <td>
+                  <div class="store-list-link">
+                    <span class="store-list-link__text">https://linkit.kr/store/home-table</span>
+                    <button type="button" class="admin-btn admin-btn--outline admin-btn--sm store-copy-btn" data-copy-url="https://linkit.kr/store/home-table">복사</button>
+                    <a href="https://linkit.kr/store/home-table" target="_blank" rel="noopener" class="admin-btn admin-btn--outline admin-btn--sm">바로가기</a>
+                  </div>
+                </td>
+                <td><div class="store-list-actions"><a href="product-display.html" class="admin-btn admin-btn--outline admin-btn--sm">진열</a><a href="order-list.html" class="admin-btn admin-btn--outline admin-btn--sm">주문</a><button type="button" class="a_del">삭제</button></div></td>
+              </tr>
+              <tr>
+                <td style="text-align:center;">4</td>
+                <td><span class="store-list-name">그린바스켓</span></td>
+                <td style="text-align:center;"><a href="design.html" class="admin-btn admin-btn--outline admin-btn--sm">디자인 수정</a></td>
+                <td style="text-align:center;"><a href="#footer-store-4" class="admin-btn admin-btn--outline admin-btn--sm">수정</a></td>
+                <td>
+                  <div class="store-list-link">
+                    <span class="store-list-link__text">https://linkit.kr/store/green-basket</span>
+                    <button type="button" class="admin-btn admin-btn--outline admin-btn--sm store-copy-btn" data-copy-url="https://linkit.kr/store/green-basket">복사</button>
+                    <a href="https://linkit.kr/store/green-basket" target="_blank" rel="noopener" class="admin-btn admin-btn--outline admin-btn--sm">바로가기</a>
+                  </div>
+                </td>
+                <td><div class="store-list-actions"><a href="product-display.html" class="admin-btn admin-btn--outline admin-btn--sm">진열</a><a href="order-list.html" class="admin-btn admin-btn--outline admin-btn--sm">주문</a><button type="button" class="a_del">삭제</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      <!-- 빈 상태 -->
-      <div class="admin-store-empty" id="storeEmptyState" style="display:none;">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
-          aria-hidden="true" class="admin-store-empty__icon">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-        <p class="admin-store-empty__title">생성한 상점이 없습니다.</p>
-        <p class="admin-store-empty__sub">상점을 만들어주세요</p>
-        <a href="store-create-step1.html" class="admin-btn admin-btn--primary" style="margin-top:16px;">새 상점 만들기</a>
-      </div>
-
-      <!-- 페이지네이션 -->
-      <div class="admin-pagination" id="storePagination" style="display:none;"></div>
-
-    </div><!-- /card -->
-
+    </div>
   </main>
-</div><!-- /admin-layout -->
+</div>
+
+<div class="store-list-copy-toast" id="storeCopyToast" role="status" aria-live="polite">상점 링크를 복사했습니다.</div>
+
+<div class="admin-product-modal store-footer-modal" id="footer-store-1" role="dialog" aria-modal="true" aria-labelledby="footerStore1Title">
+  <a href="#storeTable" class="admin-product-modal__overlay" aria-label="모달 닫기"></a>
+  <div class="admin-product-modal__box store-footer-modal-box">
+    <h2 class="admin-product-modal__title" id="footerStore1Title">푸터 정보 수정</h2>
+    <p class="store-footer-store-name">오로라 셀렉트</p>
+    <p class="store-footer-modal-desc t-body-3-rg">상점 하단에 노출되는 고객 응대 정보를 수정합니다.</p>
+    <form class="store-footer-form">
+      <div class="admin-field"><label for="footer1Phone">전화번호</label><input type="tel" id="footer1Phone" value="02-1234-5678" autocomplete="tel" /></div>
+      <div class="admin-field"><label for="footer1Hours">영업시간</label><input type="text" id="footer1Hours" value="평일 10:00 - 18:00" /></div>
+      <div class="admin-field"><label for="footer1Email">이메일</label><input type="email" id="footer1Email" value="help@aurora.kr" autocomplete="email" /></div>
+      <div class="admin-product-modal__footer"><a href="#storeTable" class="admin-btn admin-btn--outline">취소</a><a href="#storeTable" class="admin-btn admin-btn--primary">저장</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="admin-product-modal store-footer-modal" id="footer-store-2" role="dialog" aria-modal="true" aria-labelledby="footerStore2Title">
+  <a href="#storeTable" class="admin-product-modal__overlay" aria-label="모달 닫기"></a>
+  <div class="admin-product-modal__box store-footer-modal-box">
+    <h2 class="admin-product-modal__title" id="footerStore2Title">푸터 정보 수정</h2>
+    <p class="store-footer-store-name">데일리 무드</p>
+    <p class="store-footer-modal-desc t-body-3-rg">상점 하단에 노출되는 고객 응대 정보를 수정합니다.</p>
+    <form class="store-footer-form">
+      <div class="admin-field"><label for="footer2Phone">전화번호</label><input type="tel" id="footer2Phone" value="070-2222-1010" autocomplete="tel" /></div>
+      <div class="admin-field"><label for="footer2Hours">영업시간</label><input type="text" id="footer2Hours" value="매일 11:00 - 20:00" /></div>
+      <div class="admin-field"><label for="footer2Email">이메일</label><input type="email" id="footer2Email" value="daily@linkit.kr" autocomplete="email" /></div>
+      <div class="admin-product-modal__footer"><a href="#storeTable" class="admin-btn admin-btn--outline">취소</a><a href="#storeTable" class="admin-btn admin-btn--primary">저장</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="admin-product-modal store-footer-modal" id="footer-store-3" role="dialog" aria-modal="true" aria-labelledby="footerStore3Title">
+  <a href="#storeTable" class="admin-product-modal__overlay" aria-label="모달 닫기"></a>
+  <div class="admin-product-modal__box store-footer-modal-box">
+    <h2 class="admin-product-modal__title" id="footerStore3Title">푸터 정보 수정</h2>
+    <p class="store-footer-store-name">홈테이블 마켓</p>
+    <p class="store-footer-modal-desc t-body-3-rg">상점 하단에 노출되는 고객 응대 정보를 수정합니다.</p>
+    <form class="store-footer-form">
+      <div class="admin-field"><label for="footer3Phone">전화번호</label><input type="tel" id="footer3Phone" placeholder="예: 02-1234-5678" autocomplete="tel" /></div>
+      <div class="admin-field"><label for="footer3Hours">영업시간</label><input type="text" id="footer3Hours" placeholder="예: 평일 10:00 - 18:00" /></div>
+      <div class="admin-field"><label for="footer3Email">이메일</label><input type="email" id="footer3Email" placeholder="예: help@linkit.kr" autocomplete="email" /></div>
+      <div class="admin-product-modal__footer"><a href="#storeTable" class="admin-btn admin-btn--outline">취소</a><a href="#storeTable" class="admin-btn admin-btn--primary">저장</a></div>
+    </form>
+  </div>
+</div>
+
+<div class="admin-product-modal store-footer-modal" id="footer-store-4" role="dialog" aria-modal="true" aria-labelledby="footerStore4Title">
+  <a href="#storeTable" class="admin-product-modal__overlay" aria-label="모달 닫기"></a>
+  <div class="admin-product-modal__box store-footer-modal-box">
+    <h2 class="admin-product-modal__title" id="footerStore4Title">푸터 정보 수정</h2>
+    <p class="store-footer-store-name">그린바스켓</p>
+    <p class="store-footer-modal-desc t-body-3-rg">상점 하단에 노출되는 고객 응대 정보를 수정합니다.</p>
+    <form class="store-footer-form">
+      <div class="admin-field"><label for="footer4Phone">전화번호</label><input type="tel" id="footer4Phone" value="02-987-6543" autocomplete="tel" /></div>
+      <div class="admin-field"><label for="footer4Hours">영업시간</label><input type="text" id="footer4Hours" value="화-토 09:00 - 17:00" /></div>
+      <div class="admin-field"><label for="footer4Email">이메일</label><input type="email" id="footer4Email" value="green@basket.kr" autocomplete="email" /></div>
+      <div class="admin-product-modal__footer"><a href="#storeTable" class="admin-btn admin-btn--outline">취소</a><a href="#storeTable" class="admin-btn admin-btn--primary">저장</a></div>
+    </form>
+  </div>
+</div>
 
 <script src="admin.js"></script>
 <script>
-/* ══════════════════════════════════════════════════════
-   상점 관리 페이지 (store-list.html)
-   ══════════════════════════════════════════════════════ */
 (function () {
-  "use strict";
+  var toast = document.getElementById("storeCopyToast");
+  var timer = null;
 
-  /* [MOCK] 백엔드 연동 시 GET /api/stores 로 교체 */
-  var STORE_DATA = [
-    /* 상점 데이터가 없을 경우 빈 배열 — 테스트 시 아래 주석 해제 */
-    // { storeId: "s1", number: 1, logoImageUrl: "", storeName: "어반무드", storeUrl: "https://linkit.io/store/urbanmood" },
-    // { storeId: "s2", number: 2, logoImageUrl: "", storeName: "데일리마켓", storeUrl: "https://linkit.io/store/dailymkt" },
-  ];
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-copy-url]");
+    if (!button) return;
 
-  var PAGE_SIZE = 10;
-  var currentPage = 1;
-
-  /* XSS 방지 */
-  function esc(str) {
-    return String(str)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-
-  /* 로고 썸네일 */
-  var ICON_LOGO = [
-    '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"',
-    ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">',
-    '<rect x="3" y="3" width="18" height="18" rx="2"/>',
-    '<circle cx="8.5" cy="8.5" r="1.5"/>',
-    '<path d="M21 15l-5-5L5 21"/>',
-    '</svg>'
-  ].join("");
-
-  /* 외부 링크 아이콘 */
-  var ICON_LINK = [
-    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"',
-    ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">',
-    '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
-    '<polyline points="15 3 21 3 21 9"/>',
-    '<line x1="10" y1="14" x2="21" y2="3"/>',
-    '</svg>'
-  ].join("");
-
-  function renderList() {
-    var tbody   = document.getElementById("storeListBody");
-    var table   = document.getElementById("storeTableWrap");
-    var empty   = document.getElementById("storeEmptyState");
-    var pagination = document.getElementById("storePagination");
-    if (!tbody) return;
-
-    if (STORE_DATA.length === 0) {
-      if (table) table.style.display = "none";
-      if (empty) empty.style.display = "";
-      if (pagination) pagination.style.display = "none";
-      return;
-    }
-
-    if (table) table.style.display = "";
-    if (empty) empty.style.display = "none";
-
-    var start = (currentPage - 1) * PAGE_SIZE;
-    var pageItems = STORE_DATA.slice(start, start + PAGE_SIZE);
-
-    tbody.innerHTML = "";
-    pageItems.forEach(function (store) {
-      var tr = document.createElement("tr");
-      tr.innerHTML =
-        '<td style="text-align:center;" class="t-body-2-rg">' + esc(String(store.number)) + '</td>' +
-        '<td style="text-align:center;">' +
-          '<div class="admin-product-thumb">' +
-            (store.logoImageUrl
-              ? '<img src="' + esc(store.logoImageUrl) + '" alt="' + esc(store.storeName) + ' 로고" />'
-              : ICON_LOGO
-            ) +
-          '</div>' +
-        '</td>' +
-        '<td class="t-body-2-rg">' + esc(store.storeName) + '</td>' +
-        '<td>' +
-          '<div style="display:flex;align-items:center;gap:8px;">' +
-            '<span class="t-body-3-rg admin-text-muted" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' +
-              esc(store.storeUrl) +
-            '</span>' +
-            '<a href="' + esc(store.storeUrl) + '" target="_blank" rel="noopener"' +
-              ' class="admin-btn admin-btn--outline admin-btn--sm" aria-label="바로가기">' +
-              ICON_LINK + ' 바로가기' +
-            '</a>' +
-          '</div>' +
-        '</td>';
-      tbody.appendChild(tr);
+    navigator.clipboard.writeText(button.getAttribute("data-copy-url")).then(function () {
+      toast.classList.add("is-show");
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        toast.classList.remove("is-show");
+      }, 1600);
     });
-
-    renderPagination();
-  }
-
-  function renderPagination() {
-    var el = document.getElementById("storePagination");
-    if (!el) return;
-    var total = Math.ceil(STORE_DATA.length / PAGE_SIZE);
-    if (total <= 1) { el.style.display = "none"; return; }
-    el.style.display = "";
-    el.innerHTML = "";
-
-    for (var i = 1; i <= total; i++) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "admin-page-btn" + (i === currentPage ? " is-active" : "");
-      btn.textContent = i;
-      btn.dataset.page = i;
-      el.appendChild(btn);
-    }
-
-    el.addEventListener("click", function (e) {
-      var btn = e.target.closest(".admin-page-btn");
-      if (!btn) return;
-      currentPage = parseInt(btn.dataset.page, 10);
-      renderList();
-    });
-  }
-
-  window.initStoreListPage = function () {
-    if (!document.getElementById("storeListBody")) return;
-    renderList();
-  };
+  });
 }());
 </script>
 </body>
