@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모듈형 쇼핑몰 - 링크잇</title>
+  <meta name="description" content="상품만 등록하면 상점이 자동으로 완성됩니다. 필요한 요소만 선택해 빠르게 나만의 쇼핑몰을 시작하세요." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─────────────────────────────────────────
+       공통
+    ───────────────────────────────────────── */
+    :root { --content: 1120px; }
+
+    .eyebrow {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--red);
+      line-height: 1.5;
+    }
+    .sec-title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 700;
+      color: #242424;
+      line-height: 1.35;
+      letter-spacing: -0.04em;
+    }
+
+    /* ─────────────────────────────────────────
+       ② 자동 생성 (RED BG)
+    ───────────────────────────────────────── */
+    .sec-auto {
+      background: var(--red);
+      padding: 55px var(--side) 0;
+      overflow: hidden;
+    }
+    .sec-auto__inner {
+      width: min(100%, var(--content));
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sec-auto__eyebrow {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.5;
+    }
+    .sec-auto__title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+      letter-spacing: -0.04em;
+    }
+    .sec-auto__desc {
+      font-size: 16px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.03em;
+    }
+    .sec-auto__imgs {
+      width: min(100%, var(--content));
+      margin-inline: auto;
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: flex-end;
+      margin-bottom: 56px;
+    }
+    .sec-auto__img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px 12px 0 0;
+    }
+
+    /* ─────────────────────────────────────────
+       ③ 3단계 배너
+    ───────────────────────────────────────── */
+    .sec-steps {
+      background: #fef1ee;
+      padding: 0 var(--side);
+      align-items: left;
+    }
+    .sec-steps__inner {
+      width: min(100%, var(--content));
+      margin-inline: auto;
+      padding: 44px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    .step-item__num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-item__body { display: flex; flex-direction: column; gap: 3px; }
+    .step-item__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #414141;
+      line-height: 1.3;
+    }
+    .step-item__desc {
+      font-size: 15px;
+      font-weight: 500;
+      color: #6b6b6b;
+      line-height: 1.4;
+    }
+    .step-item__desc em { color: var(--red); font-style: normal; }
+    .step-arrow {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      position: relative;
+      opacity: 0.4;
+    }
+    .step-arrow::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid #414141;
+      border-top: 2px solid #414141;
+      transform: translate(-70%, -50%) rotate(45deg);
+    }
+
+    /* ─────────────────────────────────────────
+       ④ 즉시 판매
+    ───────────────────────────────────────── */
+    .sec-instant {
+      padding: 100px var(--side);
+      background: #fcfcfc;
+    }
+    .sec-instant__head {
+      width: min(100%, var(--content));
+      margin-inline: auto;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .sec-instant__grid {
+      width: min(100%, var(--content));
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .instant-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f3f3f5;
+      display: flex;
+      flex-direction: column;
+    }
+    .instant-card__copy { padding: 24px 24px 0; }
+    .instant-card__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #2a2a2a;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .instant-card__desc {
+      font-size: 14px;
+      color: #6b6b6b;
+      line-height: 1.65;
+    }
+    .instant-card__img { margin-top: 24px; }
+    .instant-card__img img { width: 100%; height: auto; display: block; }
+
+    /* ─────────────────────────────────────────
+       ⑤ 맞춤 구성
+    ───────────────────────────────────────── */
+    .sec-custom {
+      padding: 100px var(--side);
+      background: #f5f5f5;
+    }
+    .sec-custom__head {
+      width: min(100%, var(--content));
+      margin-inline: auto;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    /* 비대칭 2열 그리드: 좌 탈 카드 + 우 2개 적층 */
+    .custom-layout {
+      width: min(100%, var(--content));
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 20px;
+      align-items: start;
+    }
+    .custom-card-tall {
+      grid-row: 1 / 3;
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .custom-card-tall__copy {
+      padding: 24px 24px 20px;
+    }
+    .custom-card-tall__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #2a2a2a;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+    .custom-card-tall__desc {
+      font-size: 14px;
+      color: #6b6b6b;
+      line-height: 1.65;
+    }
+
+    /* 모듈 아이콘 행 */
+    .module-icons {
+      display: flex;
+      gap: 8px;
+      padding: 0 24px 0;
+      flex-wrap: nowrap;
+    }
+    .module-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 94px;
+    }
+    .module-icon__bg {
+      width: 72px;
+      height: 72px;
+      border-radius: 8px;
+      background: #fef1ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .module-icon__bg img { width: 32px; height: 32px; object-fit: contain; }
+    .module-icon__name {
+      font-size: 14px;
+      color: #414141;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* 탈 카드 하단 회색 프리뷰 영역 */
+    .custom-card-tall__preview {
+      margin-top: 20px;
+      background: #e8e9ec;
+      overflow: hidden;
+    }
+    .custom-card-tall__preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* 우측 2개 카드 */
+    .custom-card-sm {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .custom-card-sm__copy { padding: 24px 24px 0; }
+    .custom-card-sm__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #2a2a2a;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+    .custom-card-sm__desc {
+      font-size: 14px;
+      color: #6b6b6b;
+      line-height: 1.65;
+    }
+    .custom-card-sm__img { margin-top: 16px; background: #e8e9ec; }
+    .custom-card-sm__img img { width: 100%; height: auto; display: block; }
+
+    /* sec-contact → components/contact.js 로 이동 */
+
+    /* ─────────────────────────────────────────
+       반응형 ≤ 1024px
+    ───────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .sec-auto__imgs { grid-template-columns: 1fr; }
+
+      .custom-layout { grid-template-columns: 1fr; 1fr; grid-template-rows: auto auto auto; }
+      .custom-card-tall { grid-row: center; }
+      .module-icons { gap: 8px; }
+      .module-icon { width: 68px; }
+      .module-icon__bg { width: 68px; height: 80px;  }
+    }
+
+    /* ─────────────────────────────────────────
+       반응형 ≤ 768px
+    ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      :root { --side: 24px; }
+
+      .sec-auto__title { font-size: 28px; }
+
+      .sec-steps__inner { flex-direction: column; align-items: center; gap: 20px; padding: 36px 0; }
+      .step-arrow { display: none; }
+      .step-item { flex: none; }
+
+      .sec-instant__grid { grid-template-columns: 1fr; }
+
+      .module-icons { gap: 8px; }
+      .module-icon { width: 76px; }
+      .module-icon__bg { width: 76px; height: 80px;  }
+
+      .module-icons { gap: 8px; }
+      .module-icon { width: 68px; }
+      .module-icon__bg { width: 68px; height: 80px;  }
+    }
+
+    /* ─────────────────────────────────────────
+       반응형 ≤ 480px
+    ───────────────────────────────────────── */
+    @media (max-width: 480px) {
+      :root { --side: 20px; }
+
+      .sec-title { font-size: 28px; }
+      .sec-auto__title { font-size: 24px; }
+      .module-icons { gap: 8px; }
+      .module-icon { width: 68px; }
+      .module-icon__bg { width: 68px; height: 80px;  }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-root"></div>
+  <script src="components/header.js"></script>
+
+  <main>
+
+    <!-- ① HERO -->
+    <section class="hero-sub" aria-labelledby="hero-title">
+      <div class="hero-sub__inner">
+        <div class="hero-sub__copy">
+          <div>
+            <p class="hero-sub__tag">모듈형 쇼핑몰</p>
+            <h1 id="hero-title" class="hero-sub__title">
+              상품만 <em>등록</em>하면,<br />
+              상점이 <em>자동</em>으로 <em>완성</em>
+            </h1>
+            <p class="hero-sub__desc">필요한 요소만 선택해 빠르게 나만의 쇼핑몰을 시작하세요.</p>
+          </div>
+          <form class="email-pill" aria-label="무료 상담 신청">
+            <label class="sr-only" for="hero-email">이메일</label>
+            <input id="hero-email" type="email" placeholder="이메일을 입력하세요" />
+            <button type="submit">무료 상담 신청</button>
+          </form>
+        </div>
+        <div class="hero-sub__media" aria-hidden="true">
+          <img src="assets/02_Modular/sec1_img01.png" alt="" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ② 자동 생성 (레드 배경) -->
+    <section class="sec-auto" aria-labelledby="auto-title">
+      <div class="sec-auto__inner">
+        <p class="sec-auto__eyebrow">상품 등록</p>
+        <h2 id="auto-title" class="sec-auto__title">등록 즉시, 판매 가능한 페이지 완성</h2>
+        <p class="sec-auto__desc">
+          상품 등록과 동시에 온라인 상점이 자동 생성되어,<br />
+          별도 제작 없이 바로 판매를 시작할 수 있습니다.
+        </p>
+      </div>
+      <div class="sec-auto__imgs">
+        <div class="sec-auto__img">
+          <img src="assets/02_Modular/sec2_img02.png" alt="모바일 판매 페이지 미리보기" />
+        </div>
+        <div class="sec-auto__img">
+          <img src="assets/02_Modular/sec2_img01.png" alt="상품 페이지 미리보기" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ③ 3단계 배너 -->
+    <section class="sec-steps" aria-label="3단계로 시작하기">
+      <div class="sec-steps__inner">
+        <div class="step-item">
+          <div class="step-item__num">1</div>
+          <div class="step-item__body">
+            <span class="step-item__title">상품 정보 입력</span>
+            <span class="step-item__desc">상품명, 가격, 이미지, 상세 설명 입력</span>
+          </div>
+        </div>
+        <div class="step-arrow" aria-hidden="true"></div>
+        <div class="step-item">
+          <div class="step-item__num">2</div>
+          <div class="step-item__body">
+            <span class="step-item__title">링크 자동 생성</span>
+            <span class="step-item__desc">linkit.kr/ 상품 링크 <em>즉시 생성</em></span>
+          </div>
+        </div>
+        <div class="step-arrow" aria-hidden="true"></div>
+        <div class="step-item">
+          <div class="step-item__num">3</div>
+          <div class="step-item__body">
+            <span class="step-item__title">모바일 구매 페이지 완성</span>
+            <span class="step-item__desc"><em>바로 구매</em>할 수 있는 모바일 최적화 페이지</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ④ 즉시 판매 -->
+    <section class="sec-instant" aria-labelledby="instant-title">
+      <div class="sec-instant__head">
+        <p class="eyebrow">즉시 판매</p>
+        <h2 id="instant-title" class="sec-title">결제 연동 없이 즉시 판매</h2>
+      </div>
+      <div class="sec-instant__grid">
+        <div class="instant-card">
+          <div class="instant-card__copy">
+            <p class="instant-card__title">등록 즉시 결제 환경 적용</p>
+            <p class="instant-card__desc">상품 등록과 동시에 온라인 상점이 자동 생성되어,<br />별도 제작 없이 바로 판매를 시작할 수 있습니다.</p>
+          </div>
+          <div class="instant-card__img">
+            <img src="assets/02_Modular/sec3_img03.png" alt="결제 수단 선택 및 최종 결제 화면" />
+          </div>
+        </div>
+        <div class="instant-card">
+          <div class="instant-card__copy">
+            <p class="instant-card__title">쉽고 빠른 정산 서비스 제공</p>
+            <p class="instant-card__desc">별도의 설정 없이 상품 등록과 동시에<br />정산 기능이 자동으로 적용됩니다.</p>
+          </div>
+          <div class="instant-card__img">
+            <img src="assets/02_Modular/sec3_img04.png" alt="주문 발생부터 입금 완료까지 정산 흐름" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑤ 맞춤 구성 -->
+    <section class="sec-custom" aria-labelledby="custom-title">
+      <div class="sec-custom__head">
+        <p class="eyebrow">맞춤 구성</p>
+        <h2 id="custom-title" class="sec-title">필요한 만큼만 구성하는 상점</h2>
+      </div>
+
+      <!-- 비대칭 2열: 좌=탈 카드, 우=2개 적층 -->
+      <div class="custom-layout">
+
+        <!-- 좌: 기본 템플릿 탈 카드 -->
+        <div class="custom-card-tall">
+          <div class="custom-card-tall__copy">
+            <p class="custom-card-tall__title">기본 템플릿 제공</p>
+            <p class="custom-card-tall__desc">
+              상품 리스트, 배너, 카테고리가 포함된 템플릿으로 별도 설계 없이<br />
+              쇼핑몰을 바로 만들고 자유롭게 수정할 수 있습니다.
+            </p>
+          </div>
+          <div class="module-icons">
+            <div class="module-icon">
+              <div class="module-icon__bg">
+                <img src="assets/02_Modular/sec4_icon_display.png" alt="" aria-hidden="true" />
+              </div>
+              <span class="module-icon__name">상품 진열</span>
+            </div>
+            <div class="module-icon">
+              <div class="module-icon__bg">
+                <img src="assets/02_Modular/sec4_icon_banner.png" alt="" aria-hidden="true" />
+              </div>
+              <span class="module-icon__name">배너</span>
+            </div>
+            <div class="module-icon">
+              <div class="module-icon__bg">
+                <img src="assets/02_Modular/sec4_icon_section.png" alt="" aria-hidden="true" />
+              </div>
+              <span class="module-icon__name">섹션명</span>
+            </div>
+            <div class="module-icon">
+              <div class="module-icon__bg">
+                <img src="assets/02_Modular/sec4_icon_category.png" alt="" aria-hidden="true" />
+              </div>
+              <span class="module-icon__name">카테고리</span>
+            </div>
+            <div class="module-icon">
+              <div class="module-icon__bg">
+                <img src="assets/02_Modular/sec4_icon_ect.png" alt="" aria-hidden="true" />
+              </div>
+              <span class="module-icon__name">기타 구성</span>
+            </div>
+          </div>
+          <div class="custom-card-tall__preview">
+            <img src="assets/02_Modular/sec4_img01.png" alt="상점 템플릿 미리보기" />
+          </div>
+        </div>
+
+        <!-- 우 상단: 상품 진열 자유 설정 -->
+        <div class="custom-card-sm">
+          <div class="custom-card-sm__copy">
+            <p class="custom-card-sm__title">상품 진열 자유 설정</p>
+            <p class="custom-card-sm__desc">상품 순서와 구성을 자유롭게 설정해 원하는 방식의 쇼핑 경험을 구성할 수 있습니다.</p>
+          </div>
+          <div class="custom-card-sm__img">
+            <img src="assets/02_Modular/sec4_img02.png" alt="상품 진열 설정 화면" />
+          </div>
+        </div>
+
+        <!-- 우 하단: 실시간 미리보기 -->
+        <div class="custom-card-sm">
+          <div class="custom-card-sm__copy">
+            <p class="custom-card-sm__title">변경 내용 실시간으로 바로 확인</p>
+            <p class="custom-card-sm__desc">수정한 내용이 화면에 실시간으로 반영됩니다.</p>
+          </div>
+          <div class="custom-card-sm__img">
+            <img src="assets/02_Modular/sec4_img03.png" alt="실시간 미리보기 화면" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div id="contact-root"></div>
+    <script src="components/contact.js"></script>
+  </main>
+
+  <div id="footer-root"></div>
+  <script src="components/footer.js"></script>
+
+  <script>
+    /* 스크롤 동작은 components/header.js 에서 처리 */
+  </script>
+</body>
+</html>
