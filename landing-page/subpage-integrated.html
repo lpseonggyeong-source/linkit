@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>통합관리 - 링크잇</title>
+  <meta name="description" content="주문부터 정산까지 분산된 운영과정을 하나로 연결해 한번에 관리할 수 있습니다." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #ed370f;
+      --red-cta: #ee3d1c;
+      --black: #191919;
+      --gray-800: #2a2a2a;
+      --gray-700: #414141;
+      --gray-600: #6b6b6b;
+      --gray-500: #8c8c8c;
+      --gray-100: #fcfcfc;
+      --pink: #fef1ee;
+      --line: #eaeaea;
+      --font-display: "Paperlogy", "Noto Sans KR", sans-serif;
+      --font-body: "Noto Sans KR", sans-serif;
+      --content: 1120px;
+      --side: 40px;
+      --header-h: 58px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      font-family: var(--font-body);
+      color: var(--black);
+      background: #fff;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .eyebrow {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--red);
+      line-height: 24px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 700;
+      color: #242424;
+      line-height: 54px;
+    }
+
+    .hero-sub {
+      min-height: 768px;
+      padding: var(--header-h) var(--side) 0;
+      background: var(--gray-100);
+      overflow: hidden;
+    }
+
+    .hero-sub__inner {
+      width: min(100%, var(--content));
+      min-height: calc(677px - var(--header-h));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 541px) minmax(420px, 1fr);
+      gap: 39px;
+      align-items: center;
+    }
+
+    .hero-sub__copy {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      padding-top: 2px;
+    }
+
+    .hero-sub__tag {
+      margin-bottom: 4px;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--red-cta);
+      line-height: 1.35;
+    }
+
+    .hero-sub__title {
+      font-family: var(--font-display);
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .hero-sub__title em {
+      color: var(--red);
+      font-style: normal;
+    }
+
+    .hero-sub__desc {
+      margin-top: 4px;
+      font-size: 20px;
+      color: var(--gray-600);
+      line-height: 1.35;
+    }
+
+    .email-pill {
+      width: 100%;
+      height: 60px;
+      padding: 4px 4px 4px 24px;
+      border-radius: 999px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+    }
+
+    .email-pill input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font-size: 18px;
+      color: var(--gray-600);
+    }
+
+    .email-pill input::placeholder {
+      color: var(--gray-600);
+      opacity: 1;
+    }
+
+    .email-pill button {
+      flex: 0 0 auto;
+      height: 52px;
+      padding: 0 24px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: var(--red-cta);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .email-pill button::after {
+      content: "↗";
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .hero-sub__media {
+      height: 407px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-sub__media img {
+      width: 550px;
+      max-width: none;
+    }
+
+    .sec-explain {
+      min-height: 408px;
+      padding: 0 var(--side);
+      background: var(--red);
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .sec-explain__inner {
+      width: min(100%, var(--content));
+      min-height: 408px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 560px 1fr;
+      gap: 63px;
+      align-items: center;
+    }
+
+    .sec-explain__left {
+      width: 370px;
+      justify-self: end;
+      min-width: 0;
+    }
+
+    .sec-explain__title {
+      margin-bottom: 20px;
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--pink);
+      line-height: 1.35;
+    }
+
+    .sec-explain__img {
+      width: 360px;
+      height: 196px;
+      overflow: hidden;
+    }
+
+    .sec-explain__img img {
+      width: 360px;
+      height: 196px;
+      object-fit: cover;
+    }
+
+    .sec-explain__right {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding-top: 4px;
+    }
+
+    .set-text {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .icon-text__icon {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
+
+    .sec-explain__text-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.18;
+    }
+
+    .sec-explain__text-sub {
+      margin-top: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ebedf2;
+      line-height: 1.45;
+    }
+
+    .sec-situation {
+      min-height: 726px;
+      padding: 100px var(--side) 80px;
+      background: var(--gray-100);
+    }
+
+    .section-head {
+      width: min(100%, var(--content));
+      margin: 0 auto;
+    }
+
+    .section-head--center {
+      text-align: center;
+    }
+
+    .sec-situation__grid {
+      width: min(100%, var(--content));
+      margin: 56px auto 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .screen-card {
+      height: 412px;
+      padding: 23px 23px 0;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .screen-card__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-800);
+      line-height: 1.5;
+    }
+
+    .screen-card__desc {
+      margin-top: 4px;
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    .screen-card__image {
+      width: calc(100% + 46px);
+      height: 310px;
+      margin: 25px -23px 0;
+      overflow: hidden;
+    }
+
+    .screen-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+    }
+
+    .sec-review {
+      min-height: 232px;
+      padding: 64px var(--side);
+      background: var(--pink);
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+
+    .sec-review__inner {
+      width: min(100%, 858px);
+      margin: 0 auto;
+    }
+
+    .sec-review__quote {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gray-700);
+      line-height: 1.35;
+    }
+
+    .sec-review__desc {
+      margin-top: 8px;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--gray-500);
+      line-height: 1.35;
+    }
+
+    .sec-dashboard {
+      min-height: 829px;
+      padding: 100px var(--side);
+      background: var(--gray-100);
+    }
+
+    .sec-dashboard__image {
+      width: min(100%, var(--content));
+      height: 495px;
+      margin: 56px auto 0;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .sec-dashboard__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    /* sec-contact, footer → components/contact.js, components/footer.js 로 이동 */
+
+    @media (max-width: 1024px) {
+      :root {
+        --side: 28px;
+      }
+
+      .hero-sub {
+        min-height: auto;
+        padding-bottom: 56px;
+      }
+
+      .hero-sub__inner {
+        min-height: auto;
+        padding-top: 76px;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-sub__title {
+        white-space: normal;
+      }
+
+      .hero-sub__media {
+        height: auto;
+        justify-content: center;
+      }
+
+      .hero-sub__media img {
+        width: min(100%, 550px);
+      }
+
+      .sec-explain__inner {
+        padding: 72px 0;
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .sec-explain__left {
+        width: 100%;
+        justify-self: start;
+      }
+
+      .sec-explain__title {
+        margin-bottom: 24px;
+      }
+
+      .sec-explain__img {
+        width: min(100%, 360px);
+      }
+
+      .sec-situation__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .screen-card {
+        height: auto;
+      }
+
+      .screen-card__image {
+        height: auto;
+      }
+
+      .screen-card__image img {
+        height: auto;
+      }
+
+      .sec-dashboard__image {
+        height: auto;
+      }
+
+      .sec-dashboard__image img {
+        height: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --side: 20px;
+      }
+
+      .hero-sub__inner {
+        padding-top: 56px;
+      }
+
+      .hero-sub__tag {
+        font-size: 18px;
+      }
+
+      .hero-sub__title {
+        font-size: 40px;
+      }
+
+      .hero-sub__desc {
+        font-size: 16px;
+      }
+
+      .email-pill { width: 100%; max-width: 100%; }
+
+      .sec-explain__title,
+      .section-title {
+        font-size: 32px;
+        line-height: 1.35;
+      }
+
+      .sec-explain__text-title {
+        font-size: 24px;
+      }
+
+      .sec-situation,
+      .sec-dashboard {
+        padding-top: 72px;
+        padding-bottom: 72px;
+      }
+
+      .sec-dashboard {
+        min-height: auto;
+        padding-bottom: 80px;
+      }
+
+      .sec-situation__grid,
+      .sec-dashboard__image {
+        margin-top: 40px;
+      }
+
+      .sec-review__quote {
+        font-size: 25px;
+      }
+
+      .sec-review__desc {
+        font-size: 16px;
+      }
+
+    }
+
+    @media (max-width: 480px) {
+      .hero-sub__title {
+        font-size: 34px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .screen-card {
+        padding: 18px 18px 0;
+      }
+
+      .screen-card__image {
+        width: calc(100% + 36px);
+        margin-left: -18px;
+        margin-right: -18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header-root"></div>
+  <script src="components/header.js"></script>
+
+  <main>
+    <section class="hero-sub" aria-labelledby="hero-title">
+      <div class="hero-sub__inner">
+        <div class="hero-sub__copy">
+          <div>
+            <p class="hero-sub__tag">통합 관리</p>
+            <h1 id="hero-title" class="hero-sub__title">
+              <em>주문</em>부터 <em>정산</em>까지,<br />
+              모든 운영을 <em>한 번에</em>
+            </h1>
+            <p class="hero-sub__desc">
+              주문부터 정산까지 분산된 운영 과정을 하나로 연결해<br />
+              한 번에 관리할 수 있습니다.
+            </p>
+          </div>
+          <form class="email-pill" aria-label="무료 상담 신청">
+            <label class="sr-only" for="hero-email">이메일</label>
+            <input id="hero-email" type="email" placeholder="이메일을 입력하세요" />
+            <button type="submit">무료 상담 신청</button>
+          </form>
+        </div>
+        <div class="hero-sub__media" aria-hidden="true">
+          <img src="assets/03_Integrated/01_hero_img01.png" alt="" />
+        </div>
+      </div>
+    </section>
+
+    <section class="sec-explain" aria-labelledby="explain-title">
+      <div class="sec-explain__inner">
+        <div class="sec-explain__left">
+          <h2 id="explain-title" class="sec-explain__title">
+            여러 화면 이동 없이,<br />
+            한 번에 끝내는 운영 관리
+          </h2>
+          <div class="sec-explain__img" aria-hidden="true">
+            <img src="assets/03_Integrated/02_explain_img01.png" alt="" />
+          </div>
+        </div>
+
+        <div class="sec-explain__right">
+          <div class="set-text">
+            <img class="icon-text__icon" src="assets/03_Integrated/02_explain_icon01.svg" alt="" />
+            <div>
+              <h3 class="sec-explain__text-title">흩어진 운영을 하나로</h3>
+              <p class="sec-explain__text-sub">주문부터 정산까지 분산된 과정을 연결</p>
+            </div>
+          </div>
+          <div class="set-text">
+            <img class="icon-text__icon" src="assets/03_Integrated/02_explain_icon01.svg" alt="" />
+            <div>
+              <h3 class="sec-explain__text-title">진행 상황을 한눈에</h3>
+              <p class="sec-explain__text-sub">어디까지 진행됐는지 바로 확인</p>
+            </div>
+          </div>
+          <div class="set-text">
+            <img class="icon-text__icon" src="assets/03_Integrated/02_explain_icon01.svg" alt="" />
+            <div>
+              <h3 class="sec-explain__text-title">누락 없이 관리</h3>
+              <p class="sec-explain__text-sub">중간 단계 누락 없이 안정적으로 관리</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec-situation" aria-labelledby="situation-title">
+      <div class="section-head">
+        <p class="eyebrow">운영 관리</p>
+        <h2 id="situation-title" class="section-title">복잡한 운영, 하나의 흐름으로</h2>
+      </div>
+      <div class="sec-situation__grid">
+        <article class="screen-card">
+          <h3 class="screen-card__title">모든 운영을 한 화면에</h3>
+          <p class="screen-card__desc">주문부터 정산까지 전체 과정을 단계별로 확인할 수 있습니다.</p>
+          <div class="screen-card__image">
+            <img src="assets/03_Integrated/03_Situation_img01.png" alt="운영 현황을 한 화면에서 확인하는 관리자 화면" />
+          </div>
+        </article>
+        <article class="screen-card">
+          <h3 class="screen-card__title">상태별 통합 관리</h3>
+          <p class="screen-card__desc">상품과 정산 상태를 구분해 놓치지 않고 관리할 수 있습니다.</p>
+          <div class="screen-card__image">
+            <img src="assets/03_Integrated/03_Situation_img02.png" alt="상품 상태와 정산 상태를 함께 확인하는 관리자 화면" />
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sec-review" aria-label="고객 후기">
+      <div class="sec-review__inner">
+        <p class="sec-review__quote">“흩어진 운영이 한 번에 정리됐어요”</p>
+        <p class="sec-review__desc">주문, 배송, 정산이 다 따로라 헷갈렸는데 이제는 한 화면에서 흐름이 보여서 훨씬 편해졌습니다.</p>
+      </div>
+    </section>
+
+    <section class="sec-dashboard" aria-labelledby="dashboard-title">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">통합 대시보드</p>
+        <h2 id="dashboard-title" class="section-title">한 화면에서 끝나는 운영 관리</h2>
+      </div>
+      <div class="sec-dashboard__image">
+        <img src="assets/03_Integrated/05_Dashboard_img01.png" alt="주문, 공지, 정산 요약이 모인 통합 대시보드 화면" />
+      </div>
+    </section>
+
+    <div id="contact-root"></div>
+    <script src="components/contact.js"></script>
+  </main>
+
+  <div id="footer-root"></div>
+  <script src="components/footer.js"></script>
+
+  <script>/* 스크롤 동작은 components/header.js 에서 처리 */</script>
+</body>
+
+</html>
