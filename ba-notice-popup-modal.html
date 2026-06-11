@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BA 공지 팝업 모달</title>
+<link rel="stylesheet" href="./admin.css" />
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif;
+    color: var(--admin-text, #414141);
+    background: var(--admin-bg, #f7f7f7);
+  }
+
+  .ba-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .ba-popup.is-hidden {
+    display: none;
+  }
+
+  .ba-popup__dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+  }
+
+  .ba-popup__panel {
+    position: relative;
+    width: min(100%, 420px);
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--admin-white, #ffffff);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  .ba-popup__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(40, 49, 80, 0.78);
+    color: var(--admin-white, #ffffff);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .ba-popup__close:hover {
+    background: var(--admin-red, #ed370f);
+  }
+
+  .ba-popup__image {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    background: var(--admin-input-bg, #f9fafc);
+  }
+
+  .ba-popup__image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ba-popup__body {
+    padding: 22px 22px 18px;
+  }
+
+  .ba-popup__title {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--admin-heading, #283150);
+  }
+
+  .ba-popup__text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--admin-text, #414141);
+    white-space: pre-line;
+  }
+
+  .ba-popup__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--admin-stroke, #eaf0f9);
+  }
+
+  .ba-popup__today {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--admin-muted, #6b6b6b);
+    cursor: pointer;
+  }
+
+  .ba-popup__today input {
+    cursor: pointer;
+    accent-color: var(--admin-red, #ed370f);
+  }
+
+  .ba-popup__confirm {
+    min-width: 72px;
+    height: 36px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--admin-red, #ed370f);
+    color: var(--admin-white, #ffffff);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .ba-popup__confirm:hover {
+    background: #c8300c;
+  }
+
+  @media (max-width: 480px) {
+    .ba-popup {
+      align-items: flex-end;
+      padding: 16px;
+    }
+
+    .ba-popup__panel {
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!--
+  CA 공지 등록 페이지 연동 필드
+  - popupText: 팝업 간단 문구
+  - popupImage: 팝업 이미지 파일, 권장 800x400px
+
+  BA 메인 적용 시 아래 예시 값을 서버 데이터로 교체하세요.
+  - {{popupText}}
+  - {{popupImageUrl}}
+-->
+
+<div class="ba-popup" id="baNoticePopup" role="dialog" aria-modal="true" aria-labelledby="baNoticePopupTitle">
+  <div class="ba-popup__dim" data-popup-close></div>
+
+  <section class="ba-popup__panel">
+    <button type="button" class="ba-popup__close" aria-label="팝업 닫기" data-popup-close>×</button>
+
+    <div class="ba-popup__image">
+      <img src="{{popupImageUrl}}" alt="공지 팝업 이미지" />
+    </div>
+
+    <div class="ba-popup__body">
+      <h2 id="baNoticePopupTitle" class="ba-popup__title">공지사항</h2>
+      <p class="ba-popup__text">{{popupText}}</p>
+    </div>
+
+    <div class="ba-popup__actions">
+      <label class="ba-popup__today">
+        <input type="checkbox" id="baPopupTodayHidden" />
+        오늘 하루 보지 않기
+      </label>
+      <button type="button" class="ba-popup__confirm" data-popup-close>확인</button>
+    </div>
+  </section>
+</div>
+
+<script>
+  const popup = document.getElementById("baNoticePopup");
+  const todayHiddenKey = "ba_notice_popup_hidden_until";
+  const hiddenUntil = localStorage.getItem(todayHiddenKey);
+
+  if (hiddenUntil && Number(hiddenUntil) > Date.now()) {
+    popup.classList.add("is-hidden");
+  }
+
+  document.querySelectorAll("[data-popup-close]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (document.getElementById("baPopupTodayHidden")?.checked) {
+        const tomorrow = new Date();
+        tomorrow.setHours(24, 0, 0, 0);
+        localStorage.setItem(todayHiddenKey, String(tomorrow.getTime()));
+      }
+
+      popup.classList.add("is-hidden");
+    });
+  });
+</script>
+</body>
+</html>
