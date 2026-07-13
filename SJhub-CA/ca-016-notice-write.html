@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>공지사항 등록 — SJ Hub CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+.nw-editor {
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.nw-editor__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 10px;
+  background: #f5f7fb;
+  border-bottom: 1px solid var(--admin-border);
+  flex-wrap: wrap;
+}
+.nw-editor__tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 26px;
+  border-radius: 3px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--admin-text);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: serif;
+  padding: 0 4px;
+  transition: background .12s;
+}
+.nw-editor__tool:hover { background: #e2e8f0; }
+.nw-editor__sep { width: 1px; height: 18px; background: var(--admin-border); margin: 0 4px; flex-shrink: 0; }
+.nw-editor__body {
+  min-height: 320px;
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--admin-text);
+  outline: none;
+  line-height: 1.8;
+  background: var(--admin-white);
+  font-family: inherit;
+}
+.nw-editor__body:empty::before {
+  content: attr(data-placeholder);
+  color: var(--admin-muted);
+  pointer-events: none;
+  display: block;
+}
+.nw-brand-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding: 10px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  background: var(--admin-input-bg);
+  min-height: 42px;
+}
+.nw-brand-checks label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--admin-text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nw-brand-checks input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
+.nw-upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px dashed #c9d3e6;
+  border-radius: 8px;
+  background: #f5f7fb;
+  padding: 32px 20px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  text-align: center;
+}
+.nw-upload-area:hover { border-color: var(--admin-heading); background: #edf0f8; }
+.nw-upload-area__sub { font-size: 12px; color: var(--admin-muted); }
+</style>
+</head>
+<body>
+
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">SJ Hub</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
+
+  <main class="admin-main">
+
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <a href="ca-016-notice.html" class="admin-btn admin-btn--outline admin-btn--sm">← 목록으로</a>
+      <h1 class="admin-page-title" style="margin-bottom:0;">공지사항 등록</h1>
+    </div>
+
+    <form method="post" action="#" enctype="multipart/form-data">
+
+      <!-- 섹션 1: 기본 정보 -->
+      <div class="admin-form-section">
+        <div class="admin-form-section__header">
+          <span class="admin-form-section__title">기본 정보</span>
+        </div>
+        <div class="admin-form-section__body">
+
+          <div class="admin-field">
+            <label>제목 <span class="admin-field-required">*</span></label>
+            <input type="text" name="title" placeholder="공지 제목을 입력해주세요" maxlength="100" autocomplete="off" required />
+          </div>
+
+          <div class="admin-field">
+            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+              <input type="checkbox" name="isImportant" style="accent-color:var(--admin-red);cursor:pointer;" />
+              중요 공지로 등록
+              <span style="font-size:12px;font-weight:400;color:var(--admin-muted);">체크 시 목록에 <span class="admin-badge admin-badge--important t-label-2-sb" style="vertical-align:middle;">중요</span> 배지가 표시됩니다</span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 섹션 2: 공지 대상 -->
+      <div class="admin-form-section">
+        <div class="admin-form-section__header">
+          <span class="admin-form-section__title">공지 대상</span>
+        </div>
+        <div class="admin-form-section__body">
+
+          <div class="admin-field" style="max-width:240px;">
+            <label>공지 유형</label>
+            <select name="targetType">
+              <option value="all">전체 공지</option>
+              <option value="brand">개별 공지 (대리점)</option>
+            </select>
+          </div>
+
+          <div class="admin-field">
+            <label>대리점 선택 <span style="font-size:12px;font-weight:400;color:var(--admin-muted);">개별 공지 선택 시 1개 이상 선택</span></label>
+            <div class="nw-brand-checks">
+              <label><input type="checkbox" name="brand" value="대리점_01" /> 대리점_01</label>
+              <label><input type="checkbox" name="brand" value="대리점_02" /> 대리점_02</label>
+              <label><input type="checkbox" name="brand" value="대리점_03" /> 대리점_03</label>
+              <label><input type="checkbox" name="brand" value="대리점_04" /> 대리점_04</label>
+              <label><input type="checkbox" name="brand" value="대리점_05" /> 대리점_05</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 섹션 3: 본문 내용 -->
+      <div class="admin-form-section">
+        <div class="admin-form-section__header">
+          <span class="admin-form-section__title">본문 내용</span>
+        </div>
+        <div class="admin-form-section__body">
+
+          <div class="admin-field">
+            <label>내용 <span class="admin-field-required">*</span></label>
+            <div class="nw-editor">
+              <div class="nw-editor__toolbar" role="toolbar" aria-label="텍스트 편집 도구">
+                <button type="button" class="nw-editor__tool" aria-label="굵게" title="굵게"><b>B</b></button>
+                <button type="button" class="nw-editor__tool" aria-label="기울임" title="기울임"><i>I</i></button>
+                <button type="button" class="nw-editor__tool" aria-label="밑줄" title="밑줄"><u>U</u></button>
+                <span class="nw-editor__sep" aria-hidden="true"></span>
+                <button type="button" class="nw-editor__tool" aria-label="왼쪽 정렬" title="왼쪽 정렬">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+                </button>
+                <button type="button" class="nw-editor__tool" aria-label="가운데 정렬" title="가운데 정렬">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+                </button>
+                <span class="nw-editor__sep" aria-hidden="true"></span>
+                <button type="button" class="nw-editor__tool" aria-label="글머리 목록" title="글머리 목록">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
+                </button>
+                <button type="button" class="nw-editor__tool" aria-label="번호 목록" title="번호 목록">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><text x="2" y="8" font-size="7" fill="currentColor" stroke="none">1</text><text x="2" y="14" font-size="7" fill="currentColor" stroke="none">2</text><text x="2" y="20" font-size="7" fill="currentColor" stroke="none">3</text></svg>
+                </button>
+                <span class="nw-editor__sep" aria-hidden="true"></span>
+                <button type="button" class="nw-editor__tool" aria-label="링크 삽입" title="링크 삽입">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                </button>
+                <span class="nw-editor__sep" aria-hidden="true"></span>
+                <select aria-label="글자 크기" style="height:26px;padding:0 4px;border:1px solid var(--admin-border);border-radius:3px;font-size:12px;background:var(--admin-white);cursor:pointer;font-family:inherit;outline:none;">
+                  <option value="">크기</option>
+                  <option value="small">소</option>
+                  <option value="medium">중</option>
+                  <option value="large">대</option>
+                  <option value="x-large">특대</option>
+                </select>
+              </div>
+              <div class="nw-editor__body" contenteditable="true" role="textbox" aria-multiline="true" aria-label="본문 내용 입력"
+                data-placeholder="공지 본문 내용을 입력해주세요."></div>
+            </div>
+            <textarea name="bodyContent" style="display:none;" aria-hidden="true"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 섹션 4: 팝업 설정 -->
+      <div class="admin-form-section">
+        <div class="admin-form-section__header">
+          <span class="admin-form-section__title">팝업 설정 <span style="font-size:12px;font-weight:400;color:var(--admin-muted);">(선택)</span></span>
+        </div>
+        <div class="admin-form-section__body">
+
+          <div class="admin-field">
+            <label>팝업 간단 문구
+              <span style="font-size:12px;font-weight:400;color:var(--admin-muted);margin-left:4px;">팝업 노출 시 미리보기로 표시됩니다 (50자 내외)</span>
+            </label>
+            <textarea name="popupText" rows="2" placeholder="팝업에 표시될 짧은 안내 문구를 입력해주세요." maxlength="150" style="min-height:72px;"></textarea>
+          </div>
+
+          <div class="admin-field">
+            <label>팝업 이미지
+              <span style="font-size:12px;font-weight:400;color:var(--admin-muted);margin-left:4px;">JPG / PNG · 권장 800×400px</span>
+            </label>
+            <label for="nwPopupImageInput" class="nw-upload-area">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:0.4;" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="3"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <div style="font-size:13px;font-weight:600;color:var(--admin-heading);">이미지를 업로드해주세요</div>
+              <div class="nw-upload-area__sub">클릭하거나 파일을 여기에 끌어다 놓으세요</div>
+            </label>
+            <input type="file" id="nwPopupImageInput" name="popupImage" accept="image/jpeg,image/png,image/gif,image/webp" aria-label="팝업 이미지 파일 선택" />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="admin-form-actions">
+        <a href="ca-016-notice.html" class="admin-btn admin-btn--outline" style="text-decoration:none;">취소</a>
+        <button type="submit" class="admin-btn admin-btn--primary">등록하기</button>
+      </div>
+
+    </form>
+
+  </main>
+</div>
+
+<script src="shared.js"></script>
+</body>
+</html>

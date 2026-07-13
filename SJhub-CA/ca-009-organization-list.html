@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>영업 조직 리스트 — SJ Hub CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+.org-page-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:22px; padding-right:150px; }
+.org-head-copy { min-width:0; }
+.org-summary-grid { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; margin-bottom:16px; }
+.org-summary-card { position:relative; background:var(--admin-white); border:1px solid var(--admin-stroke); border-radius:8px; padding:16px; min-height:100px; box-shadow:var(--admin-shadow-soft); overflow:hidden; }
+.org-summary-card__label { position:relative; display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--admin-muted); font-size:12px; font-weight:700; margin-bottom:16px; }
+.org-summary-card__label span { display:inline-flex; align-items:center; flex:0 0 auto; min-height:22px; padding:0 8px; border-radius:4px; background:#eaf3ff; color:#005bff; font-size:11px; line-height:20px; white-space:nowrap; }
+.org-summary-card__value { position:relative; display:flex; align-items:flex-end; gap:4px; color:var(--admin-heading); font-size:28px; font-weight:700; line-height:1; }
+.org-summary-card__value span { color:var(--admin-muted); font-size:12px; font-weight:600; line-height:1.5; }
+.org-summary-card__meta { position:relative; color:var(--admin-muted); font-size:12px; margin-top:10px; }
+.org-hierarchy-map { display:grid; grid-template-columns:1.1fr 1fr 1fr; gap:12px; align-items:stretch; margin-bottom:18px; }
+.org-map-node { position:relative; background:var(--admin-white); border:1px solid var(--node-border,#d9e8ff); border-radius:8px; padding:16px; overflow:hidden; box-shadow:var(--admin-shadow-soft); }
+.org-map-node::before { content:""; position:absolute; left:16px; top:31px; width:8px; height:8px; border-radius:50%; background:var(--node-color,#005bff); box-shadow:none; }
+.org-map-node__top { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
+.org-map-node__title { color:var(--admin-heading); font-size:16px; font-weight:700; padding-left:18px; min-height:38px; display:flex; align-items:center; }
+.org-map-node__desc { color:var(--admin-muted); font-size:12px; line-height:1.7; margin-top:12px; }
+.org-map-node__stats { display:flex; align-items:center; gap:10px; margin-top:14px; color:var(--admin-text); font-size:12px; }
+.org-map-node__stats span { display:inline-flex; align-items:center; gap:5px; min-height:30px; padding:0 10px; border-radius:4px; background:var(--node-soft,#f5f9ff); }
+.org-map-node__stats strong { color:var(--node-color,#1463ff); font-size:16px; }
+.org-map-node--branch { --node-color:#005bff; --node-border:#9ec5ff; --node-soft:#eaf3ff; --node-shadow:rgba(0,91,255,.22); }
+.org-map-node--distributor { --node-color:#00a6d6; --node-border:#8ce6ff; --node-soft:#e8fbff; --node-shadow:rgba(0,166,214,.22); }
+.org-map-node--sales { --node-color:#12b76a; --node-border:#96e7c2; --node-soft:#eafbf3; --node-shadow:rgba(18,183,106,.22); }
+.org-filter-card { margin-bottom:14px; }
+.org-toolbar-note { display:inline-flex; align-items:center; gap:6px; color:var(--admin-muted); font-size:12px; }
+.org-table { width:100%; min-width:0; table-layout:fixed; font-size:12px; }
+.org-table th { padding:8px 6px; white-space:nowrap; }
+.org-table td { padding:8px 6px; }
+.org-table th:nth-child(1), .org-table td:nth-child(1) { width:36px; }
+.org-table th:nth-child(2), .org-table td:nth-child(2) { width:62px; }
+.org-table th:nth-child(3), .org-table td:nth-child(3) { width:24%; }
+.org-table th:nth-child(4), .org-table td:nth-child(4) { width:72px; }
+.org-table th:nth-child(5), .org-table td:nth-child(5) { width:10%; }
+.org-table th:nth-child(6), .org-table td:nth-child(6) { width:70px; }
+.org-table th:nth-child(7), .org-table td:nth-child(7) { width:62px; }
+.org-table th:nth-child(8), .org-table td:nth-child(8) { width:96px; }
+.org-table th:nth-child(9), .org-table td:nth-child(9) { width:84px; }
+.org-table th:nth-child(10), .org-table td:nth-child(10) { width:172px; }
+.org-row { transition:background .12s; }
+.org-row:hover { background:#f8fbff; }
+.org-type-pill { display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; min-width:48px; min-height:24px; padding:0 6px; border-radius:4px; border:1px solid var(--type-border,#d8dfec); background:var(--type-bg,#f6f8fb); color:var(--type-color,var(--admin-heading)); font-size:12px; font-weight:700; line-height:22px; white-space:nowrap; word-break:keep-all; }
+.org-type-pill--branch { --type-bg:#eaf3ff; --type-border:#8bbcff; --type-color:#005bff; }
+.org-type-pill--distributor { --type-bg:#e8fbff; --type-border:#7adfff; --type-color:#008bb8; }
+.org-type-pill--sales { --type-bg:#eafbf3; --type-border:#87dfb8; --type-color:#0c8f52; }
+.org-name-cell { display:flex; align-items:center; gap:6px; min-width:0; }
+.org-tree-mark { position:relative; flex:0 0 22px; height:28px; }
+.org-tree-mark::before { content:""; position:absolute; top:0; bottom:0; left:13px; width:1px; background:#d8e8fb; }
+.org-tree-mark::after { content:""; position:absolute; top:14px; left:13px; width:10px; height:1px; background:#d8e8fb; }
+.org-tree-mark--root::before, .org-tree-mark--root::after { display:none; }
+.org-tree-mark--root { flex-basis:4px; }
+.org-name-main { display:flex; align-items:center; gap:6px; color:var(--admin-heading); font-weight:700; }
+.org-name-sub { max-width:100%; overflow:hidden; color:var(--admin-muted); font-size:11px; margin-top:2px; text-overflow:ellipsis; white-space:nowrap; }
+.org-indent-0 { padding-left:0; }
+.org-indent-1 { padding-left:12px; }
+.org-indent-2 { padding-left:24px; }
+.org-path { display:flex; flex-direction:column; gap:2px; min-width:0; color:var(--admin-muted); font-size:11px; line-height:1.45; }
+.org-path span, .org-path strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.org-path strong { color:var(--admin-text); font-weight:600; }
+.org-metric-stack { display:flex; flex-direction:column; gap:2px; text-align:right; white-space:nowrap; }
+.org-metric-stack strong { color:var(--admin-heading); font-size:13px; }
+.org-metric-stack span { color:var(--admin-muted); font-size:11px; }
+.org-actions { display:flex; align-items:center; justify-content:center; gap:4px; flex-wrap:wrap; min-width:0; }
+.org-actions .admin-btn--xs { min-height:24px; padding:0 6px; font-size:11px; }
+.org-empty { display:none; }
+.org-modal-overlay { display:none; position:fixed; inset:0; z-index:260; background:rgba(24,40,70,.38); align-items:center; justify-content:center; padding:16px; }
+.org-modal-overlay.is-open { display:flex; }
+.org-modal { width:620px; max-width:100%; max-height:calc(100vh - 48px); overflow:auto; background:var(--admin-white); border-radius:10px; box-shadow:0 16px 44px rgba(0,0,0,.18); }
+.org-modal__head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 20px; border-bottom:1px solid var(--admin-stroke); position:sticky; top:0; background:var(--admin-white); z-index:1; }
+.org-modal__title { margin:0; color:var(--admin-heading); font-size:16px; font-weight:700; }
+.org-modal__close { width:30px; height:30px; border-radius:6px; color:var(--admin-muted); font-size:22px; line-height:1; }
+.org-modal__close:hover { background:var(--admin-input-bg); color:var(--admin-heading); }
+.org-modal__body { padding:18px 20px 20px; }
+.org-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.org-detail-item { border:1px solid var(--admin-stroke); border-radius:8px; padding:12px; background:#f8fbff; }
+.org-detail-item__label { color:var(--admin-muted); font-size:12px; font-weight:700; margin-bottom:5px; }
+.org-detail-item__value { color:var(--admin-heading); font-size:14px; font-weight:600; }
+.org-modal__foot { display:flex; justify-content:flex-end; gap:8px; padding:16px 0 0; }
+@media (max-width:1024px) {
+  .org-page-head { flex-direction:column; padding-right:0; }
+  .org-summary-grid, .org-hierarchy-map { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:768px) {
+  .org-summary-grid, .org-hierarchy-map, .org-detail-grid { grid-template-columns:1fr; }
+  .org-actions { justify-content:flex-start; }
+}
+</style>
+</head>
+<body>
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">SJ Hub</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
+  <main class="admin-main">
+    <div class="org-page-head">
+      <div class="org-head-copy">
+        <h1 class="admin-page-title">영업 조직 리스트</h1>
+        <p class="admin-page-subtitle">CA 아래 지사, 총판, 영업의 위계와 운영 현황을 한 화면에서 관리합니다.</p>
+      </div>
+      <a href="ca-018-org-register.html" class="admin-btn admin-btn--primary">+ 영업 조직 등록</a>
+    </div>
+
+    <section class="org-summary-grid" aria-label="영업 조직 요약">
+      <div class="org-summary-card">
+        <div class="org-summary-card__label">전체 조직 <span>CA 하위</span></div>
+        <div class="org-summary-card__value" id="summaryTotal">0<span>개</span></div>
+        <div class="org-summary-card__meta">승인 완료 조직 기준</div>
+      </div>
+      <div class="org-summary-card">
+        <div class="org-summary-card__label">지사 <span>1단계</span></div>
+        <div class="org-summary-card__value" id="summaryBranch">0<span>개</span></div>
+        <div class="org-summary-card__meta">하위 조직과 연결 대리점 관리</div>
+      </div>
+      <div class="org-summary-card">
+        <div class="org-summary-card__label">총판 <span>2단계</span></div>
+        <div class="org-summary-card__value" id="summaryDistributor">0<span>개</span></div>
+        <div class="org-summary-card__meta">소속 영업과 대리점 관리</div>
+      </div>
+      <div class="org-summary-card">
+        <div class="org-summary-card__label">영업 <span>3단계</span></div>
+        <div class="org-summary-card__value" id="summarySales">0<span>명</span></div>
+        <div class="org-summary-card__meta">직접 연결 대리점 운영</div>
+      </div>
+    </section>
+
+    <section class="org-hierarchy-map" aria-label="영업 조직 위계">
+      <div class="org-map-node org-map-node--branch">
+        <div class="org-map-node__top"><span class="org-map-node__title">지사</span><span class="org-type-pill org-type-pill--branch">지사</span></div>
+        <p class="org-map-node__desc">CA 바로 아래 1단계 조직입니다. 하위 총판/영업을 관리하면서 대리점을 직접 연결할 수 있습니다.</p>
+        <div class="org-map-node__stats"><span>하위 총판 <strong id="mapDistributorCount">0</strong></span><span>연결 대리점 <strong id="mapBranchBrandCount">0</strong></span></div>
+      </div>
+      <div class="org-map-node org-map-node--distributor">
+        <div class="org-map-node__top"><span class="org-map-node__title">총판</span><span class="org-type-pill org-type-pill--distributor">총판</span></div>
+        <p class="org-map-node__desc">지사 아래 2단계 조직입니다. 소속 영업을 관리하면서 대리점을 직접 연결할 수 있습니다.</p>
+        <div class="org-map-node__stats"><span>하위 영업 <strong id="mapSalesCount">0</strong></span><span>연결 대리점 <strong id="mapDistributorBrandCount">0</strong></span></div>
+      </div>
+      <div class="org-map-node org-map-node--sales">
+        <div class="org-map-node__top"><span class="org-map-node__title">영업</span><span class="org-type-pill org-type-pill--sales">영업</span></div>
+        <p class="org-map-node__desc">현장 운영 단위입니다. 대리점을 직접 연결하고 판매 현황과 정산 정보를 확인합니다.</p>
+        <div class="org-map-node__stats"><span>직접 연결 대리점 <strong id="mapSalesBrandCount">0</strong></span><span>활성 계정 <strong id="mapActiveSalesCount">0</strong></span></div>
+      </div>
+    </section>
+
+    <div class="admin-filter-card org-filter-card">
+      <div class="admin-filter-row">
+        <span class="admin-filter-label">조직 구분</span>
+        <select class="admin-filter-select" id="fType">
+          <option value="">전체</option>
+          <option>지사</option>
+          <option>총판</option>
+          <option>영업</option>
+        </select>
+        <span class="admin-filter-label">상위 조직</span>
+        <select class="admin-filter-select" id="fParent">
+          <option value="">전체</option>
+          <option>CA</option>
+          <option>지사_01</option>
+          <option>지사_02</option>
+          <option>총판_01</option>
+          <option>총판_02</option>
+        </select>
+        <span class="admin-filter-label">상태</span>
+        <select class="admin-filter-select" id="fStatus">
+          <option value="">전체</option>
+          <option>승인</option>
+          <option>정지</option>
+        </select>
+        <span class="admin-filter-label">검색어</span>
+        <input class="admin-filter-input" id="fKeyword" type="text" placeholder="명칭, 아이디, 담당자 검색" />
+        <button class="admin-btn admin-btn--primary" id="searchBtn" type="button">검색</button>
+        <button class="admin-btn admin-btn--outline" id="resetBtn" type="button">초기화</button>
+      </div>
+    </div>
+
+    <div class="admin-action-bar">
+      <div class="admin-action-bar__left">
+        <span class="org-toolbar-note">조회 결과 <strong id="totalCount" style="color:var(--admin-heading);">0</strong>개</span>
+      </div>
+      <div class="admin-action-bar__right">
+        <button class="admin-btn admin-btn--outline admin-btn--sm" id="expandAllBtn" type="button">전체 펼침</button>
+        <button class="admin-btn admin-btn--outline admin-btn--sm" id="collapseAllBtn" type="button">지사만 보기</button>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <div class="admin-card__body--flush">
+        <div class="admin-table-wrap">
+          <table class="admin-table org-table">
+            <thead>
+              <tr>
+                <th style="width:42px;"><input type="checkbox" id="selectAll" aria-label="전체 선택" /></th>
+                <th>구분</th>
+                <th class="text-left">조직 위계</th>
+                <th>아이디</th>
+                <th class="text-left">상위 조직</th>
+                <th>활성 상태</th>
+                <th>수수료율</th>
+                <th class="text-right">연결 대리점</th>
+                <th>등록일</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="orgTableBody"></tbody>
+          </table>
+        </div>
+        <div class="admin-empty-state org-empty" id="emptyState">조회된 영업 조직이 없습니다.</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="org-modal-overlay" id="orgDetailOverlay" role="dialog" aria-modal="true" aria-labelledby="orgDetailTitle">
+  <div class="org-modal">
+    <div class="org-modal__head">
+      <h3 class="org-modal__title" id="orgDetailTitle">영업 조직 상세</h3>
+      <button class="org-modal__close" id="orgDetailClose" type="button" aria-label="닫기">×</button>
+    </div>
+    <div class="org-modal__body" id="orgDetailBody"></div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+(function() {
+  "use strict";
+
+  var ORGS = [
+    { id:"branch-01", type:"지사", level:0, name:"지사_01", loginId:"jisa01", parent:"CA", path:["CA","지사_01"], manager:"담당자_01", status:"승인", fee:6, brands:18, sales:12500000, registered:"2026.07.05" },
+    { id:"dist-01", type:"총판", level:1, name:"총판_01", loginId:"dist01", parent:"지사_01", path:["CA","지사_01","총판_01"], manager:"담당자_02", status:"승인", fee:5, brands:9, sales:7600000, registered:"2026.07.05" },
+    { id:"sales-01", type:"영업", level:2, name:"영업_01", loginId:"sales01", parent:"총판_01", path:["CA","지사_01","총판_01","영업_01"], manager:"영업_01", status:"승인", fee:4, brands:4, sales:2800000, registered:"2026.07.05" },
+    { id:"sales-02", type:"영업", level:2, name:"영업_02", loginId:"sales02", parent:"총판_01", path:["CA","지사_01","총판_01","영업_02"], manager:"영업_02", status:"승인", fee:5, brands:5, sales:3100000, registered:"2026.07.05" },
+    { id:"dist-02", type:"총판", level:1, name:"총판_02", loginId:"dist02", parent:"지사_01", path:["CA","지사_01","총판_02"], manager:"담당자_03", status:"승인", fee:6, brands:7, sales:5600000, registered:"2026.07.08" },
+    { id:"sales-03", type:"영업", level:2, name:"영업_03", loginId:"sales03", parent:"총판_02", path:["CA","지사_01","총판_02","영업_03"], manager:"영업_03", status:"정지", fee:4, brands:2, sales:720000, registered:"2026.07.09" },
+    { id:"branch-02", type:"지사", level:0, name:"지사_02", loginId:"jisa02", parent:"CA", path:["CA","지사_02"], manager:"담당자_04", status:"승인", fee:7, brands:15, sales:9800000, registered:"2026.07.05" },
+    { id:"sales-04", type:"영업", level:1, name:"영업_04", loginId:"sales04", parent:"지사_02", path:["CA","지사_02","영업_04"], manager:"영업_04", status:"승인", fee:5, brands:3, sales:1680000, registered:"2026.07.10" },
+    { id:"dist-03", type:"총판", level:1, name:"총판_03", loginId:"dist03", parent:"지사_02", path:["CA","지사_02","총판_03"], manager:"담당자_05", status:"승인", fee:5, brands:6, sales:4200000, registered:"2026.07.12" },
+    { id:"sales-05", type:"영업", level:2, name:"영업_05", loginId:"sales05", parent:"총판_03", path:["CA","지사_02","총판_03","영업_05"], manager:"영업_05", status:"승인", fee:4, brands:4, sales:2400000, registered:"2026.07.13" }
+  ];
+
+  var visible = ORGS.slice();
+  var collapsed = false;
+
+  function byId(id) { return document.getElementById(id); }
+  function count(type) { return ORGS.filter(function(org) { return org.type === type; }).length; }
+  function typeClass(type) {
+    if (type === "지사") return "org-type-pill--branch";
+    if (type === "총판") return "org-type-pill--distributor";
+    return "org-type-pill--sales";
+  }
+  function statusBadge(status) {
+    return '<span class="admin-badge ' + (status === "승인" ? "admin-badge--approved" : "admin-badge--inactive") + '">' + status + '</span>';
+  }
+  function pathHtml(org) {
+    return '<div class="org-path">' + org.path.map(function(item, index) {
+      return index === org.path.length - 1 ? '<strong>' + item + '</strong>' : '<span>' + item + '</span>';
+    }).join("") + '</div>';
+  }
+  function actionHtml(org) {
+    var addChild = org.type === "지사"
+      ? '<button class="admin-btn admin-btn--outline admin-btn--xs org-action" data-action="add-dist" data-id="' + org.id + '">하위 총판 등록</button><button class="admin-btn admin-btn--outline admin-btn--xs org-action" data-action="add-sales" data-id="' + org.id + '">하위 영업 등록</button>'
+      : org.type === "총판"
+        ? '<button class="admin-btn admin-btn--outline admin-btn--xs org-action" data-action="add-sales" data-id="' + org.id + '">하위 영업 등록</button>'
+        : "";
+    return '<div class="org-actions">' +
+      addChild +
+      '<button class="admin-btn admin-btn--primary admin-btn--xs org-action" data-action="brand-register" data-id="' + org.id + '">대리점 등록</button>' +
+      '<button class="admin-btn admin-btn--outline admin-btn--xs org-action" data-action="detail" data-id="' + org.id + '">상세</button>' +
+      '<button class="admin-btn admin-btn--outline admin-btn--xs org-action" data-action="edit" data-id="' + org.id + '">수정</button>' +
+    '</div>';
+  }
+  function renderSummary() {
+    var activeSales = ORGS.filter(function(org) { return org.type === "영업" && org.status === "승인"; }).length;
+    byId("summaryTotal").innerHTML = ORGS.length + "<span>개</span>";
+    byId("summaryBranch").innerHTML = count("지사") + "<span>개</span>";
+    byId("summaryDistributor").innerHTML = count("총판") + "<span>개</span>";
+    byId("summarySales").innerHTML = count("영업") + "<span>명</span>";
+    byId("mapDistributorCount").textContent = count("총판");
+    byId("mapSalesCount").textContent = ORGS.filter(function(org) { return org.type === "영업" && org.parent.indexOf("총판_") === 0; }).length;
+    byId("mapBranchBrandCount").textContent = ORGS.filter(function(org) { return org.type === "지사"; }).reduce(function(sum, org) { return sum + org.brands; }, 0);
+    byId("mapDistributorBrandCount").textContent = ORGS.filter(function(org) { return org.type === "총판"; }).reduce(function(sum, org) { return sum + org.brands; }, 0);
+    byId("mapSalesBrandCount").textContent = ORGS.filter(function(org) { return org.type === "영업"; }).reduce(function(sum, org) { return sum + org.brands; }, 0);
+    byId("mapActiveSalesCount").textContent = activeSales;
+  }
+  function render() {
+    var tbody = byId("orgTableBody");
+    byId("totalCount").textContent = visible.length;
+    byId("emptyState").style.display = visible.length ? "none" : "block";
+    if (!visible.length) {
+      tbody.innerHTML = "";
+      return;
+    }
+    tbody.innerHTML = visible.map(function(org) {
+      var rootClass = org.level === 0 ? "org-tree-mark--root" : "";
+      return '<tr class="org-row" data-type="' + org.type + '">' +
+        '<td class="text-center"><input type="checkbox" /></td>' +
+        '<td class="text-center"><span class="org-type-pill ' + typeClass(org.type) + '">' + org.type + '</span></td>' +
+        '<td class="text-left"><div class="org-name-cell org-indent-' + org.level + '"><span class="org-tree-mark ' + rootClass + '"></span><div><div class="org-name-main">' + org.name + '</div><div class="org-name-sub">' + org.manager + ' · ' + org.path.join(" > ") + '</div></div></div></td>' +
+        '<td class="text-center" style="font-family:monospace;font-size:12px;color:var(--admin-muted);">' + org.loginId + '</td>' +
+        '<td class="text-left">' + pathHtml(org) + '</td>' +
+        '<td class="text-center">' + statusBadge(org.status) + '</td>' +
+        '<td class="text-center">' + org.fee + '%</td>' +
+        '<td class="text-right"><div class="org-metric-stack"><strong>' + org.brands + '개</strong><span>' + AdminShared.formatCurrency(org.sales) + '</span></div></td>' +
+        '<td class="text-center">' + org.registered + '</td>' +
+        '<td class="text-center">' + actionHtml(org) + '</td>' +
+      '</tr>';
+    }).join("");
+  }
+  function applyFilter() {
+    var type = byId("fType").value;
+    var parent = byId("fParent").value;
+    var status = byId("fStatus").value;
+    var keyword = byId("fKeyword").value.trim().toLowerCase();
+    visible = ORGS.filter(function(org) {
+      if (collapsed && org.level > 0) return false;
+      if (type && org.type !== type) return false;
+      if (parent && org.parent !== parent && org.path.indexOf(parent) < 0) return false;
+      if (status && org.status !== status) return false;
+      if (keyword) {
+        var haystack = [org.name, org.loginId, org.manager, org.parent].join(" ").toLowerCase();
+        if (haystack.indexOf(keyword) < 0) return false;
+      }
+      return true;
+    });
+    render();
+  }
+  function findOrg(id) {
+    return ORGS.filter(function(org) { return org.id === id; })[0];
+  }
+  function detailRows(org) {
+    var rows = [
+      ["조직 구분", org.type],
+      ["명칭", org.name],
+      ["아이디", org.loginId],
+      ["상위 조직", org.parent],
+      ["담당자", org.manager],
+      ["활성 상태", org.status],
+      ["수수료율", org.fee + "%"],
+      ["연결 대리점", org.brands + "개"],
+      ["누적 매출", AdminShared.formatCurrency(org.sales)],
+      ["등록일", org.registered]
+    ];
+    return '<div class="org-detail-grid">' + rows.map(function(row) {
+      return '<div class="org-detail-item"><div class="org-detail-item__label">' + row[0] + '</div><div class="org-detail-item__value">' + row[1] + '</div></div>';
+    }).join("") + '</div>';
+  }
+  function openDetail(org) {
+    byId("orgDetailTitle").textContent = org.name + " 상세";
+    byId("orgDetailBody").innerHTML = detailRows(org);
+    byId("orgDetailOverlay").classList.add("is-open");
+    AdminShared.setBodyLocked(true);
+  }
+  function closeModals() {
+    byId("orgDetailOverlay").classList.remove("is-open");
+    AdminShared.setBodyLocked(false);
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    renderSummary();
+    render();
+    byId("searchBtn").addEventListener("click", applyFilter);
+    byId("resetBtn").addEventListener("click", function() {
+      ["fType", "fParent", "fStatus"].forEach(function(id) { byId(id).value = ""; });
+      byId("fKeyword").value = "";
+      collapsed = false;
+      applyFilter();
+    });
+    byId("expandAllBtn").addEventListener("click", function() { collapsed = false; applyFilter(); });
+    byId("collapseAllBtn").addEventListener("click", function() { collapsed = true; applyFilter(); });
+    byId("selectAll").addEventListener("change", function() {
+      var checked = this.checked;
+      document.querySelectorAll("#orgTableBody input[type=checkbox]").forEach(function(input) { input.checked = checked; });
+    });
+    byId("orgTableBody").addEventListener("click", function(e) {
+      var btn = e.target.closest(".org-action");
+      if (!btn) return;
+      var org = findOrg(btn.dataset.id);
+      if (!org) return;
+      if (btn.dataset.action === "detail") openDetail(org);
+      if (btn.dataset.action === "brand-register") {
+        window.location.href = "ca-003-brand-register.html?parentOrg=" + encodeURIComponent(org.name) + "&parentType=" + encodeURIComponent(org.type) + "&parentId=" + encodeURIComponent(org.id);
+      }
+      if (btn.dataset.action === "edit") AdminShared.showToast(org.name + " 수정 화면은 mock 상태입니다.");
+      if (btn.dataset.action === "add-dist") AdminShared.showToast(org.name + " 하위 총판 등록을 준비합니다.");
+      if (btn.dataset.action === "add-sales") AdminShared.showToast(org.name + " 하위 영업 등록을 준비합니다.");
+    });
+    byId("orgDetailClose").addEventListener("click", closeModals);
+    ["orgDetailOverlay"].forEach(function(id) {
+      byId(id).addEventListener("click", function(e) { if (e.target === this) closeModals(); });
+    });
+    document.addEventListener("keydown", function(e) { if (e.key === "Escape") closeModals(); });
+  });
+})();
+</script>
+</body>
+</html>

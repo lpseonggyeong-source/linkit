@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>셀러-대리점 연결 관리 — SJ Hub CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+.connect-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+.connect-row { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--admin-stroke); }
+.connect-row:last-child { border-bottom:none; }
+.connect-brand-name { font-weight:600; font-size:14px; }
+.connect-brand-meta { font-size:12px; color:var(--admin-muted); margin-top:2px; }
+.connect-toggle { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--admin-muted); }
+@media (max-width:768px) { .connect-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">SJ Hub</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
+  <main class="admin-main">
+
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <a href="ca-009-organization-list.html" class="admin-btn admin-btn--outline admin-btn--sm">← 조직 리스트</a>
+      <h1 class="admin-page-title" style="margin-bottom:0;">셀러-대리점 연결 관리</h1>
+    </div>
+    <p class="admin-page-subtitle">셀러와 대리점의 연결을 관리합니다. 한 셀러는 여러 대리점에 연결될 수 있습니다.</p>
+
+    <!-- 셀러 선택 -->
+    <div class="admin-card" style="margin-bottom:16px;">
+      <div class="admin-card__header">
+        <span class="admin-card__title">셀러 선택</span>
+      </div>
+      <div class="admin-card__body">
+        <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;">
+          <div class="admin-field" style="margin-bottom:0;min-width:200px;">
+            <label>셀러</label>
+            <select id="sellerSelect">
+              <option value="">셀러를 선택하세요</option>
+              <option value="셀러_01">셀러_01</option>
+              <option value="셀러_02">셀러_02</option>
+              <option value="셀러_03">셀러_03</option>
+              <option value="셀러_04">셀러_04</option>
+              <option value="셀러_05">셀러_05</option>
+              <option value="셀러_06">셀러_06</option>
+            </select>
+          </div>
+          <button class="admin-btn admin-btn--primary" id="loadSellerBtn">조회하기</button>
+        </div>
+        <div id="sellerInfo" style="margin-top:12px;display:none;padding:12px;background:var(--admin-input-bg);border-radius:6px;border:1px solid var(--admin-stroke);">
+          <span style="font-size:12px;color:var(--admin-muted);margin-right:8px;">소속유형</span>
+          <span id="infoType" class="admin-badge" style="margin-right:16px;"></span>
+          <span style="font-size:12px;color:var(--admin-muted);margin-right:8px;">소속 영업조직</span>
+          <span id="infoCompany" style="font-size:14px;font-weight:500;"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 연결 관리 패널 -->
+    <div class="connect-grid" id="connectGrid" style="display:none;">
+      <!-- 현재 연결 대리점 -->
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <span class="admin-card__title">현재 연결된 대리점</span>
+          <span id="connectedCount" style="font-size:12px;color:var(--admin-muted);"></span>
+        </div>
+        <div class="admin-card__body" id="connectedPanel">
+          <p style="color:var(--admin-muted);font-size:14px;">연결된 대리점가 없습니다.</p>
+        </div>
+      </div>
+      <!-- 연결 가능한 대리점 -->
+      <div class="admin-card">
+        <div class="admin-card__header">
+          <span class="admin-card__title">연결 가능한 대리점</span>
+        </div>
+        <div class="admin-card__body" id="availablePanel">
+          <p style="color:var(--admin-muted);font-size:14px;">연결 가능한 대리점가 없습니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="saveBar" style="display:none;margin-top:16px;" class="admin-form-actions">
+      <button class="admin-btn admin-btn--outline" id="resetConnectBtn">초기화</button>
+      <button class="admin-btn admin-btn--primary" id="saveConnectBtn">연결 저장</button>
+    </div>
+
+  </main>
+</div>
+<script src="shared.js"></script>
+<script>
+(function() {
+  "use strict";
+
+  var SELLERS_DATA = {
+    "셀러_01": { type:"지사 소속", company:"지사_01", connected:["대리점_01","대리점_03"] },
+    "셀러_02": { type:"총판 소속", company:"총판_01", connected:["대리점_02","대리점_05"] },
+    "셀러_03": { type:"대리점 직접",company:"—",            connected:["대리점_01"] },
+    "셀러_04": { type:"대리점 직접",company:"—",            connected:["대리점_02"] },
+    "셀러_05": { type:"대리점 직접",company:"—",            connected:["대리점_05"] },
+    "셀러_06": { type:"영업 소속", company:"영업_01", connected:["대리점_04"] },
+  };
+
+  var ALL_BRANDS = [
+    { name:"대리점_01", company:"지사_01", products:45 },
+    { name:"대리점_02", company:"CA", products:38 },
+    { name:"대리점_03", company:"총판_01", products:29 },
+    { name:"대리점_04", company:"영업_01", products:22 },
+    { name:"대리점_05", company:"CA", products:18 },
+  ];
+
+  var currentSeller = null;
+  var currentConnected = [];
+
+  function loadSeller() {
+    var val = document.getElementById("sellerSelect").value;
+    if (!val) { alert("셀러를 선택해주세요."); return; }
+    var data = SELLERS_DATA[val];
+    currentSeller = val;
+    currentConnected = data.connected.slice();
+
+    var infoEl = document.getElementById("sellerInfo");
+    infoEl.style.display = "";
+    var typeEl = document.getElementById("infoType");
+    typeEl.className = "admin-badge " + (data.type !== "대리점 직접" ? "admin-badge--company" : "admin-badge--brand-direct");
+    typeEl.textContent = data.type;
+    document.getElementById("infoCompany").textContent = data.company;
+
+    document.getElementById("connectGrid").style.display = "";
+    document.getElementById("saveBar").style.display = "";
+    renderPanels();
+  }
+
+  function renderPanels() {
+    var connPanel = document.getElementById("connectedPanel");
+    var availPanel = document.getElementById("availablePanel");
+    document.getElementById("connectedCount").textContent = currentConnected.length + "개";
+
+    if (!currentConnected.length) {
+      connPanel.innerHTML = '<p style="color:var(--admin-muted);font-size:14px;">연결된 대리점가 없습니다.</p>';
+    } else {
+      connPanel.innerHTML = currentConnected.map(function(bname) {
+        var bd = ALL_BRANDS.find(function(b) { return b.name === bname; }) || {};
+        return '<div class="connect-row">' +
+          '<div>' +
+            '<div class="connect-brand-name">' + bname + '</div>' +
+            '<div class="connect-brand-meta">관리 주체: ' + (bd.company||"—") + ' · 상품 ' + (bd.products||0) + '개</div>' +
+          '</div>' +
+          '<div class="connect-toggle">' +
+            '<label style="cursor:pointer;display:flex;align-items:center;gap:4px;">' +
+              '<input type="checkbox" checked style="accent-color:var(--admin-red);" /> 판매 가능' +
+            '</label>' +
+            '<button class="admin-btn admin-btn--danger admin-btn--sm" onclick="disconnectBrand(\'' + bname + '\')">연결해제</button>' +
+          '</div>' +
+        '</div>';
+      }).join("");
+    }
+
+    var available = ALL_BRANDS.filter(function(b) { return currentConnected.indexOf(b.name) < 0; });
+    if (!available.length) {
+      availPanel.innerHTML = '<p style="color:var(--admin-muted);font-size:14px;">연결 가능한 대리점가 없습니다.</p>';
+    } else {
+      availPanel.innerHTML = available.map(function(b) {
+        return '<div class="connect-row">' +
+          '<div>' +
+            '<div class="connect-brand-name">' + b.name + '</div>' +
+            '<div class="connect-brand-meta">관리 주체: ' + b.company + ' · 상품 ' + b.products + '개</div>' +
+          '</div>' +
+          '<button class="admin-btn admin-btn--outline admin-btn--sm" onclick="connectBrand(\'' + b.name + '\')">연결 추가</button>' +
+        '</div>';
+      }).join("");
+    }
+  }
+
+  window.connectBrand = function(bname) {
+    if (currentConnected.indexOf(bname) < 0) { currentConnected.push(bname); renderPanels(); }
+  };
+  window.disconnectBrand = function(bname) {
+    currentConnected = currentConnected.filter(function(b) { return b !== bname; });
+    renderPanels();
+  };
+
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("loadSellerBtn").addEventListener("click", loadSeller);
+    document.getElementById("saveConnectBtn").addEventListener("click", function() {
+      alert(currentSeller + " 셀러의 연결 대리점가 저장되었습니다.\n연결된 대리점: " + currentConnected.join(", "));
+    });
+    document.getElementById("resetConnectBtn").addEventListener("click", function() {
+      if (currentSeller) {
+        currentConnected = SELLERS_DATA[currentSeller].connected.slice();
+        renderPanels();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

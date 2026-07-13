@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>상품 목록 — SJ Hub CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+
+<!-- 모바일 헤더 -->
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">SJ Hub</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+
+  <!-- ── 사이드바 (shared.js 로 렌더링) ── -->
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
+
+  <!-- ── 메인 콘텐츠 ── -->
+  <main class="admin-main">
+
+    <h1 class="admin-page-title t-title-1-md">상품 목록</h1>
+
+    <!-- ── 검색 / 필터 영역 ── -->
+    <div class="admin-product-toolbar">
+
+      <!-- 필터 -->
+      <div class="admin-product-toolbar__group">
+        <span class="admin-product-toolbar__label">필터</span>
+        <div class="admin-product-toolbar__row">
+          <div class="admin-order-select-wrap">
+            <select id="productStatusFilter" aria-label="판매 상태 필터">
+              <option value="">상태</option>
+              <option value="판매중">판매중</option>
+              <option value="판매마감">판매마감</option>
+              <option value="품절">품절</option>
+            </select>
+            <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="admin-order-select-wrap">
+            <select id="productBrandFilter" aria-label="대리점 필터">
+              <option value="">대리점</option>
+              <option value="대리점_01">대리점_01</option>
+              <option value="셀러_01">셀러_01</option>
+              <option value="셀러_02">셀러_02</option>
+              <option value="대리점_03">대리점_03</option>
+              <option value="대리점_01">대리점_01</option>
+            </select>
+            <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="admin-order-select-wrap">
+            <select id="productCat1Filter" aria-label="상위 카테고리 필터">
+              <option value="">상위 카테고리</option>
+              <option value="의류">의류</option>
+              <option value="뷰티">뷰티</option>
+              <option value="홈/리빙">홈/리빙</option>
+              <option value="식품">식품</option>
+            </select>
+            <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <div class="admin-order-select-wrap">
+            <select id="productCat2Filter" aria-label="하위 카테고리 필터">
+              <option value="">하위 카테고리</option>
+              <option value="상의">상의</option>
+              <option value="하의">하의</option>
+              <option value="홈웨어">홈웨어</option>
+              <option value="잡화">잡화</option>
+            </select>
+            <svg class="admin-order-select__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- 상품명 검색 -->
+      <div class="admin-product-toolbar__group">
+        <span class="admin-product-toolbar__label">상품명 검색</span>
+        <div class="admin-product-toolbar__row">
+          <input type="text" id="productSearchInput" class="admin-order-search-input" placeholder="상품명 검색" aria-label="상품명 검색" />
+          <button type="button" class="admin-order-btn admin-order-btn--primary" id="productFilterSearchBtn">검색</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── 상품 리스트 카드 ── -->
+    <div class="admin-card">
+      <div class="admin-card__body--flush">
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="productTable">
+            <thead>
+              <tr>
+                <th scope="col" style="width:44px;">No.</th>
+                <th scope="col" style="width:68px;">대표사진</th>
+                <th scope="col" style="min-width:180px;">제품명</th>
+                <th scope="col" style="width:110px;">가격</th>
+                <th scope="col" style="width:110px;">기간판매</th>
+                <th scope="col" style="width:60px;">옵션</th>
+                <th scope="col" style="width:82px;">판매여부</th>
+                <th scope="col" style="width:56px;">재고</th>
+                <th scope="col" style="width:56px;">판매수</th>
+                <th scope="col" style="width:88px;">판매링크</th>
+                <th scope="col" style="width:88px;">등록일</th>
+                <th scope="col" style="width:110px;">관리</th>
+              </tr>
+            </thead>
+            <tbody id="productTableBody">
+              <!-- JS로 렌더링 -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="admin-pagination" id="productPagination" aria-label="페이지 네비게이션"></div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+<!-- /admin-layout -->
+
+
+<!-- ══════════════════════════════════════════════════════════
+     제품 옵션정보 팝업
+     ══════════════════════════════════════════════════════════ -->
+<div class="admin-product-modal" id="productOptionModal" role="dialog" aria-modal="true" aria-labelledby="optionModalTitle">
+  <div class="admin-product-modal__overlay" id="optionModalOverlay"></div>
+  <div class="admin-product-modal__box admin-product-modal__box--md">
+
+    <h3 class="admin-product-modal__title t-title-2-sb" id="optionModalTitle">제품 옵션정보</h3>
+
+    <p class="t-body-3-rg" style="color:var(--admin-muted); margin-bottom:4px;" id="optionModalProductName"></p>
+    <p class="t-body-3-rg" style="color:var(--admin-muted); margin-bottom:16px;">등록된 옵션 정보를 확인할 수 있습니다.</p>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th scope="col" style="width:68px;">노출여부</th>
+            <th scope="col">옵션 항목</th>
+            <th scope="col" style="width:88px;">재고 수량</th>
+            <th scope="col" style="width:88px;">추가 비용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:center;"><input type="checkbox" checked aria-label="노출여부" style="accent-color:var(--admin-red);" /></td>
+            <td>빨강 / S</td>
+            <td style="text-align:center;">200</td>
+            <td style="text-align:center;">0원</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><input type="checkbox" checked aria-label="노출여부" style="accent-color:var(--admin-red);" /></td>
+            <td>빨강 / M</td>
+            <td style="text-align:center;">200</td>
+            <td style="text-align:center;">0원</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><input type="checkbox" checked aria-label="노출여부" style="accent-color:var(--admin-red);" /></td>
+            <td>블루 / S</td>
+            <td style="text-align:center;">120</td>
+            <td style="text-align:center;">2,000원</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;"><input type="checkbox" aria-label="노출여부" style="accent-color:var(--admin-red);" /></td>
+            <td>블루 / M</td>
+            <td style="text-align:center;">0</td>
+            <td style="text-align:center;">2,000원</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="admin-product-modal__footer">
+      <button type="button" class="admin-btn admin-btn--outline t-label-1-md" id="optionModalCloseBtn">닫기</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     상품 정보 수정 모달
+     ══════════════════════════════════════════════════════════ -->
+<div class="admin-product-modal" id="productEditModal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+  <div class="admin-product-modal__overlay" id="editModalOverlay"></div>
+  <div class="admin-product-modal__box admin-product-modal__box--lg">
+
+    <!-- sticky header -->
+    <div class="admin-product-edit-header">
+      <span class="admin-product-edit-header__title t-title-2-sb" id="editModalTitle">상품 정보 수정</span>
+      <button type="button" class="admin-product-edit-close" id="editModalCloseBtn" aria-label="모달 닫기">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- scrollable body -->
+    <div class="admin-product-edit-body">
+
+      <!-- 기본 정보 -->
+      <div class="admin-product-edit-section">
+        <div class="admin-product-edit-section__title t-label-1-sb">기본 정보</div>
+
+        <div class="admin-field">
+          <label class="t-label-1-md">상품 카테고리</label>
+          <div class="admin-product-cat-row">
+            <div class="admin-product-cat-display" id="editCatDisplay">뷰티 &gt; 스킨케어</div>
+            <button type="button" class="admin-btn admin-btn--outline admin-btn--sm t-label-2-md" id="editCatChangeBtn">변경</button>
+          </div>
+        </div>
+
+        <div class="admin-field">
+          <label for="editProductName" class="t-label-1-md">상품명</label>
+          <input type="text" id="editProductName" name="productName"
+            value="ELLE PARIS PDRN 콜라겐 녹는실 탄력 앰플"
+            placeholder="상품명을 입력해주세요" autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- 판매 설정 -->
+      <div class="admin-product-edit-section">
+        <div class="admin-product-edit-section__title t-label-1-sb">판매 설정</div>
+
+        <div class="admin-fields-row">
+          <div class="admin-field">
+            <label for="editProductPrice" class="t-label-1-md">판매가</label>
+            <div class="admin-product-input-group">
+              <input type="number" id="editProductPrice" name="productPrice" value="49000" min="0" />
+              <span class="admin-product-input-group__unit">원</span>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label for="editSupplyPrice" class="t-label-1-md">공급가</label>
+            <div class="admin-product-input-group">
+              <input type="number" id="editSupplyPrice" name="supplyPrice" value="30000" min="0" />
+              <span class="admin-product-input-group__unit">원</span>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label for="editDiscountPrice" class="t-label-1-md">할인가</label>
+            <div class="admin-product-input-group">
+              <input type="number" id="editDiscountPrice" name="discountPrice" value="10000" min="0" />
+              <span class="admin-product-input-group__unit">원</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-fields-row">
+          <div class="admin-field">
+            <label for="editInitStock" class="t-label-1-md">시작 재고</label>
+            <div class="admin-product-input-group">
+              <input type="number" id="editInitStock" name="initStock" value="200" min="0" />
+              <span class="admin-product-input-group__unit">EA</span>
+            </div>
+            <span class="product-hint">(수량 제한 없는 경우 0을 입력하세요)</span>
+          </div>
+          <div class="admin-field">
+            <label class="t-label-1-md">기간 판매</label>
+            <div class="admin-product-date-range">
+              <input type="date" id="editSaleStart" name="saleStart" value="2026-01-01" aria-label="판매 시작일" />
+              <span class="admin-product-date-sep">~</span>
+              <input type="date" id="editSaleEnd" name="saleEnd" value="2026-06-30" aria-label="판매 종료일" />
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-field" style="max-width:260px;">
+          <label for="editSellerAccount" class="t-label-1-md">셀러 계정</label>
+          <select id="editSellerAccount" name="셀러_01ccount">
+            <option value="">셀러 명</option>
+            <option value="대리점_01" selected>대리점_01</option>
+            <option value="셀러_01">셀러_01</option>
+            <option value="셀러_02">셀러_02</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 배송 설정 -->
+      <div class="admin-product-edit-section">
+        <div class="admin-product-edit-section__title t-label-1-sb">배송 설정</div>
+
+        <div class="admin-fields-row">
+          <div class="admin-field">
+            <label for="editFreeShipping" class="t-label-1-md">무료배송 기준</label>
+            <div class="admin-product-input-group">
+              <input type="number" id="editFreeShipping" name="freeShipping" value="100000" min="0" />
+              <span class="admin-product-input-group__unit">원 이하 주문 시</span>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label for="editBaseShipping" class="t-label-1-md">기본 배송비</label>
+            <div class="admin-product-input-group">
+              <input type="number" id="editBaseShipping" name="baseShipping" value="3000" min="0" />
+              <span class="admin-product-input-group__unit">원</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-fields-row">
+          <div class="admin-field">
+            <label for="editJejuShipping" class="t-label-1-md">제주 추가 배송비</label>
+            <div class="admin-product-input-group">
+              <input type="number" id="editJejuShipping" name="jejuShipping" value="3000" min="0" />
+              <span class="admin-product-input-group__unit">원</span>
+            </div>
+          </div>
+          <div class="admin-field">
+            <label for="editIslandShipping" class="t-label-1-md">도서산간 추가 배송비</label>
+            <div class="admin-product-input-group">
+              <input type="number" id="editIslandShipping" name="islandShipping" value="5000" min="0" />
+              <span class="admin-product-input-group__unit">원</span>
+            </div>
+            <span class="product-hint">(고정 배송비일 경우 0원을 입력하세요)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 추가 옵션 -->
+      <div class="admin-product-edit-section">
+        <div class="admin-product-edit-section__title t-label-1-sb">추가 옵션</div>
+        <div class="admin-field">
+          <label for="editExtraOption" class="t-label-1-md">입력 옵션 설정</label>
+          <textarea id="editExtraOption" name="extraOption" rows="3"
+            placeholder="고객에게 받아야 되는 내용이 있는 경우 입력 (예: 전달사항 입력해 주세요)"></textarea>
+        </div>
+      </div>
+
+      <!-- 상세 페이지 설정 -->
+      <div class="admin-product-edit-section">
+        <div class="admin-product-edit-section__title t-label-1-sb">상세 페이지 설정</div>
+
+        <div class="admin-product-detail-tabs" role="tablist" aria-label="상세 페이지 편집 방식">
+          <button type="button" class="admin-product-detail-tab t-label-1-md" role="tab" data-tab="tabImageOnly" aria-selected="false">이미지만 등록</button>
+          <button type="button" class="admin-product-detail-tab t-label-1-md is-active" role="tab" data-tab="tabEditor" aria-selected="true">에디터 이용</button>
+        </div>
+
+        <!-- 이미지만 등록 탭 -->
+        <div class="admin-product-tab-panel" id="tabImageOnly" role="tabpanel">
+          <label for="productDetailImageInput" id="productDetailUploadBox" class="admin-product-upload-box" aria-label="상세 이미지 업로드">
+            <div class="admin-product-upload-box__icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="3"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </div>
+            <div class="admin-product-upload-box__main">이미지를 업로드해주세요</div>
+            <div class="admin-product-upload-box__sub">JPG / PNG · 클릭하거나 파일을 여기에 끌어다 놓으세요</div>
+            <div class="admin-product-upload-box__files" id="productDetailUploadFiles"></div>
+          </label>
+          <input type="file" id="productDetailImageInput" accept=".jpg,.jpeg,.png" multiple style="display:none;" aria-label="상세 이미지 파일 선택" />
+        </div>
+
+        <!-- 에디터 이용 탭 -->
+        <div class="admin-product-tab-panel is-active" id="tabEditor" role="tabpanel">
+          <div class="admin-product-editor">
+            <div class="admin-product-editor__toolbar" role="toolbar" aria-label="텍스트 편집 도구">
+              <button type="button" class="admin-product-editor__tool" aria-label="굵게" title="굵게"><b>B</b></button>
+              <button type="button" class="admin-product-editor__tool" aria-label="기울임" title="기울임"><i>I</i></button>
+              <button type="button" class="admin-product-editor__tool" aria-label="밑줄" title="밑줄"><u>U</u></button>
+              <span class="admin-product-editor__sep" aria-hidden="true"></span>
+              <button type="button" class="admin-product-editor__tool" aria-label="왼쪽 정렬" title="왼쪽 정렬">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+              </button>
+              <button type="button" class="admin-product-editor__tool" aria-label="가운데 정렬" title="가운데 정렬">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+              </button>
+              <span class="admin-product-editor__sep" aria-hidden="true"></span>
+              <button type="button" class="admin-product-editor__tool" aria-label="링크" title="링크">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+              <button type="button" class="admin-product-editor__tool" aria-label="이미지 삽입" title="이미지 삽입">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </button>
+            </div>
+            <div class="admin-product-editor__body" contenteditable="true" role="textbox" aria-multiline="true" aria-label="상품 상세 설명"
+              data-placeholder="상품 상세 설명을 입력해주세요."></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /edit body -->
+
+    <!-- sticky footer -->
+    <div class="admin-product-edit-footer">
+      <button type="button" class="admin-btn admin-btn--primary t-label-1-md" id="editModalSaveBtn" style="width:100%;">저장</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     카테고리 변경 모달
+     ══════════════════════════════════════════════════════════ -->
+<div class="admin-product-modal" id="productCatModal" role="dialog" aria-modal="true" aria-labelledby="catModalTitle" style="z-index:600;">
+  <div class="admin-product-modal__overlay" id="catModalOverlay"></div>
+  <div class="admin-product-modal__box admin-product-modal__box--md">
+
+    <h3 class="admin-product-modal__title t-title-2-sb" id="catModalTitle">카테고리 변경</h3>
+
+    <label for="catSearchInput" class="sr-only">카테고리 검색</label>
+    <input type="text" id="catSearchInput" class="admin-product-cat-search" placeholder="카테고리 검색" aria-label="카테고리 검색" />
+
+    <p class="admin-product-cat-selected t-body-3-rg">현재 선택: <strong id="catSelectedLabel">뷰티 &gt; 스킨케어</strong></p>
+
+    <div class="admin-product-cat-panels" role="group" aria-label="카테고리 선택">
+      <!-- 좌측: 상위 카테고리 -->
+      <div class="admin-product-cat-panel" id="productCatDepth1" role="listbox" aria-label="상위 카테고리">
+        <button type="button" class="admin-product-cat-item product-cat-depth1-item" data-cat="의류" role="option">의류</button>
+        <button type="button" class="admin-product-cat-item product-cat-depth1-item" data-cat="뷰티" role="option">뷰티</button>
+        <button type="button" class="admin-product-cat-item product-cat-depth1-item" data-cat="홈/리빙" role="option">홈/리빙</button>
+        <button type="button" class="admin-product-cat-item product-cat-depth1-item" data-cat="식품" role="option">식품</button>
+      </div>
+      <!-- 우측: 하위 카테고리 (JS로 렌더링) -->
+      <div class="admin-product-cat-panel" id="productCatDepth2" role="listbox" aria-label="하위 카테고리">
+        <p class="t-body-3-rg" style="padding:16px; color:var(--admin-muted);">상위 카테고리를 선택해주세요</p>
+      </div>
+    </div>
+
+    <div class="admin-product-modal__footer">
+      <button type="button" class="admin-btn admin-btn--outline t-label-1-md" id="catModalCloseBtn">취소</button>
+      <button type="button" class="admin-btn admin-btn--primary t-label-1-md" id="catModalApplyBtn">적용</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     상품 복사 확인 모달
+     ══════════════════════════════════════════════════════════ -->
+<div class="admin-product-modal" id="productCopyModal" role="dialog" aria-modal="true" aria-labelledby="copyModalTitle">
+  <div class="admin-product-modal__overlay" id="copyModalOverlay"></div>
+  <div class="admin-product-modal__box">
+
+    <div class="admin-product-modal__warning">
+      <div class="admin-product-modal__warning-icon" aria-hidden="true">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="26" fill="#eef2ff"/>
+          <circle cx="26" cy="26" r="20" stroke="#4263eb" stroke-width="1.5" fill="none"/>
+          <path d="M16 18h20M16 26h14M16 34h10" stroke="#4263eb" stroke-width="2" stroke-linecap="round"/>
+          <path d="M34 28v8M30 32h8" stroke="#4263eb" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="admin-product-modal__warning-title t-title-2-sb" id="copyModalTitle">상품을 복사하시겠습니까?</h3>
+      <p class="admin-product-modal__warning-desc t-body-3-rg">
+        선택한 상품과 동일한 정보로 새 상품이 추가됩니다.<br />
+        복사된 상품은 상품명 앞에 [복사본]이 붙어 생성됩니다.
+      </p>
+      <p class="t-label-2-md" style="margin-top:10px; color:var(--admin-heading);" id="copyModalProductName"></p>
+    </div>
+
+    <div class="admin-product-modal__footer">
+      <button type="button" class="admin-btn admin-btn--outline t-label-1-md" id="copyModalCancelBtn">취소</button>
+      <button type="button" class="admin-btn admin-btn--primary t-label-1-md" id="copyModalConfirmBtn">복사하기</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     상품 삭제 확인 모달
+     ══════════════════════════════════════════════════════════ -->
+<div class="admin-product-modal" id="productDeleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+  <div class="admin-product-modal__overlay" id="deleteModalOverlay"></div>
+  <div class="admin-product-modal__box">
+
+    <div class="admin-product-modal__warning">
+      <div class="admin-product-modal__warning-icon" aria-hidden="true">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="26" fill="#eff6ff"/>
+          <circle cx="26" cy="26" r="20" stroke="var(--admin-red)" stroke-width="1.5" fill="none"/>
+          <path d="M26 18v10" stroke="var(--admin-red)" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="26" cy="33" r="1.5" fill="var(--admin-red)"/>
+        </svg>
+      </div>
+      <h3 class="admin-product-modal__warning-title t-title-2-sb" id="deleteModalTitle">상품을 삭제하시겠습니까?</h3>
+      <p class="admin-product-modal__warning-desc t-body-3-rg">삭제된 상품은 복구할 수 없습니다.</p>
+    </div>
+
+    <div class="admin-product-modal__footer">
+      <button type="button" class="admin-btn admin-btn--outline t-label-1-md" id="deleteModalCancelBtn">취소</button>
+      <button type="button" class="admin-btn admin-btn--danger t-label-1-md" id="deleteModalConfirmBtn">삭제</button>
+    </div>
+
+  </div>
+</div>
+
+
+<script src="shared.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var STATUSES = [
+    { key: "판매중",   cls: "admin-product-status-btn--active"  },
+    { key: "판매마감", cls: "admin-product-status-btn--closed"  },
+    { key: "품절",    cls: "admin-product-status-btn--soldout" }
+  ];
+
+  var productData = [
+    {id:1,  img:"../assets/긴팔.png",      name:"(국내제작)(여리핏/데일리룩/쫀쫀신축성) 메이드 스퀘어넥 슬림 골지 긴팔 티셔츠", orig:"40,000원", sale:"35,000원", period:"2026-07-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:125, sold:88,  channel:"대리점_01", regDate:"2026-04-01"},
+    {id:2,  img:"../assets/sleeveless.png", name:"ELLE PARIS PDRN 콜라겐 녹는실 탄력 앰플",                                      orig:"55,000원", sale:"49,000원", period:"2026-06-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:200, sold:156, channel:"대리점_01", regDate:"2026-04-05"},
+    {id:3,  img:"../assets/블라우스.png",   name:"(단독진행)(봄신상/러블리무드/레이어드추천) 루에느 리본 퍼프 블라우스",          orig:"45,000원", sale:"38,000원", period:"2026-05-15", periodEnd:"10:00 까지 판매", statusIdx:1, stock:0,   sold:210, channel:"셀러_01", regDate:"2026-03-20"},
+    {id:4,  img:"../assets/mug.png",       name:"(1+1구성) 모던 세라믹 머그컵 세트",                                             orig:"28,000원", sale:"22,000원", period:"2026-08-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:80,  sold:45,  channel:"셀러_02", regDate:"2026-04-10"},
+    {id:5,  img:"../assets/pants.png",     name:"(기획특가) 와이드 핀턱 밴딩 슬랙스",                                            orig:"58,000원", sale:"52,000원", period:"2026-06-01", periodEnd:"18:00 까지 판매", statusIdx:2, stock:0,   sold:320, channel:"대리점_01", regDate:"2026-03-15"},
+    {id:6,  img:"../assets/longsleeves.png",name:"[써머세일] 오가닉 코튼 스트라이프 오버핏 셔츠",                               orig:"39,000원", sale:"32,000원", period:"2026-09-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:150, sold:72,  channel:"셀러_01", regDate:"2026-04-15"},
+    {id:7,  img:"../assets/minibag.png",   name:"[기획] 프리미엄 레더 미니 크로스백",                                            orig:"120,000원",sale:"99,000원", period:"2026-12-31", periodEnd:"23:59 까지 판매", statusIdx:0, stock:30,  sold:15,  channel:"대리점_01", regDate:"2026-04-20"},
+    {id:8,  img:"../assets/긴팔-1.png",    name:"청량한 여름 린넨 블렌드 와이드 팬츠",                                           orig:"62,000원", sale:"55,000원", period:"2026-07-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:95,  sold:63,  channel:"셀러_02", regDate:"2026-04-25"},
+    {id:9,  img:"../assets/hood.png",      name:"내추럴 우드 스탠딩 데스크 라이트",                                              orig:"89,000원", sale:"75,000원", period:"2026-05-31", periodEnd:"23:59 까지 판매", statusIdx:1, stock:10,  sold:28,  channel:"셀러_01", regDate:"2026-04-02"},
+    {id:10, img:"../assets/블라우스.png",   name:"비건 시카 진정 수분 크림 50ml",                                                orig:"35,000원", sale:"29,000원", period:"2026-10-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:180, sold:94,  channel:"대리점_01", regDate:"2026-05-01"},
+    {id:11, img:"../assets/긴팔.png",      name:"캐시미어 블렌드 터틀넥 니트 풀오버",                                            orig:"89,000원", sale:"72,000원", period:"2026-11-30", periodEnd:"23:59 까지 판매", statusIdx:0, stock:60,  sold:41,  channel:"대리점_03",   regDate:"2026-04-08"},
+    {id:12, img:"../assets/sleeveless.png",name:"[리뉴얼] 비타민C 브라이트닝 세럼 30ml",                                       orig:"42,000원", sale:"36,000원", period:"2026-08-15", periodEnd:"23:59 까지 판매", statusIdx:0, stock:300, sold:187, channel:"셀러_02",  regDate:"2026-03-25"},
+    {id:13, img:"../assets/pants.png",     name:"(데일리룩) 스트레치 조거 팬츠 / 베이지",                                        orig:"32,000원", sale:"27,000원", period:"2026-07-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:110, sold:98,  channel:"대리점_01", regDate:"2026-04-12"},
+    {id:14, img:"../assets/hood.png",      name:"[봄기획] 오버핏 루즈핏 후드 집업",                                              orig:"55,000원", sale:"45,000원", period:"2026-06-15", periodEnd:"23:59 까지 판매", statusIdx:2, stock:0,   sold:253, channel:"셀러_01",  regDate:"2026-03-10"},
+    {id:15, img:"../assets/mug.png",       name:"핸드메이드 도자기 머그컵 / 민트",                                               orig:"22,000원", sale:"18,500원", period:"2026-09-01", periodEnd:"23:59 까지 판매", statusIdx:0, stock:45,  sold:32,  channel:"대리점_03",   regDate:"2026-04-18"}
+  ];
+
+  var ICON_EDIT = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+  var ICON_DEL  = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+
+  var PAGE_SIZE    = 10;
+  var currentPage  = 1;
+  var filteredData = productData.slice();
+  var selectedProduct = null;
+
+  /* ── 모달 헬퍼 ── */
+  function openModal(id)  { var m = document.getElementById(id); if (m) m.classList.add("is-open"); }
+  function closeModal(id) { var m = document.getElementById(id); if (m) m.classList.remove("is-open"); }
+
+  /* ── 테이블 렌더링 ── */
+  function renderProductList() {
+    var tbody = document.getElementById("productTableBody");
+    var pag   = document.getElementById("productPagination");
+    if (!tbody) return;
+
+    var start = (currentPage - 1) * PAGE_SIZE;
+    var rows  = filteredData.slice(start, start + PAGE_SIZE);
+
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; padding:40px 16px; color:var(--admin-muted);">검색 결과가 없습니다.</td></tr>';
+      if (pag) pag.innerHTML = "";
+      return;
+    }
+
+    tbody.innerHTML = rows.map(function (p, idx) {
+      var num = start + idx + 1;
+      var st  = STATUSES[p.statusIdx];
+      return '<tr data-product-id="' + p.id + '">' +
+        '<td style="text-align:center;">' + num + '</td>' +
+        '<td style="text-align:center;"><div class="admin-product-thumb"><img src="' + p.img + '" alt="상품 이미지" onerror="this.style.display=\'none\'" /></div></td>' +
+        '<td><span class="admin-product-name">' + p.name + '</span></td>' +
+        '<td><div class="admin-product-price"><span class="admin-product-price__original">' + p.orig + '</span><span class="admin-product-price__sale">' + p.sale + '</span></div></td>' +
+        '<td><div class="admin-product-period">' + p.period + '<br /><span class="admin-product-period__time">' + p.periodEnd + '</span></div></td>' +
+        '<td style="text-align:center;"><button type="button" class="admin-product-option-btn product-option-btn" aria-label="옵션 관리">관리</button></td>' +
+        '<td style="text-align:center;"><button type="button" class="admin-product-status-btn product-status-btn ' + st.cls + '" data-status="' + st.key + '" aria-label="판매 상태 변경">' + st.key + '</button></td>' +
+        '<td style="text-align:center;">' + p.stock + '</td>' +
+        '<td style="text-align:center;">' + p.sold + '</td>' +
+        '<td><div class="admin-product-link"><span class="admin-product-link__channel">' + p.channel + '</span><button type="button" class="admin-product-link__copy product-link-copy-btn" data-link="https://linkit.kr/product/' + p.id + '" aria-label="링크 복사">링크 복사</button></div></td>' +
+        '<td class="t-body-3-rg" style="text-align:center; color:var(--admin-muted);">' + p.regDate + '</td>' +
+        '<td><div class="admin-product-actions">' +
+          '<button type="button" class="admin-btn admin-btn--outline admin-btn--sm product-copy-btn" aria-label="상품 복사">상품복사</button>' +
+          '<button type="button" class="admin-product-icon-btn product-edit-btn" aria-label="상품 수정">' + ICON_EDIT + '</button>' +
+          '<button type="button" class="admin-product-icon-btn admin-product-icon-btn--danger product-delete-btn" aria-label="상품 삭제">' + ICON_DEL + '</button>' +
+        '</div></td>' +
+      '</tr>';
+    }).join("");
+
+    renderPagination();
+  }
+
+  /* ── 페이지네이션 ── */
+  function renderPagination() {
+    var pag = document.getElementById("productPagination");
+    if (!pag) return;
+    var total      = filteredData.length;
+    var totalPages = Math.ceil(total / PAGE_SIZE) || 1;
+    if (totalPages <= 1) { pag.innerHTML = ""; return; }
+
+    var ICON_PREV = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>';
+    var ICON_NEXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>';
+
+    var html = "";
+    html += '<button type="button" class="admin-page-btn" data-pl-page="prev" aria-label="이전 페이지"' + (currentPage === 1 ? " disabled" : "") + ">" + ICON_PREV + "</button>";
+    var group  = Math.floor((currentPage - 1) / 5);
+    var startP = group * 5 + 1;
+    var endP   = Math.min(startP + 4, totalPages);
+    for (var i = startP; i <= endP; i++) {
+      html += '<button type="button" class="admin-page-btn' + (i === currentPage ? " is-active" : "") + '" data-pl-page="' + i + '" aria-label="' + i + ' 페이지">' + i + "</button>";
+    }
+    if (endP < totalPages) {
+      html += '<span class="admin-page-btn" style="border:none;background:none;cursor:default;color:var(--admin-muted);" aria-hidden="true">…</span>';
+      html += '<button type="button" class="admin-page-btn" data-pl-page="' + totalPages + '" aria-label="' + totalPages + ' 페이지">' + totalPages + "</button>";
+    }
+    html += '<button type="button" class="admin-page-btn" data-pl-page="next" aria-label="다음 페이지"' + (currentPage === totalPages ? " disabled" : "") + ">" + ICON_NEXT + "</button>";
+    pag.innerHTML = html;
+  }
+
+  /* ── 필터 적용 ── */
+  function applyFilter() {
+    var keyword = (document.getElementById("productSearchInput").value || "").trim().toLowerCase();
+    var statusV = document.getElementById("productStatusFilter").value;
+    var brandV  = document.getElementById("productBrandFilter").value;
+    filteredData = productData.filter(function (p) {
+      var st = STATUSES[p.statusIdx].key;
+      if (statusV && st !== statusV) return false;
+      if (brandV  && p.channel !== brandV) return false;
+      if (keyword && p.name.toLowerCase().indexOf(keyword) < 0) return false;
+      return true;
+    });
+    currentPage = 1;
+    renderProductList();
+  }
+
+  /* ── 카테고리 모달 ── */
+  var CAT_MAP = {
+    "의류": ["상의", "하의", "원피스", "아우터", "언더웨어"],
+    "뷰티": ["스킨케어", "메이크업", "헤어케어", "바디케어", "향수"],
+    "홈/리빙": ["홈웨어", "주방용품", "인테리어", "욕실용품", "잡화"],
+    "식품": ["간식/과자", "음료", "건강식품", "신선식품", "가공식품"]
+  };
+  var selectedCat1 = "", selectedCat2 = "";
+
+  function initCatModal() {
+    var depth1Btns = document.querySelectorAll(".product-cat-depth1-item");
+    var depth2El   = document.getElementById("productCatDepth2");
+    var selectedLbl = document.getElementById("catSelectedLabel");
+
+    depth1Btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        depth1Btns.forEach(function (b) { b.classList.remove("is-selected"); });
+        btn.classList.add("is-selected");
+        selectedCat1 = btn.dataset.cat;
+        selectedCat2 = "";
+        var subs = CAT_MAP[selectedCat1] || [];
+        depth2El.innerHTML = subs.map(function (s) {
+          return '<button type="button" class="admin-product-cat-item product-cat-depth2-item" data-cat="' + s + '" role="option">' + s + "</button>";
+        }).join("");
+        depth2El.querySelectorAll(".product-cat-depth2-item").forEach(function (b2) {
+          b2.addEventListener("click", function () {
+            depth2El.querySelectorAll(".product-cat-depth2-item").forEach(function (x) { x.classList.remove("is-selected"); });
+            b2.classList.add("is-selected");
+            selectedCat2 = b2.dataset.cat;
+            if (selectedLbl) selectedLbl.textContent = selectedCat1 + " > " + selectedCat2;
+          });
+        });
+      });
+    });
+
+    document.getElementById("catModalApplyBtn").addEventListener("click", function () {
+      if (selectedCat1 && selectedCat2) {
+        var display = document.getElementById("editCatDisplay");
+        if (display) display.textContent = selectedCat1 + " > " + selectedCat2;
+      }
+      closeModal("productCatModal");
+    });
+    document.getElementById("catModalCloseBtn").addEventListener("click",   function () { closeModal("productCatModal"); });
+    document.getElementById("catModalOverlay").addEventListener("click",    function () { closeModal("productCatModal"); });
+    document.getElementById("editCatChangeBtn").addEventListener("click",   function () { openModal("productCatModal"); });
+  }
+
+  /* ── 이벤트 위임 (테이블) ── */
+  function initTableEvents() {
+    var tbody = document.getElementById("productTableBody");
+    if (!tbody) return;
+
+    tbody.addEventListener("click", function (e) {
+      var row = e.target.closest("tr[data-product-id]");
+      if (!row) return;
+      var pid = parseInt(row.dataset.productId, 10);
+      selectedProduct = productData.filter(function (p) { return p.id === pid; })[0] || null;
+
+      if (e.target.closest(".product-option-btn")) {
+        if (selectedProduct) {
+          var el = document.getElementById("optionModalProductName");
+          if (el) el.textContent = selectedProduct.name;
+        }
+        openModal("productOptionModal");
+      }
+      if (e.target.closest(".product-edit-btn")) {
+        if (selectedProduct) {
+          var nm = document.getElementById("editProductName");
+          if (nm) nm.value = selectedProduct.name;
+        }
+        openModal("productEditModal");
+      }
+      if (e.target.closest(".product-copy-btn")) {
+        if (selectedProduct) {
+          var cp = document.getElementById("copyModalProductName");
+          if (cp) cp.textContent = selectedProduct.name;
+        }
+        openModal("productCopyModal");
+      }
+      if (e.target.closest(".product-delete-btn")) {
+        openModal("productDeleteModal");
+      }
+      if (e.target.closest(".product-status-btn")) {
+        var btn = e.target.closest(".product-status-btn");
+        var cur = btn.dataset.status;
+        var next = cur === "판매중" ? 1 : cur === "판매마감" ? 2 : 0;
+        var ns = STATUSES[next];
+        btn.dataset.status = ns.key;
+        btn.textContent = ns.key;
+        btn.className = "admin-product-status-btn product-status-btn " + ns.cls;
+        if (selectedProduct) selectedProduct.statusIdx = next;
+      }
+      if (e.target.closest(".product-link-copy-btn")) {
+        var linkBtn = e.target.closest(".product-link-copy-btn");
+        var link = linkBtn.dataset.link;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(link).then(function () {
+            var orig = linkBtn.textContent;
+            linkBtn.textContent = "복사완료!";
+            setTimeout(function () { linkBtn.textContent = orig; }, 1500);
+          });
+        }
+      }
+    });
+  }
+
+  /* ── 모달 닫기 버튼 ── */
+  function initModals() {
+    ["optionModalCloseBtn", "optionModalOverlay"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function () { closeModal("productOptionModal"); });
+    });
+    ["editModalCloseBtn", "editModalOverlay", "editModalSaveBtn"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function () { closeModal("productEditModal"); });
+    });
+    ["copyModalCancelBtn", "copyModalOverlay"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function () { closeModal("productCopyModal"); });
+    });
+    document.getElementById("copyModalConfirmBtn").addEventListener("click", function () {
+      closeModal("productCopyModal");
+    });
+    ["deleteModalCancelBtn", "deleteModalOverlay"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function () { closeModal("productDeleteModal"); });
+    });
+    document.getElementById("deleteModalConfirmBtn").addEventListener("click", function () {
+      if (selectedProduct) {
+        productData = productData.filter(function (p) { return p.id !== selectedProduct.id; });
+        filteredData = filteredData.filter(function (p) { return p.id !== selectedProduct.id; });
+        selectedProduct = null;
+        renderProductList();
+      }
+      closeModal("productDeleteModal");
+    });
+
+    /* 상세 페이지 탭 */
+    document.querySelectorAll(".admin-product-detail-tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        document.querySelectorAll(".admin-product-detail-tab").forEach(function (t) {
+          t.classList.remove("is-active");
+          t.setAttribute("aria-selected", "false");
+        });
+        document.querySelectorAll(".admin-product-tab-panel").forEach(function (p) { p.classList.remove("is-active"); });
+        tab.classList.add("is-active");
+        tab.setAttribute("aria-selected", "true");
+        var panel = document.getElementById(tab.dataset.tab);
+        if (panel) panel.classList.add("is-active");
+      });
+    });
+
+    /* ESC 키 닫기 */
+    var MODAL_IDS = ["productOptionModal", "productEditModal", "productCatModal", "productCopyModal", "productDeleteModal"];
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      MODAL_IDS.forEach(function (id) { closeModal(id); });
+    });
+  }
+
+  /* ── 페이지네이션 이벤트 ── */
+  function initPagination() {
+    var pag = document.getElementById("productPagination");
+    if (!pag) return;
+    pag.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-pl-page]");
+      if (!btn || btn.disabled) return;
+      var val = btn.getAttribute("data-pl-page");
+      var totalPages = Math.ceil(filteredData.length / PAGE_SIZE) || 1;
+      if      (val === "prev") { if (currentPage > 1) currentPage--; }
+      else if (val === "next") { if (currentPage < totalPages) currentPage++; }
+      else { currentPage = parseInt(val, 10); }
+      renderProductList();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    filteredData = productData.slice();
+    renderProductList();
+    initPagination();
+    initTableEvents();
+    initModals();
+    initCatModal();
+
+    document.getElementById("productFilterSearchBtn").addEventListener("click", applyFilter);
+    document.getElementById("productSearchInput").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") applyFilter();
+    });
+  });
+})();
+</script>
+</body>
+</html>

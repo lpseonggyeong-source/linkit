@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>공지사항 — SJ Hub CA 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+.admin-notice-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+</style>
+</head>
+<body>
+
+<!-- 모바일 헤더 -->
+<header class="admin-mobile-header">
+  <span class="admin-mobile-header__logo">SJ Hub</span>
+  <button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+</header>
+<div class="admin-overlay" id="adminOverlay"></div>
+
+<div class="admin-layout">
+  <aside class="admin-sidebar" id="adminSidebar" data-role="ca"></aside>
+
+  <main class="admin-main">
+    <h1 class="admin-page-title t-title-1-md">공지사항</h1>
+
+    <!-- 검색 영역 -->
+    <div class="admin-notice-search-bar">
+      <input type="text" class="admin-order-search-input" placeholder="키워드 검색" aria-label="키워드 검색" />
+      <button type="button" class="admin-order-btn admin-order-btn--primary">검색</button>
+      <a href="ca-016-notice-write.html" class="admin-btn admin-btn--primary" style="text-decoration:none;">+ 글쓰기</a>
+    </div>
+
+    <div class="admin-card">
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th scope="col" class="admin-notice-col-num">번호</th>
+              <th scope="col" style="text-align:left;">제목</th>
+              <th scope="col" class="admin-notice-col-author">작성자</th>
+              <th scope="col" class="admin-notice-col-date">등록일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="admin-notice-col-num">1</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 2026년 5월 정산 일정 안내</a></td>
+              <td class="admin-notice-col-author">SJ Hub 운영팀</td>
+              <td class="admin-notice-col-date">2026-05-12 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">2</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--important t-label-2-sb">중요</span> 셀러 관리 기능 업데이트 안내</a></td>
+              <td class="admin-notice-col-author">SJ Hub 개발팀</td>
+              <td class="admin-notice-col-date">2026-05-08 10:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">3</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 정산 상태 3단계 체계 도입 안내</a></td>
+              <td class="admin-notice-col-author">SJ Hub 운영팀</td>
+              <td class="admin-notice-col-date">2026-05-01 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">4</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 대리점 등록 신청 프로세스 변경 안내</a></td>
+              <td class="admin-notice-col-author">SJ Hub 운영팀</td>
+              <td class="admin-notice-col-date">2026-04-20 10:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">5</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--important t-label-2-sb">중요</span> 시스템 정기점검 안내 (4/15 02:00~04:00)</a></td>
+              <td class="admin-notice-col-author">SJ Hub 개발팀</td>
+              <td class="admin-notice-col-date">2026-04-14 18:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">6</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 2026년 1분기 정산 완료 안내</a></td>
+              <td class="admin-notice-col-author">SJ Hub 운영팀</td>
+              <td class="admin-notice-col-date">2026-04-10 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">7</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> SJ Hub CA 어드민 서비스 정식 오픈 안내</a></td>
+              <td class="admin-notice-col-author">SJ Hub 운영팀</td>
+              <td class="admin-notice-col-date">2026-03-15 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">8</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 개인정보 처리방침 개정 안내</a></td>
+              <td class="admin-notice-col-author">SJ Hub 운영팀</td>
+              <td class="admin-notice-col-date">2026-03-01 09:00</td>
+            </tr>
+            <tr>
+              <td class="admin-notice-col-num">9</td>
+              <td><a href="ca-016-notice-detail.html" class="admin-notice-title-link"><span class="admin-badge admin-badge--notice t-label-2-sb">공지</span> 대리점 약관 업데이트 안내</a></td>
+              <td class="admin-notice-col-author">SJ Hub 운영팀</td>
+              <td class="admin-notice-col-date">2026-02-15 09:00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="admin-pagination" aria-label="페이지 네비게이션">
+        <button type="button" class="admin-page-btn" aria-label="이전 페이지">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="admin-page-btn is-active" aria-current="page" aria-label="1 페이지">1</button>
+        <button type="button" class="admin-page-btn" aria-label="다음 페이지">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="shared.js"></script>
+</body>
+</html>
