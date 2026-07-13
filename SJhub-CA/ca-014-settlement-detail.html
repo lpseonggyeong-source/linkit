@@ -26,9 +26,9 @@
 
     <div class="settlement-filter-line">
       <label>정산 기간</label>
-      <input type="date" id="fFrom" value="2026-07-07" />
+      <input type="datetime-local" id="fFrom" value="2026-07-07T00:00" aria-label="정산 시작일시" />
       <span>~</span>
-      <input type="date" id="fTo" value="2026-07-07" />
+      <input type="datetime-local" id="fTo" value="2026-07-07T23:59" aria-label="정산 종료일시" />
       <select id="fTimeUnit"><option value="">전체</option><option>일별</option><option>주별</option><option>월별</option></select>
       <select id="fStatus"><option value="">정산상태 전체</option><option>정산 필요</option><option>정산대기</option><option>정산중</option><option>정산 완료</option><option>정산 보류</option></select>
       <button type="button" class="admin-btn admin-btn--primary admin-btn--sm" id="searchBtn">검색</button>

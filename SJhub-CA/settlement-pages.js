@@ -11,6 +11,20 @@
   function byId(id) { return document.getElementById(id); }
   function query(name) { return new URLSearchParams(location.search).get(name); }
   function toDateValue(s) { return String(s || "").replace(/\//g, "-").replace(/\./g, "-").slice(0, 10); }
+  function parseDateTime(s, endOfDay) {
+    if (!s) return null;
+    var normalized = String(s).trim().replace(/\//g, "-").replace(/\./g, "-").replace(" ", "T");
+    if (/^\d{4}-\d{2}-\d{2}$/.test(normalized)) normalized += endOfDay ? "T23:59:59" : "T00:00:00";
+    if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(normalized)) normalized += ":00";
+    var d = new Date(normalized);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function dateTimeInputValue(s, endOfDay) {
+    var d = s instanceof Date ? s : parseDateTime(s, endOfDay);
+    if (!d) return "";
+    var pad = function (n) { return String(n).padStart(2, "0"); };
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + "T" + pad(d.getHours()) + ":" + pad(d.getMinutes());
+  }
   function formatSlash(s) { return String(s || "").replace(/-/g, "/"); }
   function normalizeStatus(s) { return s === "정산완료" ? "정산 완료" : s === "정산보류" ? "정산 보류" : s; }
   function statusBadge(s) {
@@ -20,8 +34,7 @@
     return A.settlementBadge(s);
   }
   function parseDay(s) {
-    var d = new Date(toDateValue(s) + "T00:00:00");
-    return isNaN(d.getTime()) ? null : d;
+    return parseDateTime(s, false);
   }
   function dday(s) {
     var d = parseDay(s);
@@ -31,10 +44,12 @@
     return diff === 0 ? "D-day" : diff > 0 ? "D-" + diff : "D+" + Math.abs(diff);
   }
   function inRange(date, from, to) {
-    var d = parseDay(date);
+    var d = parseDateTime(date, false);
     if (!d) return true;
-    if (from && d < parseDay(from)) return false;
-    if (to && d > parseDay(to)) return false;
+    var fromDate = parseDateTime(from, false);
+    var toDate = parseDateTime(to, true);
+    if (fromDate && d < fromDate) return false;
+    if (toDate && d > toDate) return false;
     return true;
   }
   function makeModal() {
@@ -360,11 +375,14 @@
     }
     byId("searchBtn").addEventListener("click", function () {
       var type = byId("fTargetType").value, name = byId("fTargetName").value.trim(), status = byId("fReserveStatus").value, method = byId("fMethod").value;
+      var applyFrom = byId("fApplyFrom").value, applyTo = byId("fApplyTo").value, dueDate = byId("fDueDate").value;
       filtered = reserveRows.filter(function (r) {
         if (type && r.targetType !== type) return false;
         if (name && r.targetName.indexOf(name) < 0) return false;
         if (status && r.status !== status) return false;
         if (method && r.method !== method) return false;
+        if (!inRange(r.applyDate, applyFrom, applyTo)) return false;
+        if (dueDate && !inRange(r.dueDate, dueDate, dueDate)) return false;
         return true;
       });
       renderReserve();
@@ -382,12 +400,12 @@
         '<button type="button" class="admin-btn admin-btn--outline" data-settlement-close>닫기</button><button type="button" class="admin-btn admin-btn--outline" id="reserveDeductBtn">유보금 차감</button><button type="button" class="admin-btn admin-btn--danger" id="reserveReleaseBtn">유보금 해제</button>');
     });
     function openReserveAdd() {
-      openModal("유보금 등록", '<div class="admin-fields-row"><div class="admin-field"><label>대상 유형</label><select id="newTargetType"><option>지사</option><option>총판</option><option>영업</option><option>대리점</option></select></div><div class="admin-field"><label>대상명</label><input id="newTargetName" value="지사_13" /></div></div><div class="admin-field"><label>연결 조직</label><input id="newOrg" value="총판_01" /></div><div class="admin-fields-row"><div class="admin-field"><label>설정 방식</label><select id="newMethod"><option>정액</option><option>정률</option></select></div><div class="admin-field"><label>유보금 금액 또는 비율</label><input id="newValue" value="300000" /></div></div><div class="admin-fields-row"><div class="admin-field"><label>적용 시작일</label><input type="date" id="newApply" value="' + today + '" /></div><div class="admin-field"><label>D-day</label><select id="newDday"><option value="30">D-30</option><option value="60">D-60</option><option value="90">D-90</option><option value="120">D-120</option></select></div></div><div class="admin-field"><label>차감 예정일</label><input type="date" id="newDue" value="2026-08-06" /></div><div class="admin-field"><label>설정 사유</label><textarea id="newReason"></textarea></div><div class="admin-field"><label>관리자 메모</label><textarea id="newMemo"></textarea></div>',
+      openModal("유보금 등록", '<div class="admin-fields-row"><div class="admin-field"><label>대상 유형</label><select id="newTargetType"><option>지사</option><option>총판</option><option>영업</option><option>대리점</option></select></div><div class="admin-field"><label>대상명</label><input id="newTargetName" value="지사_13" /></div></div><div class="admin-field"><label>연결 조직</label><input id="newOrg" value="총판_01" /></div><div class="admin-fields-row"><div class="admin-field"><label>설정 방식</label><select id="newMethod"><option>정액</option><option>정률</option></select></div><div class="admin-field"><label>유보금 금액 또는 비율</label><input id="newValue" value="300000" /></div></div><div class="admin-fields-row"><div class="admin-field"><label>적용 시작일</label><input type="datetime-local" id="newApply" value="' + dateTimeInputValue(today, false) + '" /></div><div class="admin-field"><label>D-day</label><select id="newDday"><option value="30">D-30</option><option value="60">D-60</option><option value="90">D-90</option><option value="120">D-120</option></select></div></div><div class="admin-field"><label>차감 예정일</label><input type="datetime-local" id="newDue" value="' + dateTimeInputValue("2026-08-06", true) + '" /></div><div class="admin-field"><label>설정 사유</label><textarea id="newReason"></textarea></div><div class="admin-field"><label>관리자 메모</label><textarea id="newMemo"></textarea></div>',
         '<button type="button" class="admin-btn admin-btn--outline" data-settlement-close>취소</button><button type="button" class="admin-btn admin-btn--primary" id="reserveSaveBtn">저장</button>');
       byId("newDday").addEventListener("change", function () {
-        var d = new Date(byId("newApply").value + "T00:00:00");
+        var d = parseDateTime(byId("newApply").value, false);
         d.setDate(d.getDate() + Number(this.value));
-        byId("newDue").value = d.toISOString().slice(0, 10);
+        byId("newDue").value = dateTimeInputValue(d, true);
       });
       byId("reserveSaveBtn").addEventListener("click", function () {
         var amount = Number(byId("newValue").value.replace(/[^0-9.]/g, "")) || 0;

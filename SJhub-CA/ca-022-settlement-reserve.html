@@ -20,10 +20,10 @@
 
     <div class="settlement-filter-line reserve-filter">
       <label>적용 기간</label>
-      <input type="date" id="fApplyFrom" value="2026-07-01" />
+      <input type="datetime-local" id="fApplyFrom" value="2026-07-01T00:00" aria-label="적용 시작일시" />
       <span>~</span>
-      <input type="date" id="fApplyTo" value="2026-07-31" />
-      <input type="date" id="fDueDate" title="차감 예정일" />
+      <input type="datetime-local" id="fApplyTo" value="2026-07-31T23:59" aria-label="적용 종료일시" />
+      <input type="datetime-local" id="fDueDate" title="차감 예정일" aria-label="차감 예정일시" />
       <select id="fTargetType"><option value="">대상 유형 전체</option><option>지사</option><option>총판</option><option>영업</option><option>대리점</option></select>
       <input type="text" id="fTargetName" placeholder="대상명" />
       <select id="fReserveStatus"><option value="">상태 전체</option><option>적용 예정</option><option>적용 중</option><option>차감 예정</option><option>차감 완료</option><option>반환 완료</option><option>해제</option></select>

@@ -569,6 +569,7 @@ body {
 .admin-field input[type="email"],
 .admin-field input[type="password"],
 .admin-field input[type="date"],
+.admin-field input[type="datetime-local"],
 .admin-field input[type="tel"],
 .admin-field select,
 .admin-field textarea {
@@ -933,6 +934,7 @@ body.admin-modal-open { overflow:hidden; }
   height:36px; border:1px solid var(--admin-border); border-radius:6px; background:var(--admin-white);
   padding:0 10px; font-size:13px; color:var(--admin-text); outline:none;
 }
+.settlement-filter-line input[type="datetime-local"] { min-width: 176px; }
 .settlement-filter-line input:focus,
 .settlement-filter-line select:focus { border-color:var(--admin-heading); }
 .settlement-actions-line {

@@ -55,9 +55,9 @@
         </select>
         <span class="admin-filter-label">주문기간</span>
         <div class="admin-filter-date-range">
-          <input type="date" class="admin-filter-input" id="fDateFrom" style="min-width:130px;" />
+          <input type="datetime-local" class="admin-filter-input" id="fDateFrom" style="min-width:170px;" aria-label="주문 시작일시" />
           <span>~</span>
-          <input type="date" class="admin-filter-input" id="fDateTo" style="min-width:130px;" />
+          <input type="datetime-local" class="admin-filter-input" id="fDateTo" style="min-width:170px;" aria-label="주문 종료일시" />
         </div>
       </div>
       <div class="admin-filter-row">
@@ -137,6 +137,23 @@
 (function() {
   "use strict";
   var fc = AdminShared.formatCurrency;
+  function parseDateTime(s, endOfDay) {
+    if (!s) return null;
+    var normalized = String(s).trim().replace(/\./g, "-").replace(/\//g, "-").replace(" ", "T");
+    if (/^\d{4}-\d{2}-\d{2}$/.test(normalized)) normalized += endOfDay ? "T23:59:59" : "T00:00:00";
+    if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(normalized)) normalized += ":00";
+    var d = new Date(normalized);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function inDateTimeRange(date, from, to) {
+    var d = parseDateTime(date, false);
+    var f = parseDateTime(from, false);
+    var t = parseDateTime(to, true);
+    if (!d) return true;
+    if (f && d < f) return false;
+    if (t && d > t) return false;
+    return true;
+  }
 
   var ORDERS = [
     { no:"ORD-20260520-001", date:"2026.05.20", brand:"대리점_01",    seller:"셀러_01", name:"리넨 와이드 팬츠",  qty:1, amt:45000,  status:"배송중",    addr:{name:"김민준",phone:"010-1234-5678",addr:"서울시 강남구 역삼동 123",addr2:"101호"} },
@@ -186,12 +203,15 @@
     var b = document.getElementById("fBrand").value;
     var s = document.getElementById("fSeller").value;
     var st = document.getElementById("fStatus").value;
+    var from = document.getElementById("fDateFrom").value;
+    var to = document.getElementById("fDateTo").value;
     var p = document.getElementById("fProduct").value.trim();
     var n = document.getElementById("fOrderNo").value.trim();
     filtered = ORDERS.filter(function(o) {
       if (b && o.brand !== b) return false;
       if (s && o.seller !== s) return false;
       if (st && o.status !== st) return false;
+      if (!inDateTimeRange(o.date, from, to)) return false;
       if (p && o.name.indexOf(p) < 0) return false;
       if (n && o.no.indexOf(n) < 0) return false;
       return true;

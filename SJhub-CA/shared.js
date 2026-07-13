@@ -290,6 +290,8 @@
     ["대시보드", "仪表盘"],
     ["조직 관리", "组织管理"],
     ["조직 리스트", "组织列表"],
+    ["조직 등록 정보가 저장되었습니다.", "组织注册信息已保存。"],
+    ["조직 등록", "组织注册"],
     ["등록 하기", "登记"],
     ["공지사항", "公告"],
     ["환경설정", "环境设置"],
@@ -326,10 +328,24 @@
     ["카테고리", "分类"],
     ["은행 선택", "选择银行"],
     ["은행", "银行"],
+    ["영업 조직 또는 영업 계정의 정산 정보를 등록합니다.", "登记销售组织或销售账号的结算信息。"],
+    ["영업 계정 등록 정보", "销售账号注册信息"],
+    ["이름을 입력해주세요.", "请输入姓名。"],
+    ["이름", "姓名"],
     ["계좌번호", "账号"],
+    ["계좌번호는 숫자와 하이픈만 입력해주세요.", "账号只能输入数字和连字符。"],
+    ["숫자와 하이픈만 입력", "仅输入数字和连字符"],
     ["예금주", "账户名"],
+    ["예금주를 입력해주세요.", "请输入账户名。"],
+    ["예금주명", "账户名"],
+    ["전화번호 형식을 확인해주세요.", "请确认电话号码格式。"],
     ["전화번호", "电话号码"],
+    ["사업자 유형", "经营主体类型"],
+    ["사업자등록번호 형식을 확인해주세요.", "请确认营业执照号码格式。"],
     ["사업자등록번호", "营业执照号"],
+    ["신분증을 첨부해주세요.", "请上传身份证。"],
+    ["신분증", "身份证"],
+    ["mock 업로드: 파일명만 저장됩니다.", "模拟上传：仅保存文件名。"],
     ["어드민", "管理后台"],
     ["개인사업자", "个体工商户"],
     ["법인사업자", "法人企业"],
@@ -343,6 +359,9 @@
     ["일별", "按日"],
     ["주별", "按周"],
     ["월별", "按月"],
+    ["적용 기간", "适用期间"],
+    ["시작일시", "开始时间"],
+    ["종료일시", "结束时间"],
     ["건", "件"],
     ["원", "元"],
     ["개", "个"],
@@ -425,13 +444,16 @@
     if (current === "zh") {
       var observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
+          if (mutation.type === "characterData" && mutation.target.parentElement) {
+            translateElement(mutation.target.parentElement);
+          }
           mutation.addedNodes.forEach(function (node) {
             if (node.nodeType === 1) translateElement(node);
             if (node.nodeType === 3 && node.parentElement) translateElement(node.parentElement);
           });
         });
       });
-      observer.observe(document.body, { childList: true, subtree: true });
+      observer.observe(document.body, { childList: true, characterData: true, subtree: true });
     }
   }
 
@@ -723,6 +745,8 @@
     initSidebar:    initSidebar,
     initMobile:     initMobile,
     initLanguageSwitcher: initLanguageSwitcher,
+    translateElement: translateElement,
+    translateText: translateText,
   };
 
   /* ─── Auto init ─── */
