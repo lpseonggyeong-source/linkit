@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SJ Hub CA 운영사 어드민 고객 안내서</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --paper: #ffffff;
+      --ink: #172033;
+      --muted: #657084;
+      --line: #dfe7f2;
+      --blue: #1f6feb;
+      --blue-dark: #0d3b85;
+      --blue-soft: #eef5ff;
+      --green: #16a34a;
+      --yellow: #b7791f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.72;
+      font-size: 15px;
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 36px 24px 72px;
+    }
+
+    .cover {
+      background: linear-gradient(135deg, #0d3b85 0%, #1f6feb 100%);
+      color: #fff;
+      border-radius: 18px;
+      padding: 44px 48px;
+      margin-bottom: 24px;
+      box-shadow: 0 18px 45px rgba(31, 111, 235, .18);
+    }
+
+    .cover__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .16);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    h1 {
+      margin: 18px 0 10px;
+      font-size: 34px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .cover p {
+      max-width: 760px;
+      margin: 0;
+      color: rgba(255, 255, 255, .82);
+      font-size: 16px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .meta span {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .12);
+      color: rgba(255, 255, 255, .92);
+      font-size: 13px;
+    }
+
+    .language-switch {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 20;
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid rgba(183, 202, 232, .9);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .92);
+      box-shadow: 0 12px 28px rgba(23, 32, 51, .12);
+      backdrop-filter: blur(12px);
+    }
+
+    .language-switch button {
+      min-width: 48px;
+      height: 30px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .language-switch button.is-active {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(31, 111, 235, .24);
+    }
+
+    .section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 28px;
+      margin-top: 18px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, .04);
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 22px;
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 26px 0 12px;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    p { margin: 0 0 12px; }
+
+    .lead {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--blue-dark);
+      text-decoration: none;
+      background: #fbfdff;
+      font-weight: 700;
+    }
+
+    .toc a:hover {
+      border-color: #b9d4ff;
+      background: var(--blue-soft);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin: 14px 0 20px;
+      background: #fff;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f6ff;
+      color: #183b6b;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .flow {
+      margin: 14px 0 18px;
+      padding: 18px;
+      border: 1px solid #cfe0ff;
+      border-radius: 12px;
+      background: var(--blue-soft);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      white-space: pre-line;
+      color: #123b73;
+      line-height: 1.65;
+    }
+
+    .note {
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: #fff8e8;
+      border: 1px solid #f4d48f;
+      color: #6b4a0d;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .step {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfdff;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--blue-dark);
+    }
+
+    ul, ol {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+
+    li { margin: 6px 0; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue-dark);
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 74px;
+      min-height: 26px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .status--done {
+      color: #126233;
+      background: #e8f8ef;
+      border: 1px solid #b8ebcb;
+    }
+
+    .status--partial {
+      color: #174ea6;
+      background: #eaf2ff;
+      border: 1px solid #bed7ff;
+    }
+
+    .status--need {
+      color: #8a4b00;
+      background: #fff4db;
+      border: 1px solid #f4cf83;
+    }
+
+    .request-table th:first-child,
+    .request-table td:first-child {
+      width: 118px;
+      white-space: nowrap;
+    }
+
+    .request-table th:nth-child(2),
+    .request-table td:nth-child(2) {
+      width: 30%;
+    }
+
+    .request-table th:nth-child(4),
+    .request-table td:nth-child(4) {
+      width: 112px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 20px 14px 48px; }
+      .language-switch { top: 10px; right: 10px; }
+      .cover { padding: 30px 24px; border-radius: 14px; }
+      h1 { font-size: 28px; }
+      .section { padding: 20px; }
+      .toc, .steps { grid-template-columns: 1fr; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="language-switch" aria-label="언어 선택">
+    <button type="button" class="is-active" data-lang-btn="ko">한국어</button>
+    <button type="button" data-lang-btn="zh">中文</button>
+  </div>
+  <main class="page">
+    <section class="cover">
+      <span class="cover__eyebrow">SJ Hub CA Admin Guide</span>
+      <h1>CA 운영사 어드민 고객 안내서</h1>
+      <p>CA 운영 담당자가 조직, 대리점, 정산 현황을 쉽게 이해하고 관리할 수 있도록 정리한 고객 전달용 설명서입니다.</p>
+      <div class="meta">
+        <span>작성일: 2026-07-13</span>
+        <span>대상: CA 운영 담당자</span>
+        <span>범위: 조직 관리, 대리점 관리, 정산관리</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>문서 목차</h2>
+      <p class="lead">필요한 업무에 맞춰 아래 항목부터 확인하면 됩니다.</p>
+      <nav class="toc">
+        <a href="#structure">1. 전체 운영 구조</a>
+        <a href="#improvements">2. 요청사항 반영 현황</a>
+        <a href="#organization">3. 조직 관리</a>
+        <a href="#partner">4. 대리점 관리</a>
+        <a href="#settlement">5. 정산관리</a>
+        <a href="#workflow">6. 자주 쓰는 업무 흐름</a>
+      </nav>
+    </section>
+
+    <section class="section" id="structure">
+      <h2>1. 전체 운영 구조</h2>
+      <p>SJ Hub 어드민은 운영사, 영업 조직, 대리점이 각자 다른 역할을 맡는 구조입니다.</p>
+      <table>
+        <thead>
+          <tr><th>구분</th><th>의미</th><th>주요 역할</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="badge">CA</span></td><td>본사 운영자가 사용하는 관리자 화면</td><td>전체 조직, 대리점, 정산 현황을 총괄 관리</td></tr>
+          <tr><td><span class="badge">SA</span></td><td>지사, 총판, 영업이 사용하는 정산 중심 관리자 화면</td><td>소속 조직과 연결 대리점의 정산 현황 관리</td></tr>
+          <tr><td><span class="badge">BA</span></td><td>대리점이 사용하는 판매 운영 화면</td><td>상품 등록, 판매, 주문, 배송 관리</td></tr>
+        </tbody>
+      </table>
+      <div class="flow">CA 운영사
+  ├─ 지사
+  │   ├─ 총판
+  │   │   ├─ 영업
+  │   │   └─ 대리점
+  │   ├─ 영업
+  │   └─ 대리점
+  ├─ 총판
+  ├─ 영업
+  └─ 대리점</div>
+      <p>지사, 총판, 영업은 모두 대리점을 직접 연결할 수 있습니다. CA가 대리점을 직접 등록해 관리할 수도 있습니다.</p>
+    </section>
+
+    <section class="section" id="improvements">
+      <h2>2. 요청사항 반영 현황</h2>
+      <p class="lead">첨부된 CA 수정사항 메모를 기준으로, 각 요청이 현재 화면에 어떻게 반영되었는지 정리했습니다.</p>
+      <table class="request-table">
+        <thead>
+          <tr><th>구분</th><th>요청사항</th><th>현재 반영 내용</th><th>상태</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>조직 등록</td>
+            <td>영업 계정 등록 시 BA 계정 등록 정보와 동일한 필수 정보 입력</td>
+            <td>이름, 전화번호, 사업자 유형, 신분증 또는 사업자등록번호, 계좌번호, 은행명, 예금주 입력 구조로 정리했습니다.</td>
+            <td><span class="status status--done">완료</span></td>
+          </tr>
+          <tr>
+            <td>조직 등록</td>
+            <td>통신판매번호 항목 삭제</td>
+            <td>조직 등록 안내 기준에서 통신판매번호를 필수 항목으로 노출하지 않도록 정리했습니다.</td>
+            <td><span class="status status--done">완료</span></td>
+          </tr>
+          <tr>
+            <td>대리점 등록</td>
+            <td>대리점 등록 시 판매채널 항목 추가</td>
+            <td>대리점 기본 정보 입력 항목에 판매채널을 포함했습니다.</td>
+            <td><span class="status status--done">완료</span></td>
+          </tr>
+          <tr>
+            <td>대리점 등록</td>
+            <td>대리점 등록 시 상위 지사 또는 상위 조직 선택</td>
+            <td>지사, 총판, 영업 중 연결할 상위 조직을 검색하고 선택하는 방식으로 정리했습니다.</td>
+            <td><span class="status status--done">완료</span></td>
+          </tr>
+          <tr>
+            <td>대리점 등록</td>
+            <td>다량의 지사 등록을 고려해 검색 UI로 변경</td>
+            <td>상위 조직 검색 입력과 선택 흐름을 기준으로 안내했습니다. 실제 운영 데이터 수량에 맞춘 검색 조건은 추가 조정할 수 있습니다.</td>
+            <td><span class="status status--partial">일부 반영</span></td>
+          </tr>
+          <tr>
+            <td>정산관리</td>
+            <td>정산관리 탭에 유보금 탭 추가</td>
+            <td>정산관리 메뉴에 유보금 정산 화면을 포함했습니다.</td>
+            <td><span class="status status--done">완료</span></td>
+          </tr>
+          <tr>
+            <td>정산관리</td>
+            <td>유보금 차감 및 유보금 D-day 설정 기능</td>
+            <td>유보금 관리 개념과 사용 목적은 반영했습니다. D-day 기준, 차감 방식, 자동 적용 조건은 운영 정책 확정이 필요합니다.</td>
+            <td><span class="status status--need">자료보충 필요</span></td>
+          </tr>
+          <tr>
+            <td>정산관리</td>
+            <td>정산일 표기 필요: 정산완료, 미정산, D-n일</td>
+            <td>정산 상태는 표시했습니다. D-n 표기를 위해서는 고객사별 정산 주기와 기준일 정책이 필요합니다.</td>
+            <td><span class="status status--need">자료보충 필요</span></td>
+          </tr>
+          <tr>
+            <td>정산관리</td>
+            <td>정산 페이지 KPI 추가: 오늘의 정산액, 정산 후 잔액</td>
+            <td>정산 요약 KPI 영역은 구성했습니다. 오늘의 정산액과 정산 후 잔액 계산 기준은 추가 정의가 필요합니다.</td>
+            <td><span class="status status--partial">일부 반영</span></td>
+          </tr>
+          <tr>
+            <td>정산관리</td>
+            <td>본사 CA에서 정산 출금액 확인</td>
+            <td>CA 정산 화면에서 대상별 정산 금액과 필요 금액을 확인할 수 있도록 정리했습니다.</td>
+            <td><span class="status status--done">완료</span></td>
+          </tr>
+          <tr>
+            <td>정산관리</td>
+            <td>모든 정산 상세를 CA 페이지에서 확인</td>
+            <td>정산 목록에서 상세 내역 보기로 판매 내역과 정산 근거를 확인하는 흐름을 반영했습니다.</td>
+            <td><span class="status status--done">완료</span></td>
+          </tr>
+          <tr>
+            <td>정산관리</td>
+            <td>고객사마다 다른 정산일, 오늘 정산 대상, 정산 금액, 수수료 비율 확인</td>
+            <td>대상별 정산 금액과 수수료율 확인 구조는 반영했습니다. 고객사별 정산일 정책과 정산 대상 산정 기준은 추가 자료가 필요합니다.</td>
+            <td><span class="status status--need">자료보충 필요</span></td>
+          </tr>
+          <tr>
+            <td>정산관리</td>
+            <td>정산금을 어떻게 결제 또는 송금할 수 있는지 확인</td>
+            <td>현재 문서에는 정산 확인과 상세 조회 중심으로 안내했습니다. 실제 송금 방식, 수동/자동 처리 여부, 결제 승인 절차는 정책 확정이 필요합니다.</td>
+            <td><span class="status status--need">자료보충 필요</span></td>
+          </tr>
+          <tr>
+            <td>정산관리</td>
+            <td>결제 내역 영수증 또는 엑셀 다운로드 확인</td>
+            <td>엑셀 다운로드 흐름은 정산 화면에 포함했습니다. 영수증 양식과 다운로드 범위는 추가 정의가 필요합니다.</td>
+            <td><span class="status status--partial">일부 반영</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note">상태 기준: 완료는 현재 화면과 안내서에 반영된 항목, 일부 반영은 기본 흐름은 있으나 운영 기준 확정 후 보완할 항목, 자료보충 필요는 정책이나 계산 기준이 추가로 필요한 항목입니다.</p>
+    </section>
+
+    <section class="section" id="organization">
+      <h2>3. 조직 관리</h2>
+      <p>조직 관리는 CA 아래에서 운영되는 지사, 총판, 영업을 관리하는 메뉴입니다.</p>
+      <h3>조직 리스트</h3>
+      <p>전체 영업 조직을 한눈에 보고, 하위 조직 등록이나 대리점 연결을 처리합니다.</p>
+      <table>
+        <thead>
+          <tr><th>항목</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>구분</td><td>지사, 총판, 영업 중 어떤 조직인지 표시</td></tr>
+          <tr><td>조직 위계</td><td>해당 조직이 어느 상위 조직 아래에 있는지 표시</td></tr>
+          <tr><td>상위 조직</td><td>바로 위에 연결된 조직</td></tr>
+          <tr><td>수수료율</td><td>해당 조직에 적용되는 수수료 비율</td></tr>
+          <tr><td>연결 대리점</td><td>해당 조직에 연결된 대리점 수</td></tr>
+          <tr><td>관리</td><td>하위 조직 등록, 대리점 등록, 상세, 수정 기능</td></tr>
+        </tbody>
+      </table>
+      <h3>등록 하기</h3>
+      <p>새로운 영업 조직 계정을 등록하는 화면입니다. 이름, 전화번호, 사업자 유형, 신원 또는 사업자 정보, 정산 계좌 정보를 입력합니다.</p>
+    </section>
+
+    <section class="section" id="partner">
+      <h2>4. 대리점 관리</h2>
+      <p>대리점 관리는 실제 상품을 등록하고 판매하는 대리점 정보를 관리하는 메뉴입니다. 기존에 브랜드, 고객사, 파트너 등으로 불리던 대상을 모두 대리점 기준으로 관리합니다.</p>
+      <h3>계약 대리점 목록</h3>
+      <p>CA와 계약된 대리점 목록을 확인하고 승인 상태, 신청 출처, 관리 주체, 상품수, 주문수, 매출을 조회합니다.</p>
+      <h3>대리점 등록 신청</h3>
+      <p>새 대리점을 등록하고 지사, 총판, 영업 중 연결할 상위 조직을 지정합니다.</p>
+      <table>
+        <thead>
+          <tr><th>구분</th><th>입력 내용</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>대리점 기본 정보</td><td>대리점명, 설명, 카테고리, 판매채널</td></tr>
+          <tr><td>상위 조직 연결</td><td>지사, 총판, 영업 중 연결할 조직</td></tr>
+          <tr><td>사업자 정보</td><td>상호명, 사업자등록번호, 대표자명, 사업장 주소</td></tr>
+          <tr><td>담당자 정보</td><td>담당자명, 이메일, 연락처, 직책</td></tr>
+          <tr><td>정산 정보</td><td>은행명, 계좌번호, 예금주, 정산 주기</td></tr>
+          <tr><td>배송/반품 정보</td><td>배송비, 무료배송 기준, 반품/교환 배송비</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="settlement">
+      <h2>5. 정산관리</h2>
+      <p>정산관리는 지사, 총판, 영업, 대리점의 정산 금액과 상태를 확인하는 메뉴입니다.</p>
+      <table>
+        <thead>
+          <tr><th>메뉴</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>지사 정산</td><td>지사별 정산 금액과 상태 확인</td></tr>
+          <tr><td>총판 정산</td><td>총판별 정산 금액과 상태 확인</td></tr>
+          <tr><td>영업 정산</td><td>영업별 정산 금액과 상태 확인</td></tr>
+          <tr><td>대리점 정산</td><td>대리점별 정산 금액과 상태 확인</td></tr>
+          <tr><td>유보금 정산</td><td>정산 전 보류하거나 차감할 금액 관리</td></tr>
+          <tr><td>정산 상세 내역</td><td>정산 대상의 판매 내역과 정산 근거 확인</td></tr>
+        </tbody>
+      </table>
+      <h3>정산 목록에서 확인하는 정보</h3>
+      <p>총 정산 수, 정산 완료 건, 정산 필요 건, 정산 총액, 정산 완료 금액, 정산 필요 금액을 확인합니다.</p>
+      <h3>상세 내역 보기</h3>
+      <p>정산 목록의 상세 내역 보기 버튼을 누르면 판매처, 판매 상품, 주문번호, 판매 일자, 판매금액, 수수료, 정산 금액, 정산 상태를 확인할 수 있습니다.</p>
+    </section>
+
+    <section class="section" id="workflow">
+      <h2>6. 자주 쓰는 업무 흐름</h2>
+      <div class="steps">
+        <div class="step">
+          <strong>새 조직을 등록할 때</strong>
+          조직 관리 &gt; 등록 하기에서 기본 정보와 정산 계좌 정보를 입력한 뒤 조직 리스트에서 확인합니다.
+        </div>
+        <div class="step">
+          <strong>조직에 대리점을 연결할 때</strong>
+          조직 리스트에서 연결하려는 지사, 총판, 영업을 찾고 대리점 등록 버튼을 누릅니다.
+        </div>
+        <div class="step">
+          <strong>대리점 현황을 확인할 때</strong>
+          대리점 관리 &gt; 계약 대리점 목록에서 승인 상태, 신청 출처, 대리점명으로 검색합니다.
+        </div>
+        <div class="step">
+          <strong>정산 금액을 확인할 때</strong>
+          정산관리에서 대상을 선택하고 조회 기간을 설정한 뒤 상세 내역 보기에서 근거를 확인합니다.
+        </div>
+      </div>
+      <p class="note">참고: 현재 권한설정 기능은 내부 운영 기준이 확정된 뒤 다시 반영할 예정입니다. 화면의 일부 데이터는 예시 데이터이며, 실제 운영 시에는 실데이터와 연동됩니다.</p>
+    </section>
+  </main>
+  <script>
+    const zhText = {
+      "한국어": "한국어",
+      "SJ Hub CA 운영사 어드민 고객 안내서": "SJ Hub CA 运营商后台客户指南",
+      "CA 운영사 어드민 고객 안내서": "CA 运营商后台客户指南",
+      "CA 운영 담당자가 조직, 대리점, 정산 현황을 쉽게 이해하고 관리할 수 있도록 정리한 고객 전달용 설명서입니다.": "本指南面向 CA 运营负责人，帮助其理解并管理组织、代理店和结算状态。",
+      "작성일: 2026-07-13": "编写日期：2026-07-13",
+      "대상: CA 운영 담당자": "对象：CA 运营负责人",
+      "범위: 조직 관리, 대리점 관리, 정산관리": "范围：组织管理、代理店管理、结算管理",
+      "문서 목차": "文档目录",
+      "필요한 업무에 맞춰 아래 항목부터 확인하면 됩니다.": "可根据需要处理的业务，从下列项目开始查看。",
+      "1. 전체 운영 구조": "1. 整体运营结构",
+      "2. 요청사항 반영 현황": "2. 需求反映状态",
+      "3. 조직 관리": "3. 组织管理",
+      "4. 대리점 관리": "4. 代理店管理",
+      "5. 정산관리": "5. 结算管理",
+      "6. 자주 쓰는 업무 흐름": "6. 常用业务流程",
+      "SJ Hub 어드민은 운영사, 영업 조직, 대리점이 각자 다른 역할을 맡는 구조입니다.": "SJ Hub 后台由运营商、销售组织、代理店分别承担不同角色。",
+      "구분": "分类",
+      "의미": "含义",
+      "주요 역할": "主要角色",
+      "본사 운영자가 사용하는 관리자 화면": "总部运营人员使用的管理后台",
+      "전체 조직, 대리점, 정산 현황을 총괄 관리": "统一管理所有组织、代理店和结算状态",
+      "지사, 총판, 영업이 사용하는 정산 중심 관리자 화면": "分公司、总代理、销售使用的结算中心后台",
+      "소속 조직과 연결 대리점의 정산 현황 관리": "管理所属组织及已连接代理店的结算状态",
+      "대리점이 사용하는 판매 운영 화면": "代理店使用的销售运营页面",
+      "상품 등록, 판매, 주문, 배송 관리": "管理商品注册、销售、订单和配送",
+      "CA 운영사\n  ├─ 지사\n  │   ├─ 총판\n  │   │   ├─ 영업\n  │   │   └─ 대리점\n  │   ├─ 영업\n  │   └─ 대리점\n  ├─ 총판\n  ├─ 영업\n  └─ 대리점": "CA 运营商\n  ├─ 分公司\n  │   ├─ 总代理\n  │   │   ├─ 销售\n  │   │   └─ 代理店\n  │   ├─ 销售\n  │   └─ 代理店\n  ├─ 总代理\n  ├─ 销售\n  └─ 代理店",
+      "지사, 총판, 영업은 모두 대리점을 직접 연결할 수 있습니다. CA가 대리점을 직접 등록해 관리할 수도 있습니다.": "分公司、总代理、销售均可直接连接代理店。CA 也可以直接注册并管理代理店。",
+      "첨부된 CA 수정사항 메모를 기준으로, 각 요청이 현재 화면에 어떻게 반영되었는지 정리했습니다.": "以下根据附加的 CA 修改事项备忘，整理各项需求在当前页面中的反映情况。",
+      "요청사항": "需求事项",
+      "현재 반영 내용": "当前反映内容",
+      "상태": "状态",
+      "조직 등록": "组织注册",
+      "영업 계정 등록 시 BA 계정 등록 정보와 동일한 필수 정보 입력": "注册销售账号时，输入与 BA 账号注册信息一致的必填信息",
+      "이름, 전화번호, 사업자 유형, 신분증 또는 사업자등록번호, 계좌번호, 은행명, 예금주 입력 구조로 정리했습니다.": "已整理为输入姓名、电话号码、经营主体类型、身份证或营业执照号码、账号、银行名称、账户名的结构。",
+      "완료": "已完成",
+      "통신판매번호 항목 삭제": "删除通信销售编号项目",
+      "조직 등록 안내 기준에서 통신판매번호를 필수 항목으로 노출하지 않도록 정리했습니다.": "已在组织注册说明中取消通信销售编号作为必填项的展示。",
+      "대리점 등록": "代理店注册",
+      "대리점 등록 시 판매채널 항목 추가": "注册代理店时增加销售渠道项目",
+      "대리점 기본 정보 입력 항목에 판매채널을 포함했습니다.": "已在代理店基本信息输入项中包含销售渠道。",
+      "대리점 등록 시 상위 지사 또는 상위 조직 선택": "注册代理店时选择上级分公司或上级组织",
+      "지사, 총판, 영업 중 연결할 상위 조직을 검색하고 선택하는 방식으로 정리했습니다.": "已整理为可搜索并选择要连接的分公司、总代理或销售组织。",
+      "다량의 지사 등록을 고려해 검색 UI로 변경": "考虑大量分公司注册，改为搜索 UI",
+      "상위 조직 검색 입력과 선택 흐름을 기준으로 안내했습니다. 실제 운영 데이터 수량에 맞춘 검색 조건은 추가 조정할 수 있습니다.": "已按上级组织搜索输入和选择流程进行说明。可根据实际运营数据量进一步调整搜索条件。",
+      "일부 반영": "部分反映",
+      "정산관리": "结算管理",
+      "정산관리 탭에 유보금 탭 추가": "在结算管理中增加预留金标签",
+      "정산관리 메뉴에 유보금 정산 화면을 포함했습니다.": "已在结算管理菜单中包含预留金结算页面。",
+      "유보금 차감 및 유보금 D-day 설정 기능": "预留金扣减及预留金 D-day 设置功能",
+      "유보금 관리 개념과 사용 목적은 반영했습니다. D-day 기준, 차감 방식, 자동 적용 조건은 운영 정책 확정이 필요합니다.": "已反映预留金管理概念和使用目的。D-day 标准、扣减方式、自动适用条件需确认运营政策。",
+      "자료보충 필요": "需补充资料",
+      "정산일 표기 필요: 정산완료, 미정산, D-n일": "需显示结算日：已结算、未结算、D-n日",
+      "정산 상태는 표시했습니다. D-n 표기를 위해서는 고객사별 정산 주기와 기준일 정책이 필요합니다.": "已显示结算状态。若要显示 D-n，需要确认各客户的结算周期和基准日政策。",
+      "정산 페이지 KPI 추가: 오늘의 정산액, 정산 후 잔액": "结算页面增加 KPI：今日结算金额、结算后余额",
+      "정산 요약 KPI 영역은 구성했습니다. 오늘의 정산액과 정산 후 잔액 계산 기준은 추가 정의가 필요합니다.": "已构成结算汇总 KPI 区域。今日结算金额和结算后余额的计算标准需进一步定义。",
+      "본사 CA에서 정산 출금액 확인": "总部 CA 确认结算出款金额",
+      "CA 정산 화면에서 대상별 정산 금액과 필요 금액을 확인할 수 있도록 정리했습니다.": "已整理为可在 CA 结算页面查看各对象的结算金额和待结算金额。",
+      "모든 정산 상세를 CA 페이지에서 확인": "在 CA 页面查看所有结算明细",
+      "정산 목록에서 상세 내역 보기로 판매 내역과 정산 근거를 확인하는 흐름을 반영했습니다.": "已反映从结算列表进入明细页面查看销售明细和结算依据的流程。",
+      "고객사마다 다른 정산일, 오늘 정산 대상, 정산 금액, 수수료 비율 확인": "确认各客户不同的结算日、今日结算对象、结算金额、手续费比例",
+      "대상별 정산 금액과 수수료율 확인 구조는 반영했습니다. 고객사별 정산일 정책과 정산 대상 산정 기준은 추가 자료가 필요합니다.": "已反映按对象查看结算金额和手续费率的结构。各客户结算日政策和结算对象计算标准需补充资料。",
+      "정산금을 어떻게 결제 또는 송금할 수 있는지 확인": "确认结算款如何支付或汇款",
+      "현재 문서에는 정산 확인과 상세 조회 중심으로 안내했습니다. 실제 송금 방식, 수동/자동 처리 여부, 결제 승인 절차는 정책 확정이 필요합니다.": "当前文档以结算确认和明细查询为中心说明。实际汇款方式、手动/自动处理、付款审批流程需确认政策。",
+      "결제 내역 영수증 또는 엑셀 다운로드 확인": "确认付款明细收据或 Excel 下载",
+      "엑셀 다운로드 흐름은 정산 화면에 포함했습니다. 영수증 양식과 다운로드 범위는 추가 정의가 필요합니다.": "已在结算页面包含 Excel 下载流程。收据格式和下载范围需进一步定义。",
+      "상태 기준: 완료는 현재 화면과 안내서에 반영된 항목, 일부 반영은 기본 흐름은 있으나 운영 기준 확정 후 보완할 항목, 자료보충 필요는 정책이나 계산 기준이 추가로 필요한 항목입니다.": "状态标准：已完成表示已反映在当前页面和指南中；部分反映表示已有基本流程但需在运营标准确定后补充；需补充资料表示还需要政策或计算标准。",
+      "조직 관리는 CA 아래에서 운영되는 지사, 총판, 영업을 관리하는 메뉴입니다.": "组织管理用于管理 CA 下运营的分公司、总代理和销售。",
+      "조직 리스트": "组织列表",
+      "전체 영업 조직을 한눈에 보고, 하위 조직 등록이나 대리점 연결을 처리합니다.": "可一目了然查看所有销售组织，并处理下级组织注册或代理店连接。",
+      "항목": "项目",
+      "설명": "说明",
+      "지사, 총판, 영업 중 어떤 조직인지 표시": "显示该组织是分公司、总代理还是销售",
+      "조직 위계": "组织层级",
+      "해당 조직이 어느 상위 조직 아래에 있는지 표시": "显示该组织隶属于哪个上级组织",
+      "상위 조직": "上级组织",
+      "바로 위에 연결된 조직": "直接连接的上级组织",
+      "수수료율": "手续费率",
+      "해당 조직에 적용되는 수수료 비율": "适用于该组织的手续费比例",
+      "연결 대리점": "已连接代理店",
+      "해당 조직에 연결된 대리점 수": "连接到该组织的代理店数量",
+      "관리": "管理",
+      "하위 조직 등록, 대리점 등록, 상세, 수정 기능": "下级组织注册、代理店注册、详情、修改功能",
+      "등록 하기": "注册",
+      "새로운 영업 조직 계정을 등록하는 화면입니다. 이름, 전화번호, 사업자 유형, 신원 또는 사업자 정보, 정산 계좌 정보를 입력합니다.": "用于注册新的销售组织账号。输入姓名、电话号码、经营主体类型、身份或营业信息、结算账户信息。",
+      "대리점 관리는 실제 상품을 등록하고 판매하는 대리점 정보를 관리하는 메뉴입니다. 기존에 브랜드, 고객사, 파트너 등으로 불리던 대상을 모두 대리점 기준으로 관리합니다.": "代理店管理用于管理实际注册商品并进行销售的代理店信息。此前称为品牌、客户、伙伴等的对象统一按代理店管理。",
+      "계약 대리점 목록": "签约代理店列表",
+      "CA와 계약된 대리점 목록을 확인하고 승인 상태, 신청 출처, 관리 주체, 상품수, 주문수, 매출을 조회합니다.": "查看与 CA 签约的代理店列表，并查询审批状态、申请来源、管理主体、商品数、订单数和销售额。",
+      "대리점 등록 신청": "代理店注册申请",
+      "새 대리점을 등록하고 지사, 총판, 영업 중 연결할 상위 조직을 지정합니다.": "注册新的代理店，并指定要连接的分公司、总代理或销售组织。",
+      "입력 내용": "输入内容",
+      "대리점 기본 정보": "代理店基本信息",
+      "대리점명, 설명, 카테고리, 판매채널": "代理店名称、说明、分类、销售渠道",
+      "상위 조직 연결": "上级组织连接",
+      "지사, 총판, 영업 중 연결할 조직": "要连接的分公司、总代理或销售组织",
+      "사업자 정보": "营业主体信息",
+      "상호명, 사업자등록번호, 대표자명, 사업장 주소": "商号、营业执照号码、代表人姓名、经营场所地址",
+      "담당자 정보": "负责人信息",
+      "담당자명, 이메일, 연락처, 직책": "负责人姓名、邮箱、联系方式、职务",
+      "정산 정보": "结算信息",
+      "은행명, 계좌번호, 예금주, 정산 주기": "银行名称、账号、账户名、结算周期",
+      "배송/반품 정보": "配送/退货信息",
+      "배송비, 무료배송 기준, 반품/교환 배송비": "配送费、免配送费标准、退货/换货配送费",
+      "정산관리는 지사, 총판, 영업, 대리점의 정산 금액과 상태를 확인하는 메뉴입니다.": "结算管理用于确认分公司、总代理、销售、代理店的结算金额和状态。",
+      "메뉴": "菜单",
+      "지사 정산": "分公司结算",
+      "지사별 정산 금액과 상태 확인": "确认各分公司的结算金额和状态",
+      "총판 정산": "总代理结算",
+      "총판별 정산 금액과 상태 확인": "确认各总代理的结算金额和状态",
+      "영업 정산": "销售结算",
+      "영업별 정산 금액과 상태 확인": "确认各销售的结算金额和状态",
+      "대리점 정산": "代理店结算",
+      "대리점별 정산 금액과 상태 확인": "确认各代理店的结算金额和状态",
+      "유보금 정산": "预留金结算",
+      "정산 전 보류하거나 차감할 금액 관리": "管理结算前需保留或扣减的金额",
+      "정산 상세 내역": "结算明细",
+      "정산 대상의 판매 내역과 정산 근거 확인": "确认结算对象的销售明细和结算依据",
+      "정산 목록에서 확인하는 정보": "在结算列表中确认的信息",
+      "총 정산 수, 정산 완료 건, 정산 필요 건, 정산 총액, 정산 완료 금액, 정산 필요 금액을 확인합니다.": "确认总结算数、已结算件数、待结算件数、结算总额、已结算金额、待结算金额。",
+      "상세 내역 보기": "查看明细",
+      "정산 목록의 상세 내역 보기 버튼을 누르면 판매처, 판매 상품, 주문번호, 판매 일자, 판매금액, 수수료, 정산 금액, 정산 상태를 확인할 수 있습니다.": "点击结算列表中的查看明细按钮，可确认销售处、销售商品、订单号、销售日期、销售金额、手续费、结算金额和结算状态。",
+      "새 조직을 등록할 때": "注册新组织时",
+      "조직 관리 > 등록 하기에서 기본 정보와 정산 계좌 정보를 입력한 뒤 조직 리스트에서 확인합니다.": "在组织管理 > 注册中输入基本信息和结算账户信息后，在组织列表中确认。",
+      "조직에 대리점을 연결할 때": "将代理店连接到组织时",
+      "조직 리스트에서 연결하려는 지사, 총판, 영업을 찾고 대리점 등록 버튼을 누릅니다.": "在组织列表中找到要连接的分公司、总代理或销售，然后点击代理店注册按钮。",
+      "대리점 현황을 확인할 때": "确认代理店现状时",
+      "대리점 관리 > 계약 대리점 목록에서 승인 상태, 신청 출처, 대리점명으로 검색합니다.": "在代理店管理 > 签约代理店列表中，可按审批状态、申请来源、代理店名称搜索。",
+      "정산 금액을 확인할 때": "确认结算金额时",
+      "정산관리에서 대상을 선택하고 조회 기간을 설정한 뒤 상세 내역 보기에서 근거를 확인합니다.": "在结算管理中选择对象并设置查询期间，然后在查看明细中确认依据。",
+      "참고: 현재 권한설정 기능은 내부 운영 기준이 확정된 뒤 다시 반영할 예정입니다. 화면의 일부 데이터는 예시 데이터이며, 실제 운영 시에는 실데이터와 연동됩니다.": "参考：当前权限设置功能将在内部运营标准确定后再次反映。页面中的部分数据为示例数据，实际运营时将与真实数据联动。"
+    };
+
+    const koTitle = "SJ Hub CA 운영사 어드민 고객 안내서";
+    const zhTitle = zhText[koTitle];
+    const textNodes = [];
+
+    function collectTextNodes() {
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          if (!node.textContent.trim()) return NodeFilter.FILTER_REJECT;
+          if (node.parentElement.closest("script, style")) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+
+      let node = walker.nextNode();
+      while (node) {
+        textNodes.push({
+          node,
+          ko: node.textContent,
+          trimmed: node.textContent.trim()
+        });
+        node = walker.nextNode();
+      }
+    }
+
+    function setLanguage(lang) {
+      textNodes.forEach((item) => {
+        if (lang === "ko") {
+          item.node.textContent = item.ko;
+          return;
+        }
+
+        const translated = zhText[item.trimmed];
+        if (!translated) return;
+
+        const leading = item.ko.match(/^\s*/)[0];
+        const trailing = item.ko.match(/\s*$/)[0];
+        item.node.textContent = leading + translated + trailing;
+      });
+
+      document.documentElement.lang = lang === "zh" ? "zh-CN" : "ko";
+      document.title = lang === "zh" ? zhTitle : koTitle;
+      document.querySelectorAll("[data-lang-btn]").forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.langBtn === lang);
+      });
+    }
+
+    collectTextNodes();
+    document.querySelectorAll("[data-lang-btn]").forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.dataset.langBtn));
+    });
+  </script>
+</body>
+</html>
