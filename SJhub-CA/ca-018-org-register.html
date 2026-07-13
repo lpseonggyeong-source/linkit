@@ -21,6 +21,22 @@
     <p class="admin-page-subtitle">영업 조직 또는 영업 계정의 정산 정보를 등록합니다.</p>
 
     <div class="admin-form-section">
+      <div class="admin-form-section__header"><span class="admin-form-section__title">기본 정보</span></div>
+      <div class="admin-form-section__body">
+        <div class="admin-fields-row">
+          <div class="admin-field" data-field="hierarchy"><label for="orgHierarchy">위계구분 <span class="admin-field-required">*</span></label><select id="orgHierarchy"><option>지사</option><option>총판</option><option selected>영업</option></select><div class="admin-field-error"></div></div>
+          <div class="admin-field" data-field="displayName"><label for="orgDisplayName">명칭 <span class="admin-field-required">*</span></label><input type="text" id="orgDisplayName" placeholder="명칭을 입력하세요" /><div class="admin-field-error"></div></div>
+          <div class="admin-field" data-field="loginId"><label for="orgLoginId">로그인 아이디 <span class="admin-field-required">*</span></label><input type="text" id="orgLoginId" autocomplete="username" /><div class="admin-field-error"></div></div>
+        </div>
+        <div class="admin-fields-row">
+          <div class="admin-field" data-field="loginPassword"><label for="orgLoginPassword">로그인 비밀번호 <span class="admin-field-required">*</span></label><input type="password" id="orgLoginPassword" autocomplete="new-password" /><div class="admin-field-error"></div></div>
+          <div class="admin-field" data-field="feeRate"><label for="orgFeeRate">수수료율 <span class="admin-field-required">*</span></label><input type="number" id="orgFeeRate" min="0" max="100" step="0.1" /><div class="admin-field-hint">%</div><div class="admin-field-error"></div></div>
+        </div>
+        <div class="admin-field" data-field="memo"><label for="orgMemo">간단 메모</label><textarea id="orgMemo" placeholder="간략한 메모를 작성하는 공간입니다."></textarea><div class="admin-field-error"></div></div>
+      </div>
+    </div>
+
+    <div class="admin-form-section">
       <div class="admin-form-section__header"><span class="admin-form-section__title">영업 계정 등록 정보</span></div>
       <div class="admin-form-section__body">
         <div class="admin-fields-row">
@@ -37,6 +53,12 @@
         <div class="admin-field" data-field="holder"><label for="orgHolder">예금주 <span class="admin-field-required">*</span></label><input type="text" id="orgHolder" placeholder="예금주명" /><div class="admin-field-error"></div></div>
       </div>
     </div>
+    <div class="admin-form-section" style="border-color:#f2c94c;background:#fffbe8;">
+      <div class="admin-form-section__body admin-form-section__body--tight" style="font-size:13px;color:#7a5600;">
+        <strong>등록 안내</strong><br />
+        여기서 등록하시면 운영사와 직접 연결됩니다. 영업조직의 연결이 필요한 경우에는 조직 리스트에서 선택해 연결하세요.
+      </div>
+    </div>
     <div class="admin-form-actions"><a class="admin-btn admin-btn--outline" href="ca-009-organization-list.html">취소</a><button type="button" class="admin-btn admin-btn--primary" id="saveOrgBtn" disabled>저장</button></div>
   </main>
 </div>
@@ -44,13 +66,13 @@
 <script>
 (function(){
   "use strict";
-  var ids = ["orgName","orgPhone","orgType","orgIdFile","orgBizNo","orgBank","orgAccount","orgHolder"];
+  var ids = ["orgHierarchy","orgDisplayName","orgLoginId","orgLoginPassword","orgFeeRate","orgMemo","orgName","orgPhone","orgType","orgIdFile","orgBizNo","orgBank","orgAccount","orgHolder"];
   function el(id){ return document.getElementById(id); }
   function field(name){ return document.querySelector('[data-field="'+name+'"]'); }
   function error(name,msg){ var f=field(name); if(!f) return; f.classList.toggle("is-error",!!msg); f.querySelector(".admin-field-error").textContent=msg||""; }
-  function data(){ return { name:el("orgName").value.trim(), phone:el("orgPhone").value.trim(), type:el("orgType").value, idFile:el("orgIdFile").files[0] ? el("orgIdFile").files[0].name : "", bizNo:el("orgBizNo").value.trim(), bank:el("orgBank").value, account:el("orgAccount").value.trim(), holder:el("orgHolder").value.trim() }; }
+  function data(){ return { hierarchy:el("orgHierarchy").value, displayName:el("orgDisplayName").value.trim(), loginId:el("orgLoginId").value.trim(), loginPassword:el("orgLoginPassword").value, feeRate:el("orgFeeRate").value, memo:el("orgMemo").value.trim(), name:el("orgName").value.trim(), phone:el("orgPhone").value.trim(), type:el("orgType").value, idFile:el("orgIdFile").files[0] ? el("orgIdFile").files[0].name : "", bizNo:el("orgBizNo").value.trim(), bank:el("orgBank").value, account:el("orgAccount").value.trim(), holder:el("orgHolder").value.trim() }; }
   function sync(){ var personal=el("orgType").value==="개인"; el("idFileWrap").style.display=personal?"":"none"; el("bizNoWrap").style.display=personal?"none":""; validate(false); }
-  function validate(show){ var d=data(), ok=true; var checks=[["name",!d.name,"이름을 입력해주세요."],["phone",!/^01\d-\d{3,4}-\d{4}$/.test(d.phone),"전화번호 형식을 확인해주세요."],["bank",!d.bank,"은행을 선택해주세요."],["account",!/^[0-9-]+$/.test(d.account),"계좌번호는 숫자와 하이픈만 입력해주세요."],["holder",!d.holder,"예금주를 입력해주세요."]]; checks.forEach(function(c){ if(c[1]) ok=false; if(show) error(c[0],c[1]?c[2]:""); }); if(d.type==="개인"){ if(!d.idFile) ok=false; if(show) error("idFile",d.idFile?"":"신분증을 첨부해주세요."); if(show) error("bizNo",""); } else { var bad=!/^\d{3}-\d{2}-\d{5}$/.test(d.bizNo); if(bad) ok=false; if(show) error("bizNo",bad?"사업자등록번호 형식을 확인해주세요.":""); if(show) error("idFile",""); } el("saveOrgBtn").disabled=!ok; return ok; }
+  function validate(show){ var d=data(), ok=true; var fee=Number(d.feeRate); var checks=[["hierarchy",!d.hierarchy,"위계구분을 선택해주세요."],["displayName",!d.displayName,"명칭을 입력해주세요."],["loginId",!d.loginId,"로그인 아이디를 입력해주세요."],["loginPassword",!d.loginPassword,"로그인 비밀번호를 입력해주세요."],["feeRate",d.feeRate==="" || isNaN(fee) || fee<0 || fee>100,"수수료율은 0~100 사이로 입력해주세요."],["name",!d.name,"이름을 입력해주세요."],["phone",!/^01\d-\d{3,4}-\d{4}$/.test(d.phone),"전화번호 형식을 확인해주세요."],["bank",!d.bank,"은행을 선택해주세요."],["account",!/^[0-9-]+$/.test(d.account),"계좌번호는 숫자와 하이픈만 입력해주세요."],["holder",!d.holder,"예금주를 입력해주세요."]]; checks.forEach(function(c){ if(c[1]) ok=false; if(show) error(c[0],c[1]?c[2]:""); }); if(d.type==="개인"){ if(!d.idFile) ok=false; if(show) error("idFile",d.idFile?"":"신분증을 첨부해주세요."); if(show) error("bizNo",""); } else { var bad=!/^\d{3}-\d{2}-\d{5}$/.test(d.bizNo); if(bad) ok=false; if(show) error("bizNo",bad?"사업자등록번호 형식을 확인해주세요.":""); if(show) error("idFile",""); } el("saveOrgBtn").disabled=!ok; return ok; }
   document.addEventListener("DOMContentLoaded",function(){ sync(); ids.forEach(function(id){ el(id).addEventListener("input",function(){validate(false)}); el(id).addEventListener("change",function(){validate(false)}); }); el("orgType").addEventListener("change",sync); el("saveOrgBtn").addEventListener("click",function(){ if(!validate(true)) return; AdminShared.showToast("조직 등록 정보가 저장되었습니다."); }); });
 })();
 </script>
