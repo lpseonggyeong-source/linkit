@@ -41,63 +41,58 @@
 
     <!-- KPI -->
     <div class="admin-kpi-grid" id="kpiGrid"></div>
-
-    <!-- Row 1 -->
-    <div class="admin-dashboard-row admin-dashboard-row--2col" style="margin-bottom:16px;">
-      <div class="admin-card">
-        <div class="admin-card__header">
-          <span class="admin-card__title">계약 대리점별 매출</span>
-          <a href="ca-013-settlement.html" class="admin-more-link">정산 관리 →</a>
-        </div>
-        <div class="admin-card__body--flush">
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead><tr><th>대리점명</th><th>주문수</th><th class="text-right">매출</th><th>정산상태</th></tr></thead>
-              <tbody id="brandSalesBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="admin-card">
-        <div class="admin-card__header">
-          <span class="admin-card__title">셀러별 성과 TOP 5</span>
-          <a href="ca-009-organization-list.html" class="admin-more-link">조직 관리 →</a>
-        </div>
-        <div class="admin-card__body--flush">
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead><tr><th>셀러명</th><th>대리점</th><th class="text-right">매출</th><th>주문수</th></tr></thead>
-              <tbody id="sellerPerfBody"></tbody>
-            </table>
-          </div>
-        </div>
+<!-- Row 1 -->
+<div class="admin-dashboard-row admin-dashboard-row--2col" style="margin-bottom:16px;">
+  <div class="admin-card">
+    <div class="admin-card__header">
+      <span class="admin-card__title">최근 주문 내역</span>
+      <a href="ca-007-order-list.html" class="admin-more-link">전체 보기 →</a>
+    </div>
+    <div class="admin-card__body--flush">
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>주문번호</th>
+              <th>대리점</th>
+              <th>셀러</th>
+              <th class="text-left">상품명</th>
+              <th class="text-right">금액</th>
+              <th>상태</th>
+            </tr>
+          </thead>
+          <tbody id="recentOrderBody"></tbody>
+        </table>
       </div>
     </div>
+  </div>
 
-    <!-- Row 2 -->
-    <div class="admin-dashboard-row admin-dashboard-row--2col">
-      <div class="admin-card">
-        <div class="admin-card__header">
-          <span class="admin-card__title">최근 주문 내역</span>
-          <a href="ca-007-order-list.html" class="admin-more-link">전체 보기 →</a>
-        </div>
-        <div class="admin-card__body--flush">
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead><tr><th>주문번호</th><th>대리점</th><th>셀러</th><th class="text-left">상품명</th><th class="text-right">금액</th><th>상태</th></tr></thead>
-              <tbody id="recentOrderBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="admin-card">
-        <div class="admin-card__header">
-          <span class="admin-card__title">공지사항</span>
-          <a href="ca-016-notice.html" class="admin-more-link">전체 보기 →</a>
-        </div>
-        <div class="admin-notice-list" id="noticeList"></div>
+  <div class="admin-card">
+    <div class="admin-card__header">
+      <span class="admin-card__title">최근 링크 주문 내역</span>
+      <a href="ca-007-order-list.html" class="admin-more-link">전체 보기 →</a>
+    </div>
+    <div class="admin-card__body--flush">
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>주문번호</th>
+              <th>대리점</th>
+              <th>셀러</th>
+              <th class="text-left">상품명</th>
+              <th class="text-right">금액</th>
+              <th>상태</th>
+            </tr>
+          </thead>
+          <tbody id="recentLinkOrderBody"></tbody>
+        </table>
       </div>
     </div>
+  </div>
+</div>
+
+
 
   </main>
 </div>
@@ -131,34 +126,7 @@
     { name:"셀러_05",  brand:"대리점_05",sales:2100000, orders:65  },
   ];
 
-  var recentOrders = [
-    { no:"ORD-20260520-001", brand:"대리점_01",    seller:"셀러_01",   name:"리넨 와이드 팬츠",  amt:45000,  status:"배송중" },
-    { no:"ORD-20260520-002", brand:"대리점_02",   seller:"셀러_04",    name:"바디로션 세트",     amt:68000,  status:"상품 준비중" },
-    { no:"ORD-20260519-015", brand:"대리점_03",   seller:"셀러_02",   name:"퍼퓸 캔들",         amt:42000,  status:"배송준비중" },
-    { no:"ORD-20260519-014", brand:"대리점_04",     seller:"셀러_06",name:"원목 선반 세트",    amt:89000,  status:"배송중" },
-    { no:"ORD-20260519-013", brand:"대리점_05",seller:"셀러_05", name:"캐시미어 담요",    amt:128000, status:"취소완료" },
-  ];
-
-  var notices = [
-    { title:"[중요] 5월 정산 예정일 안내", date:"2026.05.15" },
-    { title:"서비스 이용약관 변경 안내",   date:"2026.05.10" },
-    { title:"배송사 정산 연동 업데이트",   date:"2026.05.05" },
-    { title:"SJ Hub 어드민 리뉴얼 안내",   date:"2026.04.28" },
-  ];
-
-  function renderKPI() {
-    var g = document.getElementById("kpiGrid");
-    if (!g) return;
-    g.innerHTML = kpiData.map(function(d) {
-      return '<div class="admin-kpi-card">' +
-        '<div class="admin-kpi-card__label">' + d.label + '</div>' +
-        '<div class="admin-kpi-card__value' + (d.highlight ? ' admin-kpi-card__value--red' : '') + '">' +
-          d.value + '<span style="font-size:14px;font-weight:500;margin-left:2px;">' + d.unit + '</span>' +
-        '</div>' +
-      '</div>';
-    }).join("");
-  }
-
+  
   function renderBrandSales() {
     var b = document.getElementById("brandSalesBody");
     if (!b) return;
@@ -169,14 +137,6 @@
     }).join("");
   }
 
-  function renderSellerPerf() {
-    var b = document.getElementById("sellerPerfBody");
-    if (!b) return;
-    b.innerHTML = sellerPerf.map(function(d) {
-      return '<tr><td>' + d.name + '</td><td>' + d.brand + '</td>' +
-        '<td class="text-right">' + fc(d.sales) + '</td>' +
-        '<td style="text-align:center;">' + d.orders.toLocaleString() + '건</td></tr>';
-    }).join("");
   }
 
   function renderRecentOrders() {
@@ -190,14 +150,7 @@
     }).join("");
   }
 
-  function renderNotices() {
-    var n = document.getElementById("noticeList");
-    if (!n) return;
-    n.innerHTML = notices.map(function(d) {
-      return '<div class="admin-notice-item"><span class="admin-notice-title">' + d.title + '</span>' +
-        '<span class="admin-notice-date">' + d.date + '</span></div>';
-    }).join("");
-  }
+  
 
   document.addEventListener("DOMContentLoaded", function() {
     renderKPI(); renderBrandSales(); renderSellerPerf(); renderRecentOrders(); renderNotices();
