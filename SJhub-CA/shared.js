@@ -94,8 +94,8 @@
     ["수수료 비율", "手续费比例"],
     ["CA 아래 지사, 총판, 영업의 위계와 운영 현황을 한 화면에서 관리합니다.", "在一个页面中管理CA下属销售分公司、销售总代理、业务员的层级和运营现状。"],
     ["CA 바로 아래 1단계 조직입니다. 총판과 영업 생성, 하위 조직의 운영 흐름을 관리합니다.", "CA直属一级组织。可创建总代理和业务员，并管理下级组织的运营流程。"],
-    ["지사 아래 2단계 조직입니다. 소속 영업과 연결 대리점을 중심으로 정산 흐름을 관리합니다.", "分公司下属二级组织。围绕所属业务员和关联代理店管理结算流程。"],
-    ["현장 운영 단위입니다. 대리점 등록, 판매 현황 조회, 정산 정보를 확인합니다.", "现场运营单位。可登记代理店、查看销售现状和结算信息。"],
+    ["지사 아래 2단계 조직입니다. 소속 영업과 연결 대리점을 중심으로 정산 흐름을 관리합니다.", "分公司下属二级组织。围绕所属业务员和关联商家管理结算流程。"],
+    ["현장 운영 단위입니다. 대리점 등록, 판매 현황 조회, 정산 정보를 확인합니다.", "现场运营单位。可登记商家、查看销售现状和结算信息。"],
     ["영업 조직 리스트", "销售组织列表"],
     ["영업 조직 등록", "登记销售组织"],
     ["영업 조직 요약", "销售组织汇总"],
@@ -109,8 +109,8 @@
     ["3단계", "三级"],
     ["승인 완료 조직 기준", "以已批准组织为准"],
     ["총판과 영업을 하위 관리", "管理下级总代理和业务员"],
-    ["소속 영업과 대리점 관리", "管理所属业务员和代理店"],
-    ["대리점 등록과 연결 실무 담당", "负责代理店登记与关联实务"],
+    ["소속 영업과 대리점 관리", "管理所属业务员和商家"],
+    ["대리점 등록과 연결 실무 담당", "负责商家注册与关联实务"],
     ["조직 위계", "组织层级"],
     ["조직 구분", "组织类型"],
     ["상위 조직", "上级组织"],
@@ -125,7 +125,7 @@
     ["하위 영업 등록", "登记下级业务员"],
     ["하위 영업", "下级业务员"],
     ["직속 영업", "直属业务员"],
-    ["직접 연결 대리점", "直接关联代理店"],
+    ["직접 연결 대리점", "直接关联商家"],
     ["활성 계정", "启用账号"],
     ["활성 상태", "启用状态"],
     ["판매 현황", "销售现状"],
@@ -142,8 +142,8 @@
     ["조회된 영업 조직이 없습니다.", "没有查询到销售组织。"],
     ["등록을 준비합니다.", "登记准备中。"],
     ["수정 화면은 mock 상태입니다.", "编辑页面为mock状态。"],
-    ["계약 대리점을 조회하고 승인 상태를 관리합니다.", "查询签约代理店并管理审批状态。"],
-    ["조회된 대리점이 없습니다.", "没有查询到代理店。"],
+    ["계약 대리점을 조회하고 승인 상태를 관리합니다.", "查询签约商家并管理审批状态。"],
+    ["조회된 대리점이 없습니다.", "没有查询到商家。"],
     ["조회된 정산 데이터가 없습니다.", "没有查询到结算数据。"],
     ["기존 조직 관리 정책 범위 내에서 수정됩니다.", "将在现有组织管理政策范围内修改。"],
     ["영업 직접", "业务员直接"],
@@ -156,23 +156,23 @@
     ["영업", "业务员"],
     ["지사 소속", "分公司所属"],
     ["총판 소속", "总代理所属"],
-    ["대리점 직접 신청", "代理店直接申请"],
-    ["대리점 직접 등록", "代理店直接登记"],
-    ["대리점 직접", "代理店直接"],
-    ["대리점 등록 신청", "代理店登记申请"],
-    ["대리점 등록", "代理店登记"],
-    ["계약 대리점 목록", "签约代理店列表"],
-    ["대리점 매출 요약", "代理店销售汇总"],
-    ["대리점 판매 내역", "代理店销售明细"],
-    ["대리점 상세", "代理店详情"],
-    ["대리점 수정", "编辑代理店"],
-    ["대리점별 정산", "按代理店结算"],
-    ["대리점 정산", "代理店结算"],
-    ["대리점 관리", "代理店管理"],
-    ["대리점 선택", "选择代理店"],
-    ["전체 대리점", "全部代理店"],
-    ["대리점명", "代理店名称"],
-    ["대리점", "代理店"],
+    ["대리점 직접 신청", "商家直接申请"],
+    ["대리점 직접 등록", "商家直接注册"],
+    ["대리점 직접", "商家直接"],
+    ["대리점 등록 신청", "商家注册"],
+    ["대리점 등록", "商家注册"],
+    ["계약 대리점 목록", "商家列表"],
+    ["대리점 매출 요약", "商家销售汇总"],
+    ["대리점 판매 내역", "商家销售明细"],
+    ["대리점 상세", "商家详情"],
+    ["대리점 수정", "编辑商家"],
+    ["대리점별 정산", "按商家结算"],
+    ["대리점 정산", "商家结算"],
+    ["대리점 관리", "商家管理"],
+    ["대리점 선택", "选择商家"],
+    ["전체 대리점", "全部商家"],
+    ["대리점명", "商家名称"],
+    ["대리점", "商家"],
     ["지사 등록", "分公司登记"],
     ["지사 정산", "分公司结算"],
     ["지사별 정산", "按分公司结算"],
@@ -187,11 +187,11 @@
     ["CA 직접 등록", "CA直接登记"],
     ["운영사", "运营商"],
     ["소속 영업조직", "所属销售组织"],
-    ["연결 대리점", "关联代理店"],
-    ["셀러-대리점 연결 관리", "卖家-代理店关联管理"],
-    ["연결 가능한 대리점", "可关联代理店"],
-    ["현재 연결된 대리점", "当前关联代理店"],
-    ["연결된 대리점", "已关联代理店"],
+    ["연결 대리점", "关联商家"],
+    ["셀러-대리점 연결 관리", "卖家-商家关联管理"],
+    ["연결 가능한 대리점", "可关联商家"],
+    ["현재 연결된 대리점", "当前关联商家"],
+    ["연결된 대리점", "已关联商家"],
     ["셀러 목록", "卖家列表"],
     ["셀러 관리", "卖家管理"],
     ["셀러명", "卖家名称"],
@@ -203,10 +203,10 @@
     ["취소완료", "已取消"],
     ["배송중", "配送中"],
     ["주문 관리", "订单管理"],
-    ["주문 내역", "订单明细"],
-    ["링크 주문 내역", "链接订单明细"],
-    ["링크 订单明细", "链接订单明细"],
-    ["전체 주문 내역", "全部订单明细"],
+    ["주문 내역", "店铺订单"],
+    ["링크 주문 내역", "链接订单"],
+    ["링크 店铺订单", "链接订单"],
+    ["전체 주문 내역", "店铺订单"],
     ["주문번호", "订单号"],
     ["주문일", "下单日"],
     ["주문수", "订单数"],
@@ -287,7 +287,7 @@
     ["유보금 금액 또는 비율", "保证金金额或比例"],
     ["설정 사유", "设置原因"],
     ["관리자 메모", "管理员备注"],
-    ["대시보드", "仪表盘"],
+    ["대시보드", "主页"],
     ["조직 관리", "组织管理"],
     ["조직 리스트", "组织列表"],
     ["조직 등록 정보가 저장되었습니다.", "组织注册信息已保存。"],
@@ -380,13 +380,16 @@
     ["원", "元"],
     ["개", "个"],
     ["명", "名"],
-    ["대리점_", "代理店_"],
+    ["대리점_", "商家_"],
     ["영업_", "业务员_"],
     ["지사_", "分公司_"],
     ["총판_", "总代理_"],
     ["셀러_", "卖家_"],
     ["담당자_", "负责人_"]
   ];
+  var ZH_REPLACEMENTS_SORTED = ZH_REPLACEMENTS.slice().sort(function(a, b) {
+    return b[0].length - a[0].length;
+  });
   var ZH_ATTRS = ["placeholder", "title", "aria-label"];
   var translating = false;
 
@@ -400,13 +403,18 @@
   function translateText(text) {
     if (!text || !text.trim()) return text;
     var next = text;
-    ZH_REPLACEMENTS.slice().sort(function(a, b) {
-      return b[0].length - a[0].length;
-    }).forEach(function (pair) {
+    ZH_REPLACEMENTS_SORTED.forEach(function (pair) {
       next = next.split(pair[0]).join(pair[1]);
     });
     return next;
   }
+
+  function translateTextNode(node) {
+    if (!node || !node.nodeValue || !node.nodeValue.trim()) return;
+    var translated = translateText(node.nodeValue);
+    if (translated !== node.nodeValue) node.nodeValue = translated;
+  }
+
   function translateElement(root) {
     if (getLang() !== "zh" || translating) return;
     translating = true;
@@ -426,18 +434,67 @@
     var nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(function (node) {
-      node.nodeValue = translateText(node.nodeValue);
+      translateTextNode(node);
     });
     scope.querySelectorAll("input, textarea, option, button, a, [title], [aria-label]").forEach(function (el) {
       ZH_ATTRS.forEach(function (attr) {
         if (!el.hasAttribute(attr)) return;
-        el.setAttribute(attr, translateText(el.getAttribute(attr)));
+        var translated = translateText(el.getAttribute(attr));
+        if (translated !== el.getAttribute(attr)) el.setAttribute(attr, translated);
       });
     });
     document.documentElement.lang = "zh-CN";
-    document.title = translateText(document.title);
+    var translatedTitle = translateText(document.title);
+    if (translatedTitle !== document.title) document.title = translatedTitle;
     translating = false;
   }
+
+  function initTranslationObserver() {
+    var pendingRoots = [];
+    var pendingTextNodes = [];
+    var scheduled = false;
+
+    function scheduleTranslation() {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(function () {
+        scheduled = false;
+        if (translating) return;
+        var roots = pendingRoots.slice();
+        var textNodes = pendingTextNodes.slice();
+        pendingRoots = [];
+        pendingTextNodes = [];
+
+        translating = true;
+        textNodes.forEach(function (node) {
+          if (!node || !node.parentElement || !node.isConnected) return;
+          translateTextNode(node);
+        });
+        translating = false;
+
+        roots.forEach(function (root) {
+          if (root && root.isConnected) translateElement(root);
+        });
+      });
+    }
+
+    var observer = new MutationObserver(function (mutations) {
+      if (translating) return;
+      mutations.forEach(function (mutation) {
+        if (mutation.type === "characterData") {
+          pendingTextNodes.push(mutation.target);
+          return;
+        }
+        mutation.addedNodes.forEach(function (node) {
+          if (node.nodeType === 1) pendingRoots.push(node);
+          if (node.nodeType === 3) pendingTextNodes.push(node);
+        });
+      });
+      if (pendingRoots.length || pendingTextNodes.length) scheduleTranslation();
+    });
+    observer.observe(document.body, { childList: true, characterData: true, subtree: true });
+  }
+
   function initLanguageSwitcher() {
     if (document.querySelector(".admin-lang-switch")) return;
     var main = document.querySelector(".admin-main") || document.body;
@@ -456,18 +513,7 @@
     });
     translateElement(document.body);
     if (current === "zh") {
-      var observer = new MutationObserver(function (mutations) {
-        mutations.forEach(function (mutation) {
-          if (mutation.type === "characterData" && mutation.target.parentElement) {
-            translateElement(mutation.target.parentElement);
-          }
-          mutation.addedNodes.forEach(function (node) {
-            if (node.nodeType === 1) translateElement(node);
-            if (node.nodeType === 3 && node.parentElement) translateElement(node.parentElement);
-          });
-        });
-      });
-      observer.observe(document.body, { childList: true, characterData: true, subtree: true });
+      initTranslationObserver();
     }
   }
 
