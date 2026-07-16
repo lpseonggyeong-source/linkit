@@ -1,0 +1,58 @@
+/* SJ Hub CA 정산 개선판(v2) 전용 스타일 — shared.css 위에 얹는 보조 스타일 */
+
+.v2-badge{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:6px;background:#DCFCE7;color:#166534;vertical-align:middle;margin-left:8px}
+
+/* 회차 패널 강조 (v2에서는 회차가 조회의 1차 축) */
+.v2-cycle{background:#fff;border:1px solid #DFE4EC;border-left:5px solid #2563EB;border-radius:12px;padding:14px 18px;margin:14px 0}
+.v2-cycle__head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.v2-cycle__title{font-weight:800;font-size:14px}
+.v2-cycle__desc{font-size:12px;color:#667085}
+.v2-cycle__controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:13px}
+.v2-cycle__controls label{font-size:12.5px;color:#667085;font-weight:700}
+.v2-cycle__controls select,.v2-cycle__controls input{border:1px solid #DFE4EC;border-radius:8px;padding:6px 10px;font-size:13px;font-family:inherit}
+.v2-cycle__range{font-size:12.5px;color:#1D4ED8;font-weight:700;background:#EAF1FF;border-radius:8px;padding:5px 10px}
+.v2-cycle__actions{margin-left:auto;display:flex;gap:8px}
+
+/* 필터 기준 라벨 명시 (S-10) */
+.v2-filter-basis{display:inline-block;font-size:11px;font-weight:700;color:#6D28D9;background:#EDE9FE;border-radius:6px;padding:2px 8px;margin-left:6px}
+
+/* KPI */
+.v2-kpi-note{font-size:12px;color:#667085;margin:-4px 0 10px}
+
+/* 분배 체인 표시 (S-01) */
+.v2-chain{display:inline-flex;align-items:center;gap:4px;flex-wrap:wrap;font-size:11.5px}
+.v2-chain .hop{background:#F1F5F9;border:1px solid #E2E8F0;border-radius:6px;padding:1px 7px;white-space:nowrap}
+.v2-chain .hop b{color:#1D4ED8}
+.v2-chain .arrow{color:#94A3B8}
+
+/* 금액 컬럼 */
+td.v2-payable{font-weight:800;color:#166534}
+td.v2-hold{color:#B45309}
+.v2-muted{color:#98A2B3}
+
+/* 정산 상태 뱃지 3단계 — 색상 구분: 필요=빨강 / 중=주황 / 완료=초록 */
+.v2-st{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid;white-space:nowrap}
+.v2-st--need{background:#FEECEC;color:#DC2626;border-color:#F5C6C6}
+.v2-st--ing{background:#FFF4D6;color:#B45309;border-color:#F5DFA3}
+.v2-st--done{background:#DEF7EC;color:#047857;border-color:#B7E9D3}
+
+/* 상태 이력 */
+.v2-history{margin-top:12px;border:1px solid #DFE4EC;border-radius:10px;overflow:hidden}
+.v2-history table{width:100%;border-collapse:collapse;font-size:12px}
+.v2-history th{background:#F9FAFC;color:#667085;font-size:11px;text-align:left;padding:6px 10px;border-bottom:1px solid #DFE4EC}
+.v2-history td{padding:6px 10px;border-bottom:1px solid #F0F2F6}
+.v2-history tr:last-child td{border-bottom:0}
+
+/* 검증 배너 (수수료율 위계 검증 실패 시) */
+.v2-warn-banner{background:#FEECEC;border:1px solid #F5C6C6;color:#7F1D1D;border-radius:10px;padding:10px 14px;font-size:12.5px;margin:10px 0}
+
+/* 상세 페이지 owner 카드 */
+.v2-owner-card{background:#fff;border:1px solid #DFE4EC;border-radius:12px;padding:14px 18px;margin:12px 0;display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:13px}
+.v2-owner-card .kv{display:flex;gap:6px;align-items:center}
+.v2-owner-card .kv b{font-size:12px;color:#667085;font-weight:700}
+.v2-status-banner{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700}
+
+/* 인덱스 페이지 */
+.v2-index-table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+.v2-index-table th,.v2-index-table td{border-bottom:1px solid #DFE4EC;padding:9px 12px;text-align:left;vertical-align:top}
+.v2-index-table thead th{background:#F9FAFC;font-size:12px;color:#667085}
