@@ -52,6 +52,68 @@
     if (toDate && d > toDate) return false;
     return true;
   }
+  /* 일정산·주정산(월~일)·월정산 등 고정 정산 구간의 시작/종료를 계산.
+     지급완료 처리는 이 고정 구간에서만 허용한다 (자유 날짜 조회와 분리). */
+  function periodBounds(unit, refDateStr) {
+    if (!unit) return null;
+    var ref = parseDateTime(refDateStr, false) || parseDateTime(today, false);
+    var start, end;
+    if (unit === "일별") {
+      start = new Date(ref.getFullYear(), ref.getMonth(), ref.getDate(), 0, 0);
+      end = new Date(ref.getFullYear(), ref.getMonth(), ref.getDate(), 23, 59);
+    } else if (unit === "주별") {
+      var mondayOffset = (ref.getDay() + 6) % 7;
+      var monday = new Date(ref.getFullYear(), ref.getMonth(), ref.getDate() - mondayOffset);
+      start = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate(), 0, 0);
+      end = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6, 23, 59);
+    } else if (unit === "월별") {
+      start = new Date(ref.getFullYear(), ref.getMonth(), 1, 0, 0);
+      end = new Date(ref.getFullYear(), ref.getMonth() + 1, 0, 23, 59);
+    } else {
+      return null;
+    }
+    return { start: start, end: end };
+  }
+  function cycleLabel(unit, bounds) {
+    if (!unit || !bounds) return "정산 회차를 선택해주세요.";
+    return unit + " 회차 · " + dateTimeInputValue(bounds.start, false).replace("T", " ") + " ~ " + dateTimeInputValue(bounds.end, true).replace("T", " ");
+  }
+  function currentCycleBounds() {
+    var unitSel = byId("fTimeUnit");
+    var baseInput = byId("settlementCycleBase");
+    return unitSel ? periodBounds(unitSel.value, baseInput ? baseInput.value : today) : null;
+  }
+  function initSettlementCycle() {
+    var filter = document.querySelector(".settlement-filter-line");
+    var unitSel = byId("fTimeUnit");
+    var fromInput = byId("fFrom");
+    var toInput = byId("fTo");
+    if (!filter || !unitSel || !fromInput || !toInput) return null;
+    Array.prototype.slice.call(unitSel.options).forEach(function (option) {
+      if (!option.value) option.remove();
+    });
+    unitSel.value = unitSel.value || "일별";
+    filter.parentNode.insertBefore(document.createElement("div"), filter);
+    var panel = filter.previousSibling;
+    panel.className = "settlement-cycle-panel";
+    panel.innerHTML =
+      '<div class="settlement-cycle-panel__head"><div><div class="settlement-cycle-panel__title">정산 회차</div><div class="settlement-cycle-panel__desc">지급완료는 고정된 회차 범위에서만 처리됩니다.</div></div><button type="button" class="admin-btn admin-btn--primary admin-btn--sm" id="cycleSettleBtn">지급완료 처리</button></div>' +
+      '<div class="settlement-cycle-panel__controls"><label>정산 유형</label><span id="settlementCycleUnitSlot"></span><label>기준일</label><input type="date" id="settlementCycleBase" value="' + today + '" /><span class="settlement-cycle-panel__range" id="settlementCycleRange"></span></div>';
+    byId("settlementCycleUnitSlot").appendChild(unitSel);
+    function updateCycle() {
+      var bounds = currentCycleBounds();
+      byId("settlementCycleRange").textContent = cycleLabel(unitSel.value, bounds);
+    }
+    unitSel.addEventListener("change", updateCycle);
+    byId("settlementCycleBase").addEventListener("change", updateCycle);
+    byId("cycleSettleBtn").addEventListener("click", function () {
+      var checked = document.querySelectorAll(".row-check:checked,.sale-check:checked").length;
+      if (!checked) A.showToast("정산 처리할 항목을 먼저 선택해주세요.");
+      else byId("bulkStatusBtn").click();
+    });
+    updateCycle();
+    return updateCycle;
+  }
   function makeModal() {
     var el = byId("settlementModal");
     if (el) return el;
@@ -195,6 +257,7 @@
     if (byId("pageTitle")) byId("pageTitle").textContent = cfg.title;
     if (byId("tableSectionTitle")) byId("tableSectionTitle").textContent = cfg.section;
     if (byId("nameHeader")) byId("nameHeader").textContent = cfg.nameCol;
+    var updateCycle = initSettlementCycle();
     render();
 
     function applyFilter() {
@@ -218,7 +281,8 @@
       var body = byId("settlementTableBody");
       body.innerHTML = slice.map(function (r) {
         var extra = type === "sales" ? '<td class="text-left">' + (r.org || "—") + '</td>' : type === "brand" ? '<td class="text-left">' + r.client + '</td><td class="text-left">' + r.branch + '</td>' : "";
-        return '<tr><td class="text-center"><input type="checkbox" class="row-check" data-id="' + r.id + '" ' + (selected[r.id] ? "checked" : "") + ' /></td>' +
+        var done = normalizeStatus(r.status) === "정산 완료";
+        return '<tr><td class="text-center"><input type="checkbox" class="row-check" data-id="' + r.id + '" ' + (selected[r.id] && !done ? "checked" : "") + (done ? " disabled" : "") + ' /></td>' +
           '<td class="text-left nowrap">' + r.name + '</td>' + extra +
           '<td class="text-center">' + r.fee + '%</td><td class="text-right">' + money(r.sales) + '</td><td class="text-center">' + r.count + '건</td>' +
           '<td class="text-right">' + num(r.amount) + '원</td><td class="text-center">' + statusBadge(r.status) + '</td>' +
@@ -232,11 +296,11 @@
     byId("resetBtn").addEventListener("click", function () {
       ["fFrom", "fTo", "fName"].forEach(function (id) { byId(id).value = ""; });
       byId("fStatus").value = "";
-      byId("fTimeUnit").value = "";
+      if (updateCycle) updateCycle();
       filtered = rows.slice(); page = 1; render();
     });
     byId("selectAllBtn").addEventListener("click", function () {
-      filtered.forEach(function (r) { selected[r.id] = true; });
+      filtered.forEach(function (r) { if (normalizeStatus(r.status) !== "정산 완료") selected[r.id] = true; });
       render();
     });
     byId("settlementTableBody").addEventListener("change", function (e) {
@@ -251,21 +315,44 @@
     });
     byId("pageSize").addEventListener("change", function () { size = Number(this.value); page = 1; render(); });
     byId("downloadBtn").addEventListener("click", function () {
-      var picked = rows.filter(function (r) { return selected[r.id]; });
+      var picked = rows.filter(function (r) { return selected[r.id] && normalizeStatus(r.status) !== "정산 완료"; });
       rowCsv(picked.length ? picked : filtered, cfg);
     });
     byId("bulkStatusBtn").addEventListener("click", function () {
-      var picked = rows.filter(function (r) { return selected[r.id]; });
+      var picked = rows.filter(function (r) { return selected[r.id] && normalizeStatus(r.status) !== "정산 완료"; });
       if (!picked.length) { A.showToast("선택한 항목이 없습니다."); return; }
       openStatusModal(picked, render);
     });
   }
 
+  /* 정산 완료(지급완료) 처리는 일정산·주정산·월정산 등 고정 구간(fTimeUnit)이
+     선택된 상태에서만 허용한다. 자유 날짜 조회 상태에서는 조회만 가능하고
+     지급완료 처리는 막는다 — 임의 구간으로 지급 처리되어 정산이 꼬이는 것을 방지. */
   function openStatusModal(targets, callback) {
-    openModal("선택항목 상태 변경", '<div class="admin-field"><label>변경 상태</label><select id="bulkStatusSelect"><option>정산 필요</option><option>정산대기</option><option>정산중</option><option>정산 완료</option><option>정산 보류</option></select><div class="admin-field-hint">TODO: 정산 완료 상태의 재변경 허용 여부를 회사 정책에 따라 확정해야 함.</div></div>',
+    var unitSel = byId("fTimeUnit");
+    var lockedUnit = unitSel ? unitSel.value : "";
+    var bounds = currentCycleBounds();
+    var statuses = ["정산 필요", "정산대기", "정산중", "정산 완료", "정산 보류"];
+    var optionsHtml = statuses.map(function (s) {
+      var disabled = (s === "정산 완료" && !lockedUnit) ? " disabled" : "";
+      return "<option" + disabled + ">" + s + "</option>";
+    }).join("");
+    var hint = lockedUnit
+      ? "고정된 " + cycleLabel(lockedUnit, bounds) + " 기준으로 정산 완료 처리됩니다."
+      : "정산 완료(지급완료) 처리는 상단 정산 회차에서 일별·주별·월별 등 고정 구간을 선택한 뒤에만 가능합니다.";
+    var alreadyDoneCount = targets.filter(function (r) { return normalizeStatus(r.status) === "정산 완료"; }).length;
+    var warnHtml = alreadyDoneCount
+      ? '<div class="admin-field-hint">선택한 ' + targets.length + '건 중 ' + alreadyDoneCount + '건은 이미 정산 완료 상태입니다. 다시 처리하면 중복 정산이 될 수 있으니 확인 후 진행해주세요.</div>'
+      : "";
+    openModal("선택항목 상태 변경", '<div class="admin-field"><label>변경 상태</label><select id="bulkStatusSelect">' + optionsHtml + '</select><div class="admin-field-hint">' + hint + '</div>' + warnHtml + '</div>',
       '<button type="button" class="admin-btn admin-btn--outline" data-settlement-close>취소</button><button type="button" class="admin-btn admin-btn--primary" id="bulkStatusSave">변경</button>');
+    if (lockedUnit) byId("bulkStatusSelect").value = "정산 완료";
     byId("bulkStatusSave").addEventListener("click", function () {
       var next = byId("bulkStatusSelect").value;
+      if (next === "정산 완료" && !lockedUnit) {
+        A.showToast("정산 완료 처리는 고정된 정산 구간에서만 가능합니다.");
+        return;
+      }
       targets.forEach(function (r) { r.status = next; });
       closeModal();
       callback();
@@ -283,6 +370,7 @@
     if (byId("detailName")) byId("detailName").textContent = owner.name;
     if (byId("detailFee")) byId("detailFee").textContent = "수수료율 " + owner.fee + "%";
     if (byId("detailTableTitle")) byId("detailTableTitle").textContent = cfg.detailTitle;
+    var updateCycle = initSettlementCycle();
     render();
 
     function applyFilter() {
@@ -299,7 +387,8 @@
     function render() {
       renderKpi(summarize(filtered, owner.id === "branch-01" && filtered.length === rows.length ? { totalCount:17, doneCount:17, needCount:0, totalAmount:7000, doneAmount:7000, needAmount:0 } : null));
       byId("salesTableBody").innerHTML = filtered.map(function (r) {
-        return '<tr><td class="text-center"><input type="checkbox" class="sale-check" data-id="' + r.id + '" ' + (selected[r.id] ? "checked" : "") + ' /></td>' +
+        var done = normalizeStatus(r.status) === "정산 완료";
+        return '<tr><td class="text-center"><input type="checkbox" class="sale-check" data-id="' + r.id + '" ' + (selected[r.id] && !done ? "checked" : "") + (done ? " disabled" : "") + ' /></td>' +
           '<td class="text-left nowrap">' + r.seller + '</td><td class="text-left product-cell" title="' + r.product + '">' + r.product + '</td>' +
           '<td class="text-center nowrap">' + r.orderNo + '</td><td class="text-center nowrap">' + r.soldAt + '</td>' +
           '<td class="text-right">' + money(r.sales) + '</td><td class="text-center">' + r.fee + '%</td><td class="text-right">' + num(r.settlement) + '원</td>' +
@@ -308,11 +397,11 @@
       byId("emptyState").style.display = filtered.length ? "none" : "";
     }
     byId("searchBtn").addEventListener("click", applyFilter);
-    byId("resetBtn").addEventListener("click", function () { byId("fFrom").value = ""; byId("fTo").value = ""; byId("fStatus").value = ""; byId("fTimeUnit").value = ""; filtered = rows.slice(); render(); });
-    byId("selectAllBtn").addEventListener("click", function () { filtered.forEach(function (r) { selected[r.id] = true; }); render(); });
+    byId("resetBtn").addEventListener("click", function () { byId("fFrom").value = ""; byId("fTo").value = ""; byId("fStatus").value = ""; if (updateCycle) updateCycle(); filtered = rows.slice(); render(); });
+    byId("selectAllBtn").addEventListener("click", function () { filtered.forEach(function (r) { if (normalizeStatus(r.status) !== "정산 완료") selected[r.id] = true; }); render(); });
     byId("downloadBtn").addEventListener("click", function () { saleCsv(filtered, owner); });
     byId("bulkStatusBtn").addEventListener("click", function () {
-      var picked = rows.filter(function (r) { return selected[r.id]; });
+      var picked = rows.filter(function (r) { return selected[r.id] && normalizeStatus(r.status) !== "정산 완료"; });
       if (!picked.length) { A.showToast("선택한 항목이 없습니다."); return; }
       openStatusModal(picked, render);
     });
