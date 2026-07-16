@@ -1,6 +1,6 @@
 /* =============================================
-   shared.css â€” SJ Hub CA/BA ì–´ë“œë¯¼ ê³µí†µ ìŠ¤íƒ€ì¼
-   (ê¸°ì¡´ admin.css ë””ìžì¸ ì‹œìŠ¤í…œ ê³„ìŠ¹)
+   shared.css — SJ Hub CA/BA 어드민 공통 스타일
+   (기존 admin.css 디자인 시스템 계승)
    ============================================= */
 
 /* Reset */
@@ -11,7 +11,7 @@ button { cursor: pointer; font: inherit; border: none; background: none; }
 table { border-collapse: collapse; }
 input, select, textarea { font: inherit; }
 
-/* â”€â”€â”€ CSS Variables â”€â”€â”€ */
+/* ─── CSS Variables ─── */
 :root {
   --admin-red:          #315eff;
   --admin-red-bright:   #4d7cff;
@@ -30,7 +30,7 @@ input, select, textarea { font: inherit; }
   --sidebar-w:          235px;
 }
 
-/* â”€â”€â”€ Typography â”€â”€â”€ */
+/* ─── Typography ─── */
 .t-heading-1 { font-size:32px; font-weight:400; line-height:40px; }
 .t-heading-2 { font-size:28px; font-weight:400; line-height:36px; }
 .t-title-1-rg { font-size:20px; font-weight:400; line-height:28px; }
@@ -48,7 +48,7 @@ input, select, textarea { font: inherit; }
 .t-label-2-md { font-size:12px; font-weight:500; line-height:16px; }
 .t-label-2-sb { font-size:12px; font-weight:600; line-height:16px; }
 
-/* â”€â”€â”€ Base â”€â”€â”€ */
+/* ─── Base ─── */
 body {
   font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
@@ -58,10 +58,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* â”€â”€â”€ Layout â”€â”€â”€ */
+/* ─── Layout ─── */
 .admin-layout { display:flex; min-height:100vh; }
 
-/* â”€â”€â”€ Sidebar â”€â”€â”€ */
+/* ─── Sidebar ─── */
 .admin-sidebar {
   width: var(--sidebar-w);
   background: var(--admin-sidebar);
@@ -158,7 +158,7 @@ body {
 .admin-sidebar__main--logout { color:#adc2ef; margin-top:auto; }
 .admin-sidebar__main--logout:hover { color:var(--admin-white); background:#174b9d; }
 
-/* â”€â”€â”€ Mobile Header â”€â”€â”€ */
+/* ─── Mobile Header ─── */
 .admin-mobile-header {
   display: none;
   position: fixed;
@@ -198,7 +198,7 @@ body {
 }
 .admin-overlay.is-visible { display:block; }
 
-/* â”€â”€â”€ Main Content â”€â”€â”€ */
+/* ─── Main Content ─── */
 .admin-main {
   flex: 1;
   min-width: 0;
@@ -241,7 +241,7 @@ body {
   background: var(--admin-red);
 }
 
-/* â”€â”€â”€ Page Header â”€â”€â”€ */
+/* ─── Page Header ─── */
 .admin-page-title {
   font-size: 24px;
   font-weight: 700;
@@ -254,7 +254,7 @@ body {
   margin-bottom: 22px;
 }
 
-/* â”€â”€â”€ CA Brand Selector Bar â”€â”€â”€ */
+/* ─── CA Brand Selector Bar ─── */
 .ca-brand-bar {
   display: flex;
   align-items: center;
@@ -314,7 +314,7 @@ body {
 }
 .ca-brand-bar__info-item strong { color: var(--admin-heading); font-weight:600; }
 
-/* â”€â”€â”€ Cards â”€â”€â”€ */
+/* ─── Cards ─── */
 .admin-card {
   background: var(--admin-white);
   border-radius: 8px;
@@ -346,7 +346,7 @@ body {
 }
 .admin-more-link:hover { color: var(--admin-red-bright); }
 
-/* â”€â”€â”€ Stat / KPI Cards â”€â”€â”€ */
+/* ─── Stat / KPI Cards ─── */
 .admin-stat-grid { display:grid; gap:8px; padding:0 16px 16px; }
 .admin-stat-grid--4col { grid-template-columns: repeat(4, 1fr); }
 .admin-stat-grid--5col { grid-template-columns: repeat(5, 1fr); }
@@ -416,13 +416,13 @@ body {
   margin-top: 4px;
 }
 
-/* â”€â”€â”€ Dashboard Grid â”€â”€â”€ */
+/* ─── Dashboard Grid ─── */
 .admin-dashboard-section { display:flex; flex-direction:column; gap:16px; }
 .admin-dashboard-row { display:grid; gap:16px; }
 .admin-dashboard-row--2col { grid-template-columns: 1fr 1fr; }
 .admin-dashboard-row--3col { grid-template-columns: 2fr 1fr; }
 
-/* â”€â”€â”€ Badges â”€â”€â”€ */
+/* ─── Badges ─── */
 .admin-badge {
   display: inline-flex;
   align-items: center;
@@ -461,7 +461,7 @@ body {
 .admin-badge--notice      { background:var(--admin-heading); color:var(--admin-white); border-color:var(--admin-heading); }
 .admin-badge--important   { background:var(--admin-red); color:var(--admin-white); border-color:var(--admin-red); }
 
-/* â”€â”€â”€ Table â”€â”€â”€ */
+/* ─── Table ─── */
 .admin-table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
 .admin-table { width:100%; font-size:14px; color:var(--admin-text); }
 .admin-table th {
@@ -488,9 +488,9 @@ body {
   max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 }
 .admin-sort-btn { display:inline-flex; align-items:center; gap:4px; color:inherit; font:inherit; }
-.admin-sort-btn::after { content:"â†•"; font-size:10px; color:var(--admin-muted); }
+.admin-sort-btn::after { content:"↕"; font-size:10px; color:var(--admin-muted); }
 
-/* â”€â”€â”€ Buttons â”€â”€â”€ */
+/* ─── Buttons ─── */
 .admin-btn {
   display: inline-flex;
   align-items: center;
@@ -522,7 +522,7 @@ body {
 .admin-btn--blue { background:#006dff; color:var(--admin-white); border:1px solid #006dff; }
 .admin-btn--blue:hover { background:#0052cc; }
 
-/* â”€â”€â”€ Action Bar â”€â”€â”€ */
+/* ─── Action Bar ─── */
 .admin-action-bar {
   display: flex;
   align-items: center;
@@ -538,7 +538,7 @@ body {
   flex-wrap: wrap;
 }
 
-/* â”€â”€â”€ Filter Card â”€â”€â”€ */
+/* ─── Filter Card ─── */
 .admin-filter-card {
   background: var(--admin-white);
   border: 1px solid var(--admin-stroke);
@@ -554,7 +554,7 @@ body {
 }
 .admin-filter-row + .admin-filter-row { margin-top: 10px; }
 
-/* â”€â”€â”€ Form Fields â”€â”€â”€ */
+/* ─── Form Fields ─── */
 .admin-form { display:flex; flex-direction:column; gap:0; }
 .admin-field { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
 .admin-field:last-child { margin-bottom:0; }
@@ -680,7 +680,7 @@ body {
 }
 .admin-filter-date-range span { font-size:12px; color:var(--admin-muted); }
 
-/* â”€â”€â”€ Form Section Card â”€â”€â”€ */
+/* ─── Form Section Card ─── */
 .admin-form-section {
   background: var(--admin-white);
   border: 1px solid var(--admin-stroke);
@@ -710,7 +710,7 @@ body {
 .admin-form-section__body { padding: 20px; }
 .admin-form-section__body--tight { padding: 16px; }
 
-/* â”€â”€â”€ Form Actions â”€â”€â”€ */
+/* ─── Form Actions ─── */
 .admin-form-actions {
   display: flex;
   gap: 8px;
@@ -718,7 +718,7 @@ body {
   padding: 20px 0 0;
 }
 
-/* â”€â”€â”€ Pagination â”€â”€â”€ */
+/* ─── Pagination ─── */
 .admin-pagination {
   display: flex;
   align-items: center;
@@ -747,7 +747,7 @@ body {
   border-color: var(--admin-heading);
 }
 
-/* â”€â”€â”€ Notice List â”€â”€â”€ */
+/* ─── Notice List ─── */
 .admin-notice-list { padding:0 16px 16px; display:flex; flex-direction:column; gap:14px; }
 .admin-notice-item { display:flex; align-items:center; gap:10px; min-width:0; }
 .admin-notice-title {
@@ -760,7 +760,7 @@ body {
 }
 .admin-notice-date { font-size:12px; color:var(--admin-muted); white-space:nowrap; flex-shrink:0; }
 
-/* â”€â”€â”€ Empty State â”€â”€â”€ */
+/* ─── Empty State ─── */
 .admin-empty-state {
   display: flex;
   flex-direction: column;
@@ -772,7 +772,7 @@ body {
   gap: 8px;
 }
 
-/* â”€â”€â”€ Modal â”€â”€â”€ */
+/* ─── Modal ─── */
 .admin-modal {
   display: none;
   position: fixed;
@@ -819,7 +819,7 @@ body.admin-modal-open { overflow:hidden; }
   margin-top: 20px;
 }
 
-/* â”€â”€â”€ Upload Area â”€â”€â”€ */
+/* ─── Upload Area ─── */
 .admin-upload-area {
   border: 2px dashed var(--admin-border);
   border-radius: 8px;
@@ -833,7 +833,7 @@ body.admin-modal-open { overflow:hidden; }
 }
 .admin-upload-area:hover { border-color: var(--admin-heading); }
 
-/* â”€â”€â”€ Tabs â”€â”€â”€ */
+/* ─── Tabs ─── */
 .admin-tabs {
   display: flex;
   border-bottom: 2px solid var(--admin-stroke);
@@ -858,7 +858,7 @@ body.admin-modal-open { overflow:hidden; }
 .admin-btn:focus-visible,
 .admin-search-select__option:focus-visible { outline:2px solid var(--admin-heading); outline-offset:2px; }
 
-/* â”€â”€â”€ Toast / Drawer / Detail Utilities â”€â”€â”€ */
+/* ─── Toast / Drawer / Detail Utilities ─── */
 .admin-toast {
   position:fixed; right:24px; bottom:24px; z-index:500;
   min-width:220px; max-width:360px; padding:12px 16px;
@@ -1013,7 +1013,7 @@ body.admin-modal-open { overflow:hidden; }
   box-shadow:0 8px 18px rgba(0,0,0,.16); z-index:20;
 }
 
-/* â”€â”€â”€ Settlement Summary Numbers â”€â”€â”€ */
+/* ─── Settlement Summary Numbers ─── */
 .sett-summary-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1040,7 +1040,7 @@ body.admin-modal-open { overflow:hidden; }
 .sett-summary-card__value--red { color: var(--admin-red); }
 .sett-summary-card__sub { font-size:11px; color:var(--admin-muted); margin-top:4px; }
 
-/* â”€â”€â”€ Seller Brand Tags â”€â”€â”€ */
+/* ─── Seller Brand Tags ─── */
 .admin-brand-tags {
   display: flex;
   gap: 4px;
@@ -1057,10 +1057,10 @@ body.admin-modal-open { overflow:hidden; }
   white-space: nowrap;
 }
 
-/* â”€â”€â”€ Checkbox â”€â”€â”€ */
+/* ─── Checkbox ─── */
 input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 
-/* â”€â”€â”€ Text utilities â”€â”€â”€ */
+/* ─── Text utilities ─── */
 .text-muted  { color: var(--admin-muted); }
 .text-red    { color: var(--admin-red); }
 .text-right  { text-align: right; }
@@ -1068,7 +1068,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 .text-sb     { font-weight: 600; }
 .text-sm     { font-size: 12px; }
 
-/* â”€â”€â”€ Responsive â”€â”€â”€ */
+/* ─── Responsive ─── */
 @media (max-width: 1024px) {
   .admin-mobile-header { display:flex; }
   .admin-sidebar {
@@ -1110,11 +1110,11 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   .sett-summary-grid { grid-template-columns:1fr 1fr; }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   notice â€” ê³µì§€ì‚¬í•­ íŽ˜ì´ì§€ ì „ìš© ìŠ¤íƒ€ì¼
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════════════
+   notice — 공지사항 페이지 전용 스타일
+   ═══════════════════════════════════════════════════ */
 
-/* â”€â”€ ê²€ìƒ‰ toolbar â”€â”€ */
+/* ── 검색 toolbar ── */
 .admin-notice-search-bar {
   display: flex;
   align-items: center;
@@ -1124,7 +1124,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 }
 #noticeSearchInput { width: 220px; flex-shrink: 0; }
 
-/* â”€â”€ ëª©ë¡ í…Œì´ë¸” ì»¬ëŸ¼ â”€â”€ */
+/* ── 목록 테이블 컬럼 ── */
 .admin-notice-col-num {
   text-align: center;
   width: 60px;
@@ -1146,7 +1146,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   white-space: nowrap;
 }
 
-/* â”€â”€ ëª©ë¡ ì œëª© ë§í¬ â”€â”€ */
+/* ── 목록 제목 링크 ── */
 .admin-notice-title-link {
   display: flex;
   align-items: center;
@@ -1163,7 +1163,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   text-decoration: underline;
 }
 
-/* â”€â”€ ê²€ìƒ‰ ê²°ê³¼ ì—†ìŒ â”€â”€ */
+/* ── 검색 결과 없음 ── */
 .admin-notice-empty {
   text-align: center;
   padding: 40px 16px;
@@ -1171,10 +1171,10 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   font-size: 14px;
 }
 
-/* â”€â”€ ìƒì„¸ ì¹´ë“œ â”€â”€ */
+/* ── 상세 카드 ── */
 .admin-notice-detail { padding: 32px 32px 24px; }
 
-/* â”€â”€ ìƒì„¸ í—¤ë” (badge + ì œëª©) â”€â”€ */
+/* ── 상세 헤더 (badge + 제목) ── */
 .admin-notice-detail-header {
   display: flex;
   align-items: flex-start;
@@ -1192,7 +1192,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   margin: 0;
 }
 
-/* â”€â”€ ë©”íƒ€ (ìž‘ì„±ìž / ë“±ë¡ì¼) â”€â”€ */
+/* ── 메타 (작성자 / 등록일) ── */
 .admin-notice-meta {
   display: flex;
   align-items: center;
@@ -1205,7 +1205,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 }
 .admin-notice-meta__author { font-weight: 600; color: var(--admin-text); }
 
-/* â”€â”€ ë³¸ë¬¸ â”€â”€ */
+/* ── 본문 ── */
 .admin-notice-content {
   padding: 28px 0;
   font-size: 14px;
@@ -1215,14 +1215,14 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   border-bottom: 1px solid var(--admin-stroke);
 }
 
-/* â”€â”€ ëª©ë¡ë³´ê¸° ë²„íŠ¼ â”€â”€ */
+/* ── 목록보기 버튼 ── */
 .admin-notice-back {
   display: flex;
   justify-content: flex-end;
   padding: 16px 0 0;
 }
 
-/* â”€â”€ ì´ì „ê¸€/ë‹¤ìŒê¸€ â”€â”€ */
+/* ── 이전글/다음글 ── */
 .admin-notice-nav {
   margin-top: 24px;
   border: 1px solid var(--admin-stroke);
@@ -1267,7 +1267,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   color: var(--admin-muted);
 }
 
-/* â”€â”€ ë°˜ì‘í˜• â”€â”€ */
+/* ── 반응형 ── */
 @media (max-width: 768px) {
   #noticeSearchInput { width: 140px; }
   .admin-notice-detail { padding: 20px 16px 16px; }
@@ -1282,11 +1282,11 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   .admin-notice-nav-label { width: 56px; }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   product-list â€” ìƒí’ˆëª©ë¡ íŽ˜ì´ì§€ ì „ìš© ìŠ¤íƒ€ì¼
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════════════
+   product-list — 상품목록 페이지 전용 스타일
+   ═══════════════════════════════════════════════════ */
 
-/* â”€â”€ ì£¼ë¬¸/ìƒí’ˆ íˆ´ë°” ê³µí†µ select wrap â”€â”€ */
+/* ── 주문/상품 툴바 공통 select wrap ── */
 .admin-order-select-wrap {
   position: relative;
   display: inline-flex;
@@ -1360,7 +1360,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 }
 .admin-order-btn--primary:hover { background: #0f4ec4; }
 
-/* â”€â”€ ìƒí’ˆ ëª©ë¡ í•„í„° íˆ´ë°” â”€â”€ */
+/* ── 상품 목록 필터 툴바 ── */
 .admin-product-toolbar {
   display: flex;
   align-items: flex-end;
@@ -1387,7 +1387,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 #productCat2Filter    { width: 128px; }
 #productSearchInput   { width: 220px; flex-shrink: 0; }
 
-/* â”€â”€ ìƒí’ˆ ì¸ë„¤ì¼ â”€â”€ */
+/* ── 상품 썸네일 ── */
 .admin-product-thumb {
   width: 56px;
   height: 56px;
@@ -1402,7 +1402,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 .admin-product-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .admin-product-thumb svg { color: #c8d0dc; }
 
-/* â”€â”€ ìƒí’ˆëª… ì…€ â”€â”€ */
+/* ── 상품명 셀 ── */
 .admin-product-name {
   font-size: 14px;
   line-height: 1.45;
@@ -1411,7 +1411,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   white-space: normal;
 }
 
-/* â”€â”€ ê°€ê²© ì…€ â”€â”€ */
+/* ── 가격 셀 ── */
 .admin-product-price { display: flex; flex-direction: column; gap: 2px; }
 .admin-product-price__original {
   font-size: 12px;
@@ -1427,11 +1427,11 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   white-space: nowrap;
 }
 
-/* â”€â”€ ê¸°ê°„íŒë§¤ ì…€ â”€â”€ */
+/* ── 기간판매 셀 ── */
 .admin-product-period { font-size: 12px; color: var(--admin-text); line-height: 1.5; }
 .admin-product-period__time { color: var(--admin-muted); font-size: 12px; }
 
-/* â”€â”€ ì˜µì…˜ ë²„íŠ¼ â”€â”€ */
+/* ── 옵션 버튼 ── */
 .admin-product-option-btn {
   font-size: 12px;
   font-weight: 500;
@@ -1446,7 +1446,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 }
 .admin-product-option-btn:hover { color: var(--admin-red); }
 
-/* â”€â”€ íŒë§¤ì—¬ë¶€ ë°°ì§€ ë²„íŠ¼ â”€â”€ */
+/* ── 판매여부 배지 버튼 ── */
 .admin-product-status-btn {
   display: inline-flex;
   align-items: center;
@@ -1467,7 +1467,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 .admin-product-status-btn--closed  { background: rgba(255,106,79,.15); border-color: #ff6a4f; color: #ff421f; }
 .admin-product-status-btn--soldout { background: #f3f3f3; border-color: #e0e0e0; color: var(--admin-muted); }
 
-/* â”€â”€ íŒë§¤ë§í¬ ì…€ â”€â”€ */
+/* ── 판매링크 셀 ── */
 .admin-product-link { display: flex; flex-direction: column; gap: 3px; align-items: flex-start; }
 .admin-product-link__channel { font-size: 12px; color: var(--admin-text); }
 .admin-product-link__copy {
@@ -1482,7 +1482,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 }
 .admin-product-link__copy:hover { color: var(--admin-red-bright); }
 
-/* â”€â”€ ê´€ë¦¬ ì…€ ì•¡ì…˜ ë²„íŠ¼ â”€â”€ */
+/* ── 관리 셀 액션 버튼 ── */
 .admin-product-actions { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; }
 .admin-product-icon-btn {
   display: inline-flex;
@@ -1500,12 +1500,12 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 .admin-product-icon-btn:hover { background: #f3f3f3; color: var(--admin-text); }
 .admin-product-icon-btn--danger:hover { background: #eff6ff; color: var(--admin-red); border-color: var(--admin-red); }
 
-/* â”€â”€ product-hint â”€â”€ */
+/* ── product-hint ── */
 .product-hint { font-size: 12px; color: var(--admin-muted); margin-top: 6px; line-height: 1.6; }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   Product modals â€” ê³µí†µ ê¸°ë°˜
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════════════
+   Product modals — 공통 기반
+   ═══════════════════════════════════════════════════ */
 .admin-product-modal {
   display: none;
   position: fixed;
@@ -1580,7 +1580,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
   white-space: pre-line;
 }
 
-/* â”€â”€ ìƒí’ˆ ì •ë³´ ìˆ˜ì • ëª¨ë‹¬ â”€â”€ */
+/* ── 상품 정보 수정 모달 ── */
 .admin-product-edit-header {
   display: flex;
   align-items: center;
@@ -1795,7 +1795,7 @@ input[type="checkbox"] { accent-color: var(--admin-red); cursor: pointer; }
 .admin-product-cat-item:hover { background: #f3f3f3; }
 .admin-product-cat-item.is-selected { background: rgba(20,99,255,0.08); color: var(--admin-red); font-weight: 600; }
 
-/* â”€â”€ ë°˜ì‘í˜• â”€â”€ */
+/* ── 반응형 ── */
 @media (max-width: 1024px) {
   .admin-product-toolbar { flex-direction: column; align-items: flex-start; }
   .admin-product-name { max-width: 150px; }
