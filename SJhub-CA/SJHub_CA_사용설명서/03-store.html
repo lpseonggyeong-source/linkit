@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ch3. 상점관리 — SJ Hub CA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#2563eb}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">CHAPTER 3</div>
+    <div class="chapter-header__name" data-i18n="chName">상점관리</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">계약 상점 조회·승인 · 신규 상점 등록 신청</div>
+  </div>
+
+  <div class="inner-tabs">
+    <div class="inner-tab active" onclick="switchTab('list',this)" data-i18n="tab1">상점 목록</div>
+    <div class="inner-tab" onclick="switchTab('register',this)" data-i18n="tab2">상점 등록</div>
+  </div>
+
+  <div class="tab-pane active" id="tab-list">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-blue">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="l1title">상점 목록 화면 (商店列表)</div>
+          <div class="sec-goal" data-i18n="l1goal">등록된 모든 상점을 조회하고, 승인 상태와 정산 조건(수수료율·유보금)을 확인합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="img-wrap">
+          <img src="screen_captures/04_store_list.jpg" alt="상점 목록 화면" />
+          <div class="callout" style="left:21.8%;top:18.9%;background:#2563eb">1</div>
+          <div class="callout" style="left:63.9%;top:31.7%;background:#2563eb">2</div>
+          <div class="callout" style="left:95.2%;top:35.9%;background:#2563eb">3</div>
+        </div>
+        <div>
+          <div class="how-title">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-blue">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h1a">검색 필터로 상점 찾기</div><div class="how-desc" data-i18n="l1h1d">승인상태, 소속 지사/총판/영업, 상점명으로 원하는 상점을 좁혀볼 수 있습니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-blue">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h2a">유보금잔액 · 예치금 확인</div><div class="how-desc" data-i18n="l1h2d">금액을 누르면 상세로 연결됩니다. 두 항목의 처리 방법은 <a href="06-settlement.html">정산관리</a> 챕터에서 자세히 다룹니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-blue">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h3a">정보 수정 · 삭제</div><div class="how-desc" data-i18n="l1h3d">"수정/상세"로 정보를 고치고, "삭제"로 상점을 제거합니다. 삭제는 되돌릴 수 없습니다.</div></div>
+          </div>
+          <div class="notice warn">
+            <p data-i18n="l1warn"><strong>화면 표시 주의</strong> — "승인상태" 뱃지의 실제 값("승인")은 아직 한국어로 표시됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-register">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-blue">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="r1title">상점 등록 신청 (商店注册)</div>
+          <div class="sec-goal" data-i18n="r1goal">제출한다고 바로 활성화되는 것이 아니라, 내부 관리자의 최종 승인이 필요합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="img-wrap">
+          <img src="screen_captures/05_store_register.jpg" alt="상점 등록 신청 화면" />
+          <div class="callout" style="left:23.5%;top:23%;background:#2563eb">1</div>
+          <div class="callout" style="left:89.6%;top:23%;background:#2563eb">2</div>
+          <div class="callout" style="left:17.1%;top:69.5%;background:#2563eb">3</div>
+          <div class="callout" style="left:96.2%;top:91.2%;background:#2563eb">4</div>
+        </div>
+        <div>
+          <div class="how-title">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-blue">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h1a">소속 상위조직 선택</div><div class="how-desc" data-i18n="r1h1d">특정 지사·총판·영업 밑에 연결하려면 선택하고, 선택하지 않으면 "운영직속"으로 등록됩니다. 상점명·로그인 계정·비밀번호는 필수입니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-blue">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h2a">판매채널 입력 (필수)</div><div class="how-desc" data-i18n="r1h2d">조직 등록 화면에는 없는, 상점만의 고유 항목입니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-blue">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h3a">수수료·유보금 조건 설정</div><div class="how-desc" data-i18n="r1h3d">수수료비율, 유보금비율(매입금액 기준)·유보금 한도액, 정산주기는 선택 항목이지만 이 상점의 정산 조건을 결정합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-blue">4</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h4a">신청 제출</div><div class="how-desc" data-i18n="r1h4d">필수 항목을 모두 입력한 뒤 제출하면 접수됩니다. 통상 2~3영업일 내 심사 결과가 안내됩니다.</div></div>
+          </div>
+          <div class="notice warn">
+            <p data-i18n="r1warn"><strong>참고</strong> — 조직 목록 화면의 "상점 등록" 버튼은 경로 설정 오류로 현재 <strong>아직 중국어로 번역되지 않은 한국어 화면</strong>으로 연결됩니다. 추후 업데이트로 수정될 예정이니, 그 전까지 상점 등록은 항상 이 탭(사이드바 &gt; 상점관리 &gt; 상점등록)만 사용하세요.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="02-organization.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">이전 챕터</div><div data-i18n="navPrevTitle">2. 조직관리</div></div></a>
+    <span class="ch-nav__center">CHAPTER 3 / 8</span>
+    <a class="ch-nav__btn" href="04-product.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">다음 챕터</div><div data-i18n="navNextTitle">4. 상품관리</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "상점관리", zh: "商店管理" },
+  chDesc: { ko: "계약 상점 조회·승인 · 신규 상점 등록 신청", zh: "查询、审批签约商店 · 申请登记新商店" },
+  tab1: { ko: "상점 목록", zh: "商店列表" }, tab2: { ko: "상점 등록", zh: "商店注册" },
+  l1title: { ko: "상점 목록 화면 (商店列表)", zh: "商店列表画面" },
+  l1goal: { ko: "등록된 모든 상점을 조회하고, 승인 상태와 정산 조건(수수료율·유보금)을 확인합니다.", zh: "查询所有已登记的商店，确认审批状态和结算条件（佣金比例、留存金）。" },
+  l1h1a: { ko: "검색 필터로 상점 찾기", zh: "使用搜索筛选查找商店" },
+  l1h1d: { ko: "승인상태, 소속 지사/총판/영업, 상점명으로 원하는 상점을 좁혀볼 수 있습니다.", zh: "可通过审批状态、所属分公司/总代理/营业员、品牌名称筛选出所需商店。" },
+  l1h2a: { ko: "유보금잔액 · 예치금 확인", zh: "查看留存金余额、存款" },
+  l1h2d: { ko: '금액을 누르면 상세로 연결됩니다. 두 항목의 처리 방법은 <a href="06-settlement.html">정산관리</a> 챕터에서 자세히 다룹니다.', zh: '点击金额可查看详情。两者的处理方法请参见<a href="06-settlement.html">结算管理</a>章节。' },
+  l1h3a: { ko: "정보 수정 · 삭제", zh: "编辑信息、删除" },
+  l1h3d: { ko: '"수정/상세"로 정보를 고치고, "삭제"로 상점을 제거합니다. 삭제는 되돌릴 수 없습니다.', zh: '通过"修改/详情"编辑信息，"删除"移除商店。删除后无法恢复。' },
+  l1warn: { ko: '<strong>화면 표시 주의</strong> — "승인상태" 뱃지의 실제 값("승인")은 아직 한국어로 표시됩니다.', zh: '<strong>画面显示注意事项</strong> — "审批状态"标签的实际数值（"승인"）目前仍以韩语显示。' },
+  r1title: { ko: "상점 등록 신청 (商店注册)", zh: "商店注册申请" },
+  r1goal: { ko: "제출한다고 바로 활성화되는 것이 아니라, 내부 관리자의 최종 승인이 필요합니다.", zh: "提交后并非立即生效，需经内部管理员最终审批。" },
+  r1h1a: { ko: "소속 상위조직 선택", zh: "选择所属上级" },
+  r1h1d: { ko: '특정 지사·총판·영업 밑에 연결하려면 선택하고, 선택하지 않으면 "운영직속"으로 등록됩니다. 상점명·로그인 계정·비밀번호는 필수입니다.', zh: '如需关联到特定分公司/总代理/营业员下请选择，不选则登记为"运营直属"。商店名称、登录账号、密码为必填项。' },
+  r1h2a: { ko: "판매채널 입력 (필수)", zh: "填写销售渠道（必填）" },
+  r1h2d: { ko: "조직 등록 화면에는 없는, 상점만의 고유 항목입니다.", zh: "这是组织注册画面没有的、商店特有的项目。" },
+  r1h3a: { ko: "수수료·유보금 조건 설정", zh: "设置佣金、留存金条件" },
+  r1h3d: { ko: "수수료비율, 유보금비율(매입금액 기준)·유보금 한도액, 정산주기는 선택 항목이지만 이 상점의 정산 조건을 결정합니다.", zh: "佣金比例、留存金比例（按采购金额）、留存金限额、清算周期虽为选填，但决定了该商店的结算条件。" },
+  r1h4a: { ko: "신청 제출", zh: "提交申请" },
+  r1h4d: { ko: "필수 항목을 모두 입력한 뒤 제출하면 접수됩니다. 통상 2~3영업일 내 심사 결과가 안내됩니다.", zh: "填写完所有必填项后提交即完成申请。通常会在2~3个工作日内通知审核结果。" },
+  r1warn: { ko: '<strong>참고</strong> — 조직 목록 화면의 "상점 등록" 버튼은 경로 설정 오류로 현재 <strong>아직 중국어로 번역되지 않은 한국어 화면</strong>으로 연결됩니다. 추후 업데이트로 수정될 예정이니, 그 전까지 상점 등록은 항상 이 탭(사이드바 &gt; 상점관리 &gt; 상점등록)만 사용하세요.', zh: '<strong>说明</strong> — 组织列表画面的"注册品牌"按钮因路径设置错误，目前会跳转到<strong>尚未翻译为中文的韩语画面</strong>。后续更新将修复此问题，在修复之前，登记商店时请务必使用本标签页（侧边栏 &gt; 商店管理 &gt; 商店注册）。' },
+  navPrevSub: { ko: "이전 챕터", zh: "上一章" }, navPrevTitle: { ko: "2. 조직관리", zh: "2. 组织管理" },
+  navNextSub: { ko: "다음 챕터", zh: "下一章" }, navNextTitle: { ko: "4. 상품관리", zh: "4. 商品管理" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>

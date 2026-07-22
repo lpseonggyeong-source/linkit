@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>정산 계산 공식 안내서 — SJ Hub CA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#0d9488}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">APPENDIX</div>
+    <div class="chapter-header__name" data-i18n="chName">정산 계산 공식 안내서</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">결제금액 하나가 상점·유보금·플랫폼수수료로 나뉘고, 플랫폼수수료가 다시 PG사·지사·총판·영업·운영사로 나뉘기까지 — 전 부서가 같은 기준으로 읽을 수 있도록 정리했습니다.</div>
+  </div>
+
+  <section class="guide-section" id="sec-overview">
+    <div class="sec-header">
+      <span class="step-pill c-teal">1</span>
+      <div>
+        <div class="sec-title sec-title--lg" data-i18n="s1title">전체 그림 — 결제금액 100원이 흘러가는 길</div>
+        <div class="sec-goal" data-i18n="s1goal">모든 계산은 결제금액(고객이 낸 돈) 하나에서 출발합니다. 아래 두 단계를 거치며 각자의 몫으로 갈라집니다.</div>
+      </div>
+    </div>
+    <div class="sec-body--single">
+      <div class="flow-row">
+        <div class="flow-box root"><div class="fb-label">STEP 0</div><div class="fb-value" data-i18n="fb0">결제금액</div></div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-row">
+        <div class="flow-box"><div class="fb-label" data-i18n="fb1l">상점 실지급액</div><div class="fb-value" data-i18n="fb1v">결제금액 − 유보금 − 플랫폼수수료</div></div>
+        <div class="flow-box"><div class="fb-label" data-i18n="fb2l">유보금</div><div class="fb-value" data-i18n="fb2v">결제금액 × 유보 비율</div></div>
+        <div class="flow-box accent"><div class="fb-label" data-i18n="fb3l">플랫폼수수료</div><div class="fb-value" data-i18n="fb3v">결제금액 × 수수료율</div></div>
+      </div>
+      <div class="flow-row" style="margin-left:24px">
+        <div class="flow-box"><div class="fb-label" data-i18n="fb4l">PG사 결제수수료</div><div class="fb-value" data-i18n="fb4v">결제금액 × PG요율</div></div>
+        <div class="flow-box"><div class="fb-label" data-i18n="fb5l">지사 → 총판 → 영업</div><div class="fb-value" data-i18n="fb5v">각자 설정 요율만큼</div></div>
+        <div class="flow-box accent"><div class="fb-label" data-i18n="fb6l">운영사(CA) 몫</div><div class="fb-value" data-i18n="fb6v">플랫폼수수료의 나머지</div></div>
+      </div>
+      <p style="font-size:13px;color:#999;margin-top:10px" data-i18n="s1note">위쪽 갈래(상점 실지급액 / 유보금 / 플랫폼수수료)는 <a href="#sec-stage1">2장</a>에서, 플랫폼수수료가 다시 갈라지는 아래쪽 갈래는 <a href="#sec-stage2">3·4장</a>에서 다룹니다.</p>
+    </div>
+  </section>
+
+  <section class="guide-section" id="sec-stage1">
+    <div class="sec-header">
+      <span class="step-pill c-teal">2</span>
+      <div>
+        <div class="sec-title sec-title--lg" data-i18n="s2title">상점(대리점)이 받는 돈</div>
+        <div class="sec-goal" data-i18n="s2goal">상점 입장에서는 결제금액에서 두 가지, 유보금과 플랫폼수수료를 뗀 나머지를 받습니다.</div>
+      </div>
+    </div>
+    <div class="sec-body--single">
+      <div class="formula-box">
+        <div class="flabel" data-i18n="s2flabel">기본 공식</div>
+        <div class="fexpr" data-i18n="s2fexpr">상점 실지급액 <span class="op">=</span> 결제금액 <span class="op">−</span> <span class="term">플랫폼수수료</span> <span class="op">−</span> <span class="term">유보금</span></div>
+      </div>
+
+      <h3 style="font-size:15px;margin:24px 0 8px" data-i18n="s2h3a">유보금 — 사고 대비 담보금</h3>
+      <p style="font-size:13.5px;color:#555;line-height:1.7" data-i18n="s2p1">유보금은 정산 완료 후 취소·환불 같은 사고가 생겼을 때를 대비해 미리 떼어 쌓아두는 돈입니다. 상점 소유의 돈이지만, 플랫폼이 잠시 보관하는 개념입니다.</p>
+      <ul style="font-size:13.5px;color:#555;line-height:1.8;padding-left:20px">
+        <li data-i18n="s2li1"><strong>적립 기준</strong>: 결제금액 × 설정된 유보 비율</li>
+        <li data-i18n="s2li2"><strong>한도</strong>: 설정된 한도까지만 쌓이고, 한도에 닿으면 그 이후로는 더 쌓이지 않습니다.</li>
+        <li data-i18n="s2li3"><strong>중도 인출</strong>: 상점이 중간에 유보금을 찾아갈 수 있습니다. 찾아간 뒤에는 다시 한도까지 매출에서 차감되며 쌓입니다.</li>
+        <li data-i18n="s2li4"><strong>사용 처리</strong>: 유보금을 사용(인출)할 때는 <strong>CA가 직접</strong> 플랫폼에 사용 등록을 해야 합니다. 실제 등록 화면은 <a href="06-settlement.html#tab-fund">정산관리 &gt; 보증금·예치금</a>에서 확인할 수 있습니다.</li>
+      </ul>
+
+      <h3 style="font-size:15px;margin:24px 0 8px" data-i18n="s2h3b">예치금 — 미리 받아두는 보증금</h3>
+      <p style="font-size:13.5px;color:#555;line-height:1.7" data-i18n="s2p2">예치금은 유보금과 달리 매출에서 자동으로 쌓이는 돈이 아니라, 처음부터 일정 금액을 정해 상점으로부터 미리 받아두는 돈입니다. 입금과 사용 모두 CA가 직접 입력해 관리합니다.</p>
+
+      <div class="notice tip">
+        <p data-i18n="s2tip">💡 상점의 매출금 입금완료 처리는 <strong>영업조직(지사·총판·영업)의 수당 지급 처리와 같은 방식</strong>으로 이뤄집니다 — 즉 같은 워크플로우(정산 상태 확인 → 지급완료 처리)를 상점과 영업조직 모두에 동일하게 적용합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide-section" id="sec-stage2">
+    <div class="sec-header">
+      <span class="step-pill c-teal">3</span>
+      <div>
+        <div class="sec-title sec-title--lg" data-i18n="s3title">지사·총판·영업이 나눠 갖는 돈</div>
+        <div class="sec-goal" data-i18n="s3goal">플랫폼수수료는 지사 → 총판 → 영업 순서로 위에서 아래로 내려가며 나뉩니다. 각 조직은 "자기 요율"에서 "바로 아래 조직에게 내려주는 만큼"을 뺀 나머지만 가져갑니다.</div>
+      </div>
+    </div>
+    <div class="sec-body--single">
+      <div class="formula-box">
+        <div class="flabel" data-i18n="s3flabel">기본 공식</div>
+        <div class="fexpr" data-i18n="s3fexpr">영업조직이 받는 돈 <span class="op">=</span> 결제금액 <span class="op">×</span> <span class="term">설정된 수수료율</span></div>
+      </div>
+
+      <h3 style="font-size:15px;margin:24px 0 8px" data-i18n="s3h3a">캐스케이드 규칙 — 위에서 아래로 차등 분배</h3>
+      <p style="font-size:13.5px;color:#555;line-height:1.7" data-i18n="s3p1">각 조직에 설정된 수수료율은 <strong>"나와 내 아래 조직 전체를 위한 누적 한도"</strong>입니다. 실제로 내가 가져가는 몫은 그 한도에서 바로 아래 조직의 한도를 뺀 차액입니다.</p>
+
+      <div class="notice tip">
+        <p data-i18n="s3ex">📌 원문 예시 — 지사 5%, 총판 3%, 영업 1%인 경우: 지사는 총판에 3%를 내려주므로 본인은 <strong>2%</strong>를 수수료로 받습니다. 총판은 3%를 받아 1%를 영업에 내려주므로 <strong>2%</strong>가 실제 받는 수수료율이 됩니다. 영업은 최종 <strong>1%</strong>를 그대로 받습니다.</p>
+      </div>
+
+      <div class="ref-twrap">
+        <table class="ref-table">
+          <thead><tr><th data-i18n="s3th1">조직</th><th data-i18n="s3th2">설정 요율(누적 한도)</th><th data-i18n="s3th3">계산</th><th data-i18n="s3th4">실제 수령 요율</th></tr></thead>
+          <tbody>
+            <tr><td>지사</td><td>5%</td><td data-i18n="s3r1">5% − 3%(총판)</td><td>2%</td></tr>
+            <tr><td>총판</td><td>3%</td><td data-i18n="s3r2">3% − 1%(영업)</td><td>2%</td></tr>
+            <tr><td>영업</td><td>1%</td><td data-i18n="s3r3">더 내려줄 조직 없음</td><td>1%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:15px;margin:24px 0 8px" data-i18n="s3h3b">체인 길이는 고정이 아니다</h3>
+      <p style="font-size:13.5px;color:#555;line-height:1.7" data-i18n="s3p2">지사 → 총판 → 영업 순서로 조직되어 있지만, <strong>지사가 반드시 총판을 둘 필요는 없고, 총판도 반드시 영업을 둘 필요는 없습니다.</strong> 중간 조직이 없으면 그만큼 체인이 짧아지고, 있는 조직끼리만 캐스케이드가 적용됩니다.</p>
+
+      <div class="chain-diagram">
+        <div class="chain-node net"><div class="cn-org">지사</div><div class="cn-rate">5%</div></div>
+        <span class="chain-sep">→</span>
+        <div class="chain-node net"><div class="cn-org">영업</div><div class="cn-rate">1%</div></div>
+        <span class="chain-sep">→</span>
+        <div class="chain-node"><div class="cn-org">가맹점</div></div>
+      </div>
+      <div class="chain-diagram">
+        <div class="chain-node net"><div class="cn-org">지사</div><div class="cn-rate">5%</div></div>
+        <span class="chain-sep">→</span>
+        <div class="chain-node"><div class="cn-org">가맹점</div></div>
+      </div>
+      <div class="chain-diagram">
+        <div class="chain-node net"><div class="cn-org">총판</div><div class="cn-rate">3%</div></div>
+        <span class="chain-sep">→</span>
+        <div class="chain-node"><div class="cn-org">가맹점</div></div>
+      </div>
+      <p style="font-size:13px;color:#777;margin-top:6px" data-i18n="s3p3">이처럼 <code>지사–영업–가맹점</code>, <code>지사–가맹점</code>, <code>총판–가맹점</code> 등 다양한 형식을 가질 수 있습니다. 어느 경우든 규칙은 같습니다 — <strong>자기 바로 밑에 있는 조직에게 내려가는 수수료를 뺀 금액이 본인이 받는 금액</strong>입니다.</p>
+
+      <h3 style="font-size:15px;margin:24px 0 8px" data-i18n="s3h3c">취소된 매출의 차감</h3>
+      <p style="font-size:13.5px;color:#555;line-height:1.7" data-i18n="s3p4">취소된 매출은 당일 매출금액에서 차감합니다. 단, <strong>당일 주문 후 당일 취소된 건은 계산에서 아예 제외</strong>하고, <strong>당일 이전에 주문되었다가 오늘 취소된 건만</strong> 차감 대상으로 잡습니다.</p>
+
+      <h3 style="font-size:15px;margin:24px 0 8px" data-i18n="s3h3d">수당 지급 처리</h3>
+      <ul style="font-size:13.5px;color:#555;line-height:1.8;padding-left:20px">
+        <li data-i18n="s3li1">수당 지급은 <a href="06-settlement.html#tab-org">정산관리 &gt; 지사·총판·영업 결산</a>에서 처리합니다.</li>
+        <li data-i18n="s3li2">"명세" 버튼을 누른 상세보기 페이지에서는 <strong>날짜별로 지급 여부를 조회</strong>할 수 있습니다.</li>
+        <li data-i18n="s3li3">여러 날짜를 한꺼번에 지정해 처리할 수 있습니다 — 예를 들어 7.1~7.5를 조회한 뒤 한 번에 처리하면 5일치 수당이 각 날짜마다 지급완료로 기록됩니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="guide-section" id="sec-stage3">
+    <div class="sec-header">
+      <span class="step-pill c-teal">4</span>
+      <div>
+        <div class="sec-title sec-title--lg" data-i18n="s4title">운영사(CA)의 몫</div>
+        <div class="sec-goal" data-i18n="s4goal">플랫폼수수료에서 PG사 결제수수료와 체인 최상위 조직의 몫을 뺀 나머지가 운영사의 수익입니다.</div>
+      </div>
+    </div>
+    <div class="sec-body--single">
+      <div class="formula-box">
+        <div class="flabel" data-i18n="s4flabel">기본 공식</div>
+        <div class="fexpr" data-i18n="s4fexpr">운영사 수익 <span class="op">=</span> <span class="term">플랫폼수수료</span> <span class="op">−</span> <span class="term">PG 결제수수료</span> <span class="op">−</span> <span class="term">최상위 영업조직 수수료</span></div>
+      </div>
+      <p style="font-size:13px;color:#777" data-i18n="s4note">여기서 "최상위 영업조직 수수료"는 그 상점의 체인에서 <strong>가장 위에 있는 조직에 설정된 요율 전체</strong>를 뜻합니다 — 지사가 있으면 지사, 지사 없이 총판만 있으면 총판의 요율입니다. 이 요율이 3장의 캐스케이드 규칙에 따라 다시 아래 조직들에게 나뉘는 것이므로, 운영사는 그 내부 분배와 무관하게 <strong>최상위 요율 하나만</strong> 신경 쓰면 됩니다.</p>
+
+      <div class="notice tip">
+        <p data-i18n="s4ex">📌 원문 예시 — 결제금액 100만원, 상점의 플랫폼 사용 수수료 8%, PG 수수료 3.52%, 지사 수수료 3%인 경우:</p>
+      </div>
+      <div class="ref-twrap">
+        <table class="ref-table">
+          <thead><tr><th data-i18n="s4th1">항목</th><th data-i18n="s4th2">비율</th><th data-i18n="s4th3">금액</th></tr></thead>
+          <tbody>
+            <tr><td data-i18n="s4r1a">플랫폼수수료</td><td>8%</td><td>80,000원</td></tr>
+            <tr><td data-i18n="s4r2a">− PG 결제수수료</td><td>3.52%</td><td>−35,200원</td></tr>
+            <tr><td data-i18n="s4r3a">− 지사 수수료(최상위)</td><td>3%</td><td>−30,000원</td></tr>
+            <tr><td data-i18n="s4r4a">= 운영사(CA) 수익</td><td>1.48%</td><td>14,800원</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="font-size:15px;margin:24px 0 8px" data-i18n="s4h3a">반올림 규칙</h3>
+      <p style="font-size:13.5px;color:#555;line-height:1.7" data-i18n="s4p1">PG 수수료, 지사·총판·영업 수수료는 <strong>모두 소수점 첫째 자리에서 반올림해 1원 단위</strong>로 만듭니다. 운영사의 최종 수익은 이렇게 원 단위로 확정된 금액들을 뺀 나머지입니다. 즉 <strong>어느 항목에도 소수점 단위의 수수료는 남지 않으며</strong>, 반올림 과정에서 생기는 차이는 전부 운영사 몫이 흡수합니다.</p>
+    </div>
+  </section>
+
+  <section class="guide-section" id="sec-worked">
+    <div class="sec-header">
+      <span class="step-pill c-teal">5</span>
+      <div>
+        <div class="sec-title sec-title--lg" data-i18n="s5title">종합 예시 — 처음부터 끝까지 한 번에</div>
+        <div class="sec-goal" data-i18n="s5goal">위 세 단계를 하나의 결제 건에 전부 적용해보면 이렇게 흘러갑니다. (유보 비율은 원문에 없어 5%로 가정한 예시치입니다.)</div>
+      </div>
+    </div>
+    <div class="sec-body--single">
+      <div class="notice tip">
+        <p data-i18n="s5assume">가정 수치 — 결제금액 1,000,000원 · 유보 비율 5%(가정) · 플랫폼수수료 8% · PG수수료 3.52% · 지사 3% → 총판 2% → 영업 1%</p>
+      </div>
+      <div class="ref-twrap">
+        <table class="ref-table">
+          <thead><tr><th data-i18n="s5th1">받는 주체</th><th data-i18n="s5th2">계산</th><th data-i18n="s5th3">금액</th></tr></thead>
+          <tbody>
+            <tr><td data-i18n="s5r1a">상점 실지급액</td><td>1,000,000 − 80,000(플랫폼수수료) − 50,000(유보금)</td><td>870,000원</td></tr>
+            <tr><td data-i18n="s5r2a">유보금 (보관 중)</td><td>1,000,000 × 5%</td><td>50,000원</td></tr>
+            <tr><td data-i18n="s5r3a">PG사 결제수수료</td><td>1,000,000 × 3.52%</td><td>35,200원</td></tr>
+            <tr><td data-i18n="s5r4a">지사 몫</td><td>3% − 2%(총판)</td><td>10,000원</td></tr>
+            <tr><td data-i18n="s5r5a">총판 몫</td><td>2% − 1%(영업)</td><td>10,000원</td></tr>
+            <tr><td data-i18n="s5r6a">영업 몫</td><td data-i18n="s5r6b">더 내려줄 조직 없음, 1% 그대로</td><td>10,000원</td></tr>
+            <tr><td data-i18n="s5r7a">운영사(CA) 수익</td><td>80,000 − 35,200 − 30,000(지사 요율 3% 전체)</td><td>14,800원</td></tr>
+            <tr><td data-i18n="s5r8a">합계</td><td>870,000 + 50,000 + 35,200 + 10,000×3 + 14,800</td><td>1,000,000원</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12.8px;color:#999;margin-top:8px" data-i18n="s5note">운영사 수익 계산에는 지사의 <strong>설정 요율 3% 전체(30,000원)</strong>가 쓰이고, 그 30,000원이 다시 지사·총판·영업 세 조직에 캐스케이드로 나뉜다는 점에 주의해주세요 — 두 계산이 이중으로 차감되는 게 아니라, 같은 30,000원을 바라보는 두 개의 다른 질문(운영사가 얼마를 남기는가 / 그 나머지를 조직들이 어떻게 나누는가)입니다.</p>
+    </div>
+  </section>
+
+  <section class="guide-section" id="sec-terms">
+    <div class="sec-header">
+      <span class="step-pill c-teal">6</span>
+      <div>
+        <div class="sec-title sec-title--lg" data-i18n="s6title">용어 정리</div>
+        <div class="sec-goal" data-i18n="s6goal">이 문서에서 사용한 용어를 한 곳에 모았습니다.</div>
+      </div>
+    </div>
+    <div class="sec-body--single">
+      <dl class="term-grid">
+        <div class="term-item"><dt data-i18n="t1t">결제금액</dt><dd data-i18n="t1d">고객이 실제로 결제한 원금. 모든 계산의 출발점.</dd></div>
+        <div class="term-item"><dt data-i18n="t2t">플랫폼수수료</dt><dd data-i18n="t2d">상점이 플랫폼 이용 대가로 내는 수수료. 결제금액 × 설정 요율.</dd></div>
+        <div class="term-item"><dt data-i18n="t3t">유보금</dt><dd data-i18n="t3d">사고(취소·환불) 대비 담보금. 한도까지 자동 적립, CA가 사용 등록 관리.</dd></div>
+        <div class="term-item"><dt data-i18n="t4t">예치금</dt><dd data-i18n="t4d">미리 정해 받아두는 보증금. 유보금과 달리 자동 적립되지 않음.</dd></div>
+        <div class="term-item"><dt data-i18n="t5t">PG 결제수수료</dt><dd data-i18n="t5d">결제대행사(PG사)에 실제로 나가는 카드·결제 처리 비용.</dd></div>
+        <div class="term-item"><dt data-i18n="t6t">캐스케이드</dt><dd data-i18n="t6d">지사→총판→영업 순으로 수수료가 차등 분배되는 방식. 각 조직 몫 = 자기 요율 − 바로 아래 조직 요율.</dd></div>
+        <div class="term-item"><dt data-i18n="t7t">최상위 영업조직</dt><dd data-i18n="t7d">한 상점의 체인에서 가장 위에 있는 조직. 지사가 있으면 지사, 없으면 총판 등.</dd></div>
+        <div class="term-item"><dt data-i18n="t8t">운영사(CA) 수익</dt><dd data-i18n="t8d">플랫폼수수료 − PG수수료 − 최상위 조직 요율. 반올림 차이도 여기로 흡수됨.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="06-settlement.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">관련 챕터</div><div data-i18n="navPrevTitle">6. 정산관리</div></div></a>
+    <span class="ch-nav__center" data-i18n="navCenter">부록 · APPENDIX</span>
+    <a class="ch-nav__btn" href="index.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">처음으로</div><div data-i18n="navNextTitle">설명서 홈</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "정산 계산 공식 안내서", zh: "结算计算公式说明书" },
+  chDesc: { ko: "결제금액 하나가 상점·유보금·플랫폼수수료로 나뉘고, 플랫폼수수료가 다시 PG사·지사·총판·영업·운영사로 나뉘기까지 — 전 부서가 같은 기준으로 읽을 수 있도록 정리했습니다.", zh: "一笔付款金额如何拆分为商店款项、留存金、平台手续费，平台手续费又如何进一步拆分给PG公司、分公司、总代理、营业员、运营商——本文档整理成各部门都能以同一标准理解的说明。" },
+  s1title: { ko: "전체 그림 — 결제금액 100원이 흘러가는 길", zh: "全貌 — 100元付款金额的流向" },
+  s1goal: { ko: "모든 계산은 결제금액(고객이 낸 돈) 하나에서 출발합니다. 아래 두 단계를 거치며 각자의 몫으로 갈라집니다.", zh: "所有计算都从付款金额（顾客支付的钱）这一个数字出发，经过以下两个阶段拆分为各方的份额。" },
+  fb0: { ko: "결제금액", zh: "付款金额" },
+  fb1l: { ko: "상점 실지급액", zh: "商店实付金额" }, fb1v: { ko: "결제금액 − 유보금 − 플랫폼수수료", zh: "付款金额 − 留存金 − 平台手续费" },
+  fb2l: { ko: "유보금", zh: "留存金" }, fb2v: { ko: "결제금액 × 유보 비율", zh: "付款金额 × 留存比例" },
+  fb3l: { ko: "플랫폼수수료", zh: "平台手续费" }, fb3v: { ko: "결제금액 × 수수료율", zh: "付款金额 × 手续费率" },
+  fb4l: { ko: "PG사 결제수수료", zh: "PG公司结算手续费" }, fb4v: { ko: "결제금액 × PG요율", zh: "付款金额 × PG费率" },
+  fb5l: { ko: "지사 → 총판 → 영업", zh: "分公司 → 总代理 → 营业员" }, fb5v: { ko: "각자 설정 요율만큼", zh: "按各自设置的费率" },
+  fb6l: { ko: "운영사(CA) 몫", zh: "运营商（CA）份额" }, fb6v: { ko: "플랫폼수수료의 나머지", zh: "平台手续费的剩余部分" },
+  s1note: { ko: '위쪽 갈래(상점 실지급액 / 유보금 / 플랫폼수수료)는 <a href="#sec-stage1">2장</a>에서, 플랫폼수수료가 다시 갈라지는 아래쪽 갈래는 <a href="#sec-stage2">3·4장</a>에서 다룹니다.', zh: '上方分支（商店实付金额 / 留存金 / 平台手续费）在<a href="#sec-stage1">第2章</a>说明，平台手续费再次拆分的下方分支在<a href="#sec-stage2">第3·4章</a>说明。' },
+  s2title: { ko: "상점(대리점)이 받는 돈", zh: "商店（代理店）获得的款项" },
+  s2goal: { ko: "상점 입장에서는 결제금액에서 두 가지, 유보금과 플랫폼수수료를 뗀 나머지를 받습니다.", zh: "从商店的角度看，从付款金额中扣除留存金和平台手续费两项后，剩余部分即为商店所得。" },
+  s2flabel: { ko: "기본 공식", zh: "基本公式" },
+  s2fexpr: { ko: '상점 실지급액 <span class="op">=</span> 결제금액 <span class="op">−</span> <span class="term">플랫폼수수료</span> <span class="op">−</span> <span class="term">유보금</span>', zh: '商店实付金额 <span class="op">=</span> 付款金额 <span class="op">−</span> <span class="term">平台手续费</span> <span class="op">−</span> <span class="term">留存金</span>' },
+  s2h3a: { ko: "유보금 — 사고 대비 담보금", zh: "留存金 — 应对意外的担保金" },
+  s2p1: { ko: "유보금은 정산 완료 후 취소·환불 같은 사고가 생겼을 때를 대비해 미리 떼어 쌓아두는 돈입니다. 상점 소유의 돈이지만, 플랫폼이 잠시 보관하는 개념입니다.", zh: "留存金是为应对结算完成后可能发生的取消、退款等情况，预先扣留积累的资金。这笔钱属于商店所有，只是由平台暂时保管。" },
+  s2li1: { ko: "<strong>적립 기준</strong>: 결제금액 × 설정된 유보 비율", zh: "<strong>累积标准</strong>：付款金额 × 设置的留存比例" },
+  s2li2: { ko: "<strong>한도</strong>: 설정된 한도까지만 쌓이고, 한도에 닿으면 그 이후로는 더 쌓이지 않습니다.", zh: "<strong>上限</strong>：只累积到设置的上限，达到上限后不再继续累积。" },
+  s2li3: { ko: "<strong>중도 인출</strong>: 상점이 중간에 유보금을 찾아갈 수 있습니다. 찾아간 뒤에는 다시 한도까지 매출에서 차감되며 쌓입니다.", zh: "<strong>中途支取</strong>：商店可以中途支取留存金。支取后会再次从销售额中扣留，直到达到上限。" },
+  s2li4: { ko: '<strong>사용 처리</strong>: 유보금을 사용(인출)할 때는 <strong>CA가 직접</strong> 플랫폼에 사용 등록을 해야 합니다. 실제 등록 화면은 <a href="06-settlement.html#tab-fund">정산관리 &gt; 보증금·예치금</a>에서 확인할 수 있습니다.', zh: '<strong>使用处理</strong>：使用（支取）留存金时，须由<strong>CA亲自</strong>在平台上登记使用记录。实际登记画面可在<a href="06-settlement.html#tab-fund">结算管理 &gt; 保证金·存款</a>中查看。' },
+  s2h3b: { ko: "예치금 — 미리 받아두는 보증금", zh: "存款 — 预先收取的保证金" },
+  s2p2: { ko: "예치금은 유보금과 달리 매출에서 자동으로 쌓이는 돈이 아니라, 처음부터 일정 금액을 정해 상점으로부터 미리 받아두는 돈입니다. 입금과 사용 모두 CA가 직접 입력해 관리합니다.", zh: "存款与留存金不同，不是从销售额中自动累积的资金，而是从一开始就设定固定金额、预先向商店收取的资金。存入和使用均由CA亲自录入管理。" },
+  s2tip: { ko: '💡 상점의 매출금 입금완료 처리는 <strong>영업조직(지사·총판·영업)의 수당 지급 처리와 같은 방식</strong>으로 이뤄집니다 — 즉 같은 워크플로우(정산 상태 확인 → 지급완료 처리)를 상점과 영업조직 모두에 동일하게 적용합니다.', zh: '💡 商店销售款的入账完成处理，采用<strong>与销售组织（分公司/总代理/营业员）的佣金支付处理相同的方式</strong>——即对商店和销售组织都采用相同的流程（确认结算状态 → 处理为已支付）。' },
+  s3title: { ko: "지사·총판·영업이 나눠 갖는 돈", zh: "分公司/总代理/营业员分配的款项" },
+  s3goal: { ko: '플랫폼수수료는 지사 → 총판 → 영업 순서로 위에서 아래로 내려가며 나뉩니다. 각 조직은 "자기 요율"에서 "바로 아래 조직에게 내려주는 만큼"을 뺀 나머지만 가져갑니다.', zh: '平台手续费按分公司 → 总代理 → 营业员的顺序自上而下分配。各组织从"自身费率"中扣除"分给下一级组织的部分"，剩余部分才是自己实际获得的。' },
+  s3flabel: { ko: "기본 공식", zh: "基本公式" },
+  s3fexpr: { ko: '영업조직이 받는 돈 <span class="op">=</span> 결제금액 <span class="op">×</span> <span class="term">설정된 수수료율</span>', zh: '销售组织获得的款项 <span class="op">=</span> 付款金额 <span class="op">×</span> <span class="term">设置的手续费率</span>' },
+  s3h3a: { ko: "캐스케이드 규칙 — 위에서 아래로 차등 분배", zh: "阶梯式规则 — 自上而下差额分配" },
+  s3p1: { ko: '각 조직에 설정된 수수료율은 <strong>"나와 내 아래 조직 전체를 위한 누적 한도"</strong>입니다. 실제로 내가 가져가는 몫은 그 한도에서 바로 아래 조직의 한도를 뺀 차액입니다.', zh: '各组织设置的手续费率是<strong>"我与我下属全体组织的累计上限"</strong>。我实际获得的份额，是该上限减去下一级组织上限后的差额。' },
+  s3ex: { ko: '📌 원문 예시 — 지사 5%, 총판 3%, 영업 1%인 경우: 지사는 총판에 3%를 내려주므로 본인은 <strong>2%</strong>를 수수료로 받습니다. 총판은 3%를 받아 1%를 영업에 내려주므로 <strong>2%</strong>가 실제 받는 수수료율이 됩니다. 영업은 최종 <strong>1%</strong>를 그대로 받습니다.', zh: '📌 原文示例 — 分公司5%、总代理3%、营业员1%时：分公司让出3%给总代理，因此自身实拿<strong>2%</strong>手续费。总代理拿到3%后让出1%给营业员，实际手续费率为<strong>2%</strong>。营业员处于最底层，直接拿到最终的<strong>1%</strong>。' },
+  s3th1: { ko: "조직", zh: "组织" }, s3th2: { ko: "설정 요율(누적 한도)", zh: "设置费率（累计上限）" }, s3th3: { ko: "계산", zh: "计算" }, s3th4: { ko: "실제 수령 요율", zh: "实际到手费率" },
+  s3r1: { ko: "5% − 3%(총판)", zh: "5% − 3%（总代理）" }, s3r2: { ko: "3% − 1%(영업)", zh: "3% − 1%（营业员）" }, s3r3: { ko: "더 내려줄 조직 없음", zh: "没有更下级的组织" },
+  s3h3b: { ko: "체인 길이는 고정이 아니다", zh: "链条长度并非固定" },
+  s3p2: { ko: '지사 → 총판 → 영업 순서로 조직되어 있지만, <strong>지사가 반드시 총판을 둘 필요는 없고, 총판도 반드시 영업을 둘 필요는 없습니다.</strong> 중간 조직이 없으면 그만큼 체인이 짧아지고, 있는 조직끼리만 캐스케이드가 적용됩니다.', zh: '虽然组织结构是分公司 → 总代理 → 营业员，但<strong>分公司不一定要设总代理，总代理也不一定要设营业员。</strong>缺少中间组织时链条相应缩短，阶梯式分配只在实际存在的组织之间进行。' },
+  s3p3: { ko: '이처럼 <code>지사–영업–가맹점</code>, <code>지사–가맹점</code>, <code>총판–가맹점</code> 등 다양한 형식을 가질 수 있습니다. 어느 경우든 규칙은 같습니다 — <strong>자기 바로 밑에 있는 조직에게 내려가는 수수료를 뺀 금액이 본인이 받는 금액</strong>입니다.', zh: '因此可以有<code>分公司–营业员–加盟店</code>、<code>分公司–加盟店</code>、<code>总代理–加盟店</code>等多种形式。无论哪种情况规则相同——<strong>扣除分给自己下一级组织的手续费后，剩余部分就是自己获得的金额</strong>。' },
+  s3h3c: { ko: "취소된 매출의 차감", zh: "取消销售额的扣减" },
+  s3p4: { ko: '취소된 매출은 당일 매출금액에서 차감합니다. 단, <strong>당일 주문 후 당일 취소된 건은 계산에서 아예 제외</strong>하고, <strong>당일 이전에 주문되었다가 오늘 취소된 건만</strong> 차감 대상으로 잡습니다.', zh: '取消的销售额从当日销售金额中扣除。但<strong>当日下单当日取消的订单，直接从计算中排除</strong>，只有<strong>此前下单、今日取消的订单</strong>才作为扣减对象。' },
+  s3h3d: { ko: "수당 지급 처리", zh: "佣金支付处理" },
+  s3li1: { ko: '수당 지급은 <a href="06-settlement.html#tab-org">정산관리 &gt; 지사·총판·영업 결산</a>에서 처리합니다.', zh: '佣金支付在<a href="06-settlement.html#tab-org">结算管理 &gt; 分公司/总代理/营业员结算</a>中处理。' },
+  s3li2: { ko: '"명세" 버튼을 누른 상세보기 페이지에서는 <strong>날짜별로 지급 여부를 조회</strong>할 수 있습니다.', zh: '点击"明细"按钮进入的详情页面中，可<strong>按日期查询支付情况</strong>。' },
+  s3li3: { ko: "여러 날짜를 한꺼번에 지정해 처리할 수 있습니다 — 예를 들어 7.1~7.5를 조회한 뒤 한 번에 처리하면 5일치 수당이 각 날짜마다 지급완료로 기록됩니다.", zh: "可以一次指定多个日期进行处理——例如查询7.1~7.5后一次性处理，5天的佣金会分别按日期记录为已支付。" },
+  s4title: { ko: "운영사(CA)의 몫", zh: "运营商（CA）的份额" },
+  s4goal: { ko: "플랫폼수수료에서 PG사 결제수수료와 체인 최상위 조직의 몫을 뺀 나머지가 운영사의 수익입니다.", zh: "从平台手续费中扣除PG公司结算手续费和链条最上级组织的份额后，剩余部分即为运营商的收入。" },
+  s4flabel: { ko: "기본 공식", zh: "基本公式" },
+  s4fexpr: { ko: '운영사 수익 <span class="op">=</span> <span class="term">플랫폼수수료</span> <span class="op">−</span> <span class="term">PG 결제수수료</span> <span class="op">−</span> <span class="term">최상위 영업조직 수수료</span>', zh: '运营商收入 <span class="op">=</span> <span class="term">平台手续费</span> <span class="op">−</span> <span class="term">PG结算手续费</span> <span class="op">−</span> <span class="term">最上级销售组织手续费</span>' },
+  s4note: { ko: '여기서 "최상위 영업조직 수수료"는 그 상점의 체인에서 <strong>가장 위에 있는 조직에 설정된 요율 전체</strong>를 뜻합니다 — 지사가 있으면 지사, 지사 없이 총판만 있으면 총판의 요율입니다. 이 요율이 3장의 캐스케이드 규칙에 따라 다시 아래 조직들에게 나뉘는 것이므로, 운영사는 그 내부 분배와 무관하게 <strong>최상위 요율 하나만</strong> 신경 쓰면 됩니다.', zh: '这里的"最上级销售组织手续费"是指该商店链条中<strong>处于最上级的组织所设置的费率全额</strong>——有分公司则为分公司费率，没有分公司只有总代理则为总代理费率。该费率会依第3章的阶梯式规则再分配给下级组织，因此运营商无需关心内部分配，只需关注<strong>最上级费率这一个数字</strong>即可。' },
+  s4ex: { ko: "📌 원문 예시 — 결제금액 100만원, 상점의 플랫폼 사용 수수료 8%, PG 수수료 3.52%, 지사 수수료 3%인 경우:", zh: "📌 原文示例 — 付款金额100万韩元，商店平台使用手续费8%，PG手续费3.52%，分公司手续费3%时：" },
+  s4th1: { ko: "항목", zh: "项目" }, s4th2: { ko: "비율", zh: "比例" }, s4th3: { ko: "금액", zh: "金额" },
+  s4r1a: { ko: "플랫폼수수료", zh: "平台手续费" }, s4r2a: { ko: "− PG 결제수수료", zh: "− PG结算手续费" }, s4r3a: { ko: "− 지사 수수료(최상위)", zh: "− 分公司手续费（最上级）" }, s4r4a: { ko: "= 운영사(CA) 수익", zh: "= 运营商（CA）收入" },
+  s4h3a: { ko: "반올림 규칙", zh: "四舍五入规则" },
+  s4p1: { ko: 'PG 수수료, 지사·총판·영업 수수료는 <strong>모두 소수점 첫째 자리에서 반올림해 1원 단위</strong>로 만듭니다. 운영사의 최종 수익은 이렇게 원 단위로 확정된 금액들을 뺀 나머지입니다. 즉 <strong>어느 항목에도 소수점 단위의 수수료는 남지 않으며</strong>, 반올림 과정에서 생기는 차이는 전부 운영사 몫이 흡수합니다.', zh: 'PG手续费、分公司/总代理/营业员手续费<strong>均四舍五入到个位（韩元整数）</strong>。运营商的最终收入是扣除这些已确定为整数金额后的余额。也就是说<strong>任何项目都不会残留小数位的手续费</strong>，四舍五入过程中产生的差额全部由运营商的份额吸收。' },
+  s5title: { ko: "종합 예시 — 처음부터 끝까지 한 번에", zh: "综合示例 — 从头到尾一次说明" },
+  s5goal: { ko: "위 세 단계를 하나의 결제 건에 전부 적용해보면 이렇게 흘러갑니다. (유보 비율은 원문에 없어 5%로 가정한 예시치입니다.)", zh: "将上述三个阶段全部应用于同一笔付款，流程如下。（留存比例原文未提及，此处假设为5%作为示例。）" },
+  s5assume: { ko: "가정 수치 — 결제금액 1,000,000원 · 유보 비율 5%(가정) · 플랫폼수수료 8% · PG수수료 3.52% · 지사 3% → 총판 2% → 영업 1%", zh: "假设数值 — 付款金额1,000,000韩元 · 留存比例5%（假设）· 平台手续费8% · PG手续费3.52% · 分公司3% → 总代理2% → 营业员1%" },
+  s5th1: { ko: "받는 주체", zh: "接收方" }, s5th2: { ko: "계산", zh: "计算" }, s5th3: { ko: "금액", zh: "金额" },
+  s5r1a: { ko: "상점 실지급액", zh: "商店实付金额" }, s5r2a: { ko: "유보금 (보관 중)", zh: "留存金（保管中）" }, s5r3a: { ko: "PG사 결제수수료", zh: "PG公司结算手续费" },
+  s5r4a: { ko: "지사 몫", zh: "分公司份额" }, s5r5a: { ko: "총판 몫", zh: "总代理份额" }, s5r6a: { ko: "영업 몫", zh: "营业员份额" }, s5r6b: { ko: "더 내려줄 조직 없음, 1% 그대로", zh: "没有更下级组织，直接拿1%" },
+  s5r7a: { ko: "운영사(CA) 수익", zh: "运营商（CA）收入" }, s5r8a: { ko: "합계", zh: "合计" },
+  s5note: { ko: '운영사 수익 계산에는 지사의 <strong>설정 요율 3% 전체(30,000원)</strong>가 쓰이고, 그 30,000원이 다시 지사·총판·영업 세 조직에 캐스케이드로 나뉜다는 점에 주의해주세요 — 두 계산이 이중으로 차감되는 게 아니라, 같은 30,000원을 바라보는 두 개의 다른 질문(운영사가 얼마를 남기는가 / 그 나머지를 조직들이 어떻게 나누는가)입니다.', zh: '请注意，运营商收入的计算使用了分公司<strong>设置费率3%全额（30,000韩元）</strong>，而这30,000韩元又会按阶梯式规则再分配给分公司/总代理/营业员三个组织——这并非重复扣减，而是围绕同一笔30,000韩元的两个不同问题（运营商留下多少 / 剩余部分组织间如何分配）。' },
+  s6title: { ko: "용어 정리", zh: "用语汇总" },
+  s6goal: { ko: "이 문서에서 사용한 용어를 한 곳에 모았습니다.", zh: "本文档使用的术语汇总于此。" },
+  t1t: { ko: "결제금액", zh: "付款金额" }, t1d: { ko: "고객이 실제로 결제한 원금. 모든 계산의 출발점.", zh: "顾客实际支付的本金，是所有计算的起点。" },
+  t2t: { ko: "플랫폼수수료", zh: "平台手续费" }, t2d: { ko: "상점이 플랫폼 이용 대가로 내는 수수료. 결제금액 × 설정 요율.", zh: "商店为使用平台支付的手续费。付款金额 × 设置费率。" },
+  t3t: { ko: "유보금", zh: "留存金" }, t3d: { ko: "사고(취소·환불) 대비 담보금. 한도까지 자동 적립, CA가 사용 등록 관리.", zh: "应对取消、退款等意外的担保金。自动累积至上限，使用登记由CA管理。" },
+  t4t: { ko: "예치금", zh: "存款" }, t4d: { ko: "미리 정해 받아두는 보증금. 유보금과 달리 자동 적립되지 않음.", zh: "预先约定收取的保证金。与留存金不同，不会自动累积。" },
+  t5t: { ko: "PG 결제수수료", zh: "PG结算手续费" }, t5d: { ko: "결제대행사(PG사)에 실제로 나가는 카드·결제 처리 비용.", zh: "实际支付给结算代理公司（PG公司）的卡类、结算处理费用。" },
+  t6t: { ko: "캐스케이드", zh: "阶梯式分配" }, t6d: { ko: "지사→총판→영업 순으로 수수료가 차등 분배되는 방식. 각 조직 몫 = 자기 요율 − 바로 아래 조직 요율.", zh: "按分公司→总代理→营业员顺序进行差额分配的方式。各组织份额 = 自身费率 − 下一级组织费率。" },
+  t7t: { ko: "최상위 영업조직", zh: "最上级销售组织" }, t7d: { ko: "한 상점의 체인에서 가장 위에 있는 조직. 지사가 있으면 지사, 없으면 총판 등.", zh: "该商店链条中处于最上级的组织。有分公司则为分公司，没有则为总代理等。" },
+  t8t: { ko: "운영사(CA) 수익", zh: "运营商（CA）收入" }, t8d: { ko: "플랫폼수수료 − PG수수료 − 최상위 조직 요율. 반올림 차이도 여기로 흡수됨.", zh: "平台手续费 − PG手续费 − 最上级组织费率。四舍五入产生的差额也由此吸收。" },
+  navPrevSub: { ko: "관련 챕터", zh: "相关章节" }, navPrevTitle: { ko: "6. 정산관리", zh: "6. 结算管理" },
+  navCenter: { ko: "부록 · APPENDIX", zh: "附录 · APPENDIX" },
+  navNextSub: { ko: "처음으로", zh: "返回首页" }, navNextTitle: { ko: "설명서 홈", zh: "说明书首页" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ch6. 정산관리 — SJ Hub CA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#0d9488}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">CHAPTER 6</div>
+    <div class="chapter-header__name" data-i18n="chName">정산관리</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">운영수익 · 조직별/상점별 정산 · 보증금·예치금 처리</div>
+  </div>
+
+  <div class="inner-tabs">
+    <div class="inner-tab active" onclick="switchTab('formula',this)" data-i18n="tab0">정산 공식</div>
+    <div class="inner-tab" onclick="switchTab('profit',this)" data-i18n="tab1">운영수익</div>
+    <div class="inner-tab" onclick="switchTab('org',this)" data-i18n="tab2">지사·총판·영업 결산</div>
+    <div class="inner-tab" onclick="switchTab('brand',this)" data-i18n="tab3">상점결산</div>
+    <div class="inner-tab" onclick="switchTab('fund',this)" data-i18n="tab4">보증금·예치금</div>
+  </div>
+
+  <div class="tab-pane active" id="tab-formula">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="f1title">정산 공식 요약</div>
+          <div class="sec-goal" data-i18n="f1goal">이 챕터의 모든 화면에 나오는 숫자를 이해하려면, 결제금액 하나가 어떻게 나뉘는지부터 알아야 합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body--single">
+        <div class="ref-twrap">
+          <table class="ref-table">
+            <thead><tr><th data-i18n="fth1">받는 주체</th><th data-i18n="fth2">계산 방법</th></tr></thead>
+            <tbody>
+              <tr><td data-i18n="fr1a">상점 실지급액</td><td data-i18n="fr1b">결제금액 − 플랫폼수수료 − 유보금</td></tr>
+              <tr><td data-i18n="fr2a">지사·총판·영업 수수료</td><td data-i18n="fr2b">각 조직의 설정 요율 − 바로 아래 조직의 요율 (캐스케이드 분배)</td></tr>
+              <tr><td data-i18n="fr3a">운영사(CA) 수익</td><td data-i18n="fr3b">플랫폼수수료 − PG결제수수료 − 최상위 조직 요율 전체</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice tip">
+          <p data-i18n="f1tip"><strong>캐스케이드 분배란</strong> — 지사 5%, 총판 3%, 영업 1%로 설정되어 있다면, 지사는 총판에 3%를 내려주므로 실제로는 2%(5%−3%)만 가져갑니다. 총판도 영업에 1%를 내려주고 2%(3%−1%)를 가져가며, 영업은 맨 아래이므로 설정된 1%를 그대로 가져갑니다.</p>
+        </div>
+        <p style="font-size:13px;color:#999;margin-top:14px" data-i18n="f1more">유보금·예치금의 세부 규칙, 취소매출 차감, 반올림 규칙, 종합 계산 예시까지 더 자세한 내용은 <a href="09-settlement-formula.html">부록 · 정산 계산 공식 안내서</a>에서 확인하세요.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-profit">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="p1title">운영수익 화면 (运营收入)</div>
+          <div class="sec-goal" data-i18n="p1goal">CA(운영사) 자신의 정산 수익을 기간별로 조회하는 요약 화면입니다. 상세 목록은 없고 KPI 카드 5개만 있습니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="img-wrap">
+          <img src="screen_captures/09_operation_income.jpg" alt="운영수익 화면" />
+          <div class="callout" style="left:21%;top:14.3%;background:#0d9488">1</div>
+        </div>
+        <div>
+          <div class="how-title">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-teal">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="p1h1a">기간을 정해 조회하기</div><div class="how-desc" data-i18n="p1h1d">기간 필터로 범위를 정하고 검색을 누르면 매출금액·운영수익·지사/총판/영업 수수료 5개 값이 갱신됩니다.</div></div>
+          </div>
+          <div class="notice info">
+            <p data-i18n="p1info">💡 이 화면은 요약 전용입니다. 조직·상점별 세부 내역은 옆의 다른 탭에서 확인하세요.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-org">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="o1title">지사·총판·영업 결산 화면</div>
+          <div class="sec-goal" data-i18n="o1goal">사이드바의 "分公司结算""总代理结算""营业员结算" 세 메뉴는 사실 <strong>같은 화면을 조직 레벨만 바꿔서 재사용</strong>합니다. 여기서 한 번만 설명합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="img-wrap">
+          <img src="screen_captures/10_branch_settlement.jpg" alt="지사 결산 화면 (총판·영업 결산도 같은 화면 구조)" />
+          <div class="callout" style="left:21.2%;top:12.4%;background:#0d9488">1</div>
+          <div class="callout" style="left:95%;top:69.5%;background:#0d9488">2</div>
+          <div class="callout" style="left:20.8%;top:60%;background:#0d9488">3</div>
+        </div>
+        <div>
+          <div class="how-title">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-teal">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="o1h1a">기간·이름으로 조회하기</div><div class="how-desc" data-i18n="o1h1d">기간 필터와 이름 검색(자동완성)으로 조회합니다. KPI 6개(매출금액·취소주문금액·실정산매출액·실정산액·정산완료액·미정산액)가 위에 표시됩니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-teal">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="o1h2a">"명세"로 상세 들어가기</div><div class="how-desc" data-i18n="o1h2d">각 행의 "명세" 버튼을 누르면 그 조직 하나의 날짜별 상세 내역 화면으로 이동합니다(사이드바에는 없는 화면. 목록에서만 진입 가능).</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-teal">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="o1h3a">정산처리(지급완료) 하기</div><div class="how-desc" data-i18n="o1h3d">아래 "정산처리 공통 절차" 순서대로 체크박스 선택 → 정산처리 버튼 → 확인을 진행합니다.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">2</span>
+        <div>
+          <div class="sec-title" data-i18n="o2title">정산처리 공통 절차</div>
+          <div class="sec-goal" data-i18n="o2goal">지사결산·총판결산·영업원결산·상점결산 4개 화면 모두 지급 처리 방법이 동일합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body--single">
+        <div class="how-item">
+          <div class="how-num c-teal">1</div>
+          <div class="how-body"><div class="how-action" data-i18n="o2h1a">대상 선택</div><div class="how-desc" data-i18n="o2h1d">목록에서 체크박스를 선택합니다. 상단 "전체선택"으로 한번에 모두 선택할 수도 있습니다.</div></div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-teal">2</div>
+          <div class="how-body"><div class="how-action" data-i18n="o2h2a">정산처리 버튼 클릭</div><div class="how-desc" data-i18n="o2h2d">아무것도 선택하지 않으면 "먼저 대상을 선택해주세요" 경고가 뜹니다.</div></div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-teal">3</div>
+          <div class="how-body"><div class="how-action" data-i18n="o2h3a">확인 → 지급완료</div><div class="how-desc" data-i18n="o2h3d">"정말 정산처리 하시겠습니까?" 확인창에서 확인을 누르면, 선택한 항목이 모두 지급완료 상태로 바뀝니다.</div></div>
+        </div>
+        <div class="notice tip">
+          <p data-i18n="o2tip">💡 예를 들어 7월 1일~7월 5일을 조회한 뒤 체크박스로 여러 건을 한꺼번에 선택해 정산처리하면, 5일치 내역이 각각 지급완료로 한 번에 기록됩니다. "Excel 다운로드" 버튼으로 선택한 항목을 엑셀로 내려받을 수도 있습니다.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-brand">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="b1title">상점결산 화면 (商店结算)</div>
+          <div class="sec-goal" data-i18n="b1goal">위 지사·총판·영업 결산과 같은 화면 구조를 상점(대리점) 단위에 적용한 화면입니다. 지급 처리 방법도 동일합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="img-wrap">
+          <img src="screen_captures/13_store_settlement.jpg" alt="상점결산 화면" />
+          <div class="callout" style="left:42.8%;top:62%;background:#0d9488">1</div>
+        </div>
+        <div>
+          <div class="how-title">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-teal">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="b1h1a">두 채널 매출이 합산되는 것 확인</div><div class="how-desc" data-i18n="b1h1d"><a href="05-order.html">점포주문</a>과 <a href="05-order.html">링크주문</a> 두 채널의 매출·취소 금액이 각각 별도 칼럼으로 표시된 뒤, 합산한 실매출액을 기준으로 플랫폼수수료·유보금을 차감해 정산액이 계산됩니다.</div></div>
+          </div>
+          <div class="notice tip">
+            <p data-i18n="b1tip">💡 지급 처리 방법은 <a href="#tab-org">지사·총판·영업 결산 탭의 "정산처리 공통 절차"</a>와 완전히 동일합니다 — 체크박스 선택 → 정산처리 → 확인.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-fund">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="d1title">보증금목록 — 유보금 (保证金列表)</div>
+          <div class="sec-goal" data-i18n="d1goal">취소·환불 사고에 대비해 매출에서 자동으로 쌓아두는 담보금입니다. 적립은 시스템 자동, 사용(차감)만 CA가 등록합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="img-wrap">
+          <img src="screen_captures/14_retention_deposit_list.jpg" alt="보증금(유보금) 관리 화면" />
+          <div class="callout" style="left:23.2%;top:23.2%;background:#0d9488">1</div>
+          <div class="callout" style="left:16.5%;top:59.3%;background:#0d9488">2</div>
+        </div>
+        <div>
+          <div class="how-title">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-teal">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="d1h1a">"유보금 사용" 버튼으로 등록창 열기</div><div class="how-desc" data-i18n="d1h1d">KPI 카드(전체 유보금액·건수·사용건수·사용금액·오늘 유보금)로 현황을 먼저 확인합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-teal">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="d1h2a">상점 선택 후 사용 내역 입력</div><div class="how-desc" data-i18n="d1h2d">상점명을 검색해 선택하고, 사용일·사용금액·비고를 입력한 뒤 저장하면 등록됩니다.</div></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">2</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="d2title">예치금결산 (存款结算)</div>
+          <div class="sec-goal" data-i18n="d2goal">유보금과 달리 매출에서 자동으로 쌓이지 않고, 처음부터 정해진 금액을 상점으로부터 미리 받아두는 보증금입니다.</div>
+        </div>
+      </div>
+      <div class="sec-body--single">
+        <div class="img-wrap">
+          <img src="screen_captures/15_deposit_settlement.jpg" alt="예치금 관리 화면" />
+          <div class="callout" style="left:16.9%;top:59.3%;background:#0d9488">1</div>
+        </div>
+        <div class="ref-twrap" style="margin-top:20px">
+          <table class="ref-table">
+            <thead><tr><th data-i18n="d2th1">항목</th><th data-i18n="d2th2">유보금(保证金)</th><th data-i18n="d2th3">예치금(存款)</th></tr></thead>
+            <tbody>
+              <tr><td data-i18n="d2r1a">적립(입금)</td><td data-i18n="d2r1b">매출 발생시 시스템 자동</td><td data-i18n="d2r1c">CA가 직접 등록</td></tr>
+              <tr><td data-i18n="d2r2a">사용(차감)</td><td data-i18n="d2r2b">CA가 직접 등록</td><td data-i18n="d2r2c">CA가 직접 등록</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice tip">
+          <p data-i18n="d2tip"><strong>핵심 차이</strong> — 유보금은 적립이 자동이라 "사용"만 등록하면 되지만, 예치금은 등록창의 "구분" 항목에서 <strong>입금</strong>과 <strong>사용</strong> 두 방향을 CA가 직접 선택해서 모두 등록해야 합니다. 등록창 항목(상점명·구분·날짜·금액·비고)과 저장 방식은 유보금 등록창과 동일합니다.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="05-order.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">이전 챕터</div><div data-i18n="navPrevTitle">5. 주문관리</div></div></a>
+    <span class="ch-nav__center">CHAPTER 6 / 8</span>
+    <a class="ch-nav__btn" href="07-notice.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">다음 챕터</div><div data-i18n="navNextTitle">7. 공지사항</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "정산관리", zh: "结算管理" },
+  chDesc: { ko: "운영수익 · 조직별/상점별 정산 · 보증금·예치금 처리", zh: "运营收入 · 按组织/商店结算 · 保证金、存款处理" },
+  tab0: { ko: "정산 공식", zh: "结算公式" }, tab1: { ko: "운영수익", zh: "运营收入" }, tab2: { ko: "지사·총판·영업 결산", zh: "分公司/总代理/营业员结算" }, tab3: { ko: "상점결산", zh: "商店结算" }, tab4: { ko: "보증금·예치금", zh: "保证金·存款" },
+  f1title: { ko: "정산 공식 요약", zh: "结算公式摘要" },
+  f1goal: { ko: "이 챕터의 모든 화면에 나오는 숫자를 이해하려면, 결제금액 하나가 어떻게 나뉘는지부터 알아야 합니다.", zh: "要理解本章所有画面中出现的数字，首先需要了解一笔付款金额是如何被拆分的。" },
+  fth1: { ko: "받는 주체", zh: "接收方" }, fth2: { ko: "계산 방법", zh: "计算方法" },
+  fr1a: { ko: "상점 실지급액", zh: "商店实付金额" }, fr1b: { ko: "결제금액 − 플랫폼수수료 − 유보금", zh: "付款金额 − 平台手续费 − 留存金" },
+  fr2a: { ko: "지사·총판·영업 수수료", zh: "分公司/总代理/营业员手续费" }, fr2b: { ko: "각 조직의 설정 요율 − 바로 아래 조직의 요율 (캐스케이드 분배)", zh: "各组织设置的费率 − 下一级组织的费率（阶梯式分配）" },
+  fr3a: { ko: "운영사(CA) 수익", zh: "运营商（CA）收入" }, fr3b: { ko: "플랫폼수수료 − PG결제수수료 − 최상위 조직 요율 전체", zh: "平台手续费 − PG支付手续费 − 最上级组织费率全额" },
+  f1tip: { ko: "<strong>캐스케이드 분배란</strong> — 지사 5%, 총판 3%, 영업 1%로 설정되어 있다면, 지사는 총판에 3%를 내려주므로 실제로는 2%(5%−3%)만 가져갑니다. 총판도 영업에 1%를 내려주고 2%(3%−1%)를 가져가며, 영업은 맨 아래이므로 설정된 1%를 그대로 가져갑니다.", zh: "<strong>什么是阶梯式分配</strong> — 若分公司设为5%、总代理3%、营业员1%，分公司需向总代理让出3%，实际只拿到2%（5%−3%）。总代理同样让出1%给营业员，实拿2%（3%−1%）；营业员处于最底层，直接拿到设定的1%。" },
+  f1more: { ko: '유보금·예치금의 세부 규칙, 취소매출 차감, 반올림 규칙, 종합 계산 예시까지 더 자세한 내용은 <a href="09-settlement-formula.html">부록 · 정산 계산 공식 안내서</a>에서 확인하세요.', zh: '留存金/存款的详细规则、取消销售额扣减、四舍五入规则、综合计算示例等更多内容，请参见<a href="09-settlement-formula.html">附录 · 结算计算公式说明书</a>。' },
+  p1title: { ko: "운영수익 화면 (运营收入)", zh: "运营收入画面" },
+  p1goal: { ko: "CA(운영사) 자신의 정산 수익을 기간별로 조회하는 요약 화면입니다. 상세 목록은 없고 KPI 카드 5개만 있습니다.", zh: "按期间查询CA（运营商）自身结算收入的汇总画面，没有详细列表，仅有5个KPI卡片。" },
+  p1h1a: { ko: "기간을 정해 조회하기", zh: "设定期间查询" },
+  p1h1d: { ko: "기간 필터로 범위를 정하고 검색을 누르면 매출금액·운영수익·지사/총판/영업 수수료 5개 값이 갱신됩니다.", zh: "通过期间筛选设定范围，点击搜索即可刷新销售金额、运营收入、分公司/总代理/营业员手续费共5项数值。" },
+  p1info: { ko: "💡 이 화면은 요약 전용입니다. 조직·상점별 세부 내역은 옆의 다른 탭에서 확인하세요.", zh: "💡 此画面仅为汇总用途。按组织、商店的详细明细请查看旁边的其他标签页。" },
+  o1title: { ko: "지사·총판·영업 결산 화면", zh: "分公司/总代理/营业员结算画面" },
+  o1goal: { ko: '사이드바의 "分公司结算""总代理结算""营业员结算" 세 메뉴는 사실 <strong>같은 화면을 조직 레벨만 바꿔서 재사용</strong>합니다. 여기서 한 번만 설명합니다.', zh: '侧边栏的"分公司结算""总代理结算""营业员结算"三个菜单，实际上<strong>是同一画面仅切换组织级别重复使用</strong>。这里只说明一次。' },
+  o1h1a: { ko: "기간·이름으로 조회하기", zh: "按期间、名称查询" },
+  o1h1d: { ko: "기간 필터와 이름 검색(자동완성)으로 조회합니다. KPI 6개(매출금액·취소주문금액·실정산매출액·실정산액·정산완료액·미정산액)가 위에 표시됩니다.", zh: "通过期间筛选和名称搜索（自动补全）查询。上方显示6个KPI（销售金额、取消订单金额、实际结算销售额、实际结算额、已结算额、未结算额）。" },
+  o1h2a: { ko: '"명세"로 상세 들어가기', zh: '通过"明细"进入详情' },
+  o1h2d: { ko: '각 행의 "명세" 버튼을 누르면 그 조직 하나의 날짜별 상세 내역 화면으로 이동합니다(사이드바에는 없는 화면. 목록에서만 진입 가능).', zh: '点击各行的"明细"按钮会进入该组织按日期分列的详细画面（此画面不在侧边栏中，只能从列表进入）。' },
+  o1h3a: { ko: "정산처리(지급완료) 하기", zh: "进行结算处理（已支付）" },
+  o1h3d: { ko: '아래 "정산처리 공통 절차" 순서대로 체크박스 선택 → 정산처리 버튼 → 확인을 진행합니다.', zh: '按下方"结算处理通用流程"依次进行：勾选复选框 → 点击结算处理按钮 → 确认。' },
+  o2title: { ko: "정산처리 공통 절차", zh: "结算处理通用流程" },
+  o2goal: { ko: "지사결산·총판결산·영업원결산·상점결산 4개 화면 모두 지급 처리 방법이 동일합니다.", zh: "分公司结算、总代理结算、营业员结算、商店结算这4个画面的支付处理方法完全相同。" },
+  o2h1a: { ko: "대상 선택", zh: "选择对象" },
+  o2h1d: { ko: '목록에서 체크박스를 선택합니다. 상단 "전체선택"으로 한번에 모두 선택할 수도 있습니다.', zh: '在列表中勾选复选框，也可通过上方"全选"一次性全部选中。' },
+  o2h2a: { ko: "정산처리 버튼 클릭", zh: "点击结算处理按钮" },
+  o2h2d: { ko: '아무것도 선택하지 않으면 "먼저 대상을 선택해주세요" 경고가 뜹니다.', zh: '若未选择任何对象，会弹出"请先选择对象"的提示。' },
+  o2h3a: { ko: "확인 → 지급완료", zh: "确认 → 已支付" },
+  o2h3d: { ko: '"정말 정산처리 하시겠습니까?" 확인창에서 확인을 누르면, 선택한 항목이 모두 지급완료 상태로 바뀝니다.', zh: '在"确定要结算处理吗？"确认框中点击确定后，所选项目将全部变为已支付状态。' },
+  o2tip: { ko: '💡 예를 들어 7월 1일~7월 5일을 조회한 뒤 체크박스로 여러 건을 한꺼번에 선택해 정산처리하면, 5일치 내역이 각각 지급완료로 한 번에 기록됩니다. "Excel 다운로드" 버튼으로 선택한 항목을 엑셀로 내려받을 수도 있습니다.', zh: '💡 例如查询7月1日~7月5日后，用复选框一次选中多条记录并结算处理，5天的记录会同时被标记为已支付。也可通过"Excel下载"按钮将所选项目导出为Excel文件。' },
+  b1title: { ko: "상점결산 화면 (商店结算)", zh: "商店结算画面" },
+  b1goal: { ko: "위 지사·총판·영업 결산과 같은 화면 구조를 상점(대리점) 단위에 적용한 화면입니다. 지급 처리 방법도 동일합니다.", zh: "将上述分公司/总代理/营业员结算相同的画面结构应用于商店单位的画面，支付处理方法相同。" },
+  b1h1a: { ko: "두 채널 매출이 합산되는 것 확인", zh: "确认两个渠道的销售额如何合计" },
+  b1h1d: { ko: '<a href="05-order.html">점포주문</a>과 <a href="05-order.html">링크주문</a> 두 채널의 매출·취소 금액이 각각 별도 칼럼으로 표시된 뒤, 합산한 실매출액을 기준으로 플랫폼수수료·유보금을 차감해 정산액이 계산됩니다.', zh: '<a href="05-order.html">店铺订单</a>和<a href="05-order.html">链接订单</a>两个渠道的销售、取消金额分别以独立列显示，再以两者合计的实销售额为基准，扣除平台手续费、留存金后计算出结算额。' },
+  b1tip: { ko: '💡 지급 처리 방법은 <a href="#tab-org">지사·총판·영업 결산 탭의 "정산처리 공통 절차"</a>와 완전히 동일합니다 — 체크박스 선택 → 정산처리 → 확인.', zh: '💡 支付处理方法与<a href="#tab-org">分公司/总代理/营业员结算标签页的"结算处理通用流程"</a>完全相同 — 勾选复选框 → 结算处理 → 确认。' },
+  d1title: { ko: "보증금목록 — 유보금 (保证金列表)", zh: "保证金列表 — 留存金" },
+  d1goal: { ko: "취소·환불 사고에 대비해 매출에서 자동으로 쌓아두는 담보금입니다. 적립은 시스템 자동, 사용(차감)만 CA가 등록합니다.", zh: "为应对取消、退款情况，从销售额中自动预留的担保金。累积由系统自动处理，仅使用（扣减）由CA登记。" },
+  d1h1a: { ko: '"유보금 사용" 버튼으로 등록창 열기', zh: '通过"保证金动用"按钮打开登记窗口' },
+  d1h1d: { ko: "KPI 카드(전체 유보금액·건수·사용건수·사용금액·오늘 유보금)로 현황을 먼저 확인합니다.", zh: "先通过KPI卡片（全部保证金金额、件数、使用件数、使用金额、今日保证金）确认现状。" },
+  d1h2a: { ko: "상점 선택 후 사용 내역 입력", zh: "选择商店后输入使用记录" },
+  d1h2d: { ko: "상점명을 검색해 선택하고, 사용일·사용금액·비고를 입력한 뒤 저장하면 등록됩니다.", zh: "搜索并选择商店名称，输入使用日期、使用金额、备注后保存即完成登记。" },
+  d2title: { ko: "예치금결산 (存款结算)", zh: "存款结算" },
+  d2goal: { ko: "유보금과 달리 매출에서 자동으로 쌓이지 않고, 처음부터 정해진 금액을 상점으로부터 미리 받아두는 보증금입니다.", zh: "与留存金不同，不会从销售额中自动累积，而是从一开始就向商店预先收取固定金额的保证金。" },
+  d2th1: { ko: "항목", zh: "项目" }, d2th2: { ko: "유보금(保证金)", zh: "留存金" }, d2th3: { ko: "예치금(存款)", zh: "存款" },
+  d2r1a: { ko: "적립(입금)", zh: "累积（存入）" }, d2r1b: { ko: "매출 발생시 시스템 자동", zh: "销售发生时系统自动" }, d2r1c: { ko: "CA가 직접 등록", zh: "CA直接登记" },
+  d2r2a: { ko: "사용(차감)", zh: "使用（扣减）" }, d2r2b: { ko: "CA가 직접 등록", zh: "CA直接登记" }, d2r2c: { ko: "CA가 직접 등록", zh: "CA直接登记" },
+  d2tip: { ko: '<strong>핵심 차이</strong> — 유보금은 적립이 자동이라 "사용"만 등록하면 되지만, 예치금은 등록창의 "구분" 항목에서 <strong>입금</strong>과 <strong>사용</strong> 두 방향을 CA가 직접 선택해서 모두 등록해야 합니다. 등록창 항목(상점명·구분·날짜·금액·비고)과 저장 방식은 유보금 등록창과 동일합니다.', zh: '<strong>核心区别</strong> — 留存金因累积自动完成，只需登记"使用"；而存款需要在登记窗口的"区分"项目中，由CA自行选择<strong>存入</strong>和<strong>使用</strong>两个方向并分别登记。登记窗口的项目（商店名称、区分、日期、金额、备注）和保存方式与留存金登记窗口相同。' },
+  navPrevSub: { ko: "이전 챕터", zh: "上一章" }, navPrevTitle: { ko: "5. 주문관리", zh: "5. 订单管理" },
+  navNextSub: { ko: "다음 챕터", zh: "下一章" }, navNextTitle: { ko: "7. 공지사항", zh: "7. 公告" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>
