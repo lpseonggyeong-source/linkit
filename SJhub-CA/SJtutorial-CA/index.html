@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SJ Hub CA 관리자 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>
+  .cover-hero{padding:64px 0 40px}
+  .cover-kicker{font-size:12px;font-weight:700;color:#bbb;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+  .cover-title{font-size:40px;font-weight:700;color:#111;letter-spacing:-1px;line-height:1.15;margin-bottom:14px}
+  .cover-desc{font-size:15.5px;color:#777;line-height:1.75;max-width:64ch}
+  .cover-meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;padding-top:24px;border-top:1px solid #ebebeb;font-size:12.5px;color:#999}
+  .cover-meta b{color:#555;font-weight:700}
+  .cover-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:32px 0 56px}
+  @media (max-width:760px){.cover-grid{grid-template-columns:1fr}}
+  .cover-card{display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:#111;background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.05);transition:transform .12s,border-color .12s}
+  .cover-card:hover{transform:translateY(-2px);border-color:#ccc}
+  .cover-card__num{flex-shrink:0;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+  .cover-card__title{font-size:16px;font-weight:700;margin-bottom:4px}
+  .cover-card__desc{font-size:12.8px;color:#888;line-height:1.6}
+  .how-section{padding:0 0 56px}
+  .how-section h2{font-size:20px;font-weight:700;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="cover-hero">
+    <div class="cover-kicker" data-i18n="kicker">SJ HUB · CA 관리자 사용설명서</div>
+    <div class="cover-title" data-i18n="title">CA 관리자 사용설명서</div>
+    <p class="cover-desc" data-i18n="desc">지사·총판·영업 조직과 상점을 관리하고, 상품·주문·정산 현황을 확인하는 CA(운영사) 관리자 화면의 사용법을 화면별로 안내합니다.</p>
+    <div class="cover-meta">
+      <span data-i18n="meta1"><b>대상 사이트</b> www.kcsvc.co.kr/bonbu_new/CA/</span>
+      <span data-i18n="meta2"><b>대상</b> CA 운영사 담당자</span>
+      <span data-i18n="meta3"><b>작성일</b> 2026-07-21</span>
+    </div>
+  </div>
+
+  <section class="how-section">
+    <h2 data-i18n="chListTitle">챕터 목록</h2>
+    <div class="cover-grid">
+      <a class="cover-card" href="01-dashboard.html">
+        <div class="cover-card__num" style="background:#64748b">1</div>
+        <div><div class="cover-card__title" data-i18n="ch1t">대시보드</div><div class="cover-card__desc" data-i18n="ch1d">로그인 후 첫 화면. 오늘/전체 현황과 최근 주문·공지를 한눈에 봅니다.</div></div>
+      </a>
+      <a class="cover-card" href="02-organization.html">
+        <div class="cover-card__num" style="background:#ea580c">2</div>
+        <div><div class="cover-card__title" data-i18n="ch2t">조직관리</div><div class="cover-card__desc" data-i18n="ch2d">지사·총판·영업 조직을 조회하고 새 조직·하위 조직을 등록합니다.</div></div>
+      </a>
+      <a class="cover-card" href="03-store.html">
+        <div class="cover-card__num" style="background:#2563eb">3</div>
+        <div><div class="cover-card__title" data-i18n="ch3t">상점관리</div><div class="cover-card__desc" data-i18n="ch3d">계약 상점을 조회·승인하고 새 상점 등록을 신청합니다.</div></div>
+      </a>
+      <a class="cover-card" href="04-product.html">
+        <div class="cover-card__num" style="background:#475569">4</div>
+        <div><div class="cover-card__title" data-i18n="ch4t">상품관리</div><div class="cover-card__desc" data-i18n="ch4d">등록된 상품을 조회하고 분류·판매상태를 관리합니다.</div></div>
+      </a>
+      <a class="cover-card" href="05-order.html">
+        <div class="cover-card__num" style="background:#e62e21">5</div>
+        <div><div class="cover-card__title" data-i18n="ch5t">주문관리</div><div class="cover-card__desc" data-i18n="ch5d">점포주문과 링크주문을 조회하고 상태·배송지를 관리합니다.</div></div>
+      </a>
+      <a class="cover-card" href="06-settlement.html">
+        <div class="cover-card__num" style="background:#0d9488">6</div>
+        <div><div class="cover-card__title" data-i18n="ch6t">정산관리</div><div class="cover-card__desc" data-i18n="ch6d">운영수익·조직별·상점별 정산과 보증금·예치금을 처리합니다.</div></div>
+      </a>
+      <a class="cover-card" href="07-notice.html">
+        <div class="cover-card__num" style="background:#7c3aed">7</div>
+        <div><div class="cover-card__title" data-i18n="ch7t">공지사항</div><div class="cover-card__desc" data-i18n="ch7d">전체 또는 특정 상점 대상 공지를 작성·발행합니다.</div></div>
+      </a>
+      <a class="cover-card" href="08-settings.html">
+        <div class="cover-card__num" style="background:#64748b">8</div>
+        <div><div class="cover-card__title" data-i18n="ch8t">시스템설정</div><div class="cover-card__desc" data-i18n="ch8d">로그인 계정 정보 확인과 비밀번호 변경을 합니다.</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="how-section">
+    <h2 data-i18n="appendixTitle">부록</h2>
+    <div class="cover-grid">
+      <a class="cover-card" href="09-settlement-formula.html">
+        <div class="cover-card__num" style="background:#0d9488">·</div>
+        <div><div class="cover-card__title" data-i18n="appendix1t">정산 계산 공식 안내서</div><div class="cover-card__desc" data-i18n="appendix1d">결제금액이 상점·유보금·플랫폼수수료로 나뉘고, 다시 지사·총판·영업·운영사로 분배되는 전체 계산 공식과 예시를 정리했습니다.</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="how-section">
+    <h2 data-i18n="howTitle">이 설명서 보는 법</h2>
+    <div class="notice info">
+      <p data-i18n="how1">오른쪽 위 <strong>한국어 / 中文</strong> 버튼으로 언어를 바꿀 수 있습니다. 선택한 언어는 다른 페이지로 이동해도 계속 유지됩니다.</p>
+    </div>
+    <div class="notice tip" style="margin-top:12px">
+      <p data-i18n="how2">왼쪽 <strong>사이드바</strong>로 챕터를 오가고, 오른쪽 <strong>목차</strong>로 현재 챕터 안의 세부 화면으로 빠르게 이동하세요.</p>
+    </div>
+
+  </section>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  kicker: { ko: "SJ HUB · CA 관리자 사용설명서", zh: "SJ HUB · CA 管理后台使用说明书" },
+  title: { ko: "CA 관리자 사용설명서", zh: "CA 管理后台使用说明书" },
+  desc: { ko: "지사·총판·영업 조직과 상점을 관리하고, 상품·주문·정산 현황을 확인하는 CA(운영사) 관리자 화면의 사용법을 화면별로 안내합니다.", zh: "本说明书按画面介绍CA（运营商）管理后台的使用方法，包括管理分公司/总代理/业务员组织和商店，以及查看商品、订单、结算现状。" },
+  meta1: { ko: "<b>대상 사이트</b> www.kcsvc.co.kr/bonbu_new/CA/", zh: "<b>对应网站</b> www.kcsvc.co.kr/bonbu_new/CA/" },
+  meta2: { ko: "<b>대상</b> CA 운영사 담당자", zh: "<b>适用对象</b> CA运营商负责人" },
+  meta3: { ko: "<b>작성일</b> 2026-07-21", zh: "<b>编写日期</b> 2026-07-21" },
+  chListTitle: { ko: "챕터 목록", zh: "章节列表" },
+  ch1t: { ko: "대시보드", zh: "主页" }, ch1d: { ko: "로그인 후 첫 화면. 오늘/전체 현황과 최근 주문·공지를 한눈에 봅니다.", zh: "登录后的首页，一览今日/全部现状及最近订单、公告。" },
+  ch2t: { ko: "조직관리", zh: "组织管理" }, ch2d: { ko: "지사·총판·영업 조직을 조회하고 새 조직·하위 조직을 등록합니다.", zh: "查询分公司、总代理、业务员组织，并登记新组织及下级组织。" },
+  ch3t: { ko: "상점관리", zh: "商店管理" }, ch3d: { ko: "계약 상점을 조회·승인하고 새 상점 등록을 신청합니다.", zh: "查询、审批签约商店，并申请登记新商店。" },
+  ch4t: { ko: "상품관리", zh: "商品管理" }, ch4d: { ko: "등록된 상품을 조회하고 분류·판매상태를 관리합니다.", zh: "查询已登记商品，管理分类和销售状态。" },
+  ch5t: { ko: "주문관리", zh: "订单管理" }, ch5d: { ko: "점포주문과 링크주문을 조회하고 상태·배송지를 관리합니다.", zh: "查询店铺订单和链接订单，管理状态和收货地址。" },
+  ch6t: { ko: "정산관리", zh: "结算管理" }, ch6d: { ko: "운영수익·조직별·상점별 정산과 보증금·예치금을 처리합니다.", zh: "处理运营收入、按组织/商店结算，以及保证金、存款。" },
+  ch7t: { ko: "공지사항", zh: "公告" }, ch7d: { ko: "전체 또는 특정 상점 대상 공지를 작성·발행합니다.", zh: "撰写并发布面向全部或特定商店的公告。" },
+  ch8t: { ko: "시스템설정", zh: "系统设置" }, ch8d: { ko: "로그인 계정 정보 확인과 비밀번호 변경을 합니다.", zh: "查看登录账号信息并修改密码。" },
+  appendixTitle: { ko: "부록", zh: "附录" },
+  appendix1t: { ko: "정산 계산 공식 안내서", zh: "结算计算公式说明书" },
+  appendix1d: { ko: "결제금액이 상점·유보금·플랫폼수수료로 나뉘고, 다시 지사·총판·영업·운영사로 분배되는 전체 계산 공식과 예시를 정리했습니다.", zh: "整理了付款金额如何拆分为商店款项、留存金、平台手续费，再分配给分公司/总代理/营业员/运营商的完整计算公式与示例。" },
+  howTitle: { ko: "이 설명서 보는 법", zh: "本说明书使用方法" },
+  how1: { ko: '오른쪽 위 <strong>한국어 / 中文</strong> 버튼으로 언어를 바꿀 수 있습니다. 선택한 언어는 다른 페이지로 이동해도 계속 유지됩니다.', zh: '可通过右上角的<strong>한국어 / 中文</strong>按钮切换语言，切换后跳转其他页面依然保持该语言。' },
+  how2: { ko: '왼쪽 <strong>사이드바</strong>로 챕터를 오가고, 오른쪽 <strong>목차</strong>로 현재 챕터 안의 세부 화면으로 빠르게 이동하세요.', zh: '通过左侧<strong>侧边栏</strong>在各章节间切换，通过右侧<strong>目录</strong>快速跳转到当前章节内的具体画面。' },
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>
