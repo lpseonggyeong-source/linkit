@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SJ Hub BA 관리자 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>
+  .cover-hero{padding:64px 0 40px}
+  .cover-kicker{font-size:12px;font-weight:700;color:#bbb;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+  .cover-title{font-size:40px;font-weight:700;color:#111;letter-spacing:-1px;line-height:1.15;margin-bottom:14px}
+  .cover-desc{font-size:15.5px;color:#777;line-height:1.75;max-width:64ch}
+  .cover-meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;padding-top:24px;border-top:1px solid #ebebeb;font-size:12.5px;color:#999}
+  .cover-meta b{color:#555;font-weight:700}
+  .cover-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:32px 0 56px}
+  @media (max-width:760px){.cover-grid{grid-template-columns:1fr}}
+  .cover-card{display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:#111;background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.05);transition:transform .12s,border-color .12s}
+  .cover-card:hover{transform:translateY(-2px);border-color:#ccc}
+  .cover-card__num{flex-shrink:0;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+  .cover-card__title{font-size:16px;font-weight:700;margin-bottom:4px}
+  .cover-card__desc{font-size:12.8px;color:#888;line-height:1.6}
+  .how-section{padding:0 0 56px}
+  .how-section h2{font-size:20px;font-weight:700;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="cover-hero">
+    <div class="cover-kicker" data-i18n="kicker">SJ HUB · BA 관리자 사용설명서</div>
+    <div class="cover-title" data-i18n="title">BA 관리자 사용설명서</div>
+    <p class="cover-desc" data-i18n="desc">내 상점의 상품·주문·정산 현황을 확인하고, 상품 등록부터 배송 처리, 셀러 관리까지 매장 운영에 필요한 BA(매장) 관리자 화면의 사용법을 화면별로 안내합니다.</p>
+    <div class="cover-meta">
+      <span data-i18n="meta1"><b>대상 사이트</b> www.kcsvc.co.kr/bonbu_new/</span>
+      <span data-i18n="meta2"><b>대상</b> BA 매장 관리자</span>
+      <span data-i18n="meta3"><b>작성일</b> 2026-07-23</span>
+    </div>
+  </div>
+
+  <section class="how-section">
+    <h2 data-i18n="chListTitle">챕터 목록</h2>
+    <div class="cover-grid">
+      <a class="cover-card" href="01-dashboard.html">
+        <div class="cover-card__num" style="background:#64748b">1</div>
+        <div><div class="cover-card__title" data-i18n="ch1t">대시보드</div><div class="cover-card__desc" data-i18n="ch1d">로그인 후 첫 화면. 오늘/이번 달 현황과 최근 주문·공지를 한눈에 봅니다.</div></div>
+      </a>
+      <a class="cover-card" href="02-product.html">
+        <div class="cover-card__num" style="background:#ea580c">2</div>
+        <div><div class="cover-card__title" data-i18n="ch2t">상점 상품관리</div><div class="cover-card__desc" data-i18n="ch2d">이미지·재고·셀러수수료까지 갖춘 정식 상품을 등록합니다. (링크관리와는 다른 기능)</div></div>
+      </a>
+      <a class="cover-card" href="03-store.html">
+        <div class="cover-card__num" style="background:#475569">3</div>
+        <div><div class="cover-card__title" data-i18n="ch3t">상점관리</div><div class="cover-card__desc" data-i18n="ch3d">5단계로 새 상점을 만들고, 진열은 저장 즉시 반영됩니다.</div></div>
+      </a>
+      <a class="cover-card" href="04-link.html">
+        <div class="cover-card__num" style="background:#0891b2">4</div>
+        <div><div class="cover-card__title" data-i18n="ch4t">링크관리</div><div class="cover-card__desc" data-i18n="ch4d">이름과 가격만으로 결제 링크 하나를 빠르게 만듭니다.</div></div>
+      </a>
+      <a class="cover-card" href="05-order.html">
+        <div class="cover-card__num" style="background:#2563eb">5</div>
+        <div><div class="cover-card__title" data-i18n="ch5t">상점 주문관리</div><div class="cover-card__desc" data-i18n="ch5d">상점 주문(배송지 있음)과 링크 주문(배송지 없음)을 각각 처리합니다.</div></div>
+      </a>
+      <a class="cover-card" href="06-seller.html">
+        <div class="cover-card__num" style="background:#e62e21">6</div>
+        <div><div class="cover-card__title" data-i18n="ch6t">셀러 관리</div><div class="cover-card__desc" data-i18n="ch6d">셀러 계정을 조회·등록합니다. 수수료는 여기가 아니라 상품 등록에서 설정합니다.</div></div>
+      </a>
+      <a class="cover-card" href="07-settlement.html">
+        <div class="cover-card__num" style="background:#0d9488">7</div>
+        <div><div class="cover-card__title" data-i18n="ch7t">정산관리</div><div class="cover-card__desc" data-i18n="ch7d">매출이 배송비·수수료·유보금을 거쳐 정산후금액이 되는 과정을 확인합니다.</div></div>
+      </a>
+      <a class="cover-card" href="08-notice.html">
+        <div class="cover-card__num" style="background:#7c3aed">8</div>
+        <div><div class="cover-card__title" data-i18n="ch8t">공지사항</div><div class="cover-card__desc" data-i18n="ch8d">운영사가 발행한 공지를 확인만 합니다(BA는 작성 불가).</div></div>
+      </a>
+      <a class="cover-card" href="09-settings.html">
+        <div class="cover-card__num" style="background:#64748b">9</div>
+        <div><div class="cover-card__title" data-i18n="ch9t">시스템설정</div><div class="cover-card__desc" data-i18n="ch9d">상점 전체에 적용되는 배송·정산·환불 정책 기본값을 관리합니다.</div></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="how-section">
+    <h2 data-i18n="howTitle">이 설명서 보는 법</h2>
+    <div class="notice info">
+      <p data-i18n="how1">오른쪽 위 <strong>한국어 / 中文</strong> 버튼으로 언어를 바꿀 수 있습니다. 선택한 언어는 다른 페이지로 이동해도 계속 유지됩니다.</p>
+    </div>
+    <div class="notice tip" style="margin-top:12px">
+      <p data-i18n="how2">왼쪽 <strong>사이드바</strong>로 챕터를 오가고, 오른쪽 <strong>목차</strong>로 현재 챕터 안의 세부 화면으로 빠르게 이동하세요.</p>
+    </div>
+  </section>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  kicker: { ko: "SJ HUB · BA 관리자 사용설명서", zh: "SJ HUB · BA 管理后台使用说明书" },
+  title: { ko: "BA 관리자 사용설명서", zh: "BA 管理后台使用说明书" },
+  desc: { ko: "내 상점의 상품·주문·정산 현황을 확인하고, 상품 등록부터 배송 처리, 셀러 관리까지 매장 운영에 필요한 BA(매장) 관리자 화면의 사용법을 화면별로 안내합니다.", zh: "本说明书按画面介绍BA（店铺）管理后台的使用方法，包括查看本店商品、订单、结算现状，以及商品登记、配送处理、卖家管理等门店运营所需的全部功能。" },
+  meta1: { ko: "<b>대상 사이트</b> www.kcsvc.co.kr/bonbu_new/", zh: "<b>对应网站</b> www.kcsvc.co.kr/bonbu_new/" },
+  meta2: { ko: "<b>대상</b> BA 매장 관리자", zh: "<b>适用对象</b> BA店铺管理员" },
+  meta3: { ko: "<b>작성일</b> 2026-07-23", zh: "<b>编写日期</b> 2026-07-23" },
+  chListTitle: { ko: "챕터 목록", zh: "章节列表" },
+  ch1t: { ko: "대시보드", zh: "主页" }, ch1d: { ko: "로그인 후 첫 화면. 오늘/이번 달 현황과 최근 주문·공지를 한눈에 봅니다.", zh: "登录后的首页，一览今日/本月现状及最近订单、公告。" },
+  ch2t: { ko: "상점 상품관리", zh: "店铺商品管理" }, ch2d: { ko: "이미지·재고·셀러수수료까지 갖춘 정식 상품을 등록합니다. (링크관리와는 다른 기능)", zh: "登记包含图片、库存、卖家手续费的正式商品。（与链接管理是不同功能）" },
+  ch3t: { ko: "상점관리", zh: "店铺管理" }, ch3d: { ko: "5단계로 새 상점을 만들고, 진열은 저장 즉시 반영됩니다.", zh: "通过5个步骤创建新店铺，陈列设置保存后立即生效。" },
+  ch4t: { ko: "링크관리", zh: "链接管理" }, ch4d: { ko: "이름과 가격만으로 결제 링크 하나를 빠르게 만듭니다.", zh: "仅凭名称和价格快速创建一个付款链接。" },
+  ch5t: { ko: "상점 주문관리", zh: "店铺订单管理" }, ch5d: { ko: "상점 주문(배송지 있음)과 링크 주문(배송지 없음)을 각각 처리합니다.", zh: "分别处理店铺订单（有收货地址）和链接订单（无收货地址）。" },
+  ch6t: { ko: "셀러 관리", zh: "卖家管理" }, ch6d: { ko: "셀러 계정을 조회·등록합니다. 수수료는 여기가 아니라 상품 등록에서 설정합니다.", zh: "查询、登记卖家账号。手续费不在此设置，而是在商品注册中设置。" },
+  ch7t: { ko: "정산관리", zh: "结算管理" }, ch7d: { ko: "매출이 배송비·수수료·유보금을 거쳐 정산후금액이 되는 과정을 확인합니다.", zh: "查看销售额经过运费、手续费、留存金变为结算后金额的过程。" },
+  ch8t: { ko: "공지사항", zh: "公告" }, ch8d: { ko: "운영사가 발행한 공지를 확인만 합니다(BA는 작성 불가).", zh: "仅查看运营方发布的公告（BA无法撰写）。" },
+  ch9t: { ko: "시스템설정", zh: "系统设置" }, ch9d: { ko: "상점 전체에 적용되는 배송·정산·환불 정책 기본값을 관리합니다.", zh: "管理适用于整个店铺的配送、结算、退款政策默认值。" },
+  howTitle: { ko: "이 설명서 보는 법", zh: "本说明书使用方法" },
+  how1: { ko: '오른쪽 위 <strong>한국어 / 中文</strong> 버튼으로 언어를 바꿀 수 있습니다. 선택한 언어는 다른 페이지로 이동해도 계속 유지됩니다.', zh: '可通过右上角的<strong>한국어 / 中文</strong>按钮切换语言，切换后跳转其他页面依然保持该语言。' },
+  how2: { ko: '왼쪽 <strong>사이드바</strong>로 챕터를 오가고, 오른쪽 <strong>목차</strong>로 현재 챕터 안의 세부 화면으로 빠르게 이동하세요.', zh: '通过左侧<strong>侧边栏</strong>在各章节间切换，通过右侧<strong>目录</strong>快速跳转到当前章节内的具体画面。' }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>

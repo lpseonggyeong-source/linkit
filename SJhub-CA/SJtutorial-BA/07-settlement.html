@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ch7. 정산관리 — SJ Hub BA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#0d9488}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">CHAPTER 7</div>
+    <div class="chapter-header__name" data-i18n="chName">정산관리</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">매출 분석 · 정산 현황 · 보증금 · 예치금</div>
+  </div>
+
+  <div class="inner-tabs">
+    <div class="inner-tab active" onclick="switchTab('sales',this)" data-i18n="tab0">매출관리</div>
+    <div class="inner-tab" onclick="switchTab('manage',this)" data-i18n="tab1">정산관리</div>
+    <div class="inner-tab" onclick="switchTab('retention',this)" data-i18n="tab2">보증금</div>
+    <div class="inner-tab" onclick="switchTab('deposit',this)" data-i18n="tab3">예치금</div>
+  </div>
+
+  <div class="tab-pane active" id="tab-sales">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="sa1title">일자별 매출과 정산후금액 확인하기</div>
+          <div class="sec-goal" data-i18n="sa1goal">매출액 하나가 배송비·셀러수수료·플랫폼수수료·유보금을 거쳐 최종 정산후금액이 되는 전 과정을 한 표에서 확인합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/07-settlement-sales.jpg" alt="매출관리 화면">
+            <div class="callout" style="left:27%;top:17%;background:#0d9488">1</div>
+            <div class="callout" style="left:58%;top:32%;background:#0d9488">2</div>
+            <div class="callout" style="left:22%;top:42%;background:#0d9488">3</div>
+            <div class="callout" style="left:80%;top:47%;background:#0d9488">4</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption">실제 관리자 화면입니다. 표가 가로로 길어 오른쪽으로 스크롤하면 배송비 이후 컬럼이 보입니다.</div>
+          <div class="formula-box">
+            <div class="flabel" data-i18n="sa1flabel">정산후금액 계산 공식</div>
+            <div class="fexpr" data-i18n="sa1fexpr1">실제판매액 <span class="op">=</span> 매출액 <span class="op">−</span> <span class="term">이미취소금액</span></div>
+            <div class="fexpr" style="margin-top:6px" data-i18n="sa1fexpr2">정산후금액 <span class="op">=</span> 실제판매액 <span class="op">−</span> <span class="term">배송비</span> <span class="op">−</span> <span class="term">셀러수수료</span> <span class="op">−</span> <span class="term">플랫폼수수료</span> <span class="op">−</span> <span class="term">유보금</span></div>
+            <p style="font-size:12.5px;color:#888;margin-top:8px;line-height:1.6" data-i18n="sa1fnote">예) 매출액 160,000원 − 이미취소 0원 = 실제판매액 160,000원. 여기서 배송비 3,000원, 셀러수수료 11,200원(7%), 플랫폼수수료 4,800원(3%), 유보금 1,600원(1%)을 빼면 정산후금액은 139,400원입니다. 이 중 아직 지급 처리되지 않은 금액이 "미정산액"으로 남습니다.</p>
+          </div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-teal">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="sa1h1a">기간 선택 후 KPI로 큰 흐름 파악</div><div class="how-desc" data-i18n="sa1h1d">오늘·7일·본월 또는 직접 선택으로 기간을 정하면, 실제 매출액·주문금액·취소금액이 카드로 요약됩니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-teal">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="sa1h2a">유보금 · 존금(예치금) 잔액은 클릭해서 이동</div><div class="how-desc" data-i18n="sa1h2d">상단의 "유보금"과 "존금(예치금)" 숫자는 링크로 되어 있어, 클릭하면 각각 <strong>보증금</strong>·<strong>예치금</strong> 탭으로 바로 이동합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-teal">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="sa1h3a">일자별 · 상품별 · 링크별 전환</div><div class="how-desc" data-i18n="sa1h3d">같은 기간을 날짜 기준, 상품 기준, 링크 기준으로 각각 다시 볼 수 있습니다. 특정 상품의 정산후금액만 확인하고 싶다면 "상품별매출"을 이용하세요.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-teal">4</div>
+            <div class="how-body"><div class="how-action" data-i18n="sa1h4a">취소 건은 수수료도 함께 환급된다는 점 확인</div><div class="how-desc" data-i18n="sa1h4d">"취소수량"이 발생하면 이미취소금액뿐 아니라 그때 이미 차감했던 수수료도 "차감수수료(취소)"로 함께 되돌아옵니다(+ 표시). 정산후금액이 예상보다 높게 나온다면 최근 취소 건이 있는지 먼저 확인하세요.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-manage">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="ma1title">셀러별 정산 현황 — 플랫폼수수료 제외, 지급액만</div>
+          <div class="sec-goal" data-i18n="ma1goal">이 탭은 매출관리 탭과 달리 <strong>플랫폼수수료·배송비·유보금 없이</strong> 셀러에게 실제로 지급할 금액만 셀러 단위로 보여줍니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/07-settlement-manage.jpg" alt="정산관리(셀러별) 화면">
+            <div class="callout" style="left:25%;top:23%;background:#0d9488">1</div>
+            <div class="callout" style="left:50%;top:36%;background:#0d9488">2</div>
+            <div class="callout" style="left:75%;top:52%;background:#0d9488">3</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption2">실제 관리자 화면입니다. 현재는 이번 달 확정 매출이 없어 대부분 0원으로 표시됩니다.</div>
+          <div class="formula-box">
+            <div class="flabel" data-i18n="ma1flabel">이 표의 계산 공식</div>
+            <div class="fexpr" data-i18n="ma1fexpr1">결산후금액 <span class="op">=</span> 금액 <span class="op">−</span> <span class="term">수수료</span> <span class="op">−</span> <span class="term">취소액</span> <span class="op">+</span> <span class="term">취소수수료</span></div>
+            <p style="font-size:12.5px;color:#888;margin-top:8px;line-height:1.6" data-i18n="ma1fnote">취소수수료가 "+"로 표시되는 이유는 취소 시 이미 차감했던 수수료를 셀러에게 되돌려주기 때문입니다. 이 탭의 결산후금액은 매출관리 탭의 정산후금액에서 플랫폼수수료·배송비·유보금을 제외한, 셀러 몫만 따로 뗀 값이라고 이해하면 됩니다.</p>
+          </div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-teal">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="ma1h1a">기간 · 셀러 선택 후 조회</div><div class="how-desc" data-i18n="ma1h1d">기간과 셀러를 선택해 조회하면 해당 셀러의 지급 내역이 표시됩니다. "전체"로 두면 전체 셀러 합계를 볼 수 있습니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-teal">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="ma1h2a">상단 4개 카드로 오늘 현황 요약 확인</div><div class="how-desc" data-i18n="ma1h2d">판매총액·오늘판매총액·오늘셀러수수료총액·오늘순판매액(오늘 총매출액 − 셀러수수료)을 바로 확인합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-teal">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="ma1h3a">결산후금액으로 실제 지급액 확인</div><div class="how-desc" data-i18n="ma1h3d">"결산후금액"이 실제로 셀러에게 지급할 금액입니다. 셀러 정보 자체는 <a href="06-seller.html">셀러 관리</a>에서, 수수료율은 <a href="02-product.html">상품 등록</a>에서 확인·수정합니다.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-retention">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="re1title">보증금(유보금) 잔액 조회 — 조회 전용 화면</div>
+          <div class="sec-goal" data-i18n="re1goal">이 화면은 조회 전용입니다. 기간을 선택하면 그 기간 동안 <strong>얼마나 적립됐는지</strong>, <strong>얼마나 사용됐는지</strong>, 그리고 <strong>현재 남아있는 총 유보금 잔액</strong>이 얼마인지 이 세 가지를 확인할 수 있습니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/07-settlement-retention.jpg" alt="보증금 관리 화면">
+            <div class="callout" style="left:18%;top:17%;background:#0d9488">1</div>
+            <div class="callout" style="left:50%;top:40%;background:#0d9488">2</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption3">실제 관리자 화면입니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-teal">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="re1h1a">확인할 수 있는 3가지 — 적립액 · 사용액 · 총 잔액</div><div class="how-desc" data-i18n="re1h1d">기간을 선택하면 그 기간 동안 새로 <strong>적립된 유보금</strong>, 그 기간 동안 <strong>사용된 유보금</strong>, 그리고 지금 시점의 <strong>남아있는 총 유보금 잔액</strong>을 한 화면에서 확인할 수 있습니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-teal">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="re1h2a">사용 처리는 CA(운영사)가 진행 — 이 화면은 결과만 조회</div><div class="how-desc" data-i18n="re1h2d">유보금을 실제로 사용(차감)하는 처리는 BA가 아니라 <strong>CA(운영사) 관리자 화면의 사용관리</strong>에서 이뤄집니다. 이 화면에서는 그렇게 처리된 사용 내역과 결과만 조회할 수 있고, BA가 직접 사용 처리를 실행할 수는 없습니다.</div></div>
+          </div>
+          <div class="notice info">
+            <p data-i18n="re1info">💡 <strong>보증금(유보금)이란?</strong> 반품·취소 등에 대비해 매출 중 일부를 자동으로 적립해 두는 금액입니다. 매출관리 탭 상단의 "유보금" 숫자를 클릭해도 이 화면으로 바로 옵니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-deposit">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-teal">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="de1title">예치금(존금) 잔액 관리</div>
+          <div class="sec-goal" data-i18n="de1goal">보증금과 달리 매출에서 자동으로 쌓이지 않고, 운영사가 직접 입금·차감한 값의 잔액을 확인하는 화면입니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/07-settlement-deposit.jpg" alt="예치금 관리 화면">
+            <div class="callout" style="left:18%;top:17%;background:#0d9488">1</div>
+            <div class="callout" style="left:50%;top:38%;background:#0d9488">2</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption4">실제 관리자 화면입니다.</div>
+          <div class="formula-box">
+            <div class="flabel" data-i18n="de1flabel">이 표의 계산 공식</div>
+            <div class="fexpr" data-i18n="de1fexpr1">잔액 <span class="op">=</span> 예치금(입금 누계) <span class="op">−</span> <span class="term">동용(사용) 예치금(누계)</span></div>
+            <p style="font-size:12.5px;color:#888;margin-top:8px;line-height:1.6" data-i18n="de1fnote">10,000,000원 − 2,000,000원 = 8,000,000원. 보증금과 달리 예치금은 매출액에서 자동으로 계산되지 않습니다 — 입금·사용 모두 운영사가 직접 등록한 값의 누계일 뿐입니다.</p>
+          </div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-teal">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="de1h1a">기간별 적립·사용 내역 확인</div><div class="how-desc" data-i18n="de1h1d">보증금 화면과 같은 방식으로 기간을 선택해 예치금 변동 내역을 확인합니다. 다만 변동의 원인(왜 입금/차감되었는지)은 운영사에 문의해야 정확히 알 수 있습니다.</div></div>
+          </div>
+          <div class="notice tip">
+            <p data-i18n="de1tip"><strong>보증금과 예치금의 차이</strong> — 보증금(유보금)은 매출이 발생할 때마다 자동으로 쌓이는 반품·취소 대비 적립금이고, 예치금(존금)은 운영사가 직접 관리하는 별도의 예치 잔액입니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="06-seller.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">이전 챕터</div><div data-i18n="navPrevTitle">6. 셀러 관리</div></div></a>
+    <span class="ch-nav__center">CHAPTER 7 / 9</span>
+    <a class="ch-nav__btn" href="08-notice.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">다음 챕터</div><div data-i18n="navNextTitle">8. 공지사항</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "정산관리", zh: "结算管理" },
+  chDesc: { ko: "매출 분석 · 정산 현황 · 보증금 · 예치금", zh: "销售分析 · 结算现状 · 保证金 · 存款" },
+  tab0: { ko: "매출관리", zh: "销售管理" }, tab1: { ko: "정산관리", zh: "结算管理" }, tab2: { ko: "보증금", zh: "保证金" }, tab3: { ko: "예치금", zh: "存款" },
+  howTitle: { ko: "사용 방법", zh: "使用方法" },
+
+  mockCaption: { ko: "실제 관리자 화면입니다. 표가 가로로 길어 오른쪽으로 스크롤하면 배송비 이후 컬럼이 보입니다.", zh: "这是实际管理后台画面。表格较宽，向右滚动可看到运费之后的列。" },
+  mockCaption2: { ko: "실제 관리자 화면입니다. 현재는 이번 달 확정 매출이 없어 대부분 0원으로 표시됩니다.", zh: "这是实际管理后台画面。目前本月尚无确定销售额，大部分显示为0韩元。" },
+  mockCaption3: { ko: '실제 관리자 화면입니다.', zh: '这是实际管理后台画面。' },
+  mockCaption4: { ko: "실제 관리자 화면입니다.", zh: "这是实际管理后台画面。" },
+
+  sa1title: { ko: "일자별 매출과 정산후금액 확인하기", zh: "查看每日销售额和结算后金额" },
+  sa1goal: { ko: "매출액 하나가 배송비·셀러수수료·플랫폼수수료·유보금을 거쳐 최종 정산후금액이 되는 전 과정을 한 표에서 확인합니다.", zh: "在一张表中查看销售额如何经过运费、卖家手续费、平台手续费、留存金，最终变为结算后金额的全过程。" },
+  sa1flabel: { ko: "정산후금액 계산 공식", zh: "结算后金额计算公式" },
+  sa1fexpr1: { ko: '실제판매액 <span class="op">=</span> 매출액 <span class="op">−</span> <span class="term">이미취소금액</span>', zh: '实际销售额 <span class="op">=</span> 销售额 <span class="op">−</span> <span class="term">已取消金额</span>' },
+  sa1fexpr2: { ko: '정산후금액 <span class="op">=</span> 실제판매액 <span class="op">−</span> <span class="term">배송비</span> <span class="op">−</span> <span class="term">셀러수수료</span> <span class="op">−</span> <span class="term">플랫폼수수료</span> <span class="op">−</span> <span class="term">유보금</span>', zh: '结算后金额 <span class="op">=</span> 实际销售额 <span class="op">−</span> <span class="term">配送费</span> <span class="op">−</span> <span class="term">卖家手续费</span> <span class="op">−</span> <span class="term">平台手续费</span> <span class="op">−</span> <span class="term">留存金</span>' },
+  sa1fnote: { ko: '예) 매출액 160,000원 − 이미취소 0원 = 실제판매액 160,000원. 여기서 배송비 3,000원, 셀러수수료 11,200원(7%), 플랫폼수수료 4,800원(3%), 유보금 1,600원(1%)을 빼면 정산후금액은 139,400원입니다. 이 중 아직 지급 처리되지 않은 금액이 "미정산액"으로 남습니다.', zh: '例：销售额160,000韩元 − 已取消0韩元 = 实际销售额160,000韩元。再减去运费3,000韩元、卖家手续费11,200韩元（7%）、平台手续费4,800韩元（3%）、留存金1,600韩元（1%），结算后金额为139,400韩元。其中尚未完成支付处理的部分将保留为"未结算额"。' },
+  sa1h1a: { ko: "기간 선택 후 KPI로 큰 흐름 파악", zh: "选择期间后通过KPI掌握整体情况" },
+  sa1h1d: { ko: "오늘·7일·본월 또는 직접 선택으로 기간을 정하면, 실제 매출액·주문금액·취소금액이 카드로 요약됩니다.", zh: "选择今天、7天、本月或自定义期间后，实际销售额、订货金额、取消金额会以卡片形式汇总显示。" },
+  sa1h2a: { ko: "유보금 · 존금(예치금) 잔액은 클릭해서 이동", zh: "留存金·存款余额可点击跳转" },
+  sa1h2d: { ko: '상단의 "유보금"과 "존금(예치금)" 숫자는 링크로 되어 있어, 클릭하면 각각 <strong>보증금</strong>·<strong>예치금</strong> 탭으로 바로 이동합니다.', zh: '上方的"留存金"和"存款"数字是链接，点击后会分别跳转到<strong>保证金</strong>·<strong>存款</strong>标签。' },
+  sa1h3a: { ko: "일자별 · 상품별 · 링크별 전환", zh: "切换按日期·商品·链接查看" },
+  sa1h3d: { ko: '같은 기간을 날짜 기준, 상품 기준, 링크 기준으로 각각 다시 볼 수 있습니다. 특정 상품의 정산후금액만 확인하고 싶다면 "상품별매출"을 이용하세요.', zh: '同一期间可分别按日期、商品、链接重新查看。只想确认特定商品的结算后金额时，请使用"商品销售"。' },
+  sa1h4a: { ko: "취소 건은 수수료도 함께 환급된다는 점 확인", zh: "注意取消订单会一并退还手续费" },
+  sa1h4d: { ko: '"취소수량"이 발생하면 이미취소금액뿐 아니라 그때 이미 차감했던 수수료도 "차감수수료(취소)"로 함께 되돌아옵니다(+ 표시). 정산후금액이 예상보다 높게 나온다면 최근 취소 건이 있는지 먼저 확인하세요.', zh: '发生"取消数量"时，不仅已取消金额，当时已扣除的手续费也会以"扣除手续费（取消）"形式一并退还（显示为+）。如结算后金额高于预期，请先确认近期是否有取消订单。' },
+
+  ma1title: { ko: "셀러별 정산 현황 — 플랫폼수수료 제외, 지급액만", zh: "各卖家结算现状——不含平台手续费，仅显示应付金额" },
+  ma1goal: { ko: '이 탭은 매출관리 탭과 달리 <strong>플랫폼수수료·배송비·유보금 없이</strong> 셀러에게 실제로 지급할 금액만 셀러 단위로 보여줍니다.', zh: '与销售管理标签不同，此标签<strong>不含平台手续费、运费、留存金</strong>，仅按卖家单位显示实际应支付的金额。' },
+  ma1flabel: { ko: "이 표의 계산 공식", zh: "本表计算公式" },
+  ma1fexpr1: { ko: '결산후금액 <span class="op">=</span> 금액 <span class="op">−</span> <span class="term">수수료</span> <span class="op">−</span> <span class="term">취소액</span> <span class="op">+</span> <span class="term">취소수수료</span>', zh: '结算后金额 <span class="op">=</span> 金额 <span class="op">−</span> <span class="term">手续费</span> <span class="op">−</span> <span class="term">取消额</span> <span class="op">+</span> <span class="term">取消手续费</span>' },
+  ma1fnote: { ko: "취소수수료가 \"+\"로 표시되는 이유는 취소 시 이미 차감했던 수수료를 셀러에게 되돌려주기 때문입니다. 이 탭의 결산후금액은 매출관리 탭의 정산후금액에서 플랫폼수수료·배송비·유보금을 제외한, 셀러 몫만 따로 뗀 값이라고 이해하면 됩니다.", zh: "取消手续费显示为\"+\"，是因为取消时会将当初已扣除的手续费退还给卖家。可以理解为，本标签的结算后金额是销售管理标签中结算后金额里，去除平台手续费、运费、留存金后，单独归属卖家的部分。" },
+  ma1h1a: { ko: "기간 · 셀러 선택 후 조회", zh: "选择期间和卖家后查询" },
+  ma1h1d: { ko: '기간과 셀러를 선택해 조회하면 해당 셀러의 지급 내역이 표시됩니다. "전체"로 두면 전체 셀러 합계를 볼 수 있습니다.', zh: '选择期间和卖家后查询，会显示该卖家的支付明细。保持"全部"可查看全部卖家的合计。' },
+  ma1h2a: { ko: "상단 4개 카드로 오늘 현황 요약 확인", zh: "通过上方4张卡片查看今日现状汇总" },
+  ma1h2d: { ko: "판매총액·오늘판매총액·오늘셀러수수료총액·오늘순판매액(오늘 총매출액 − 셀러수수료)을 바로 확인합니다.", zh: "可直接查看销售总额、今天销售总额、今天卖家手续费总额、今日净销售额（今日总销售额−卖家手续费）。" },
+  ma1h3a: { ko: "결산후금액으로 실제 지급액 확인", zh: "通过结算后金额确认实际应付款" },
+  ma1h3d: { ko: '"결산후금액"이 실제로 셀러에게 지급할 금액입니다. 셀러 정보 자체는 <a href="06-seller.html">셀러 관리</a>에서, 수수료율은 <a href="02-product.html">상품 등록</a>에서 확인·수정합니다.', zh: '"结算后金额"是实际应支付给卖家的金额。卖家信息本身在<a href="06-seller.html">卖家管理</a>中查看，手续费率在<a href="02-product.html">商品注册</a>中查看、修改。' },
+
+  re1title: { ko: "보증금(유보금) 잔액 조회 — 조회 전용 화면", zh: "保证金（留存金）余额查询——仅供查询的画面" },
+  re1goal: { ko: '이 화면은 조회 전용입니다. 기간을 선택하면 그 기간 동안 <strong>얼마나 적립됐는지</strong>, <strong>얼마나 사용됐는지</strong>, 그리고 <strong>현재 남아있는 총 유보금 잔액</strong>이 얼마인지 이 세 가지를 확인할 수 있습니다.', zh: '此画面仅供查询。选择期间后，可以确认该期间<strong>累积了多少</strong>、<strong>使用了多少</strong>，以及<strong>目前剩余的留存金总余额</strong>是多少这三项信息。' },
+  re1h1a: { ko: "확인할 수 있는 3가지 — 적립액 · 사용액 · 총 잔액", zh: "可查询的3项——累积额·使用额·总余额" },
+  re1h1d: { ko: '기간을 선택하면 그 기간 동안 새로 <strong>적립된 유보금</strong>, 그 기간 동안 <strong>사용된 유보금</strong>, 그리고 지금 시점의 <strong>남아있는 총 유보금 잔액</strong>을 한 화면에서 확인할 수 있습니다.', zh: '选择期间后，可在同一画面确认该期间新<strong>累积的留存金</strong>、该期间<strong>使用的留存金</strong>，以及当前<strong>剩余的留存金总余额</strong>。' },
+  re1h2a: { ko: "사용 처리는 CA(운영사)가 진행 — 이 화면은 결과만 조회", zh: "使用处理由CA（运营方）进行——此画面仅查看结果" },
+  re1h2d: { ko: '유보금을 실제로 사용(차감)하는 처리는 BA가 아니라 <strong>CA(운영사) 관리자 화면의 사용관리</strong>에서 이뤄집니다. 이 화면에서는 그렇게 처리된 사용 내역과 결과만 조회할 수 있고, BA가 직접 사용 처리를 실행할 수는 없습니다.', zh: '实际使用（扣减）留存金的处理不是由BA进行，而是在<strong>CA（运营方）管理后台的使用管理</strong>中完成。此画面只能查询已处理的使用明细和结果，BA无法直接执行使用处理。' },
+  re1info: { ko: '💡 <strong>보증금(유보금)이란?</strong> 반품·취소 등에 대비해 매출 중 일부를 자동으로 적립해 두는 금액입니다. 매출관리 탭 상단의 "유보금" 숫자를 클릭해도 이 화면으로 바로 옵니다.', zh: '💡 <strong>什么是保证金（留存金）？</strong> 为应对退货、取消等情况，从销售额中自动预留的一部分金额。点击销售管理标签上方的"留存金"数字也会直接跳转到此画面。' },
+
+  de1title: { ko: "예치금(존금) 잔액 관리", zh: "存款余额管理" },
+  de1goal: { ko: "보증금과 달리 매출에서 자동으로 쌓이지 않고, 운영사가 직접 입금·차감한 값의 잔액을 확인하는 화면입니다.", zh: "与保证金不同，此画面不会根据销售额自动累积，而是查看运营方直接入金、扣减数值的余额。" },
+  de1flabel: { ko: "이 표의 계산 공식", zh: "本表计算公式" },
+  de1fexpr1: { ko: '잔액 <span class="op">=</span> 예치금(입금 누계) <span class="op">−</span> <span class="term">동용(사용) 예치금(누계)</span>', zh: '余额 <span class="op">=</span> 存款（累计入金） <span class="op">−</span> <span class="term">动用存款（累计）</span>' },
+  de1fnote: { ko: "10,000,000원 − 2,000,000원 = 8,000,000원. 보증금과 달리 예치금은 매출액에서 자동으로 계산되지 않습니다 — 입금·사용 모두 운영사가 직접 등록한 값의 누계일 뿐입니다.", zh: "10,000,000韩元 − 2,000,000韩元 = 8,000,000韩元。与保证金不同，存款不会根据销售额自动计算——入金和动用均为运营方直接登记数值的累计。" },
+  de1h1a: { ko: "기간별 적립·사용 내역 확인", zh: "按期间查看累积/使用明细" },
+  de1h1d: { ko: "보증금 화면과 같은 방식으로 기간을 선택해 예치금 변동 내역을 확인합니다. 다만 변동의 원인(왜 입금/차감되었는지)은 운영사에 문의해야 정확히 알 수 있습니다.", zh: "与保证金画面相同，选择期间查看存款变动明细。但变动原因（为何入金/扣减）需询问运营方才能准确了解。" },
+  de1tip: { ko: "<strong>보증금과 예치금의 차이</strong> — 보증금(유보금)은 매출이 발생할 때마다 자동으로 쌓이는 반품·취소 대비 적립금이고, 예치금(존금)은 운영사가 직접 관리하는 별도의 예치 잔액입니다.", zh: "<strong>保证金与存款的区别</strong> — 保证金（留存金）是每次产生销售时自动累积、应对退货取消的预留金；存款是由运营方直接管理的另一笔存款余额。" },
+
+  navPrevSub: { ko: "이전 챕터", zh: "上一章" }, navPrevTitle: { ko: "6. 셀러 관리", zh: "6. 卖家管理" },
+  navNextSub: { ko: "다음 챕터", zh: "下一章" }, navNextTitle: { ko: "8. 공지사항", zh: "8. 公告" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>

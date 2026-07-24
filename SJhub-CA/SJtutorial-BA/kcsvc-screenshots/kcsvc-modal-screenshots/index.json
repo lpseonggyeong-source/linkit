@@ -1,0 +1,1193 @@
+{
+  "capturedAt": "2026-07-23T07:12:38.316Z",
+  "totalCaptured": 15,
+  "totalAttempted": 20,
+  "results": [
+    {
+      "action": "product-copy-link",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/product-list.html",
+      "selector": ".product-link-copy-btn",
+      "index": 0,
+      "ok": false,
+      "rect": {
+        "cx": 1551,
+        "cy": 259.5,
+        "display": "block",
+        "h": 18,
+        "text": "复制链接",
+        "visibility": "visible",
+        "w": 48,
+        "x": 1527,
+        "y": 250.5
+      },
+      "overlays": [],
+      "error": "No visible in-page modal/layer detected"
+    },
+    {
+      "action": "product-edit",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/product-list.html",
+      "selector": ".product-edit-btn",
+      "index": 0,
+      "ok": true,
+      "rect": {
+        "cx": 1819,
+        "cy": 249,
+        "display": "flex",
+        "h": 28,
+        "text": "",
+        "visibility": "visible",
+        "w": 28,
+        "x": 1805,
+        "y": 235
+      },
+      "overlays": [
+        {
+          "cls": "admin-product-modal is-open",
+          "id": "productEditModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "修改商品信息 基本信息 商品名称 销售设置 售价 韩元 供货价 韩元 折扣价 韩元 初始库存 EA (无数量限制时请输入0) 限时销售 ~ Time Sale 韩元 卖家账号 셀러1 테스트 卖家佣金 % 配送设置 免费送货标准 韩元以下时 基本配送费 韩元 济州追加配送费 韩元 岛屿山间附加运费 韩元 (没有时请输入0韩元) 买方同意事项 请用\"/\"区分并",
+          "visible": true
+        },
+        {
+          "cls": "admin-product-modal__overlay",
+          "id": "editModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "admin-product-modal__box admin-product-modal__box--lg",
+          "id": "",
+          "rect": {
+            "h": 834.4375,
+            "w": 800,
+            "x": 560,
+            "y": 36.28125
+          },
+          "tag": "DIV",
+          "text": "修改商品信息 基本信息 商品名称 销售设置 售价 韩元 供货价 韩元 折扣价 韩元 初始库存 EA (无数量限制时请输入0) 限时销售 ~ Time Sale 韩元 卖家账号 셀러1 테스트 卖家佣金 % 配送设置 免费送货标准 韩元以下时 基本配送费 韩元 济州追加配送费 韩元 岛屿山间附加运费 韩元 (没有时请输入0韩元) 买方同意事项 请用\"/\"区分并",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/01-product-edit-1.jpg",
+      "title": "商品列表 — SJ허브 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/product-list.html"
+    },
+    {
+      "action": "item-edit",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/item-list.html",
+      "selector": ".product-edit-btn",
+      "index": 0,
+      "ok": false,
+      "rect": {
+        "cx": 1797,
+        "cy": 235,
+        "display": "flex",
+        "h": 28,
+        "text": "",
+        "visibility": "visible",
+        "w": 28,
+        "x": 1783,
+        "y": 221
+      },
+      "overlays": [],
+      "error": "No visible in-page modal/layer detected"
+    },
+    {
+      "action": "order-address",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html",
+      "selector": ".admin-order-address",
+      "index": 0,
+      "ok": true,
+      "rect": {
+        "cx": 1411.921875,
+        "cy": 406.78125,
+        "display": "inline-block",
+        "h": 81.5625,
+        "text": "홍길동 01030516223 경기 성남시 분당구 서판교로 32 (판교동) 111",
+        "visibility": "visible",
+        "w": 203.84375,
+        "x": 1310,
+        "y": 366
+      },
+      "overlays": [
+        {
+          "cls": "admin-order-modal is-open",
+          "id": "orderAddressModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "修改收货地址 领取人名 联系方式 邮政编码 地址 详细地址 取消 保存",
+          "visible": true
+        },
+        {
+          "cls": "admin-order-modal__overlay",
+          "id": "orderAddressOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "admin-order-modal__box",
+          "id": "",
+          "rect": {
+            "h": 546.59375,
+            "w": 460,
+            "x": 730,
+            "y": 180.203125
+          },
+          "tag": "DIV",
+          "text": "修改收货地址 领取人名 联系方式 邮政编码 地址 详细地址 取消 保存",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/02-order-address-1.jpg",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html"
+    },
+    {
+      "action": "order-status-change",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html",
+      "selector": ".admin-order-status__toggle",
+      "index": 0,
+      "ok": false,
+      "rect": {
+        "cx": 1615.890625,
+        "cy": 406.78125,
+        "display": "flex",
+        "h": 42,
+        "text": "付款完成 状态变更",
+        "visibility": "visible",
+        "w": 66,
+        "x": 1582.890625,
+        "y": 385.78125
+      },
+      "overlays": [],
+      "error": "No visible in-page modal/layer detected"
+    },
+    {
+      "action": "order-link-status-change",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order_link-list.html",
+      "selector": ".admin-order-status__toggle",
+      "index": 0,
+      "ok": false,
+      "rect": {
+        "cx": 1507.8671875,
+        "cy": 387,
+        "display": "flex",
+        "h": 42,
+        "text": "결제완료 状态变更",
+        "visibility": "visible",
+        "w": 62.171875,
+        "x": 1476.78125,
+        "y": 366
+      },
+      "overlays": [],
+      "error": "No visible in-page modal/layer detected"
+    },
+    {
+      "action": "settings-password",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/settings.html",
+      "selector": "#openPwModalBtn",
+      "index": 0,
+      "ok": true,
+      "rect": {
+        "cx": 498.359375,
+        "cy": 190.3984375,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "修改密码",
+        "visibility": "visible",
+        "w": 74,
+        "x": 461.359375,
+        "y": 177
+      },
+      "overlays": [
+        {
+          "cls": "admin-product-modal is-open",
+          "id": "settingsPwModal",
+          "rect": {
+            "h": 907,
+            "w": 1905,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "修改密码 为了保障账号安全，请定期修改密码。 当前密码 新密码 确认密码 取消 修改",
+          "visible": true
+        },
+        {
+          "cls": "admin-product-modal__overlay",
+          "id": "settingsPwOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1905,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "admin-product-modal__box",
+          "id": "",
+          "rect": {
+            "h": 414.03125,
+            "w": 440,
+            "x": 732.5,
+            "y": 246.484375
+          },
+          "tag": "DIV",
+          "text": "修改密码 为了保障账号安全，请定期修改密码。 当前密码 新密码 确认密码 取消 修改",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/03-settings-password-1.jpg",
+      "title": "系统设置 — SJ Hub BA 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/settings.html"
+    },
+    {
+      "action": "settings-business-license",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/settings.html",
+      "selector": "#openBizModalBtn",
+      "index": 0,
+      "ok": false,
+      "rect": {
+        "cx": 1787,
+        "cy": 267.1953125,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "保存营业执照信息",
+        "visibility": "visible",
+        "w": 122,
+        "x": 1726,
+        "y": 253.796875
+      },
+      "dialog": "alert",
+      "error": "Native browser alert appeared, not an in-page modal"
+    },
+    {
+      "action": "store-template-seq5-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 0,
+      "ok": true,
+      "rect": {
+        "cx": 348,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 308,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "심플 미니멀/베이직",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "심플 미니멀/베이직",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 2827.03125,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/04-store-template-seq5-preview-1.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5"
+    },
+    {
+      "action": "store-template-seq5-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 1,
+      "ok": true,
+      "rect": {
+        "cx": 619,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 579,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "모던 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "모던 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 2275.8125,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/05-store-template-seq5-preview-2.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5"
+    },
+    {
+      "action": "store-template-seq5-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 2,
+      "ok": true,
+      "rect": {
+        "cx": 890,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 850,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "러블리 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "러블리 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 1968.0625,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/06-store-template-seq5-preview-3.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5"
+    },
+    {
+      "action": "store-template-seq5-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 3,
+      "ok": true,
+      "rect": {
+        "cx": 1161,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 1121,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "링크리스트 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "링크리스트 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 1549.890625,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/07-store-template-seq5-preview-4.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5"
+    },
+    {
+      "action": "store-template-seq3-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 0,
+      "ok": true,
+      "rect": {
+        "cx": 348,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 308,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "심플 미니멀/베이직",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "심플 미니멀/베이직",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 2827.03125,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/08-store-template-seq3-preview-1.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3"
+    },
+    {
+      "action": "store-template-seq3-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 1,
+      "ok": true,
+      "rect": {
+        "cx": 619,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 579,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "모던 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "모던 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 2275.8125,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/09-store-template-seq3-preview-2.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3"
+    },
+    {
+      "action": "store-template-seq3-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 2,
+      "ok": true,
+      "rect": {
+        "cx": 890,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 850,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "러블리 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "러블리 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 1968.0625,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/10-store-template-seq3-preview-3.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3"
+    },
+    {
+      "action": "store-template-seq3-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 3,
+      "ok": true,
+      "rect": {
+        "cx": 1161,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 1121,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "링크리스트 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "링크리스트 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 1549.890625,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/11-store-template-seq3-preview-4.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3"
+    },
+    {
+      "action": "store-template-seq1-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 0,
+      "ok": true,
+      "rect": {
+        "cx": 348,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 308,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "심플 미니멀/베이직",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "심플 미니멀/베이직",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 2827.03125,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/12-store-template-seq1-preview-1.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1"
+    },
+    {
+      "action": "store-template-seq1-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 1,
+      "ok": true,
+      "rect": {
+        "cx": 619,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 579,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "모던 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "모던 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 2275.8125,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/13-store-template-seq1-preview-2.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1"
+    },
+    {
+      "action": "store-template-seq1-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 2,
+      "ok": true,
+      "rect": {
+        "cx": 890,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 850,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "러블리 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "러블리 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 1968.0625,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/14-store-template-seq1-preview-3.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1"
+    },
+    {
+      "action": "store-template-seq1-preview",
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1",
+      "selector": ".sc-tpl-preview-btn",
+      "index": 3,
+      "ok": true,
+      "rect": {
+        "cx": 1161,
+        "cy": 513.3671875,
+        "display": "flex",
+        "h": 26.796875,
+        "text": "预览",
+        "visibility": "visible",
+        "w": 80,
+        "x": 1121,
+        "y": 499.96875
+      },
+      "overlays": [
+        {
+          "cls": "sc-tpl-modal is-open",
+          "id": "scTplModal",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "링크리스트 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__overlay",
+          "id": "scTplModalOverlay",
+          "rect": {
+            "h": 907,
+            "w": 1920,
+            "x": 0,
+            "y": 0
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__box",
+          "id": "",
+          "rect": {
+            "h": 770.9375,
+            "w": 400,
+            "x": 760,
+            "y": 68.03125
+          },
+          "tag": "DIV",
+          "text": "링크리스트 스타일",
+          "visible": true
+        },
+        {
+          "cls": "sc-tpl-modal__body",
+          "id": "",
+          "rect": {
+            "h": 1549.890625,
+            "w": 385,
+            "x": 760,
+            "y": 127.03125
+          },
+          "tag": "DIV",
+          "text": "",
+          "visible": true
+        }
+      ],
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-modal-screenshots/15-store-template-seq1-preview-4.jpg",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1"
+    }
+  ]
+}

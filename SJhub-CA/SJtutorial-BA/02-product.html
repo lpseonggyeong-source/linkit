@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ch2. 상점 상품관리 — SJ Hub BA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#ea580c}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">CHAPTER 2</div>
+    <div class="chapter-header__name" data-i18n="chName">상점 상품관리</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">상품 등록 · 상품 분류 확인 · 상품 목록 조회</div>
+  </div>
+
+  <div class="inner-tabs">
+    <div class="inner-tab active" onclick="switchTab('register',this)" data-i18n="tab0">상품 등록</div>
+    <div class="inner-tab" onclick="switchTab('category',this)" data-i18n="tab1">상품 분류</div>
+    <div class="inner-tab" onclick="switchTab('list',this)" data-i18n="tab2">상품 목록</div>
+  </div>
+
+  <div class="tab-pane active" id="tab-register">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-orange">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="r1title">정식 상품 등록 — 상점에 진열해서 파는 상품</div>
+          <div class="sec-goal" data-i18n="r1goal">이 화면에서 만드는 상품은 카테고리·이미지·재고·배송비·셀러 수수료까지 전부 갖춘 "정식 상품"입니다. 이름과 가격만으로 결제 링크 하나만 급하게 만들고 싶다면 이 화면이 아니라 <a href="04-link.html">링크관리</a>를 이용하세요.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/02-product-create.jpg" alt="상점 상품 등록 화면">
+            <div class="callout" style="left:29%;top:8%;background:#ea580c">1</div>
+            <div class="callout" style="left:22%;top:16%;background:#ea580c">2</div>
+            <div class="callout" style="left:50%;top:29%;background:#ea580c">3</div>
+            <div class="callout" style="left:78%;top:35%;background:#ea580c">4</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption">실제 관리자 화면입니다. 스크롤이 긴 화면이라 주요 입력 영역만 표시했습니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-orange">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h1a">상품명 · 분류 지정</div><div class="how-desc" data-i18n="r1h1d">1Depth(상위분류)를 고르면 2Depth(하위분류)가 나타납니다. 분류는 고객이 상점에서 상품을 찾을 때 기준이 되므로, 실제 상품 성격과 맞는 분류를 골라야 합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h2a">이미지 최대 7장 업로드</div><div class="how-desc" data-i18n="r1h2d">상품 이미지는 최대 7장까지 등록할 수 있습니다. 링크관리에는 이미지 등록 기능 자체가 없으니, 이미지가 필요한 상품은 반드시 이 화면에서 등록해야 합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h3a">공급가 · 판매가 · 할인가의 차이 정확히 이해하기</div><div class="how-desc" data-i18n="r1h3d"><strong>공급가</strong>는 물건을 판매하기 위해 구매해오는 실제 원가입니다(마진 계산용, 판매 페이지에는 노출되지 않습니다). <strong>판매가</strong>는 실제 상품 판매 페이지에 노출되는 판매 가격입니다. <strong>할인가</strong>를 지정하면, 판매가 대비 할인율(%)과 함께 이 할인가가 최종 판매 가격으로 고객에게 노출됩니다. 세 값을 혼동하면 마진 계산이나 실제 고객 노출가가 틀어질 수 있으니 주의하세요.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">4</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h4a">초기 재고 · 기간 한정 · 옵션 설정</div><div class="how-desc" data-i18n="r1h4d">초기 재고와, 필요하면 기간 한정(타임세일)을 설정합니다. 색상·사이즈 등 옵션이 있는 상품은 옵션값과 추가비용도 이 화면에서 함께 등록합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">5</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h5a">셀러 계정 지정은 필수 — 결제 모듈 노출 조건</div><div class="how-desc" data-i18n="r1h5d"><strong>셀러 계정</strong>은 선택이 아니라 <strong>필수</strong> 항목입니다. 실제 결제 모듈이 화면에 노출되려면 셀러 계정이 지정되어 있어야 하므로, 비워두면 고객이 결제 자체를 진행할 수 없습니다. <strong>셀러 수수료(%)</strong>도 이 화면에서 상품마다 개별 지정하며, <a href="06-seller.html">셀러 관리</a> 화면과는 무관합니다 — 같은 셀러라도 상품마다 수수료가 다를 수 있으니, 정산 내역이 예상과 다르면 먼저 이 값을 확인하세요.</div></div>
+          </div>
+          <div class="notice tip">
+            <p data-i18n="r1tip">💡 배송비(기본/제주추가/도서산간추가)도 이 화면에서 상품별로 설정합니다. 무료배송 기준 금액을 0으로 두면 모든 주문에 배송비가 부과됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-category">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-orange">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="c1title">상위·하위 분류 관리하기</div>
+          <div class="sec-goal" data-i18n="c1goal">10개의 상위 분류 아래에 하위 분류를 자유롭게 추가·삭제하고, 드래그로 순서를 바꿀 수 있습니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/02-category.jpg" alt="상품 분류 관리 화면">
+            <div class="callout" style="left:19%;top:17%;background:#ea580c">1</div>
+            <div class="callout" style="left:62%;top:16%;background:#ea580c">2</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption2">실제 관리자 화면입니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-orange">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="c1h1a">상위 분류 선택</div><div class="how-desc" data-i18n="c1h1d">왼쪽 목록에서 상위 분류를 클릭하면 오른쪽에 그 하위 분류들이 나타납니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="c1h2a">하위 분류 추가 · 순서 변경</div><div class="how-desc" data-i18n="c1h2d">"添加子分类"로 하위 분류를 새로 만들고, 드래그로 순서를 바꿀 수 있습니다. 이 순서는 상품 등록 화면의 분류 선택 목록 순서에도 그대로 반영됩니다.</div></div>
+          </div>
+          <div class="notice info">
+            <p data-i18n="c1info">💡 상위 분류 10개(뷰티·건강·생활/주방/리빙·식품·가전/디지털·패션의류/잡화·골프/스포츠·아웃도어·명품·반려용품) 자체는 추가·삭제할 수 없고, 하위 분류만 자유롭게 관리합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-list">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-orange">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="l1title">등록된 상품 조회하기</div>
+          <div class="sec-goal" data-i18n="l1goal">판매중·판매종료 상품을 조건별로 조회하고, 개별 상품의 판매 링크 복사·복제·수정·삭제를 처리합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/02-product-list.jpg" alt="상품 목록 화면">
+            <div class="callout" style="left:20%;top:12%;background:#ea580c">1</div>
+            <div class="callout" style="left:68%;top:30%;background:#ea580c">2</div>
+            <div class="callout" style="left:86%;top:30%;background:#ea580c">3</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption2">실제 관리자 화면입니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-orange">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h1a">필터로 좁혀보기</div><div class="how-desc" data-i18n="l1h1d">상태·판매자(셀러)·상위분류·하위분류·상품명으로 원하는 상품만 걸러봅니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h2a">재고 · 판매수량 확인</div><div class="how-desc" data-i18n="l1h2d">재고가 0에 가까운 상품은 품절 전에 미리 보충하세요. 판매수량으로 인기 상품을 파악할 수 있습니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h3a">"판매링크 복사"는 링크관리와 다른 기능</div><div class="how-desc" data-i18n="l1h3d">여기서 복사되는 링크는 <strong>이미 정식 등록된 이 상품</strong>의 상세페이지 주소입니다. 상점 진열 없이 새로운 결제 링크를 만드는 <a href="04-link.html">링크관리</a>와는 별개의 기능이니 헷갈리지 마세요.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="01-dashboard.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">이전 챕터</div><div data-i18n="navPrevTitle">1. 대시보드</div></div></a>
+    <span class="ch-nav__center">CHAPTER 2 / 9</span>
+    <a class="ch-nav__btn" href="03-store.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">다음 챕터</div><div data-i18n="navNextTitle">3. 상점관리</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "상점 상품관리", zh: "店铺商品管理" },
+  chDesc: { ko: "상품 등록 · 상품 분류 확인 · 상품 목록 조회", zh: "商品登记 · 查看商品分类 · 查询商品列表" },
+  tab0: { ko: "상품 등록", zh: "商品注册" }, tab1: { ko: "상품 분류", zh: "商品分类" }, tab2: { ko: "상품 목록", zh: "商品列表" },
+  howTitle: { ko: "사용 방법", zh: "使用方法" },
+  mockCaption: { ko: "실제 관리자 화면입니다. 스크롤이 긴 화면이라 주요 입력 영역만 표시했습니다.", zh: "这是实际管理后台画面。由于页面较长，仅标注了主要输入区域。" },
+  mockCaption2: { ko: "실제 관리자 화면입니다.", zh: "这是实际管理后台画面。" },
+
+  r1title: { ko: "정식 상품 등록 — 상점에 진열해서 파는 상품", zh: "正式商品登记——陈列在店铺中销售的商品" },
+  r1goal: { ko: '이 화면에서 만드는 상품은 카테고리·이미지·재고·배송비·셀러 수수료까지 전부 갖춘 "정식 상품"입니다. 이름과 가격만으로 결제 링크 하나만 급하게 만들고 싶다면 이 화면이 아니라 <a href="04-link.html">링크관리</a>를 이용하세요.', zh: '在此画面创建的商品是包含分类、图片、库存、运费、卖家手续费的"正式商品"。如果只想用名称和价格快速生成一个付款链接，请使用<a href="04-link.html">链接管理</a>，而不是这个画面。' },
+  r1h1a: { ko: "상품명 · 분류 지정", zh: "填写商品名称·指定分类" },
+  r1h1d: { ko: "1Depth(상위분류)를 고르면 2Depth(하위분류)가 나타납니다. 분류는 고객이 상점에서 상품을 찾을 때 기준이 되므로, 실제 상품 성격과 맞는 분류를 골라야 합니다.", zh: "选择1Depth（一级分类）后会出现2Depth（二级分类）。分类是顾客在店铺中查找商品的依据，请选择与商品性质相符的分类。" },
+  r1h2a: { ko: "이미지 최대 7장 업로드", zh: "最多上传7张图片" },
+  r1h2d: { ko: "상품 이미지는 최대 7장까지 등록할 수 있습니다. 링크관리에는 이미지 등록 기능 자체가 없으니, 이미지가 필요한 상품은 반드시 이 화면에서 등록해야 합니다.", zh: "商品图片最多可登记7张。链接管理没有图片上传功能，需要图片的商品必须在此画面登记。" },
+  r1h3a: { ko: "공급가 · 판매가 · 할인가의 차이 정확히 이해하기", zh: "准确理解供货价·销售价·折扣价的区别" },
+  r1h3d: { ko: '<strong>공급가</strong>는 물건을 판매하기 위해 구매해오는 실제 원가입니다(마진 계산용, 판매 페이지에는 노출되지 않습니다). <strong>판매가</strong>는 실제 상품 판매 페이지에 노출되는 판매 가격입니다. <strong>할인가</strong>를 지정하면, 판매가 대비 할인율(%)과 함께 이 할인가가 최종 판매 가격으로 고객에게 노출됩니다. 세 값을 혼동하면 마진 계산이나 실제 고객 노출가가 틀어질 수 있으니 주의하세요.', zh: '<strong>供货价</strong>是为销售商品而采购的实际成本价（用于计算利润，不会显示在销售页面）。<strong>销售价</strong>是实际显示在商品销售页面上的售卖价格。设置<strong>折扣价</strong>后，会以相对销售价的折扣率（%）连同折扣价一起作为最终售价展示给顾客。混淆这三个数值可能导致利润计算错误或顾客看到的价格出错，请务必注意。' },
+  r1h4a: { ko: "초기 재고 · 기간 한정 · 옵션 설정", zh: "设置初始库存·限时销售·选项" },
+  r1h4d: { ko: "초기 재고와, 필요하면 기간 한정(타임세일)을 설정합니다. 색상·사이즈 등 옵션이 있는 상품은 옵션값과 추가비용도 이 화면에서 함께 등록합니다.", zh: "设置初始库存，如需限时促销也可一并设置。有颜色、尺寸等选项的商品，选项值和附加费用也在此画面登记。" },
+  r1h5a: { ko: "셀러 계정 지정은 필수 — 결제 모듈 노출 조건", zh: "卖家账号为必填项——付款模块显示的前提条件" },
+  r1h5d: { ko: '<strong>셀러 계정</strong>은 선택이 아니라 <strong>필수</strong> 항목입니다. 실제 결제 모듈이 화면에 노출되려면 셀러 계정이 지정되어 있어야 하므로, 비워두면 고객이 결제 자체를 진행할 수 없습니다. <strong>셀러 수수료(%)</strong>도 이 화면에서 상품마다 개별 지정하며, <a href="06-seller.html">셀러 관리</a> 화면과는 무관합니다 — 같은 셀러라도 상품마다 수수료가 다를 수 있으니, 정산 내역이 예상과 다르면 먼저 이 값을 확인하세요.', zh: '<strong>卖家账号</strong>不是可选项，而是<strong>必填项</strong>。只有指定了卖家账号，实际付款模块才会显示在页面上——如果留空，顾客将无法完成付款。<strong>卖家手续费（%）</strong>也在此画面按商品单独设置，与<a href="06-seller.html">卖家管理</a>画面无关——即使是同一个卖家，不同商品的手续费也可能不同，如果结算金额与预期不符，请先检查这里的设置值。' },
+  r1tip: { ko: "💡 배송비(기본/제주추가/도서산간추가)도 이 화면에서 상품별로 설정합니다. 무료배송 기준 금액을 0으로 두면 모든 주문에 배송비가 부과됩니다.", zh: "💡 运费（基本/济州追加/岛屿山间追加）也在此画面按商品设置。若将免运费标准设为0，则所有订单都会收取运费。" },
+
+  c1title: { ko: "상위·하위 분류 관리하기", zh: "管理一级·二级分类" },
+  c1goal: { ko: "10개의 상위 분류 아래에 하위 분류를 자유롭게 추가·삭제하고, 드래그로 순서를 바꿀 수 있습니다.", zh: "可在10个一级分类下自由增删二级分类，并通过拖拽调整顺序。" },
+  c1h1a: { ko: "상위 분류 선택", zh: "选择一级分类" },
+  c1h1d: { ko: "왼쪽 목록에서 상위 분류를 클릭하면 오른쪽에 그 하위 분류들이 나타납니다.", zh: "点击左侧列表中的一级分类，右侧会显示对应的二级分类。" },
+  c1h2a: { ko: "하위 분류 추가 · 순서 변경", zh: "添加二级分类·调整顺序" },
+  c1h2d: { ko: '"添加子分类"로 하위 분류를 새로 만들고, 드래그로 순서를 바꿀 수 있습니다. 이 순서는 상품 등록 화면의 분류 선택 목록 순서에도 그대로 반영됩니다.', zh: '通过"添加子分类"新建二级分类，并可拖拽调整顺序。此顺序会直接反映在商品登记画面的分类选择列表中。' },
+  c1info: { ko: "💡 상위 분류 10개(뷰티·건강·생활/주방/리빙·식품·가전/디지털·패션의류/잡화·골프/스포츠·아웃도어·명품·반려용품) 자체는 추가·삭제할 수 없고, 하위 분류만 자유롭게 관리합니다.", zh: "💡 10个一级分类（美容·健康·生活/厨房/家居·食品·家电/数码·时尚服装/配饰·高尔夫/运动·户外·奢侈品·宠物用品）本身不可增删，只能自由管理二级分类。" },
+
+  l1title: { ko: "등록된 상품 조회하기", zh: "查询已登记商品" },
+  l1goal: { ko: "판매중·판매종료 상품을 조건별로 조회하고, 개별 상품의 판매 링크 복사·복제·수정·삭제를 처리합니다.", zh: "按条件查询销售中/销售结束的商品，并处理各商品的销售链接复制、复制商品、编辑、删除。" },
+  l1h1a: { ko: "필터로 좁혀보기", zh: "使用筛选缩小范围" },
+  l1h1d: { ko: "상태·판매자(셀러)·상위분류·하위분류·상품명으로 원하는 상품만 걸러봅니다.", zh: "可通过状态、卖家、一级分类、二级分类、商品名称筛选出所需商品。" },
+  l1h2a: { ko: "재고 · 판매수량 확인", zh: "查看库存和销售数量" },
+  l1h2d: { ko: "재고가 0에 가까운 상품은 품절 전에 미리 보충하세요. 판매수량으로 인기 상품을 파악할 수 있습니다.", zh: "库存接近0的商品请提前补货以免缺货。可通过销售数量了解畅销商品。" },
+  l1h3a: { ko: '"판매링크 복사"는 링크관리와 다른 기능', zh: '"复制销售链接"与链接管理是不同的功能' },
+  l1h3d: { ko: '여기서 복사되는 링크는 <strong>이미 정식 등록된 이 상품</strong>의 상세페이지 주소입니다. 상점 진열 없이 새로운 결제 링크를 만드는 <a href="04-link.html">링크관리</a>와는 별개의 기능이니 헷갈리지 마세요.', zh: '这里复制的是<strong>已正式登记的该商品</strong>的详情页地址。这与无需店铺陈列、创建新付款链接的<a href="04-link.html">链接管理</a>是不同的功能，请勿混淆。' },
+
+  navPrevSub: { ko: "이전 챕터", zh: "上一章" }, navPrevTitle: { ko: "1. 대시보드", zh: "1. 主页" },
+  navNextSub: { ko: "다음 챕터", zh: "下一章" }, navNextTitle: { ko: "3. 상점관리", zh: "3. 店铺管理" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>

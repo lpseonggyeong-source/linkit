@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ch8. 공지사항 — SJ Hub BA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#7c3aed}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">CHAPTER 8</div>
+    <div class="chapter-header__name" data-i18n="chName">공지사항</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">플랫폼 공지 · 업데이트 안내</div>
+  </div>
+
+  <section class="guide-section" id="sec-notice">
+    <div class="sec-header">
+      <span class="step-pill c-purple">1</span>
+      <div>
+        <div class="sec-title sec-title--lg" data-i18n="s1title">공지사항 확인하기</div>
+        <div class="sec-goal" data-i18n="s1goal">운영사(SJ Hub 본사)에서 전달하는 서비스 점검·업데이트 안내를 <strong>확인만</strong> 하는 화면입니다. BA 계정에는 공지를 작성·등록하는 기능이 없습니다.</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div>
+        <div class="img-wrap">
+          <img src="assets/screen_captures/08-notice.jpg" alt="공지사항 화면">
+          <div class="callout" style="left:87%;top:9%;background:#7c3aed">1</div>
+        </div>
+        <div class="img-caption" data-i18n="mockCaption">실제 관리자 화면입니다. 현재 등록된 공지가 없어 목록이 비어 있습니다. 글쓰기 버튼이 없다는 점도 확인해보세요.</div>
+      </div>
+      <div>
+        <div class="how-title" data-i18n="howTitle">사용 방법</div>
+        <div class="divider"></div>
+        <div class="how-item">
+          <div class="how-num c-purple">1</div>
+          <div class="how-body"><div class="how-action" data-i18n="s1h1a">키워드로 검색</div><div class="how-desc" data-i18n="s1h1d">찾고 싶은 공지가 있다면 검색창에 키워드를 입력합니다.</div></div>
+        </div>
+        <div class="notice info">
+          <p data-i18n="s1info">💡 이 화면은 조회 전용입니다. 공지를 새로 작성·발행하는 것은 운영사(SJ Hub 본사)의 CA 계정에서만 가능하며, BA 계정에서는 등록된 공지를 받아보기만 합니다.</p>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-purple">2</div>
+          <div class="how-body"><div class="how-action" data-i18n="s1h2a">공지 클릭해서 본문 확인</div><div class="how-desc" data-i18n="s1h2d"><strong>[중요]</strong> 배지가 붙은 공지는 서비스 운영에 직접 영향을 주는 내용이니 꼭 확인하세요.</div></div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-purple">3</div>
+          <div class="how-body"><div class="how-action" data-i18n="s1h3a">이전글 · 다음글로 탐색</div><div class="how-desc" data-i18n="s1h3d">공지 본문 하단의 이전글/다음글로 다른 공지도 이어서 확인할 수 있습니다.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="07-settlement.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">이전 챕터</div><div data-i18n="navPrevTitle">7. 정산관리</div></div></a>
+    <span class="ch-nav__center">CHAPTER 8 / 9</span>
+    <a class="ch-nav__btn" href="09-settings.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">다음 챕터</div><div data-i18n="navNextTitle">9. 시스템설정</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "공지사항", zh: "公告" },
+  chDesc: { ko: "플랫폼 공지 · 업데이트 안내", zh: "平台公告 · 更新说明" },
+  s1title: { ko: "공지사항 확인하기", zh: "查看公告" },
+  s1goal: { ko: "운영사(SJ Hub 본사)에서 전달하는 서비스 점검·업데이트 안내를 <strong>확인만</strong> 하는 화면입니다. BA 계정에는 공지를 작성·등록하는 기능이 없습니다.", zh: "此画面仅用于<strong>查看</strong>运营方（SJ Hub总部）发布的服务维护、更新说明。BA账号没有撰写、登记公告的功能。" },
+  s1info: { ko: "💡 이 화면은 조회 전용입니다. 공지를 새로 작성·발행하는 것은 운영사(SJ Hub 본사)의 CA 계정에서만 가능하며, BA 계정에서는 등록된 공지를 받아보기만 합니다.", zh: "💡 此画面仅供查看。撰写、发布新公告只能通过运营方（SJ Hub总部）的CA账号进行，BA账号只能接收已登记的公告。" },
+  mockTitle: { ko: "공지사항", zh: "公告" }, mockDemo: { ko: "데모 화면", zh: "演示画面" },
+  chipSearch: { ko: "키워드 검색", zh: "关键词搜索" },
+  th1: { ko: "제목", zh: "标题" }, th2: { ko: "등록일", zh: "注册日期" },
+  badgeImportant: { ko: "중요", zh: "重要" },
+  n1: { ko: "7월 결제 시스템 정기 점검 안내", zh: "7月支付系统定期维护通知" },
+  n2: { ko: "여름 시즌 프로모션 상품 등록 가이드", zh: "夏季促销商品登记指南" },
+  n3: { ko: "배송비 정책 변경 안내", zh: "运费政策变更通知" },
+  btnPrev: { ko: "← 이전글", zh: "← 上一篇" }, btnNext: { ko: "다음글 →", zh: "下一篇 →" },
+  mockCaption: { ko: "실제 관리자 화면입니다. 현재 등록된 공지가 없어 목록이 비어 있습니다. 글쓰기 버튼이 없다는 점도 확인해보세요.", zh: "这是实际管理后台画面。目前没有已登记的公告，列表为空。请注意也没有撰写按钮。" },
+  howTitle: { ko: "사용 방법", zh: "使用方法" },
+  s1h1a: { ko: "키워드로 검색", zh: "使用关键词搜索" },
+  s1h1d: { ko: "찾고 싶은 공지가 있다면 검색창에 키워드를 입력합니다.", zh: "如需查找特定公告，请在搜索框中输入关键词。" },
+  s1h2a: { ko: "공지 클릭해서 본문 확인", zh: "点击公告查看正文" },
+  s1h2d: { ko: '<strong>[중요]</strong> 배지가 붙은 공지는 서비스 운영에 직접 영향을 주는 내용이니 꼭 확인하세요.', zh: '带有<strong>【重要】</strong>标签的公告直接影响服务运营，请务必确认。' },
+  s1h3a: { ko: "이전글 · 다음글로 탐색", zh: "通过上一篇/下一篇浏览" },
+  s1h3d: { ko: "공지 본문 하단의 이전글/다음글로 다른 공지도 이어서 확인할 수 있습니다.", zh: "通过公告正文下方的上一篇/下一篇可继续查看其他公告。" },
+  navPrevSub: { ko: "이전 챕터", zh: "上一章" }, navPrevTitle: { ko: "7. 정산관리", zh: "7. 结算管理" },
+  navNextSub: { ko: "다음 챕터", zh: "下一章" }, navNextTitle: { ko: "9. 시스템설정", zh: "9. 系统设置" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>

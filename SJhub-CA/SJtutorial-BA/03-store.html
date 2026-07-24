@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ch3. 상점관리 — SJ Hub BA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#475569}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">CHAPTER 3</div>
+    <div class="chapter-header__name" data-i18n="chName">상점관리</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">상점 목록 · 5단계 생성 프로세스</div>
+  </div>
+
+  <div class="inner-tabs">
+    <div class="inner-tab active" onclick="switchTab('register',this)" data-i18n="tab0">상점 등록</div>
+    <div class="inner-tab" onclick="switchTab('list',this)" data-i18n="tab1">상점 목록</div>
+  </div>
+
+  <div class="tab-pane active" id="tab-register">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-slate">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="r1title">1단계 — 기본정보 입력</div>
+          <div class="sec-goal" data-i18n="r1goal">상호명을 20자 이내로 입력하는 것으로 상점 생성이 시작됩니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/03-store-create.jpg" alt="상점 생성 1단계 화면 — 기본정보 입력">
+            <div class="callout" style="left:50%;top:11%;background:#475569">1</div>
+            <div class="callout" style="left:30%;top:33%;background:#475569">2</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption">실제 관리자 화면입니다. 상단 탭에서 5단계 진행 상황을 확인할 수 있습니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">이 단계에서 할 일</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-slate">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h1a">상호명 입력</div><div class="how-desc" data-i18n="r1h1d">상점 이름을 20자 이내로 입력합니다. 이 이름은 고객이 보는 상점 화면 상단에 그대로 노출됩니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h2a">다음 단계로 이동</div><div class="how-desc" data-i18n="r1h2d">이름을 입력한 뒤 "下一步"를 누르면 디자인 템플릿 선택 단계로 넘어갑니다.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-slate">2</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="r2title">2단계 — 디자인 템플릿 선택</div>
+          <div class="sec-goal" data-i18n="r2goal">4가지 템플릿 중 상점 성격에 맞는 디자인을 고릅니다. 나중에 상점 목록에서 언제든 다시 바꿀 수 있습니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/03-store-create-step2.jpg" alt="상점 생성 2단계 화면 — 디자인 템플릿 선택">
+            <div class="callout" style="left:22%;top:38%;background:#475569">1</div>
+            <div class="callout" style="left:36%;top:38%;background:#475569">2</div>
+            <div class="callout" style="left:50%;top:38%;background:#475569">3</div>
+            <div class="callout" style="left:64%;top:38%;background:#475569">4</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption2">실제 관리자 화면입니다. 두 번째 템플릿(정돈된 모던 스타일)이 기본 선택되어 있습니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">4가지 템플릿의 차이</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-slate">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="r2h1a">간단款/기본款</div><div class="how-desc" data-i18n="r2h1d">가장 단순한 기본 레이아웃으로, 깔끔하게 상품을 나열하는 스타일입니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="r2h2a">정돈된 모던 스타일(기본값)</div><div class="how-desc" data-i18n="r2h2d">상품이 한눈에 보이도록 가로세로 균형 잡힌 배치가 특징입니다. 특별히 다른 스타일이 필요 없다면 이 기본값을 그대로 써도 됩니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="r2h3a">감성 중심 큐트 스타일</div><div class="how-desc" data-i18n="r2h3d">폭이 다른 레이아웃과 카드 구성이 섞여 있어, 다양한 콘텐츠를 감성적으로 탐색하기 좋은 스타일입니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">4</div>
+            <div class="how-body"><div class="how-action" data-i18n="r2h4a">링크형 목록 스타일</div><div class="how-desc" data-i18n="r2h4d">불필요한 요소 없이 링크(목록) 형태로 상품을 정리해, 고객이 원하는 상품에 빠르게 접근하도록 돕는 미니멀 스타일입니다.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-slate">3</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="r3title">3단계 — 헤더 · 메인배너 · 栏목 설정</div>
+          <div class="sec-goal" data-i18n="r3goal">왼쪽 실시간 미리보기를 보면서, 오른쪽 4개 탭(기본정보/栏목명称/下배너/고객센터)으로 상점 화면 구성 요소를 채워 넣습니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/03-store-create-step3.jpg" alt="상점 생성 3단계 화면 — 헤더·배너·栏목 설정">
+            <div class="callout" style="left:22%;top:23%;background:#475569">1</div>
+            <div class="callout" style="left:87%;top:16%;background:#475569">2</div>
+            <div class="callout" style="left:87%;top:44%;background:#475569">3</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption3">실제 관리자 화면입니다. 화면 왼쪽은 실시간 미리보기라, 오른쪽에서 값을 입력하면 즉시 반영되는 모습을 바로 확인할 수 있습니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">이 단계에서 할 일</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-slate">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="r3h1a">왼쪽 미리보기로 결과 바로 확인</div><div class="how-desc" data-i18n="r3h1d">오른쪽에서 무엇을 바꾸든 왼쪽 모바일 미리보기 화면에 즉시 반영되니, 저장 전에 미리 눈으로 확인할 수 있습니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="r3h2a">"기본정보" 탭 — 헤더명 · 메인배너</div><div class="how-desc" data-i18n="r3h2d">상점 상단에 노출될 헤더 이름과 메인 배너 이미지(권장 780×370)를 등록하고, 배너를 눌렀을 때 이동할 링크도 설정할 수 있습니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="r3h3a">나머지 3개 탭도 빠짐없이 확인</div><div class="how-desc" data-i18n="r3h3d">"栏목명称"에서 상품 분류 탭 이름을, "下横幅"에서 하단 배너를, "客服中心"에서 고객 문의 연락처를 설정합니다. 이 중 하나라도 비워두면 고객이 보는 화면에 빈 영역이 남을 수 있습니다.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-slate">4</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="r4title">4단계 — 내 상품 진열</div>
+          <div class="sec-goal" data-i18n="r4goal">이미 등록해 둔 상품 중 이 상점에 보여줄 상품을 골라 배치합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/03-store-create-step4.jpg" alt="상점 생성 4단계 화면 — 내 상품 진열">
+            <div class="callout" style="left:20%;top:29%;background:#475569">1</div>
+            <div class="callout" style="left:56%;top:30%;background:#475569">2</div>
+            <div class="callout" style="left:95%;top:83%;background:#475569">3</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption4">실제 관리자 화면입니다. 3단계에서 입력한 栏목(탭) 이름별로 상품을 나눠 담을 수 있습니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">이 단계에서 할 일</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-slate">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="r4h1a">栏목(탭) 선택</div><div class="how-desc" data-i18n="r4h1d">왼쪽 "选择栏目"에서 3단계에 입력한 栏목 이름 중 하나를 고르면, 그 栏목에 담을 상품을 채울 수 있습니다. 栏목이 여러 개면 栏목마다 이 과정을 반복합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="r4h2a">등록된 상품 중에서 선택</div><div class="how-desc" data-i18n="r4h2d">오른쪽에서 분류·상품명으로 검색한 뒤, 이 상점에 보여줄 상품에 체크합니다. 상품이 아직 없다면 <a href="02-product.html">상점 상품관리</a>에서 먼저 등록하세요.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="r4h3a">"添加"로 왼쪽 진열 목록에 담기</div><div class="how-desc" data-i18n="r4h3d">체크한 상품을 "添加" 버튼으로 왼쪽 목록에 담으면, 그 순서가 실제 상점에 진열되는 순서가 됩니다. 왼쪽 목록에서 드래그로 순서를 다시 바꿀 수 있습니다.</div></div>
+          </div>
+          <div class="notice tip">
+            <p data-i18n="r4tip">💡 2단계에서 栏목명称(第一部分·第二部分)을 비워두면 이 화면에 栏목 목록 자체가 나타나지 않아 다음 단계로 진행할 수 없습니다. 栏목 이름을 반드시 먼저 채워두세요.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-slate">5</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="r5title">5단계 — 상점 생성 완료</div>
+          <div class="sec-goal" data-i18n="r5goal">지금까지 입력한 내용으로 상점이 실제로 만들어집니다.</div>
+        </div>
+      </div>
+      <div class="sec-body--single">
+        <div class="notice warn">
+          <p data-i18n="r5pending">⚠️ 이 단계도 4단계와 같은 이유로 스크린샷을 아직 확보하지 못했습니다.</p>
+        </div>
+        <div class="how-item" style="margin-top:16px">
+          <div class="how-num c-slate">1</div>
+          <div class="how-body"><div class="how-action" data-i18n="r5h1a">생성 완료 후 상점 목록에서 확인</div><div class="how-desc" data-i18n="r5h1d">완료 후에는 <a href="#tab-list" onclick="switchTab('list', document.querySelectorAll('.inner-tab')[1])">상점 목록</a> 탭에서 바로 확인할 수 있습니다.</div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-list">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-slate">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="l1title">내 상점 관리하기</div>
+          <div class="sec-goal" data-i18n="l1goal">만든 상점을 한 번에 확인하고, 디자인·옵션·고객센터 정보 수정부터 배너·진열 관리, 주문기록 확인, 삭제까지 처리합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/03-store-list.jpg" alt="상점 목록 화면">
+            <div class="callout" style="left:95%;top:9%;background:#475569">1</div>
+            <div class="callout" style="left:63%;top:22%;background:#475569">2</div>
+            <div class="callout" style="left:92%;top:22%;background:#475569">3</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption2">실제 관리자 화면입니다. 이 계정은 이미 3개의 테스트 상점을 만들어 둔 상태입니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-slate">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h1a">상점 링크 복사해서 공유</div><div class="how-desc" data-i18n="l1h1d">"복제"로 상점 URL을 복사해 SNS 등에 공유하고, "방문"으로 실제 화면을 확인합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h2a">디자인 · 옵션 수정</div><div class="how-desc" data-i18n="l1h2d">"수정디자인"으로 템플릿을 바꾸고, "수정"으로 상점 옵션·고객센터 정보를 변경합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h3a">배너 · 진열 관리 — 변경 즉시 반영</div><div class="how-desc" data-i18n="l1h3d">"배너관리"로 상점 상단 배너를 등록하고, "진열"로 이 상점에 어떤 상품을 어떤 순서로 보여줄지 구성합니다. 진열 화면에는 "즉시 생성/반영"이라는 안내가 붙어 있을 정도로 저장하는 순간 실제 상점 화면에 바로 반영되니, 진열 도중에는 실수로 저장하지 않도록 주의하세요.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-slate">4</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h4a">주문기록 · 삭제</div><div class="how-desc" data-i18n="l1h4d">"주문기록"으로 이 상점에서 들어온 주문만 모아보고, 더 이상 쓰지 않는 상점은 "삭제"로 제거합니다.</div></div>
+          </div>
+          <div class="notice warn">
+            <p data-i18n="l1warn">⚠️ 상점 삭제는 되돌릴 수 없습니다. 삭제 전 진행 중인 주문이 없는지 꼭 확인하세요.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="02-product.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">이전 챕터</div><div data-i18n="navPrevTitle">2. 상점 상품관리</div></div></a>
+    <span class="ch-nav__center">CHAPTER 3 / 9</span>
+    <a class="ch-nav__btn" href="04-link.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">다음 챕터</div><div data-i18n="navNextTitle">4. 링크관리</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "상점관리", zh: "店铺管理" },
+  chDesc: { ko: "상점 목록 · 5단계 생성 프로세스", zh: "店铺列表 · 5步创建流程" },
+  tab0: { ko: "상점 등록", zh: "店铺注册" }, tab1: { ko: "상점 목록", zh: "店铺列表" },
+  mockTitle: { ko: "상점 만들기", zh: "创建店铺" }, mockDemo: { ko: "데모 화면", zh: "演示画面" },
+  step1: { ko: "① 기본정보 입력", zh: "① 输入基本信息" }, step2: { ko: "② 디자인 템플릿 선택", zh: "② 选择设计模板" },
+  step3: { ko: "③ 칼럼 설정", zh: "③ 设置栏目" }, step4: { ko: "④ 내 상품 진열", zh: "④ 我的商品陈列" }, step5: { ko: "⑤ 상점 생성", zh: "⑤ 创建店铺" },
+  fName: { ko: "상호", zh: "商号" }, fNameV: { ko: "예) 민지스토어 (20자 이내)", zh: "例）敏智商店（20字以内）" },
+  mockNext: { ko: "다음 단계", zh: "下一步" },
+  mockCaption: { ko: "실제 관리자 화면입니다. 상단 탭에서 5단계 진행 상황을 확인할 수 있습니다.", zh: "这是实际管理后台画面。可在上方标签查看5个步骤的进度。" },
+  mockCaption2: { ko: "실제 관리자 화면입니다. 두 번째 템플릿(정돈된 모던 스타일)이 기본 선택되어 있습니다.", zh: "这是实际管理后台画面。第二个模板（整齐布局的摩登风格）为默认选中状态。" },
+  mockCaption3: { ko: "실제 관리자 화면입니다. 화면 왼쪽은 실시간 미리보기라, 오른쪽에서 값을 입력하면 즉시 반영되는 모습을 바로 확인할 수 있습니다.", zh: "这是实际管理后台画面。左侧为实时预览，右侧输入的内容会立即反映在预览中。" },
+  howTitle: { ko: "사용 방법", zh: "使用方法" },
+  r1title: { ko: "1단계 — 기본정보 입력", zh: "第1步——输入基本信息" },
+  r1goal: { ko: "상호명을 20자 이내로 입력하는 것으로 상점 생성이 시작됩니다.", zh: "输入20字以内的商号名称，开始创建店铺。" },
+  r1h1a: { ko: "상호명 입력", zh: "输入商号名称" },
+  r1h1d: { ko: "상점 이름을 20자 이내로 입력합니다. 이 이름은 고객이 보는 상점 화면 상단에 그대로 노출됩니다.", zh: "输入20字以内的店铺名称。该名称会原样显示在顾客看到的店铺画面顶部。" },
+  r1h2a: { ko: "다음 단계로 이동", zh: "进入下一步" },
+  r1h2d: { ko: '이름을 입력한 뒤 "下一步"를 누르면 디자인 템플릿 선택 단계로 넘어갑니다.', zh: '输入名称后点击"下一步"，即可进入选择设计模板的步骤。' },
+  r2title: { ko: "2단계 — 디자인 템플릿 선택", zh: "第2步——选择设计模板" },
+  r2goal: { ko: "4가지 템플릿 중 상점 성격에 맞는 디자인을 고릅니다. 나중에 상점 목록에서 언제든 다시 바꿀 수 있습니다.", zh: "在4种模板中选择适合店铺风格的设计。之后可随时在店铺列表中重新更改。" },
+  r2h1a: { ko: "간단款/기본款", zh: "简单款/基本款" },
+  r2h1d: { ko: "가장 단순한 기본 레이아웃으로, 깔끔하게 상품을 나열하는 스타일입니다.", zh: "最简洁的基本布局，以整齐排列商品为特点。" },
+  r2h2a: { ko: "정돈된 모던 스타일(기본값)", zh: "整齐布局的摩登风格（默认）" },
+  r2h2d: { ko: "상품이 한눈에 보이도록 가로세로 균형 잡힌 배치가 특징입니다. 특별히 다른 스타일이 필요 없다면 이 기본값을 그대로 써도 됩니다.", zh: "以横竖均衡的排布让商品一目了然为特征。如无特殊需求，直接使用这个默认模板即可。" },
+  r2h3a: { ko: "감성 중심 큐트 스타일", zh: "以感性为中心的可爱风格" },
+  r2h3d: { ko: "폭이 다른 레이아웃과 카드 구성이 섞여 있어, 다양한 콘텐츠를 감성적으로 탐색하기 좋은 스타일입니다.", zh: "融合了模块宽幅和列表构成，适合以有趣的方式探索多种内容。" },
+  r2h4a: { ko: "링크형 목록 스타일", zh: "链接表布局样式" },
+  r2h4d: { ko: "불필요한 요소 없이 링크(목록) 형태로 상품을 정리해, 고객이 원하는 상품에 빠르게 접근하도록 돕는 미니멀 스타일입니다.", zh: "省去不必要的元素，以链接形式整理商品，方便顾客快速确认并移动到所需信息。" },
+  r3title: { ko: "3단계 — 헤더 · 메인배너 · 栏목 설정", zh: "第3步——设置栏目" },
+  r3goal: { ko: "왼쪽 실시간 미리보기를 보면서, 오른쪽 4개 탭(기본정보/栏목명称/下배너/고객센터)으로 상점 화면 구성 요소를 채워 넣습니다.", zh: "一边查看左侧实时预览，一边通过右侧的4个标签（基本信息/栏目名称/下横幅/客服中心）填写店铺画面的构成要素。" },
+  r3h1a: { ko: "왼쪽 미리보기로 결과 바로 확인", zh: "通过左侧预览立即查看效果" },
+  r3h1d: { ko: "오른쪽에서 무엇을 바꾸든 왼쪽 모바일 미리보기 화면에 즉시 반영되니, 저장 전에 미리 눈으로 확인할 수 있습니다.", zh: "无论在右侧修改什么，都会立即反映在左侧的手机预览画面中，保存前即可先用肉眼确认效果。" },
+  r3h2a: { ko: '"기본정보" 탭 — 헤더명 · 메인배너', zh: '"基本信息"标签——头部名称·主横幅' },
+  r3h2d: { ko: "상점 상단에 노출될 헤더 이름과 메인 배너 이미지(권장 780×370)를 등록하고, 배너를 눌렀을 때 이동할 링크도 설정할 수 있습니다.", zh: "登记显示在店铺顶部的头部名称和主横幅图片（推荐尺寸780×370），还可以设置点击横幅后跳转的链接。" },
+  r3h3a: { ko: "나머지 3개 탭도 빠짐없이 확인", zh: "其余3个标签也要逐一确认" },
+  r3h3d: { ko: '"栏목명称"에서 상품 분류 탭 이름을, "下횡幅"에서 하단 배너를, "客服中心"에서 고객 문의 연락처를 설정합니다. 이 중 하나라도 비워두면 고객이 보는 화면에 빈 영역이 남을 수 있습니다.', zh: '在"栏目名称"中设置商品分类标签名称，在"下横幅"中设置底部横幅，在"客服中心"中设置顾客咨询联系方式。其中任何一项留空，都可能导致顾客看到的画面出现空白区域。' },
+  r4title: { ko: "4단계 — 내 상품 진열", zh: "第4步——我的商品陈列" },
+  r4goal: { ko: "이미 등록해 둔 상품 중 이 상점에 보여줄 상품을 골라 배치합니다.", zh: "从已登记的商品中挑选要在该店铺展示的商品并进行排列。" },
+  r4pending: { ko: "⚠️ 이 단계는 실사 도중 화면이 응답하지 않는 문제가 있어 스크린샷을 아직 확보하지 못했습니다. 재확인 후 추가할 예정입니다.", zh: "⚠️ 实地查看该步骤时画面无响应，尚未能获取截图，确认后将补充。" },
+  r4h1a: { ko: "등록된 상품 중에서 선택", zh: "从已登记商品中选择" },
+  r4h1d: { ko: '이미 등록해 둔 상품 중 이 상점에 보여줄 상품을 선택합니다. 상품이 아직 없다면 <a href="02-product.html">상점 상품관리</a>에서 먼저 등록하세요.', zh: '从已登记的商品中选择要在该店铺展示的商品。如尚无商品，请先在<a href="02-product.html">店铺商品管理</a>中登记。' },
+  r5title: { ko: "5단계 — 상점 생성 완료", zh: "第5步——创建店铺" },
+  r5goal: { ko: "지금까지 입력한 내용으로 상점이 실제로 만들어집니다.", zh: "根据目前输入的内容，实际创建店铺。" },
+  r5pending: { ko: "⚠️ 이 단계도 4단계와 같은 이유로 스크린샷을 아직 확보하지 못했습니다.", zh: "⚠️ 该步骤也因同样原因尚未能获取截图。" },
+  r5h1a: { ko: "생성 완료 후 상점 목록에서 확인", zh: "创建完成后在店铺列表中确认" },
+  r5h1d: { ko: '완료 후에는 <a href="#tab-list" onclick="switchTab(\'list\', document.querySelectorAll(\'.inner-tab\')[1])">상점 목록</a> 탭에서 바로 확인할 수 있습니다.', zh: '完成后可立即在<a href="#tab-list" onclick="switchTab(\'list\', document.querySelectorAll(\'.inner-tab\')[1])">店铺列表</a>标签中查看。' },
+  l1title: { ko: "내 상점 관리하기", zh: "管理我的店铺" },
+  l1goal: { ko: "만든 상점을 한 번에 확인하고, 디자인·옵션·고객센터 정보 수정부터 배너·진열 관리, 주문기록 확인, 삭제까지 처리합니다.", zh: "一次性查看已创建的店铺，处理设计/选项/客服中心信息修改、横幅/陈列管理、订单记录查看及删除。" },
+  mockListTitle: { ko: "상점 목록", zh: "店铺列表" },
+  th1: { ko: "상호", zh: "商号" }, th2: { ko: "선택 템플릿", zh: "选择模板" }, th3: { ko: "상점 링크", zh: "店铺链接" }, th4: { ko: "관리", zh: "管理" },
+  s1: { ko: "민지스토어", zh: "敏智商店" }, s2: { ko: "홈리빙샵", zh: "家居生活馆" },
+  btnDesign: { ko: "수정디자인", zh: "修改设计" }, btnBanner: { ko: "배너관리", zh: "横幅管理" }, btnDisplay: { ko: "진열", zh: "陈列" },
+  btnCopy: { ko: "복제", zh: "复制" }, btnVisit: { ko: "방문", zh: "访问" }, btnOrder: { ko: "주문기록", zh: "订单记录" }, btnDelete: { ko: "삭제", zh: "删除" },
+  l1h1a: { ko: "상점 링크 복사해서 공유", zh: "复制店铺链接并分享" },
+  l1h1d: { ko: '"복제"로 상점 URL을 복사해 SNS 등에 공유하고, "방문"으로 실제 화면을 확인합니다.', zh: '通过"复制"复制店铺网址并分享到社交媒体等，通过"访问"查看实际画面。' },
+  l1h2a: { ko: "디자인 · 옵션 수정", zh: "修改设计和选项" },
+  l1h2d: { ko: '"수정디자인"으로 템플릿을 바꾸고, "수정"으로 상점 옵션·고객센터 정보를 변경합니다.', zh: '通过"修改设计"更换模板，通过"修改"更改店铺选项、客服中心信息。' },
+  l1h3a: { ko: "배너 · 진열 관리 — 변경 즉시 반영", zh: "横幅·陈列管理——修改后立即生效" },
+  l1h3d: { ko: '"배너관리"로 상점 상단 배너를 등록하고, "진열"로 이 상점에 어떤 상품을 어떤 순서로 보여줄지 구성합니다. 진열 화면에는 "즉시 생성/반영"이라는 안내가 붙어 있을 정도로 저장하는 순간 실제 상점 화면에 바로 반영되니, 진열 도중에는 실수로 저장하지 않도록 주의하세요.', zh: '通过"横幅管理"登记店铺顶部横幅，通过"陈列"设置该店铺展示哪些商品及顺序。陈列画面上标注着"立即生效"，保存的瞬间就会直接反映到实际店铺画面，请在陈列过程中注意不要误操作保存。' },
+  l1h4a: { ko: "주문기록 · 삭제", zh: "订单记录和删除" },
+  l1h4d: { ko: '"주문기록"으로 이 상점에서 들어온 주문만 모아보고, 더 이상 쓰지 않는 상점은 "삭제"로 제거합니다.', zh: '通过"订单记录"仅查看该店铺收到的订单，不再使用的店铺可通过"删除"移除。' },
+  l1warn: { ko: "⚠️ 상점 삭제는 되돌릴 수 없습니다. 삭제 전 진행 중인 주문이 없는지 꼭 확인하세요.", zh: "⚠️ 删除店铺后无法恢复。删除前请务必确认没有正在进行中的订单。" },
+  navPrevSub: { ko: "이전 챕터", zh: "上一章" }, navPrevTitle: { ko: "2. 상점 상품관리", zh: "2. 店铺商品管理" },
+  navNextSub: { ko: "다음 챕터", zh: "下一章" }, navNextTitle: { ko: "4. 링크관리", zh: "4. 链接管理" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>

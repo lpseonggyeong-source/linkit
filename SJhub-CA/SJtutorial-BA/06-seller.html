@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ch6. 셀러 관리 — SJ Hub BA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#e62e21}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">CHAPTER 6</div>
+    <div class="chapter-header__name" data-i18n="chName">셀러 관리</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">셀러 목록 조회 · 신규 셀러 등록</div>
+  </div>
+
+  <section class="guide-section" id="sec-seller">
+    <div class="sec-header">
+      <span class="step-pill c-red">1</span>
+      <div>
+        <div class="sec-title sec-title--lg" data-i18n="s1title">셀러 조회 및 관리</div>
+        <div class="sec-goal" data-i18n="s1goal">내 상점·링크에서 상품을 판매하는 셀러 계정을 조회하고, 새 셀러를 등록하거나 상태를 확인합니다.</div>
+      </div>
+    </div>
+    <div class="sec-body">
+      <div>
+        <div class="img-wrap">
+          <img src="assets/screen_captures/06-seller-list.jpg" alt="셀러 관리 화면">
+          <div class="callout" style="left:15%;top:12%;background:#e62e21">1</div>
+          <div class="callout" style="left:88%;top:20%;background:#e62e21">2</div>
+        </div>
+        <div class="img-caption" data-i18n="mockCaption">실제 관리자 화면입니다. 컬럼에 수수료 항목이 없다는 점에 주목하세요.</div>
+      </div>
+      <div>
+        <div class="how-title" data-i18n="howTitle">사용 방법</div>
+        <div class="divider"></div>
+        <div class="how-item">
+          <div class="how-num c-red">1</div>
+          <div class="how-body"><div class="how-action" data-i18n="s1h1a">신규 셀러 등록</div><div class="how-desc" data-i18n="s1h1d">"+ 셀러등록" 버튼으로 새 셀러 계정을 만듭니다. 등록한 셀러는 <a href="02-product.html">상품 등록</a> 시 판매자로 지정할 수 있습니다.</div></div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-red">2</div>
+          <div class="how-body"><div class="how-action" data-i18n="s1h2a">상태별로 조회</div><div class="how-desc" data-i18n="s1h2d">전체/승인/신청중/정지 탭으로 처리 상태별 셀러를 확인합니다.</div></div>
+        </div>
+        <div class="how-item">
+          <div class="how-num c-red">3</div>
+          <div class="how-body"><div class="how-action" data-i18n="s1h3a">상품수량으로 활동 파악</div><div class="how-desc" data-i18n="s1h3d">각 셀러가 등록한 상품 수를 목록에서 바로 확인하고, "수정"으로 정보를 변경합니다.</div></div>
+        </div>
+        <div class="notice info">
+          <p data-i18n="s1info">💡 셀러가 등록한 상품은 <a href="02-product.html">상품 목록</a>이나 <a href="04-link.html">링크 목록</a>에서 "판매자" 필터로도 확인할 수 있습니다.</p>
+        </div>
+        <div class="notice warn">
+          <p data-i18n="s1warn">⚠️ <strong>이 화면에는 수수료 항목이 없습니다.</strong> 셀러 수수료는 셀러 계정 자체가 아니라 <a href="02-product.html">상품 등록</a> 화면에서 상품마다 개별로 설정됩니다. 같은 셀러라도 상품에 따라 수수료율이 다를 수 있으니, 정산 금액이 예상과 다르면 이 화면이 아니라 해당 상품의 등록 정보를 먼저 확인하세요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="05-order.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">이전 챕터</div><div data-i18n="navPrevTitle">5. 상점 주문관리</div></div></a>
+    <span class="ch-nav__center">CHAPTER 6 / 9</span>
+    <a class="ch-nav__btn" href="07-settlement.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">다음 챕터</div><div data-i18n="navNextTitle">7. 정산관리</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "셀러 관리", zh: "卖家管理" },
+  chDesc: { ko: "셀러 목록 조회 · 신규 셀러 등록", zh: "查询卖家列表 · 登记新卖家" },
+  s1title: { ko: "셀러 조회 및 관리", zh: "查询与管理卖家" },
+  s1goal: { ko: "내 상점·링크에서 상품을 판매하는 셀러 계정을 조회하고, 새 셀러를 등록하거나 상태를 확인합니다.", zh: "查询在我的店铺、链接中销售商品的卖家账号，登记新卖家或确认状态。" },
+  mockTitle: { ko: "셀러 관리", zh: "卖家管理" }, mockDemo: { ko: "데모 화면", zh: "演示画面" },
+  chipAll: { ko: "전체", zh: "全部" }, chipApproved: { ko: "승인", zh: "已批准" }, chipPending: { ko: "신청중", zh: "申请中" }, chipStopped: { ko: "정지", zh: "停止" },
+  th1: { ko: "이름", zh: "名称" }, th2: { ko: "아이디", zh: "用户名" }, th3: { ko: "상품수량", zh: "商品数量" }, th4: { ko: "상태", zh: "状态" }, th5: { ko: "등록일", zh: "注册日期" },
+  n1: { ko: "민지셀러", zh: "敏智卖家" }, n2: { ko: "홈리빙셀러", zh: "家居生活卖家" },
+  stApproved: { ko: "승인", zh: "已批准" }, stPending: { ko: "신청중", zh: "申请中" },
+  btnRegister: { ko: "+ 셀러등록", zh: "+ 注册卖家" }, btnGoto: { ko: "셀러페이지 바로가기", zh: "进入卖家页面" },
+  mockCaption: { ko: "실제 관리자 화면입니다. 컬럼에 수수료 항목이 없다는 점에 주목하세요.", zh: "这是实际管理后台画面。请注意列表中没有手续费项目。" },
+  howTitle: { ko: "사용 방법", zh: "使用方法" },
+  s1h1a: { ko: "신규 셀러 등록", zh: "登记新卖家" },
+  s1h1d: { ko: '"+ 셀러등록" 버튼으로 새 셀러 계정을 만듭니다. 등록한 셀러는 <a href="02-product.html">상품 등록</a> 시 판매자로 지정할 수 있습니다.', zh: '通过"+ 注册卖家"按钮创建新卖家账号。登记的卖家可在<a href="02-product.html">商品注册</a>时指定为销售方。' },
+  s1h2a: { ko: "상태별로 조회", zh: "按状态查询" },
+  s1h2d: { ko: "전체/승인/신청중/정지 탭으로 처리 상태별 셀러를 확인합니다.", zh: "通过全部/已批准/申请中/停止标签按处理状态查看卖家。" },
+  s1h3a: { ko: "상품수량으로 활동 파악", zh: "通过商品数量了解活跃度" },
+  s1h3d: { ko: '각 셀러가 등록한 상품 수를 목록에서 바로 확인하고, "수정"으로 정보를 변경합니다.', zh: '在列表中直接查看各卖家登记的商品数量，通过"修改"更改信息。' },
+  s1info: { ko: '💡 셀러가 등록한 상품은 <a href="02-product.html">상품 목록</a>이나 <a href="04-link.html">링크 목록</a>에서 "판매자" 필터로도 확인할 수 있습니다.', zh: '💡 卖家登记的商品也可在<a href="02-product.html">商品列表</a>或<a href="04-link.html">链接列表</a>中通过"卖家"筛选查看。' },
+  s1warn: { ko: '⚠️ <strong>이 화면에는 수수료 항목이 없습니다.</strong> 셀러 수수료는 셀러 계정 자체가 아니라 <a href="02-product.html">상품 등록</a> 화면에서 상품마다 개별로 설정됩니다. 같은 셀러라도 상품에 따라 수수료율이 다를 수 있으니, 정산 금액이 예상과 다르면 이 화면이 아니라 해당 상품의 등록 정보를 먼저 확인하세요.', zh: '⚠️ <strong>此画面没有手续费项目。</strong>卖家手续费不是在卖家账号本身设置，而是在<a href="02-product.html">商品注册</a>画面按商品单独设置。即使是同一卖家，不同商品的手续费率也可能不同，若结算金额与预期不符，请先检查该商品的登记信息，而非此画面。' },
+  navPrevSub: { ko: "이전 챕터", zh: "上一章" }, navPrevTitle: { ko: "5. 상점 주문관리", zh: "5. 店铺订单管理" },
+  navNextSub: { ko: "다음 챕터", zh: "下一章" }, navNextTitle: { ko: "7. 정산관리", zh: "7. 结算管理" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>

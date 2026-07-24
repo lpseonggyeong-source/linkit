@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ch5. 상점 주문관리 — SJ Hub BA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#2563eb}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">CHAPTER 5</div>
+    <div class="chapter-header__name" data-i18n="chName">상점 주문관리</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">상점 주문 목록 · 링크 주문 목록</div>
+  </div>
+
+  <div class="inner-tabs">
+    <div class="inner-tab active" onclick="switchTab('store',this)" data-i18n="tab0">상점 주문 목록</div>
+    <div class="inner-tab" onclick="switchTab('link',this)" data-i18n="tab1">링크 주문 목록</div>
+  </div>
+
+  <div class="tab-pane active" id="tab-store">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-blue">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="s1title">상점에서 들어온 주문 처리하기</div>
+          <div class="sec-goal" data-i18n="s1goal">결제완료부터 배송완료까지 상점 주문 상태를 확인하고, 개별·일괄 상태 변경과 운송장 업로드까지 처리합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/05-order-store.jpg" alt="상점 주문 목록 화면">
+            <div class="callout" style="left:22%;top:19%;background:#2563eb">1</div>
+            <div class="callout" style="left:50%;top:30%;background:#2563eb">2</div>
+            <div class="callout" style="left:85%;top:45%;background:#2563eb">3</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption">실제 관리자 화면입니다. "收货地址(배송지)" 컬럼이 있는 것에 주목하세요.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-blue">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="s1h1a">상태 탭과 필터로 원하는 주문만 보기</div><div class="how-desc" data-i18n="s1h1d">전체/결제완료/주문취소중/주문취소 탭과 택배사·상태·상점·셀러·주문기간·상품명 필터로 원하는 주문만 좁혀봅니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-blue">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="s1h2a">개별 또는 일괄 상태 변경</div><div class="how-desc" data-i18n="s1h2d">체크박스로 여러 건을 선택한 뒤 "상태변경"에서 취소처리중·상품준비중·배송완료 중 하나로 한 번에 바꾸고 저장합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-blue">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="s1h3a">운송장 번호 일괄 업로드</div><div class="how-desc" data-i18n="s1h3d">"배송자료 다운로드"로 양식을 내려받아 운송장번호를 채운 뒤, "운송장번호 업로드"로 한 번에 반영합니다.</div></div>
+          </div>
+          <div class="notice tip">
+            <p data-i18n="s1tip">💡 어느 상점의 주문인지 헷갈리면 "상점" 필터로 특정 상점만 걸러보세요. 상점별 주문은 <a href="03-store.html">상점관리 &gt; 상점 목록</a>의 "주문기록" 버튼으로도 바로 이동할 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-link">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-blue">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="l1title">링크 상품 주문 확인하기</div>
+          <div class="sec-goal" data-i18n="l1goal"><a href="04-link.html">링크관리</a>에서 만든 결제 링크로 들어온 주문을 확인합니다. 배송지 항목이 없는 점을 제외하면 상점 주문 목록과 사용법이 같습니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div>
+          <div class="img-wrap">
+            <img src="assets/screen_captures/05-order-link.jpg" alt="링크 주문 목록 화면">
+            <div class="callout" style="left:50%;top:25%;background:#2563eb">1</div>
+          </div>
+          <div class="img-caption" data-i18n="mockCaption2">실제 관리자 화면입니다. 같은 주문 목록이지만 배송지 컬럼이 없습니다.</div>
+        </div>
+        <div>
+          <div class="how-title" data-i18n="howTitle">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-blue">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="l1h1a">필터로 조회 후 상태 변경</div><div class="how-desc" data-i18n="l1h1d">택배사·상태·상점·셀러·주문기간·상품명으로 조회하고, "상태변경"으로 처리 상태를 바꿉니다. 방법은 상점 주문 목록과 동일합니다.</div></div>
+          </div>
+          <div class="notice info">
+            <p data-i18n="l1info">💡 <strong>배송지가 없는 이유</strong> — 링크 주문은 배송지 입력 없이 결제만 받는 상품(디지털 상품, 참가권 등)에 주로 사용합니다. 실물 배송이 필요하다면 <a href="02-product.html">상점 상품관리</a>에서 등록해 배송지를 함께 받으세요.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="04-link.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">이전 챕터</div><div data-i18n="navPrevTitle">4. 링크관리</div></div></a>
+    <span class="ch-nav__center">CHAPTER 5 / 9</span>
+    <a class="ch-nav__btn" href="06-seller.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">다음 챕터</div><div data-i18n="navNextTitle">6. 셀러 관리</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "상점 주문관리", zh: "店铺订单管理" },
+  chDesc: { ko: "상점 주문 목록 · 링크 주문 목록", zh: "店铺订单列表 · 链接订单列表" },
+  tab0: { ko: "상점 주문 목록", zh: "店铺订单列表" }, tab1: { ko: "링크 주문 목록", zh: "链接订单列表" },
+  mockTitle: { ko: "상점 주문 목록", zh: "店铺订单列表" }, mockDemo: { ko: "데모 화면", zh: "演示画面" },
+  chipCourier: { ko: "택배사: CJ대한통운", zh: "快递公司：CJ大韩通运" }, chipStatus: { ko: "상태: 전체", zh: "状态：全部" },
+  chipStore: { ko: "상점: 전체", zh: "店铺：全部" }, chipSeller: { ko: "셀러: 전체", zh: "卖家：全部" }, chipPeriod: { ko: "주문기간", zh: "订货期" },
+  th1: { ko: "주문번호", zh: "订单号码" }, th2: { ko: "상품명", zh: "商品名称" }, th3: { ko: "금액", zh: "金额" }, th4: { ko: "구매자", zh: "买方" }, th5: { ko: "배송지", zh: "收货地址" }, th6: { ko: "처리상태", zh: "处理状态" },
+  p1: { ko: "데일리 히알루론 수분크림", zh: "每日玻尿酸保湿霜" }, p2: { ko: "스테인리스 밀폐용기 3종", zh: "不锈钢密封保鲜盒3件套" },
+  buyer1: { ko: "김민지", zh: "金敏智" }, buyer2: { ko: "이서준", zh: "李叙俊" }, buyer3: { ko: "박서연", zh: "朴瑞妍" },
+  addr1: { ko: "서울 강남구 …", zh: "首尔江南区 …" }, addr2: { ko: "경기 성남시 …", zh: "京畿道城南市 …" },
+  stPaid: { ko: "결제완료", zh: "付款完成" }, stPrep: { ko: "상품준비중", zh: "商品准备中" },
+  btnChangeStatus: { ko: "상태변경", zh: "状态变更" }, btnDownload: { ko: "배송자료 다운로드", zh: "下载配送资料" }, btnUpload: { ko: "운송장번호 업로드", zh: "上传快递单号" },
+  mockCaption: { ko: "실제 관리자 화면입니다. \"收货地址(배송지)\" 컬럼이 있는 것에 주목하세요.", zh: "这是实际管理后台画面。请注意有\"收货地址\"这一列。" },
+  mockCaption2: { ko: "실제 관리자 화면입니다. 같은 주문 목록이지만 배송지 컬럼이 없습니다.", zh: "这是实际管理后台画面。虽是同类订单列表，但没有收货地址列。" },
+  howTitle: { ko: "사용 방법", zh: "使用方法" },
+  s1title: { ko: "상점에서 들어온 주문 처리하기", zh: "处理店铺收到的订单" },
+  s1goal: { ko: "결제완료부터 배송완료까지 상점 주문 상태를 확인하고, 개별·일괄 상태 변경과 운송장 업로드까지 처리합니다.", zh: "查看从付款完成到配送完成的店铺订单状态，处理单个/批量状态变更及快递单号上传。" },
+  s1h1a: { ko: "상태 탭과 필터로 원하는 주문만 보기", zh: "使用状态标签和筛选查看所需订单" },
+  s1h1d: { ko: "전체/결제완료/주문취소중/주문취소 탭과 택배사·상태·상점·셀러·주문기간·상품명 필터로 원하는 주문만 좁혀봅니다.", zh: "通过全部/付款完成/订单取消中/订单取消标签，以及快递公司、状态、店铺、卖家、订货期、商品名称筛选出所需订单。" },
+  s1h2a: { ko: "개별 또는 일괄 상태 변경", zh: "单个或批量变更状态" },
+  s1h2d: { ko: '체크박스로 여러 건을 선택한 뒤 "상태변경"에서 취소처리중·상품준비중·배송완료 중 하나로 한 번에 바꾸고 저장합니다.', zh: '通过复选框选择多个订单后，在"状态变更"中一次性改为取消处理中、商品准备中、配送完成之一，然后保存。' },
+  s1h3a: { ko: "운송장 번호 일괄 업로드", zh: "批量上传快递单号" },
+  s1h3d: { ko: '"배송자료 다운로드"로 양식을 내려받아 운송장번호를 채운 뒤, "운송장번호 업로드"로 한 번에 반영합니다.', zh: '通过"下载配送资料"下载表格并填写快递单号后，通过"上传快递单号"一次性反映。' },
+  s1tip: { ko: '💡 어느 상점의 주문인지 헷갈리면 "상점" 필터로 특정 상점만 걸러보세요. 상점별 주문은 <a href="03-store.html">상점관리 &gt; 상점 목록</a>의 "주문기록" 버튼으로도 바로 이동할 수 있습니다.', zh: '💡 如果分不清是哪个店铺的订单，可用"店铺"筛选只查看特定店铺。也可通过<a href="03-store.html">店铺管理 &gt; 店铺列表</a>中的"订单记录"按钮直接跳转查看各店铺订单。' },
+  l1title: { ko: "링크 상품 주문 확인하기", zh: "查看链接商品订单" },
+  l1goal: { ko: '<a href="04-link.html">링크관리</a>에서 만든 결제 링크로 들어온 주문을 확인합니다. 배송지 항목이 없는 점을 제외하면 상점 주문 목록과 사용법이 같습니다.', zh: '查看通过<a href="04-link.html">链接管理</a>创建的付款链接收到的订单。除没有收货地址项目外，使用方法与店铺订单列表相同。' },
+  mockLinkTitle: { ko: "링크 주문 목록", zh: "链接订单列表" },
+  i1: { ko: "원데이 클래스 참가권", zh: "单日课程参加券" },
+  l1h1a: { ko: "필터로 조회 후 상태 변경", zh: "筛选查询后变更状态" },
+  l1h1d: { ko: '택배사·상태·상점·셀러·주문기간·상품명으로 조회하고, "상태변경"으로 처리 상태를 바꿉니다. 방법은 상점 주문 목록과 동일합니다.', zh: '按快递公司、状态、店铺、卖家、订货期、商品名称查询，通过"状态变更"更改处理状态。方法与店铺订单列表相同。' },
+  l1info: { ko: '💡 <strong>배송지가 없는 이유</strong> — 링크 주문은 배송지 입력 없이 결제만 받는 상품(디지털 상품, 참가권 등)에 주로 사용합니다. 실물 배송이 필요하다면 <a href="02-product.html">상점 상품관리</a>에서 등록해 배송지를 함께 받으세요.', zh: '💡 <strong>没有收货地址的原因</strong> — 链接订单主要用于无需收货地址、仅需付款的商品（数字商品、参加券等）。如需实物配送，请在<a href="02-product.html">店铺商品管理</a>中登记，以一并接收收货地址。' },
+  navPrevSub: { ko: "이전 챕터", zh: "上一章" }, navPrevTitle: { ko: "4. 링크관리", zh: "4. 链接管理" },
+  navNextSub: { ko: "다음 챕터", zh: "下一章" }, navNextTitle: { ko: "6. 셀러 관리", zh: "6. 卖家管理" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>

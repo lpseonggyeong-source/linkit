@@ -1,0 +1,343 @@
+{
+  "capturedAt": "2026-07-23T07:00:42.927Z",
+  "baseUrl": "http://www.kcsvc.co.kr/bonbu_new/",
+  "totalCaptured": 37,
+  "totalFailed": 0,
+  "records": [
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/",
+      "title": "仪表盘 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/01-dashboard.jpg",
+      "linkCount": 29
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/index.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/index.html",
+      "title": "仪表盘 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/02-index-html.jpg",
+      "linkCount": 29
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/product-create.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/product-create.html",
+      "title": "商品注册 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/03-product-create-html.jpg",
+      "linkCount": 24
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/category.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/category.html",
+      "title": "分类管理 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/04-category-html.jpg",
+      "linkCount": 24,
+      "replacedAt": "2026-07-23T07:17:02.141Z",
+      "replacementNote": "Replaced with current open category screen showing exposed items."
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/product-list.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/product-list.html",
+      "title": "商品列表 — SJ허브 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/05-product-list-html.jpg",
+      "linkCount": 28
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-create-step1.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-create-step1.html",
+      "title": "建新商店 —SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/06-store-create-step1-html.jpg",
+      "linkCount": 24
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-list.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-list.html",
+      "title": "商店管理 —SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/07-store-list-html.jpg",
+      "linkCount": 40
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/item-create.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/item-create.html",
+      "title": "链接商品注册 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/08-item-create-html.jpg",
+      "linkCount": 24
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/item-list.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/item-list.html",
+      "title": "链接商品列表 — SJ허브 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/09-item-list-html.jpg",
+      "linkCount": 35
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/10-order-list-html.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order_link-list.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order_link-list.html",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/11-order-link-list-html.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/seller-list.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/seller-list.html",
+      "title": "卖家管理 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/12-seller-list-html.jpg",
+      "linkCount": 27
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/settlement-sales.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/settlement-sales.html",
+      "title": "销售管理 — SJ Hub BA 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/13-settlement-sales-html.jpg",
+      "linkCount": 24
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/settlement-manage.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/settlement-manage.html",
+      "title": "结算管理 — SJ Hub BA 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/14-settlement-manage-html.jpg",
+      "linkCount": 24
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/settlement-retention.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/settlement-retention.html",
+      "title": "销售管理 — SJ Hub BA 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/15-settlement-retention-html.jpg",
+      "linkCount": 24
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/settlement-deposit.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/settlement-deposit.html",
+      "title": "销售管理 — SJ Hub BA 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/16-settlement-deposit-html.jpg",
+      "linkCount": 24
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/notice.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/notice.html",
+      "title": "공지사항 — link it 어드민",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/17-notice-html.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/settings.html",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/settings.html",
+      "title": "系统设置 — SJ Hub BA 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/18-settings-html.jpg",
+      "linkCount": 24
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/product-list.html?np=1&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/product-list.html?np=1&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "title": "商品列表 — SJ허브 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/19-product-list-html-np-1-keywords-search-stat-search-seller-search-cat1-search-cat.jpg",
+      "linkCount": 28
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=5",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/20-store-modify-skin-html-seq-5.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-display.html?seq_shop=5",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-display.html?seq_shop=5",
+      "title": "修改商店陈列 —SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/21-store-modify-display-html-seq-shop-5.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?search_fold=iaNLYxjtec5",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?search_fold=iaNLYxjtec5",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/22-order-list-html-search-fold-ianlyxjtec5.jpg",
+      "linkCount": 29
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=3",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/23-store-modify-skin-html-seq-3.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-display.html?seq_shop=3",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-display.html?seq_shop=3",
+      "title": "修改商店陈列 —SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/24-store-modify-display-html-seq-shop-3.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?search_fold=oZ3r2cpeUH3",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?search_fold=oZ3r2cpeUH3",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/25-order-list-html-search-fold-oz3r2cpeuh3.jpg",
+      "linkCount": 29
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-skin.html?seq=1",
+      "title": "更改商店模板 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/26-store-modify-skin-html-seq-1.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/store-modify-display.html?seq_shop=1",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/store-modify-display.html?seq_shop=1",
+      "title": "修改商店陈列 —SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/27-store-modify-display-html-seq-shop-1.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?search_fold=P3DUTq33n1",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?search_fold=P3DUTq33n1",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/28-order-list-html-search-fold-p3dutq33n1.jpg",
+      "linkCount": 29
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/item-list.html?np=1&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/item-list.html?np=1&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "title": "链接商品列表 — SJ허브 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/29-item-list-html-np-1-keywords-search-stat-search-seller-search-cat1-search-cat2.jpg",
+      "linkCount": 35
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=1&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=1&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/30-order-list-html-np-1-keywords-search-stat-search-seller-search-cat1-search-cat2.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order_link-list.html?np=1&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order_link-list.html?np=1&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/31-order-link-list-html-np-1-keywords-search-stat-search-seller-search-cat1-search-.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/product_list.html?search_seller=4",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/product_list.html?search_seller=4",
+      "title": "404 Not Found",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/32-product-list-html-search-seller-4.jpg",
+      "linkCount": 0
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/product_list.html?search_seller=2",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/product_list.html?search_seller=2",
+      "title": "404 Not Found",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/33-product-list-html-search-seller-2.jpg",
+      "linkCount": 0
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=2&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=2&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/34-order-list-html-np-2-keywords-search-stat-search-seller-search-cat1-search-cat2.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=3&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=3&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/35-order-list-html-np-3-keywords-search-stat-search-seller-search-cat1-search-cat2.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=4&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=4&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/36-order-list-html-np-4-keywords-search-stat-search-seller-search-cat1-search-cat2.jpg",
+      "linkCount": 25
+    },
+    {
+      "url": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=5&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "ok": true,
+      "finalUrl": "http://www.kcsvc.co.kr/bonbu_new/order-list.html?np=5&keywords=&search_stat=&search_seller=&search_cat1=&search_cat2=",
+      "title": "订单记录 — SJ Hub 管理后台",
+      "loggedIn": true,
+      "file": "/Users/seonggyeongcho/Documents/Codex/2026-07-23/http-www-kcsvc-co-kr-bonbu/outputs/kcsvc-screenshots/37-order-list-html-np-5-keywords-search-stat-search-seller-search-cat1-search-cat2.jpg",
+      "linkCount": 25
+    }
+  ]
+}
