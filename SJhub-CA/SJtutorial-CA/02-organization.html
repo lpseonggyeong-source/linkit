@@ -17,7 +17,7 @@
   <div class="chapter-header">
     <div class="chapter-header__num">CHAPTER 2</div>
     <div class="chapter-header__name" data-i18n="chName">조직관리</div>
-    <div class="chapter-header__desc" data-i18n="chDesc">지사·총판·영업 조회 · 신규 등록 · 하위 조직 등록</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">총괄대리점·유통업체 조회 · 신규 등록 · 하위 조직 등록</div>
   </div>
 
   <div class="inner-tabs">
@@ -25,6 +25,7 @@
     <div class="inner-tab" onclick="switchTab('list',this)" data-i18n="tab1">조직 목록</div>
     <div class="inner-tab" onclick="switchTab('register',this)" data-i18n="tab2">조직 등록</div>
     <div class="inner-tab" onclick="switchTab('sub',this)" data-i18n="tab3">하위 조직 등록</div>
+    <div class="inner-tab" onclick="switchTab('store',this)" data-i18n="tab4">상점 등록</div>
   </div>
 
   <div class="tab-pane active" id="tab-hier">
@@ -33,7 +34,7 @@
         <span class="step-pill c-orange">1</span>
         <div>
           <div class="sec-title sec-title--lg" data-i18n="h1title">조직 위계 이해하기</div>
-          <div class="sec-goal" data-i18n="h1goal">CA 아래 영업 조직은 최대 3단계입니다. 상점(대리점)을 관리하기 전에 먼저 이 구조부터 이해하세요.</div>
+          <div class="sec-goal" data-i18n="h1goal">CA 아래 영업 조직은 최대 2단계입니다. 상점(대리점)을 관리하기 전에 먼저 이 구조부터 이해하세요.</div>
         </div>
       </div>
       <div class="sec-body--single">
@@ -41,14 +42,13 @@
           <table class="ref-table">
             <thead><tr><th data-i18n="hth1">단계</th><th data-i18n="hth2">한국어</th><th data-i18n="hth3">중文</th><th data-i18n="hth4">역할</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>지사</td><td>分公司</td><td data-i18n="hr1">CA 바로 아래 조직. 총판과 영업을 만들고 관리합니다.</td></tr>
-              <tr><td>2</td><td>총판</td><td>总代理</td><td data-i18n="hr2">지사 아래 조직. 소속 영업과 상점의 정산 흐름을 관리합니다.</td></tr>
-              <tr><td>3</td><td>영업</td><td>营业员</td><td data-i18n="hr3">현장에서 상점을 직접 등록하고 관리하는 실무 조직입니다.</td></tr>
+              <tr><td>1</td><td>총괄대리점</td><td>总代理</td><td data-i18n="hr1">CA 바로 아래 조직. 유통업체를 만들고 관리합니다.</td></tr>
+              <tr><td>2</td><td>유통업체</td><td>代理商</td><td data-i18n="hr2">총괄대리점 아래 조직. 현장에서 상점을 직접 등록하고 관리하는 실무 조직입니다.</td></tr>
             </tbody>
           </table>
         </div>
         <div class="notice tip">
-          <p data-i18n="htip">세 단계 모두 있어야 하는 것은 아닙니다. 지사 없이 총판만 있거나, 총판 없이 지사 밑에 바로 영업이 연결될 수도 있습니다. 실제 상점(매장)은 이 챕터가 아니라 <a href="03-store.html">상점관리</a>에서 별도로 등록합니다.</p>
+          <p data-i18n="htip">두 단계 모두 있어야 하는 것은 아닙니다. 총괄대리점 없이 유통업체만 있거나, 유통업체 없이 총괄대리점 밑에 바로 상점이 연결될 수도 있습니다. 실제 상점(매장)은 이 챕터가 아니라 <a href="03-store.html">상점관리</a>에서 별도로 등록합니다.</p>
         </div>
       </div>
     </section>
@@ -60,7 +60,7 @@
         <span class="step-pill c-orange">1</span>
         <div>
           <div class="sec-title sec-title--lg" data-i18n="l1title">조직 목록 화면 (组织列表)</div>
-          <div class="sec-goal" data-i18n="l1goal">등록된 모든 지사·총판·영업을 조회하고, 여기서 하위 조직·상점 등록, 수정·삭제까지 처리합니다.</div>
+          <div class="sec-goal" data-i18n="l1goal">등록된 모든 총괄대리점·유통업체를 조회하고, 여기서 하위 조직·상점 등록, 수정·삭제까지 처리합니다.</div>
         </div>
       </div>
       <div class="sec-body">
@@ -77,21 +77,21 @@
             <div class="how-num c-orange">1</div>
             <div class="how-body">
               <div class="how-action" data-i18n="l1h1a">검색 필터로 좁혀보기</div>
-              <div class="how-desc" data-i18n="l1h1d">승인상태(전체/승인/신청중/정지), 조직구분(전체/지사/총판/영업), 명칭·계정 검색어로 원하는 조직만 걸러볼 수 있습니다.</div>
+              <div class="how-desc" data-i18n="l1h1d">승인상태(전체/승인/신청중/정지), 조직구분(전체/총괄대리점/유통업체), 명칭·계정 검색어로 원하는 조직만 걸러볼 수 있습니다.</div>
             </div>
           </div>
           <div class="how-item">
             <div class="how-num c-orange">2</div>
             <div class="how-body">
               <div class="how-action" data-i18n="l1h2a">테이블에서 상태 확인</div>
-              <div class="how-desc" data-i18n="l1h2d">유형(지사/총판/영업), 소속 상위조직, 명칭·계정, 활동상태, 수수료비율, 정산주기, 등록일을 확인합니다.</div>
+              <div class="how-desc" data-i18n="l1h2d">유형(총괄대리점/유통업체), 소속 상위조직, 명칭·계정, 활동상태, 정산주기, 등록일을 확인합니다. 이 조직이 실제로 가져가는 수수료비율은 이 목록이 아니라, 이 조직 산하로 <a href="#tab-list">상점을 등록할 때</a> 상점마다 설정됩니다.</div>
             </div>
           </div>
           <div class="how-item">
             <div class="how-num c-orange">3</div>
             <div class="how-body">
               <div class="how-action" data-i18n="l1h3a">행별 관리 버튼 사용</div>
-              <div class="how-desc" data-i18n="l1h3d">지사 행에는 "하위 총판 등록"·"하위 영업 등록"이, 총판 행에는 "하위 영업 등록"만 보입니다. "수정/상세"로 정보를 고치고, "삭제"로 제거합니다(되돌릴 수 없음).</div>
+              <div class="how-desc" data-i18n="l1h3d">총괄대리점 행에는 "하위 유통업체 등록" 버튼이 보이고, 유통업체는 최하위 조직이라 하위 등록 버튼이 없습니다. "수정/상세"로 정보를 고치고, "삭제"로 제거합니다(되돌릴 수 없음).</div>
             </div>
           </div>
         </div>
@@ -102,8 +102,13 @@
       <div class="sec-header">
         <span class="step-pill c-orange">2</span>
         <div>
-          <div class="sec-title" data-i18n="l2title">"상점 등록" 버튼 이용 시 참고사항</div>
-          <div class="sec-goal" data-i18n="l2goal">행마다 있는 파란색 "상점 등록(注册品牌)" 버튼은 경로 설정 오류로 현재 다른 화면으로 연결됩니다.</div>
+          <div class="sec-title" data-i18n="l2title">"상점 등록" 버튼 — 영업조직 산하 브랜드를 붙이는 유일한 경로</div>
+          <div class="sec-goal" data-i18n="l2goal">총괄대리점·유통업체 밑에 새 브랜드(상점)를 붙이려면, <a href="03-store.html#tab-register">상점관리 &gt; 상점등록</a> 탭이 아니라 반드시 이 조직 목록 행의 파란색 "상점 등록(注册商店)" 버튼을 사용해야 합니다.</div>
+        </div>
+      </div>
+      <div class="sec-body--single">
+        <div class="notice tip">
+          <p data-i18n="l2note1">이 버튼으로 여는 등록 화면의 상세 설명(상위조직 자동 고정, 수수료 입력란, 영업수익률 자동 계산 등)은 <a href="#tab-store">"상점 등록" 탭</a>에서 다룹니다.</p>
         </div>
       </div>
     </section>
@@ -115,7 +120,7 @@
         <span class="step-pill c-orange">1</span>
         <div>
           <div class="sec-title sec-title--lg" data-i18n="r1title">기본정보 & 기업정보 입력</div>
-          <div class="sec-goal" data-i18n="r1goal">CA 바로 아래에 새 지사·총판·영업을 등록합니다. 여기서 등록하면 항상 CA 직속으로 생성됩니다.</div>
+          <div class="sec-goal" data-i18n="r1goal">새 총괄대리점·유통업체를 등록합니다. 특정 상위 조직 밑에 바로 연결해서 등록하려면 이 탭이 아니라 <a href="#tab-list">조직 목록</a>에서 상위 조직 행의 "하위 조직 등록" 버튼을 사용하세요.</div>
         </div>
       </div>
       <div class="sec-body">
@@ -132,7 +137,7 @@
           <div class="divider"></div>
           <div class="how-item">
             <div class="how-num c-orange">1</div>
-            <div class="how-body"><div class="how-action" data-i18n="r1h1a">유형 선택 (필수)</div><div class="how-desc" data-i18n="r1h1d">지사/총판/영업 중 하나를 고릅니다. 명칭·로그인 계정·비밀번호도 함께 입력합니다(모두 필수).</div></div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h1a">유형 선택 (필수)</div><div class="how-desc" data-i18n="r1h1d">총괄대리점/유통업체 중 하나를 고릅니다. 명칭·로그인 계정·비밀번호도 함께 입력합니다(모두 필수).</div></div>
           </div>
           <div class="how-item">
             <div class="how-num c-orange">2</div>
@@ -144,14 +149,14 @@
           </div>
           <div class="how-item">
             <div class="how-num c-orange">4</div>
-            <div class="how-body"><div class="how-action" data-i18n="r1h4a">수수료비율 · 정산주기 설정</div><div class="how-desc" data-i18n="r1h4d">선택 항목이지만, 정산 계산에 바로 쓰이는 핵심 값입니다. 나중에 "수정/상세"에서 바꿀 수 있습니다.</div></div>
+            <div class="how-body"><div class="how-action" data-i18n="r1h4a">정산주기 설정</div><div class="how-desc" data-i18n="r1h4d">선택 항목입니다. <strong>수수료비율은 이 화면에서 입력하지 않습니다</strong> — 이 조직이 실제로 가져갈 몫은 이 조직 산하에 <a href="#tab-list">조직 목록의 "상점 등록" 버튼</a>으로 상점을 등록할 때 정해집니다.</div></div>
           </div>
           <div class="how-item">
             <div class="how-num c-orange">5</div>
             <div class="how-body"><div class="how-action" data-i18n="r1h5a">제출하기</div><div class="how-desc" data-i18n="r1h5d">"제출"을 누르면 확인창이 뜨고, 확인하면 즉시 등록됩니다. "취소"를 누르면 조직 목록으로 돌아갑니다.</div></div>
           </div>
           <div class="notice info">
-            <p data-i18n="r1info">💬 등록 안내 문구(실제 화면): "여기서 등록하시면 운영사(CA)와 바로 연결됩니다. 특정 지사·총판 밑에 연결하려면, 등록 후 조직 목록에서 연결해야 합니다."</p>
+            <p data-i18n="r1info">💬 이 탭에서는 상위 조직을 지정하지 않고 등록합니다. 등록 후 특정 총괄대리점 밑에 연결하려면 <a href="#tab-list">조직 목록</a>에서 별도로 연결 작업을 해야 합니다.</p>
           </div>
         </div>
       </div>
@@ -164,7 +169,7 @@
         <span class="step-pill c-orange">1</span>
         <div>
           <div class="sec-title sec-title--lg" data-i18n="s1title">하위 조직 등록하기</div>
-          <div class="sec-goal" data-i18n="s1goal">지사 밑에 총판을, 총판(또는 지사) 밑에 영업을 새로 만들려면 "조직 등록" 탭이 아니라 조직 목록 화면의 버튼을 사용해야 합니다.</div>
+          <div class="sec-goal" data-i18n="s1goal">총괄대리점 밑에 유통업체를 새로 만들려면 "조직 등록" 탭이 아니라 조직 목록 화면의 버튼을 사용해야 합니다.</div>
         </div>
       </div>
       <div class="sec-body">
@@ -181,7 +186,7 @@
           <div class="divider"></div>
           <div class="how-item">
             <div class="how-num c-orange">1</div>
-            <div class="how-body"><div class="how-action" data-i18n="s1h1a">목록에서 상위 조직 행의 버튼 클릭</div><div class="how-desc" data-i18n="s1h1d"><a href="02-organization.html#sec-list">조직 목록</a> 탭에서 상위가 될 조직(지사 또는 총판)의 행을 찾아 "하위 총판 등록" 또는 "하위 영업 등록" 버튼을 누릅니다.</div></div>
+            <div class="how-body"><div class="how-action" data-i18n="s1h1a">목록에서 상위 조직 행의 버튼 클릭</div><div class="how-desc" data-i18n="s1h1d"><a href="02-organization.html#tab-list">조직 목록</a> 탭에서 상위가 될 총괄대리점의 행을 찾아 "하위 유통업체 등록" 버튼을 누릅니다.</div></div>
           </div>
           <div class="how-item">
             <div class="how-num c-orange">2</div>
@@ -189,6 +194,55 @@
           </div>
           <div class="notice tip">
             <p data-i18n="s1tip"><strong>용어 안내</strong> — 이 화면에서는 "유형" 항목이 "구분"이라는 이름으로 표시될 수 있습니다. 같은 항목을 가리키는 다른 표기이니 혼동하지 마세요.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tab-pane" id="tab-store">
+    <section class="guide-section">
+      <div class="sec-header">
+        <span class="step-pill c-orange">1</span>
+        <div>
+          <div class="sec-title sec-title--lg" data-i18n="st1title">영업조직 산하 상점 등록하기</div>
+          <div class="sec-goal" data-i18n="st1goal"><a href="#tab-list">조직 목록</a> 탭에서 총괄대리점·유통업체 행의 파란색 "상점 등록" 버튼을 누르면 열리는 화면입니다. 여기서 설정하는 수수료가 그 조직이 실제로 가져갈 몫으로 정산에 반영됩니다.</div>
+        </div>
+      </div>
+      <div class="sec-body">
+        <div class="img-wrap">
+          <img src="screen_captures/19_store_register_org_single.jpg" alt="영업조직 산하 상점 등록 화면" />
+          <div class="callout" style="left:21.5%;top:20%;background:#ea580c">1</div>
+          <div class="callout" style="left:49%;top:66.4%;background:#ea580c">2</div>
+          <div class="callout" style="left:21.4%;top:74.1%;background:#ea580c">3</div>
+          <div class="callout" style="left:47%;top:74.1%;background:#ea580c">4</div>
+          <div class="callout" style="left:71.5%;top:73.5%;background:#ea580c">5</div>
+        </div>
+        <div>
+          <div class="how-title">사용 방법</div>
+          <div class="divider"></div>
+          <div class="how-item">
+            <div class="how-num c-orange">1</div>
+            <div class="how-body"><div class="how-action" data-i18n="st1h1a">소속 상위조직 자동 고정</div><div class="how-desc" data-i18n="st1h1d">어느 조직 행에서 눌렀는지에 따라 "소속 상위" 항목에 그 조직명이 읽기전용으로 미리 표시됩니다(예시 화면: "Test-commission/settlement_01 (总代理)"). 이 화면에서는 상위조직을 바꾸거나 지울 수 없습니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">2</div>
+            <div class="how-body"><div class="how-action" data-i18n="st1h2a">유보금비율·유보금한도·정산주기 설정</div><div class="how-desc" data-i18n="st1h2d">사이드바 상점등록 화면과 동일한 항목입니다. 유보금비율(판매 건당 원천징수 비율), 유보금 한도액, 정산주기를 설정합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">3</div>
+            <div class="how-body"><div class="how-action" data-i18n="st1h3a">플랫폼수수료 입력</div><div class="how-desc" data-i18n="st1h3d">이 상점이 플랫폼 이용 대가로 낼 수수료율입니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">4</div>
+            <div class="how-body"><div class="how-action" data-i18n="st1h4a">상위조직 수수료 입력</div><div class="how-desc" data-i18n="st1h4d">라벨에 그 조직명이 괄호로 표시됩니다(예시: "所属分公司(Test-commission/settlement_01)手续费"). 이 조직이 총괄대리점 하나뿐인 체인이면 이 칸 1개만 나타나고, 총괄대리점 밑에 유통업체까지 연결된 체인이면 <strong>칸이 하나 더 늘어나 두 조직의 수수료를 각각 입력</strong>합니다.</div></div>
+          </div>
+          <div class="how-item">
+            <div class="how-num c-orange">5</div>
+            <div class="how-body"><div class="how-action" data-i18n="st1h5a">영업수익률 자동 계산 확인</div><div class="how-desc" data-i18n="st1h5d">플랫폼수수료와 상위조직 수수료를 입력하면, PG수수료(3.52%)까지 제외한 값이 이 칸에 실시간으로 자동 계산되어 표시됩니다. 직접 입력하는 칸이 아니라 결과만 보여주는 칸입니다.</div></div>
+          </div>
+          <div class="notice tip">
+            <p data-i18n="st1note1"><strong>(혼동 주의) 등록 경로는 두 가지로 나뉩니다</strong><br>· CA(운영사) 직속 브랜드 → <a href="03-store.html#tab-register">사이드바 상점관리 &gt; 상점등록</a> 탭에서 등록 (상위조직 수수료 칸 없음)<br>· 총괄대리점·유통업체 산하 브랜드 → 이 화면(조직 목록의 "상점 등록" 버튼)으로 등록 (상위조직 수수료 칸 있음)</p>
           </div>
         </div>
       </div>
@@ -208,45 +262,58 @@
 <script>
 window.I18N = {
   chName: { ko: "조직관리", zh: "组织管理" },
-  chDesc: { ko: "지사·총판·영업 조회 · 신규 등록 · 하위 조직 등록", zh: "查询分公司/总代理/营业员 · 新建登记 · 登记下级组织" },
-  tab0: { ko: "조직 위계", zh: "组织层级" }, tab1: { ko: "조직 목록", zh: "组织列表" }, tab2: { ko: "조직 등록", zh: "注册组织" }, tab3: { ko: "하위 조직 등록", zh: "登记下级组织" },
+  chDesc: { ko: "총괄대리점·유통업체 조회 · 신규 등록 · 하위 조직 등록", zh: "查询总代理/代理商 · 新建登记 · 登记下级组织" },
+  tab0: { ko: "조직 위계", zh: "组织层级" }, tab1: { ko: "조직 목록", zh: "组织列表" }, tab2: { ko: "조직 등록", zh: "注册组织" }, tab3: { ko: "하위 조직 등록", zh: "登记下级组织" }, tab4: { ko: "상점 등록", zh: "注册商店" },
   h1title: { ko: "조직 위계 이해하기", zh: "了解组织层级" },
-  h1goal: { ko: "CA 아래 영업 조직은 최대 3단계입니다. 상점(대리점)을 관리하기 전에 먼저 이 구조부터 이해하세요.", zh: "CA下属销售组织最多分为3级。在管理商店之前，请先了解此结构。" },
+  h1goal: { ko: "CA 아래 영업 조직은 최대 2단계입니다. 상점(대리점)을 관리하기 전에 먼저 이 구조부터 이해하세요.", zh: "CA下属销售组织最多分为2级。在管理商店之前，请先了解此结构。" },
   hth1: { ko: "단계", zh: "级别" }, hth2: { ko: "한국어", zh: "韩语名称" }, hth3: { ko: "중文", zh: "中文名称" }, hth4: { ko: "역할", zh: "职责" },
-  hr1: { ko: "CA 바로 아래 조직. 총판과 영업을 만들고 관리합니다.", zh: "CA直属一级组织，可创建并管理总代理和业务员。" },
-  hr2: { ko: "지사 아래 조직. 소속 영업과 상점의 정산 흐름을 관리합니다.", zh: "分公司下属组织，管理所属业务员和商店的结算流程。" },
-  hr3: { ko: "현장에서 상점을 직접 등록하고 관리하는 실무 조직입니다.", zh: "在现场直接登记和管理商店的实务组织。" },
-  htip: { ko: '세 단계 모두 있어야 하는 것은 아닙니다. 지사 없이 총판만 있거나, 총판 없이 지사 밑에 바로 영업이 연결될 수도 있습니다. 실제 상점(매장)은 이 챕터가 아니라 <a href="03-store.html">상점관리</a>에서 별도로 등록합니다.', zh: '不是三级都必须存在。可以只有总代理没有分公司，也可以没有总代理而由分公司直接连接业务员。实际商店需在<a href="03-store.html">商店管理</a>章节中单独登记，不在本章处理。' },
+  hr1: { ko: "CA 바로 아래 조직. 유통업체를 만들고 관리합니다.", zh: "CA直属组织，可创建并管理代理商。" },
+  hr2: { ko: "총괄대리점 아래 조직. 현장에서 상점을 직접 등록하고 관리하는 실무 조직입니다.", zh: "总代理下属组织，在现场直接登记和管理商店的实务组织。" },
+  htip: { ko: '두 단계 모두 있어야 하는 것은 아닙니다. 총괄대리점 없이 유통업체만 있거나, 유통업체 없이 총괄대리점 밑에 바로 상점이 연결될 수도 있습니다. 실제 상점(매장)은 이 챕터가 아니라 <a href="03-store.html">상점관리</a>에서 별도로 등록합니다.', zh: '不是两级都必须存在。可以只有代理商没有总代理，也可以没有代理商而由总代理直接连接商店。实际商店需在<a href="03-store.html">商店管理</a>章节中单独登记，不在本章处理。' },
   l1title: { ko: "조직 목록 화면 (组织列表)", zh: "组织列表画面" },
-  l1goal: { ko: "등록된 모든 지사·총판·영업을 조회하고, 여기서 하위 조직·상점 등록, 수정·삭제까지 처리합니다.", zh: "查询所有已登记的分公司/总代理/营业员，并可在此登记下级组织、登记商店、编辑、删除。" },
+  l1goal: { ko: "등록된 모든 총괄대리점·유통업체를 조회하고, 여기서 하위 조직·상점 등록, 수정·삭제까지 처리합니다.", zh: "查询所有已登记的总代理/代理商，并可在此登记下级组织、登记商店、编辑、删除。" },
   l1h1a: { ko: "검색 필터로 좁혀보기", zh: "使用搜索筛选缩小范围" },
-  l1h1d: { ko: "승인상태(전체/승인/신청중/정지), 조직구분(전체/지사/총판/영업), 명칭·계정 검색어로 원하는 조직만 걸러볼 수 있습니다.", zh: "可通过审批状态（全部/已批准/申请中/停止）、组织类型（全部/分公司/总代理/营业员）、名称·账号关键词筛选出所需组织。" },
+  l1h1d: { ko: "승인상태(전체/승인/신청중/정지), 조직구분(전체/총괄대리점/유통업체), 명칭·계정 검색어로 원하는 조직만 걸러볼 수 있습니다.", zh: "可通过审批状态（全部/已批准/申请中/停止）、组织类型（全部/总代理/代理商）、名称·账号关键词筛选出所需组织。" },
   l1h2a: { ko: "테이블에서 상태 확인", zh: "在列表中确认状态" },
-  l1h2d: { ko: "유형(지사/총판/영업), 소속 상위조직, 명칭·계정, 활동상태, 수수료비율, 정산주기, 등록일을 확인합니다.", zh: "可查看类型（分公司/总代理/营业员）、所属上级组织、名称·账号、活动状态、佣金比例、清算周期、注册日期。" },
+  l1h2d: { ko: '유형(총괄대리점/유통업체), 소속 상위조직, 명칭·계정, 활동상태, 정산주기, 등록일을 확인합니다. 이 조직이 실제로 가져가는 수수료비율은 이 목록이 아니라, 이 조직 산하로 <a href="#tab-list">상점을 등록할 때</a> 상점마다 설정됩니다.', zh: '可查看类型（总代理/代理商）、所属上级组织、名称·账号、活动状态、清算周期、注册日期。该组织实际获得的佣金比例不在此列表显示，而是在该组织下<a href="#tab-list">登记商店时</a>按每个商店分别设置。' },
   l1h3a: { ko: "행별 관리 버튼 사용", zh: "使用每行的管理按钮" },
-  l1h3d: { ko: '지사 행에는 "하위 총판 등록"·"하위 영업 등록"이, 총판 행에는 "하위 영업 등록"만 보입니다. "수정/상세"로 정보를 고치고, "삭제"로 제거합니다(되돌릴 수 없음).', zh: '分公司行显示"注册下级总代理""注册下级营业员"，总代理行只显示"注册下级营业员"。可通过"修改/详情"编辑信息，"删除"移除（无法恢复）。' },
-  l2title: { ko: '"상점 등록" 버튼 이용 시 참고사항', zh: '关于"注册品牌"按钮的说明' },
-  l2goal: { ko: '행마다 있는 파란색 "상점 등록(注册品牌)" 버튼은 경로 설정 오류로 현재 다른 화면으로 연결됩니다.', zh: '每行的蓝色"注册品牌"按钮因路径设置错误，目前会跳转到其他画面。' },
+  l1h3d: { ko: '총괄대리점 행에는 "하위 유통업체 등록" 버튼이 보이고, 유통업체는 최하위 조직이라 하위 등록 버튼이 없습니다. "수정/상세"로 정보를 고치고, "삭제"로 제거합니다(되돌릴 수 없음).', zh: '总代理行显示"注册下级代理商"按钮，代理商为最下级组织，没有下级注册按钮。可通过"修改/详情"编辑信息，"删除"移除（无法恢复）。' },
+  l2title: { ko: '"상점 등록" 버튼 — 영업조직 산하 브랜드를 붙이는 유일한 경로', zh: '"注册商店"按钮 — 在销售组织下挂接品牌的唯一途径' },
+  l2goal: { ko: '총괄대리점·유통업체 밑에 새 브랜드(상점)를 붙이려면, <a href="03-store.html#tab-register">상점관리 &gt; 상점등록</a> 탭이 아니라 반드시 이 조직 목록 행의 파란색 "상점 등록(注册商店)" 버튼을 사용해야 합니다.', zh: '要在总代理、代理商下挂接新品牌（商店），不能使用<a href="03-store.html#tab-register">商店管理 &gt; 商店注册</a>标签页，必须使用该组织列表行中的蓝色"注册商店"按钮。' },
+  l2note1: { ko: '이 버튼으로 여는 등록 화면의 상세 설명(상위조직 자동 고정, 수수료 입력란, 영업수익률 자동 계산 등)은 <a href="#tab-store">"상점 등록" 탭</a>에서 다룹니다.', zh: '此按钮打开的注册画面的详细说明（上级组织自动锁定、手续费输入项、营业收益率自动计算等）请见<a href="#tab-store">"注册商店"标签页</a>。' },
   r1title: { ko: "기본정보 & 기업정보 입력", zh: "填写基本信息和企业信息" },
-  r1goal: { ko: "CA 바로 아래에 새 지사·총판·영업을 등록합니다. 여기서 등록하면 항상 CA 직속으로 생성됩니다.", zh: "在CA直属下登记新的分公司/总代理/营业员。在此登记的组织始终作为CA直属组织创建。" },
+  r1goal: { ko: '새 총괄대리점·유통업체를 등록합니다. 특정 상위 조직 밑에 바로 연결해서 등록하려면 이 탭이 아니라 <a href="#tab-list">조직 목록</a>에서 상위 조직 행의 "하위 조직 등록" 버튼을 사용하세요.', zh: '登记新的总代理/代理商。如需直接关联到特定上级组织下登记，请勿使用此标签页，应在<a href="#tab-list">组织列表</a>中使用上级组织所在行的"注册下级组织"按钮。' },
   r1h1a: { ko: "유형 선택 (필수)", zh: "选择类型（必填）" },
-  r1h1d: { ko: "지사/총판/영업 중 하나를 고릅니다. 명칭·로그인 계정·비밀번호도 함께 입력합니다(모두 필수).", zh: "从分公司/总代理/营业员中选择一项。同时填写名称、登录账号、密码（均为必填）。" },
+  r1h1d: { ko: "총괄대리점/유통업체 중 하나를 고릅니다. 명칭·로그인 계정·비밀번호도 함께 입력합니다(모두 필수).", zh: "从总代理/代理商中选择一项。同时填写名称、登录账号、密码（均为必填）。" },
   r1h2a: { ko: "비밀번호 입력 시 주의", zh: "输入密码时的注意事项" },
   r1h2d: { ko: "로그인 비밀번호 칸은 화면에 글자가 그대로 보이는 형태(마스킹 없음)입니다. 다른 사람이 볼 수 있는 환경에서는 주의하세요.", zh: "登录密码输入框会以明文显示（未做遮罩）。在他人可能看到屏幕的环境下请注意。" },
   r1h3a: { ko: "기업정보 입력", zh: "填写企业信息" },
   r1h3d: { ko: "기업명·영업허가증번호(숫자만)·은행명·계좌번호(숫자만)·예금주는 필수, 대표자명·연락처·이메일·주소는 선택입니다.", zh: "企业名称、营业执照号码（仅数字）、银行名称、账号（仅数字）、存折名义人为必填，法人姓名、联系电话、E-mail、地址为选填。" },
-  r1h4a: { ko: "수수료비율 · 정산주기 설정", zh: "设置佣金比例与清算周期" },
-  r1h4d: { ko: '선택 항목이지만, 정산 계산에 바로 쓰이는 핵심 값입니다. 나중에 "수정/상세"에서 바꿀 수 있습니다.', zh: '虽为选填项，但是结算计算直接使用的核心数值。之后可在"修改/详情"中更改。' },
+  r1h4a: { ko: "정산주기 설정", zh: "设置清算周期" },
+  r1h4d: { ko: '선택 항목입니다. <strong>수수료비율은 이 화면에서 입력하지 않습니다</strong> — 이 조직이 실제로 가져갈 몫은 이 조직 산하에 <a href="#tab-list">조직 목록의 "상점 등록" 버튼</a>으로 상점을 등록할 때 정해집니다.', zh: '为选填项。<strong>佣金比例不在此画面填写</strong>——该组织实际获得的份额，是通过<a href="#tab-list">组织列表的"注册商店"按钮</a>在该组织下登记商店时确定的。' },
   r1h5a: { ko: "제출하기", zh: "提交" },
   r1h5d: { ko: '"제출"을 누르면 확인창이 뜨고, 확인하면 즉시 등록됩니다. "취소"를 누르면 조직 목록으로 돌아갑니다.', zh: '点击"提交"会弹出确认框，确认后立即完成注册。点击"取消"将返回组织列表。' },
-  r1info: { ko: '💬 등록 안내 문구(실제 화면): "여기서 등록하시면 운영사(CA)와 바로 연결됩니다. 특정 지사·총판 밑에 연결하려면, 등록 후 조직 목록에서 연결해야 합니다."', zh: '💬 注册说明（画面原文）："在此注册后，将直接与运营公司（CA）关联。如需关联到特定分公司或总代理下，请在注册后前往组织列表进行关联。"' },
+  r1info: { ko: '💬 이 탭에서는 상위 조직을 지정하지 않고 등록합니다. 등록 후 특정 총괄대리점 밑에 연결하려면 <a href="#tab-list">조직 목록</a>에서 별도로 연결 작업을 해야 합니다.', zh: '💬 此标签页登记时不指定上级组织。登记后如需关联到特定总代理下，须在<a href="#tab-list">组织列表</a>中另行进行关联操作。' },
   s1title: { ko: "하위 조직 등록하기", zh: "登记下级组织" },
-  s1goal: { ko: '지사 밑에 총판을, 총판(또는 지사) 밑에 영업을 새로 만들려면 "조직 등록" 탭이 아니라 조직 목록 화면의 버튼을 사용해야 합니다.', zh: '要在分公司下新建总代理，或在总代理（或分公司）下新建业务员，不能使用"注册组织"标签页，而应使用组织列表画面中的按钮。' },
+  s1goal: { ko: '총괄대리점 밑에 유통업체를 새로 만들려면 "조직 등록" 탭이 아니라 조직 목록 화면의 버튼을 사용해야 합니다.', zh: '要在总代理下新建代理商，不能使用"注册组织"标签页，而应使用组织列表画面中的按钮。' },
   s1h1a: { ko: "목록에서 상위 조직 행의 버튼 클릭", zh: "在列表中点击上级组织行的按钮" },
-  s1h1d: { ko: '<a href="02-organization.html#sec-list">조직 목록</a> 탭에서 상위가 될 조직(지사 또는 총판)의 행을 찾아 "하위 총판 등록" 또는 "하위 영업 등록" 버튼을 누릅니다.', zh: '在<a href="02-organization.html#sec-list">组织列表</a>标签页中找到将作为上级的组织（分公司或总代理）所在行，点击"注册下级总代理"或"注册下级营业员"按钮。' },
+  s1h1d: { ko: '<a href="02-organization.html#tab-list">조직 목록</a> 탭에서 상위가 될 총괄대리점의 행을 찾아 "하위 유통업체 등록" 버튼을 누릅니다.', zh: '在<a href="02-organization.html#tab-list">组织列表</a>标签页中找到将作为上级的总代理所在行，点击"注册下级代理商"按钮。' },
   s1h2a: { ko: "나머지 정보 입력", zh: "填写其余信息" },
   s1h2d: { ko: '상위조직이 이미 선택된 상태로 등록 화면이 열립니다. 나머지 항목은 "조직 등록" 탭과 동일하게 입력합니다.', zh: '打开的注册画面中上级组织已预先选定。其余项目按与"注册组织"标签页相同的方式填写。' },
   s1tip: { ko: '<strong>용어 안내</strong> — 이 화면에서는 "유형" 항목이 "구분"이라는 이름으로 표시될 수 있습니다. 같은 항목을 가리키는 다른 표기이니 혼동하지 마세요.', zh: '<strong>用语提示</strong> — 此画面中"类型"项目可能显示为"区分"。两者含义相同，只是表述不同，请勿混淆。' },
+  st1title: { ko: "영업조직 산하 상점 등록하기", zh: "在销售组织下登记商店" },
+  st1goal: { ko: '<a href="#tab-list">조직 목록</a> 탭에서 총괄대리점·유통업체 행의 파란색 "상점 등록" 버튼을 누르면 열리는 화면입니다. 여기서 설정하는 수수료가 그 조직이 실제로 가져갈 몫으로 정산에 반영됩니다.', zh: '在<a href="#tab-list">组织列表</a>标签页中，点击总代理、代理商所在行的蓝色"注册商店"按钮后打开的画面。在此设置的手续费，会作为该组织实际获得的份额反映到结算中。' },
+  st1h1a: { ko: "소속 상위조직 자동 고정", zh: "所属上级组织自动锁定" },
+  st1h1d: { ko: '어느 조직 행에서 눌렀는지에 따라 "소속 상위" 항목에 그 조직명이 읽기전용으로 미리 표시됩니다(예시 화면: "Test-commission/settlement_01 (总代理)"). 이 화면에서는 상위조직을 바꾸거나 지울 수 없습니다.', zh: '根据点击的是哪个组织所在行，"所属上级"项目会自动以只读形式预先显示该组织名称（示例画面："Test-commission/settlement_01 (总代理)"）。此画面中无法更改或清除上级组织。' },
+  st1h2a: { ko: "유보금비율·유보금한도·정산주기 설정", zh: "设置留存金比例、留存金限额、清算周期" },
+  st1h2d: { ko: "사이드바 상점등록 화면과 동일한 항목입니다. 유보금비율(판매 건당 원천징수 비율), 유보금 한도액, 정산주기를 설정합니다.", zh: "与侧边栏商店注册画面相同的项目。设置留存金比例（按每笔销售预扣的比例）、留存金限额、清算周期。" },
+  st1h3a: { ko: "플랫폼수수료 입력", zh: "填写平台手续费" },
+  st1h3d: { ko: "이 상점이 플랫폼 이용 대가로 낼 수수료율입니다.", zh: "该商店为使用平台支付的手续费率。" },
+  st1h4a: { ko: "상위조직 수수료 입력", zh: "填写上级组织手续费" },
+  st1h4d: { ko: '라벨에 그 조직명이 괄호로 표시됩니다(예시: "所属分公司(Test-commission/settlement_01)手续费"). 이 조직이 총괄대리점 하나뿐인 체인이면 이 칸 1개만 나타나고, 총괄대리점 밑에 유통업체까지 연결된 체인이면 <strong>칸이 하나 더 늘어나 두 조직의 수수료를 각각 입력</strong>합니다.', zh: '标签中会用括号显示该组织名称（示例："所属分公司(Test-commission/settlement_01)手续费"）。若链条中只有总代理，只会出现这一栏；若总代理下还连接了代理商，<strong>会多出一栏，分别填写两个组织的手续费</strong>。' },
+  st1h5a: { ko: "영업수익률 자동 계산 확인", zh: "确认营业收益率自动计算" },
+  st1h5d: { ko: "플랫폼수수료와 상위조직 수수료를 입력하면, PG수수료(3.52%)까지 제외한 값이 이 칸에 실시간으로 자동 계산되어 표시됩니다. 직접 입력하는 칸이 아니라 결과만 보여주는 칸입니다.", zh: "填写平台手续费与上级组织手续费后，扣除PG手续费（3.52%）的数值会实时自动计算并显示在此栏。这不是可手动填写的栏位，只显示计算结果。" },
+  st1note1: { ko: '<strong>(혼동 주의) 등록 경로는 두 가지로 나뉩니다</strong><br>· CA(운영사) 직속 브랜드 → <a href="03-store.html#tab-register">사이드바 상점관리 &gt; 상점등록</a> 탭에서 등록 (상위조직 수수료 칸 없음)<br>· 총괄대리점·유통업체 산하 브랜드 → 이 화면(조직 목록의 "상점 등록" 버튼)으로 등록 (상위조직 수수료 칸 있음)', zh: '<strong>（注意区分）注册途径分为两种</strong><br>· CA（运营商）直属品牌 → 在<a href="03-store.html#tab-register">侧边栏商店管理 &gt; 商店注册</a>标签页登记（没有上级组织手续费栏）<br>· 总代理、代理商下属品牌 → 通过本画面（组织列表的"注册商店"按钮）登记（有上级组织手续费栏）' },
   navPrevSub: { ko: "이전 챕터", zh: "上一章" }, navPrevTitle: { ko: "1. 대시보드", zh: "1. 主页" },
   navNextSub: { ko: "다음 챕터", zh: "下一章" }, navNextTitle: { ko: "3. 상점관리", zh: "3. 商店管理" }
 };

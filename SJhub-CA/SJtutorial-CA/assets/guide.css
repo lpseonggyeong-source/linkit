@@ -201,6 +201,16 @@ table.ref-table{width:100%; border-collapse:collapse; font-size:13px}
 .term-item dt{font-weight:700; font-size:13.5px; color:#111; margin-bottom:3px}
 .term-item dd{margin:0; color:#777; font-size:12.8px; line-height:1.65}
 
+/* ═══ 업데이트 내역 (변경 이력 + 배경) ═══ */
+.log-list{display:flex; flex-direction:column}
+.log-entry{display:flex; gap:22px; padding:22px 0; border-top:1px solid #f0f0f0}
+.log-entry:first-child{border-top:none; padding-top:4px}
+.log-entry__date{flex-shrink:0; width:92px; font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace; font-size:11.5px; color:#999; padding-top:2px}
+.log-entry__title{font-size:15px; font-weight:700; color:#111; margin-bottom:7px}
+.log-entry__desc{font-size:13.3px; color:#555; line-height:1.75; margin-bottom:9px}
+.log-entry__why{font-size:12.5px; color:#888; line-height:1.65; background:#fafafa; border-radius:7px; padding:9px 12px; border:1px solid #f0f0f0}
+.log-entry__why strong{color:#555; font-weight:700}
+
 /* ═══ 챕터 색상 유틸 ═══ */
 .c-gray{background:#64748b} .c-orange{background:#ea580c} .c-blue{background:#2563eb}
 .c-slate{background:#475569} .c-red{background:#e62e21} .c-teal{background:#0d9488}

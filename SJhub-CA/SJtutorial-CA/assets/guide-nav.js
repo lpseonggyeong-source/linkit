@@ -14,7 +14,8 @@
   ];
 
   var APPENDIX = [
-    { ko: "정산 계산 공식 안내서", zh: "结算计算公式说明书", href: "09-settlement-formula.html", color: "#0d9488" }
+    { ko: "정산 계산 공식 안내서", zh: "结算计算公式说明书", href: "09-settlement-formula.html", color: "#0d9488" },
+    { ko: "업데이트 내역", zh: "更新记录", href: "10-update-log.html", color: "#94a3b8" }
   ];
 
   var currentFile = location.pathname.split("/").pop() || "index.html";

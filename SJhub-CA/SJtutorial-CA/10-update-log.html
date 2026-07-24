@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>업데이트 내역 — SJ Hub CA 사용설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/guide.css" />
+<style>:root{--accent:#94a3b8}</style>
+</head>
+<body>
+<div class="body-wrap">
+<div class="page-wrap">
+<div class="page">
+
+  <div class="chapter-header">
+    <div class="chapter-header__num">APPENDIX</div>
+    <div class="chapter-header__name" data-i18n="chName">업데이트 내역</div>
+    <div class="chapter-header__desc" data-i18n="chDesc">이 사용설명서가 어떤 순서로, 어떤 이유로 지금의 모습이 되었는지 정리했습니다. 최신 항목이 위에 있습니다.</div>
+  </div>
+
+  <section class="guide-section" id="sec-log">
+    <div class="sec-header">
+      <span class="step-pill" style="background:#94a3b8">·</span>
+      <div>
+        <div class="sec-title sec-title--lg" data-i18n="s1title">변경 이력</div>
+        <div class="sec-goal" data-i18n="s1goal">각 항목의 "배경" 문구는 왜 그렇게 바꿨는지를 설명합니다.</div>
+      </div>
+    </div>
+    <div class="sec-body--single">
+      <div class="log-list">
+
+        <div class="log-entry">
+          <div class="log-entry__date">2026-07-22</div>
+          <div>
+            <div class="log-entry__title" data-i18n="l1title">부록 "정산 계산 공식 안내서" 추가</div>
+            <div class="log-entry__desc" data-i18n="l1desc">별도로 만들어져 있던 정산 계산 공식 문서(결제금액이 상점·유보금·플랫폼수수료로 나뉘고, 다시 지사·총판·영업·운영사로 분배되는 전체 공식·사례·용어집)를 이 사용설명서와 같은 가이드 디자인으로 다시 만들어 <a href="09-settlement-formula.html">09-settlement-formula.html</a>로 추가했습니다. 좌측 사이드바에 "부록" 그룹을 새로 만들고, 표지와 정산관리 챕터에서 이 문서로 연결되는 링크를 달았습니다.</div>
+            <div class="log-entry__why" data-i18n="l1why"><strong>배경</strong> — 정산 화면에 나오는 숫자가 어떤 계산으로 나온 것인지 더 깊이 알고 싶을 때 참고할 수 있는 별도 문서가 필요했고, 기존 문서의 디자인을 이 설명서의 최신 디자인과 통일해달라는 요청이 있었습니다.</div>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-entry__date">2026-07-21</div>
+          <div>
+            <div class="log-entry__title" data-i18n="l2title">"상점 등록" 버튼 안내 문구 톤 완화</div>
+            <div class="log-entry__desc" data-i18n="l2desc">조직관리·상점관리 두 챕터에서 "이 버튼은 함정이니 사용하지 마세요" 식의 경고 문구를, "경로 설정 오류로 현재 번역되지 않은 화면으로 연결되며, 추후 업데이트로 수정될 예정"이라는 안내로 바꿨습니다.</div>
+            <div class="log-entry__why" data-i18n="l2why"><strong>배경</strong> — 실제로는 알려진 경로 설정 버그이고 곧 고쳐질 예정이므로, 강한 경고보다는 담담한 안내가 더 정확하다는 피드백을 반영했습니다.</div>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-entry__date">2026-07-21</div>
+          <div>
+            <div class="log-entry__title" data-i18n="l3title">대시보드 설명에서 기술적 세부사항 제거</div>
+            <div class="log-entry__desc" data-i18n="l3desc">대시보드 챕터의 "상점 선택 바" 설명 중 "선택하면 주소 끝에 ?search_member= 값이 붙으며 새로고침됩니다"라는 문구를 한국어·中文 버전 모두에서 삭제했습니다.</div>
+            <div class="log-entry__why" data-i18n="l3why"><strong>배경</strong> — 실제로 상점을 선택해 화면이 바뀌는 결과만 알면 되고, URL 파라미터 같은 내부 구현 방식은 최종 사용자에게 불필요한 정보라고 판단했습니다.</div>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-entry__date">2026-07-21</div>
+          <div>
+            <div class="log-entry__title" data-i18n="l4title">실제 화면 캡처 17장으로 교체</div>
+            <div class="log-entry__desc" data-i18n="l4desc">CSS로 재현한 목업 UI를 전부 걷어내고, 직접 제공받은 <code>screen_captures/</code> 폴더의 실제 스크린샷 17장으로 바꿨습니다. 번호 콜아웃(●1 ●2 ●3)도 실제 화면의 버튼·필드·컬럼 위치에 맞춰 다시 배치해, 오른쪽 "사용 방법" 목록과 정확히 대응하도록 만들었습니다.</div>
+            <div class="log-entry__why" data-i18n="l4why"><strong>배경</strong> — 처음에는 브라우저 자동화 도구가 없어 실제 화면을 캡처할 수 없었습니다("실제 화면을 캡쳐하지 않은 이유는?" 질문에 답한 뒤), 사용자가 직접 캡처한 이미지를 전달해주어 실사진 기반으로 전환할 수 있었습니다.</div>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-entry__date">2026-07-21</div>
+          <div>
+            <div class="log-entry__title" data-i18n="l5title">Link it BA 가이드 스타일로 전면 재설계</div>
+            <div class="log-entry__desc" data-i18n="l5desc">좌측 고정 챕터 사이드바, 상단 고정 헤더, "CHAPTER N" 챕터헤더, 스텝필+2단(화면/사용법) 레이아웃, 스크롤에 따라 자동으로 하이라이트되는 우측 목차, 하단 이전·다음 챕터 이동바를 갖춘 구조로 다시 만들었습니다. 화면이 여러 개인 챕터(조직관리·상점관리·주문관리·정산관리·공지사항)는 탭으로 나누고, "하위 조직 등록", "정산처리 공통 절차" 같은 절차를 별도 섹션으로 세분화해 내용도 더 깊게 다뤘습니다.</div>
+            <div class="log-entry__why" data-i18n="l5why"><strong>배경</strong> — 참고할 만한 다른 가이드 사이트(Link it BA 어드민 가이드)의 디자인이 더 체계적이라 판단해, 그 구조를 참고해 디자인을 고치고 내용도 더 발전시켜 달라는 요청이 있었습니다.</div>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-entry__date">2026-07-21</div>
+          <div>
+            <div class="log-entry__title" data-i18n="l6title">최초 버전 제작 — 9개 파일</div>
+            <div class="log-entry__desc" data-i18n="l6desc">실제 CA 어드민(www.kcsvc.co.kr/bonbu_new/CA/)에 로그인해 대시보드부터 조직관리·상점관리·상품관리·주문관리·정산관리·공지사항·시스템설정까지 15개 화면 전체를 조사한 뒤, 표지 1개와 챕터 8개로 구성된 최초 버전을 만들었습니다. 페이지 상단의 한국어/中文 전환 버튼도 이때 처음 만들었습니다.</div>
+            <div class="log-entry__why" data-i18n="l6why"><strong>배경</strong> — 중국 클라이언트가 실제로 사용할 CA 어드민의 사용설명서가 필요했습니다. 어드민 화면 자체는 이미 중국어 UI였지만, 검수·전달 과정에서 한국어도 함께 볼 수 있어야 해서 토글 방식의 이중언어 문서로 설계했습니다.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="ch-nav">
+    <a class="ch-nav__btn" href="09-settlement-formula.html"><div><div class="ch-nav__btn-sub" data-i18n="navPrevSub">관련 부록</div><div data-i18n="navPrevTitle">정산 계산 공식 안내서</div></div></a>
+    <span class="ch-nav__center" data-i18n="navCenter">부록 · APPENDIX</span>
+    <a class="ch-nav__btn" href="index.html"><div><div class="ch-nav__btn-sub" data-i18n="navNextSub">처음으로</div><div data-i18n="navNextTitle">설명서 홈</div></div> →</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+window.I18N = {
+  chName: { ko: "업데이트 내역", zh: "更新记录" },
+  chDesc: { ko: "이 사용설명서가 어떤 순서로, 어떤 이유로 지금의 모습이 되었는지 정리했습니다. 최신 항목이 위에 있습니다.", zh: "整理了本说明书按什么顺序、出于什么原因演变为现在的样子。最新条目排在最上方。" },
+  s1title: { ko: "변경 이력", zh: "变更历史" },
+  s1goal: { ko: '각 항목의 "배경" 문구는 왜 그렇게 바꿨는지를 설명합니다.', zh: '各条目的"背景"文字说明了为何做出该项更改。' },
+
+  l1title: { ko: '부록 "정산 계산 공식 안내서" 추가', zh: '新增附录"结算计算公式说明书"' },
+  l1desc: { ko: '별도로 만들어져 있던 정산 계산 공식 문서(결제금액이 상점·유보금·플랫폼수수료로 나뉘고, 다시 지사·총판·영업·운영사로 분배되는 전체 공식·사례·용어집)를 이 사용설명서와 같은 가이드 디자인으로 다시 만들어 <a href="09-settlement-formula.html">09-settlement-formula.html</a>로 추가했습니다. 좌측 사이드바에 "부록" 그룹을 새로 만들고, 표지와 정산관리 챕터에서 이 문서로 연결되는 링크를 달았습니다.', zh: '将此前另外制作的结算计算公式文档（付款金额如何拆分为商店款项、留存金、平台手续费，再分配给分公司/总代理/营业员/运营商的完整公式、案例、术语表）按照本说明书的最新设计重新制作，新增为<a href="09-settlement-formula.html">09-settlement-formula.html</a>。在左侧侧边栏新建了"附录"分组，并在首页和结算管理章节添加了指向该文档的链接。' },
+  l1why: { ko: '<strong>배경</strong> — 정산 화면에 나오는 숫자가 어떤 계산으로 나온 것인지 더 깊이 알고 싶을 때 참고할 수 있는 별도 문서가 필요했고, 기존 문서의 디자인을 이 설명서의 최신 디자인과 통일해달라는 요청이 있었습니다.', zh: '<strong>背景</strong> — 需要一份独立文档，供想深入了解结算画面数字计算方式的人参考，同时收到了将原文档设计与本说明书最新设计统一的要求。' },
+
+  l2title: { ko: '"상점 등록" 버튼 안내 문구 톤 완화', zh: '缓和"注册品牌"按钮提示语气' },
+  l2desc: { ko: '조직관리·상점관리 두 챕터에서 "이 버튼은 함정이니 사용하지 마세요" 식의 경고 문구를, "경로 설정 오류로 현재 번역되지 않은 화면으로 연결되며, 추후 업데이트로 수정될 예정"이라는 안내로 바꿨습니다.', zh: '将组织管理、商店管理两个章节中"此按钮是陷阱，请勿使用"式的警告文字，改为"因路径设置错误，目前会跳转到尚未翻译的画面，后续更新将修复"的说明性提示。' },
+  l2why: { ko: '<strong>배경</strong> — 실제로는 알려진 경로 설정 버그이고 곧 고쳐질 예정이므로, 강한 경고보다는 담담한 안내가 더 정확하다는 피드백을 반영했습니다.', zh: '<strong>背景</strong> — 这实际上是已知的路径设置缺陷且即将修复，因此采纳了"客观说明比强烈警告更准确"的反馈。' },
+
+  l3title: { ko: "대시보드 설명에서 기술적 세부사항 제거", zh: "移除主页说明中的技术细节" },
+  l3desc: { ko: '대시보드 챕터의 "상점 선택 바" 설명 중 "선택하면 주소 끝에 ?search_member= 값이 붙으며 새로고침됩니다"라는 문구를 한국어·中文 버전 모두에서 삭제했습니다.', zh: '删除了主页章节"选择品牌栏"说明中"选择后网址末尾会附加?search_member=参数并刷新页面"这句话，韩语、中文版本均已移除。' },
+  l3why: { ko: "<strong>배경</strong> — 실제로 상점을 선택해 화면이 바뀌는 결과만 알면 되고, URL 파라미터 같은 내부 구현 방식은 최종 사용자에게 불필요한 정보라고 판단했습니다.", zh: "<strong>背景</strong> — 用户只需知道选择商店后画面会相应变化即可，URL参数等内部实现细节对最终用户而言是不必要的信息。" },
+
+  l4title: { ko: "실제 화면 캡처 17장으로 교체", zh: "替换为17张真实截图" },
+  l4desc: { ko: 'CSS로 재현한 목업 UI를 전부 걷어내고, 직접 제공받은 <code>screen_captures/</code> 폴더의 실제 스크린샷 17장으로 바꿨습니다. 번호 콜아웃(●1 ●2 ●3)도 실제 화면의 버튼·필드·컬럼 위치에 맞춰 다시 배치해, 오른쪽 "사용 방법" 목록과 정확히 대응하도록 만들었습니다.', zh: '撤下全部用CSS还原的模拟界面，替换为直接提供的<code>screen_captures/</code>文件夹中的17张真实截图。编号标记（●1 ●2 ●3）也重新对齐到实际画面的按钮、字段、列的位置，使其与右侧"使用方法"列表精确对应。' },
+  l4why: { ko: '<strong>배경</strong> — 처음에는 브라우저 자동화 도구가 없어 실제 화면을 캡처할 수 없었습니다("실제 화면을 캡쳐하지 않은 이유는?" 질문에 답한 뒤), 사용자가 직접 캡처한 이미지를 전달해주어 실사진 기반으로 전환할 수 있었습니다.', zh: '<strong>背景</strong> — 最初由于没有浏览器自动化工具而无法截取真实画面（在回答"为何没有截取真实画面？"的提问之后），用户直接提供了截图文件，因此得以转为基于真实照片制作。' },
+
+  l5title: { ko: "Link it BA 가이드 스타일로 전면 재설계", zh: "参照Link it BA指南风格全面重新设计" },
+  l5desc: { ko: '좌측 고정 챕터 사이드바, 상단 고정 헤더, "CHAPTER N" 챕터헤더, 스텝필+2단(화면/사용법) 레이아웃, 스크롤에 따라 자동으로 하이라이트되는 우측 목차, 하단 이전·다음 챕터 이동바를 갖춘 구조로 다시 만들었습니다. 화면이 여러 개인 챕터(조직관리·상점관리·주문관리·정산관리·공지사항)는 탭으로 나누고, "하위 조직 등록", "정산처리 공통 절차" 같은 절차를 별도 섹션으로 세분화해 내용도 더 깊게 다뤘습니다.', zh: '重新制作为具备左侧固定章节侧边栏、顶部固定页眉、"CHAPTER N"章节标题、步骤编号+双栏（画面/使用方法）布局、随滚动自动高亮的右侧目录、底部上一章/下一章导航栏的结构。画面较多的章节（组织管理、商店管理、订单管理、结算管理、公告）按标签页拆分，并将"登记下级组织""结算处理通用流程"等操作拆分为独立小节，内容也更加深入。' },
+  l5why: { ko: '<strong>배경</strong> — 참고할 만한 다른 가이드 사이트(Link it BA 어드민 가이드)의 디자인이 더 체계적이라 판단해, 그 구조를 참고해 디자인을 고치고 내용도 더 발전시켜 달라는 요청이 있었습니다.', zh: '<strong>背景</strong> — 认为另一份可供参考的指南网站（Link it BA管理后台指南）设计更系统化，因此收到了参照其结构改进设计并进一步完善内容的要求。' },
+
+  l6title: { ko: "최초 버전 제작 — 9개 파일", zh: "制作初始版本 — 9个文件" },
+  l6desc: { ko: "실제 CA 어드민(www.kcsvc.co.kr/bonbu_new/CA/)에 로그인해 대시보드부터 조직관리·상점관리·상품관리·주문관리·정산관리·공지사항·시스템설정까지 15개 화면 전체를 조사한 뒤, 표지 1개와 챕터 8개로 구성된 최초 버전을 만들었습니다. 페이지 상단의 한국어/中文 전환 버튼도 이때 처음 만들었습니다.", zh: "登录实际的CA管理后台（www.kcsvc.co.kr/bonbu_new/CA/），调查了从主页到组织管理、商店管理、商品管理、订单管理、结算管理、公告、系统设置在内的全部15个画面后，制作了由1个首页和8个章节组成的初始版本。页面顶部的韩语/中文切换按钮也是此时首次制作。" },
+  l6why: { ko: "<strong>배경</strong> — 중국 클라이언트가 실제로 사용할 CA 어드민의 사용설명서가 필요했습니다. 어드민 화면 자체는 이미 중국어 UI였지만, 검수·전달 과정에서 한국어도 함께 볼 수 있어야 해서 토글 방식의 이중언어 문서로 설계했습니다.", zh: "<strong>背景</strong> — 需要一份供中国客户实际使用的CA管理后台使用说明书。管理后台画面本身已是中文界面，但在审核、交付过程中也需要能同时查看韩语，因此设计为可切换的双语文档。" },
+
+  navPrevSub: { ko: "관련 부록", zh: "相关附录" }, navPrevTitle: { ko: "정산 계산 공식 안내서", zh: "结算计算公式说明书" },
+  navCenter: { ko: "부록 · APPENDIX", zh: "附录 · APPENDIX" },
+  navNextSub: { ko: "처음으로", zh: "返回首页" }, navNextTitle: { ko: "설명서 홈", zh: "说明书首页" }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/guide-nav.js"></script>
+</body>
+</html>
