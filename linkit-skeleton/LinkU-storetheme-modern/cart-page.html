@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html data-linku-page="cart-page" lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <title>장바구니 | LinkU</title>
+    <link href="linku-theme.css?v=20261007" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="phone">
+        <header class="nav-bar linku-shared-nav"><a aria-label="홈으로 돌아가기" class="linku-back"
+                href="index-modern.html"><img alt="" height="24" src="assets/back.svg" width="24" /></a><span
+                class="nav-title"><a href="index-modern.html">장바구니_zip</a></span>
+            <div class="nav-actions"><button aria-label="비회원 주문조회" id="btn_find" popovertarget="order-lookup"
+                    type="button"><span class="lu-sr-only">주문조회</span></button><a href="cart-page.html"
+                    id="btn_cart"><img alt="" height="20" src="assets/cart.svg" width="20" /><span>장바구니</span></a></div>
+        </header>
+        <main class="lu-cart">
+            <h1>장바구니</h1>
+            <p class="cart-caption">선택한 상품과 주문 금액을 확인해 주세요.</p>
+            <div class="cart-layout">
+                <section aria-label="장바구니 상품">
+                    <div class="cart-toolbar"><label><input checked="" disabled="" id="cart-all" type="checkbox" />전체 선택
+                            <span id="cart-count">(1/1)</span></label><button class="cart-text-btn" disabled=""
+                            id="cart-remove">선택 삭제</button></div>
+                    <div id="cart-items"><!--BACKEND LOOP: cart_items. 금액은 서버 계산값. 아래는 한 상품의 정적 예시.-->
+                        <article class="cart-row"><input aria-label="상품 선택" checked="" name="selected_item"
+                                type="checkbox" value="148" /><img alt="비스카 선풍기" src="assets/thumbnail.png" />
+                            <div>
+                                <h2><a href="product-detail.html">비스카 날개없는 선풍기(전자식)</a></h2>
+                                <p>기본 구성 · 무료배송</p><strong>8,000원</strong><label class="cart-qty"><input
+                                        aria-label="상품 수량" max="99" min="1" name="quantity[148]" type="number"
+                                        value="1" /></label>
+                            </div><button aria-label="상품 삭제" class="cart-text-btn" disabled="" type="button">×</button>
+                        </article>
+                    </div>
+                    <p class="cart-feedback" id="cart-feedback" role="status"></p><button class="cart-undo" hidden=""
+                        id="cart-undo">삭제 취소</button>
+                </section>
+                <aside class="cart-summary">
+                    <h2>주문 예상 금액</h2>
+                    <dl>
+                        <div>
+                            <dt>선택 상품 금액</dt>
+                            <dd id="cart-subtotal">8,000원</dd>
+                        </div>
+                        <div>
+                            <dt>배송비</dt>
+                            <dd id="cart-shipping">0원</dd>
+                        </div>
+                        <div class="cart-total">
+                            <dt>총 주문 금액</dt>
+                            <dd id="cart-total">8,000원</dd>
+                        </div>
+                    </dl><a class="cart-checkout" href="checkout.html" id="cart-checkout">선택 상품 주문하기</a><a
+                        class="cart-continue" href="index-modern.html">쇼핑 계속하기</a>
+                    <p class="cart-feedback" id="cart-order-message" role="status"></p>
+                </aside>
+            </div>
+        </main>
+        <div class="footer">
+            <p class="footer-phone">고객센터 1522-9665</p>
+            <p class="footer-hours">09:00-18:00<br />점심시간 : 12:30-13:30<br />linku.kr.marketing@gmail.com</p>
+            <div class="footer-biz">
+                <p>상호명 링크페이먼트 | 대표이사 석우정 | 사업자등록번호 524-88-02327</p>
+                <p>본사 서울특별시 서초구 바우뫼로 200, 2층(양재동, 월드브리지빌딩)</p>
+                <p style="margin-top:4px;"><a id="a_article">이용약관</a> | <a id="a_privacy">개인정보처리방침</a></p>
+            </div>
+        </div>
+    </div>
+    <div id="order-lookup" class="linku-lookup-dialog lookup-modal-host" popover role="dialog" aria-label="비회원 주문조회">
+        <button class="lookup-host-close" type="button" popovertarget="order-lookup" popovertargetaction="hide"
+            aria-label="주문조회 닫기">×</button><iframe class="lookup-modal-frame" src="order-lookup-modal.html"
+            title="비회원 주문조회" loading="lazy"></iframe></div>
+    <script defer="True" src="linku-minimal.js"></script>
+</body>
+
+</html>

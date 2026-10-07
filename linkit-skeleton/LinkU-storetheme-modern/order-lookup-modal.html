@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>비회원 주문조회</title>
+    <link rel="stylesheet" href="linku-theme.css">
+</head>
+
+<body class="lookup-modal-page">
+    <form class="linku-lookup-form" data-backend-action="REQUIRED">
+        <h2 id="lookup-title">비회원 주문조회</h2>
+        <p>주문할 때 입력한 이름과 휴대폰 번호를 입력해 주세요.</p><label for="lookup-name">주문자명</label><input autocomplete="name"
+            id="lookup-name" name="name" required="" /><label for="lookup-phone">휴대폰 번호</label><input id="lookup-phone"
+            inputmode="numeric" name="phone" pattern="01[016789][0-9]{7,8}" required="" type="tel" /><button
+            class="lookup-submit" disabled="" type="button">주문
+            조회하기</button><!-- BACKEND: 아래 영역에 실제 검증/빈결과/오류 메시지를 출력. action 연결 후 submit 활성화. -->
+        <p aria-live="polite" class="lookup-status" role="status"></p>
+    </form>
+</body>
+
+</html>
