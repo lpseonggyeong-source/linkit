@@ -1,0 +1,555 @@
+.sms-page {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.sms-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.sms-head h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--admin-heading);
+    margin-bottom: 4px;
+}
+
+.sms-head p,
+.sms-help {
+    color: var(--admin-muted);
+    font-size: 13px;
+}
+
+.sms-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sms-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(300px, .75fr);
+    gap: 18px;
+    align-items: start;
+}
+
+.sms-card {
+    background: #fff;
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.sms-card h2 {
+    color: var(--admin-heading);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.sms-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 16px;
+}
+
+.sms-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 15px;
+    min-width: 0;
+}
+
+.sms-field.full {
+    grid-column: 1/-1;
+}
+
+.sms-field label {
+    color: var(--admin-heading);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.sms-field input,
+.sms-field select,
+.sms-field textarea,
+.sms-search input,
+.sms-search select {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--admin-border);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--admin-text);
+    padding: 9px 11px;
+    font: inherit;
+}
+
+.sms-field textarea {
+    min-height: 86px;
+    resize: vertical;
+}
+
+.sms-field input:focus,
+.sms-field select:focus,
+.sms-field textarea:focus,
+.sms-search input:focus,
+.sms-search select:focus {
+    outline: 2px solid rgba(58, 106, 200, .18);
+    border-color: #3a6ac8;
+}
+
+.sms-field label {
+    color: var(--admin-heading);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.sms-req {
+    color: var(--admin-red);
+}
+
+.sms-note {
+    font-size: 12px;
+    color: var(--admin-muted);
+}
+
+.sms-sticky-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 16px 0 2px;
+}
+
+.sms-preview {
+    position: sticky;
+    top: 20px;
+}
+
+.sms-phone {
+    background: #f5f6f8;
+    border: 1px solid #e2e5ea;
+    border-radius: 22px;
+    padding: 12px;
+    max-width: 340px;
+    margin: 0 auto;
+}
+
+.sms-phone__top {
+    text-align: center;
+    color: #68707c;
+    font-size: 11px;
+    padding: 4px 0 12px;
+}
+
+.sms-bubble {
+    background: white;
+    border-radius: 14px;
+    padding: 14px;
+    color: #263142;
+    font-size: 13px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    box-shadow: 0 1px 3px #00000012;
+}
+
+.sms-banner {
+    padding: 11px 14px;
+    border-radius: 6px;
+    background: #fff7e9;
+    border: 1px solid #f4dfb9;
+    color: #72521a;
+    font-size: 12px;
+    margin: 0 0 16px;
+}
+
+.sms-kpis {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(120px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.sms-kpi {
+    background: #fff;
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.sms-kpi span {
+    display: block;
+    color: var(--admin-muted);
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.sms-kpi strong {
+    color: var(--admin-heading);
+    font-size: 20px;
+}
+
+.sms-search {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(130px, 1fr));
+    gap: 12px;
+    align-items: end;
+}
+
+.sms-search label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--admin-muted);
+}
+
+.sms-search__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.sms-table-wrap {
+    overflow: auto;
+}
+
+.sms-table {
+    width: 100%;
+    min-width: 980px;
+    border-collapse: collapse;
+}
+
+.sms-table th,
+.sms-table td {
+    border-bottom: 1px solid var(--admin-border);
+    padding: 12px 10px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 12px;
+}
+
+.sms-table th {
+    color: var(--admin-muted);
+    font-weight: 600;
+    white-space: nowrap;
+    background: #fafbfc;
+}
+
+.sms-table td {
+    color: var(--admin-text);
+}
+
+.sms-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.sms-link {
+    color: #315fc1;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.sms-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 4px 9px;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 600;
+    background: #eef2f6;
+    color: #526071;
+}
+
+.sms-badge--success {
+    color: #247246;
+    background: #e8f5ed;
+}
+
+.sms-badge--pending {
+    color: #8b6418;
+    background: #fff4da;
+}
+
+.sms-badge--fail {
+    color: #ae3e36;
+    background: #fdebea;
+}
+
+.sms-badge--blue {
+    color: #315fc1;
+    background: #eaf0ff;
+}
+
+.sms-summary {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    color: var(--admin-muted);
+    margin: 0 0 15px;
+    font-size: 13px;
+}
+
+.sms-summary strong {
+    color: var(--admin-heading);
+}
+
+.sms-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px 20px;
+}
+
+.sms-detail-item small {
+    display: block;
+    color: var(--admin-muted);
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.sms-detail-item strong {
+    display: block;
+    color: var(--admin-heading);
+    font-size: 14px;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.sms-empty {
+    padding: 36px 18px;
+    text-align: center;
+    color: var(--admin-muted);
+}
+
+.sms-pager {
+    padding: 16px;
+    text-align: center;
+    color: var(--admin-muted);
+    font-size: 12px;
+}
+
+.sms-status-info {
+    border-left: 3px solid #315fc1;
+    padding: 10px 12px;
+    background: #f3f6fc;
+    color: #4e5d73;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.sms-toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--admin-border);
+    gap: 12px;
+}
+
+.sms-toggle-row:last-child {
+    border-bottom: 0;
+}
+
+.sms-toggle-row span {
+    color: var(--admin-muted);
+    font-size: 13px;
+}
+
+.sms-buyer {
+    min-height: 100vh;
+    background: #f5f6f8;
+    padding: 24px 14px 48px;
+}
+
+.sms-buyer__shell {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.sms-buyer__brand {
+    color: var(--admin-red);
+    font-weight: 700;
+    font-size: 20px;
+    margin: 4px 4px 18px;
+}
+
+.sms-buyer__card {
+    background: white;
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 12px;
+}
+
+.sms-buyer__card h1 {
+    color: var(--admin-heading);
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.sms-buyer__merchant {
+    font-size: 14px;
+    color: #4f5c6f;
+    margin-bottom: 8px;
+}
+
+.sms-buyer__total {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--admin-heading);
+    margin: 8px 0;
+}
+
+.sms-buyer__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px solid #edf0f4;
+    font-size: 13px;
+}
+
+.sms-buyer__row span:first-child {
+    color: var(--admin-muted);
+    flex-shrink: 0;
+}
+
+.sms-buyer__row span:last-child {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.sms-buyer__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 13px;
+    font-size: 13px;
+}
+
+.sms-buyer__field input,
+.sms-buyer__field textarea {
+    border: 1px solid var(--admin-border);
+    border-radius: 6px;
+    padding: 10px;
+    font: inherit;
+    width: 100%;
+}
+
+.sms-buyer__cta {
+    width: 100%;
+    padding: 13px 16px;
+    margin-top: 16px;
+}
+
+.sms-buyer__foot {
+    text-align: center;
+    color: var(--admin-muted);
+    font-size: 12px;
+    line-height: 1.6;
+    padding: 8px;
+}
+
+.sms-result-icon {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #e8f5ed;
+    color: #247246;
+    font-size: 25px;
+    margin: 0 auto 14px;
+}
+
+.sms-toast {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translate(-50%, 12px);
+    opacity: 0;
+    transition: .2s;
+    z-index: 999;
+    background: #283150;
+    color: #fff;
+    border-radius: 7px;
+    padding: 10px 16px;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.sms-toast.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+@media(max-width:1050px) {
+    .sms-kpis {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .sms-search {
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
+    }
+}
+
+@media(max-width:780px) {
+    .sms-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sms-preview {
+        position: static;
+    }
+
+    .sms-kpis {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sms-search {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sms-head {
+        flex-direction: column;
+    }
+}
+
+@media(max-width:600px) {
+
+    .sms-form-grid,
+    .sms-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sms-field.full {
+        grid-column: auto;
+    }
+
+    .sms-search {
+        grid-template-columns: 1fr;
+    }
+
+    .sms-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sms-main-card {
+        padding: 14px;
+    }
+
+    .sms-buyer__card {
+        padding: 18px;
+    }
+}
+
+[hidden] {
+    display: none !important;
+}

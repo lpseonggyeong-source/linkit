@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SMS 결제 요청 상세 — link it 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css"><link rel="stylesheet" href="sms-payment.css"></head><body>
+<header class="admin-mobile-header"><span class="admin-mobile-header__logo">link it</span><button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></header>
+<div class="admin-overlay" id="adminOverlay"></div><div class="admin-layout"><aside class="admin-sidebar" id="adminSidebar"></aside><main class="admin-main"><div class="sms-page">
+
+<div class="sms-head"><div><h1>SMS 결제 요청 상세</h1><p id="smsDetailId">요청 정보</p></div><div class="sms-actions"><a class="admin-btn admin-btn--outline" href="sms-payment-list.html">목록</a><a class="admin-btn admin-btn--outline" id="smsBuyerLink" href="#">구매자 화면 미리보기</a></div></div>
+<div class="sms-banner">전송완료는 고객의 문자 열람 또는 결제 완료를 의미하지 않습니다. 실제 발송 연동 전에는 상태가 확인 중으로 표시됩니다.</div>
+<div id="smsDetail"><section class="sms-card"><h2>요청 정보</h2><div id="smsDetailFields" class="sms-detail-grid"></div></section>
+<section class="sms-card"><h2>발송 이력</h2><div class="sms-table-wrap"><table class="sms-table"><thead><tr><th>회차</th><th>종류</th><th>대표번호</th><th>요청일시</th><th>전송 상태</th><th>완료일시</th><th>결과</th></tr></thead><tbody id="smsDetailHistory"></tbody></table></div></section></div>
+<div class="sms-sticky-actions"><button type="button" class="admin-btn admin-btn--outline" id="smsDetailCopy">결제링크 복사</button><button type="button" class="admin-btn admin-btn--outline" id="smsEndBtn">요청 종료</button><button type="button" class="admin-btn admin-btn--primary" id="smsResendBtn">재발송</button></div>
+</div></main></div><div class="sms-toast" role="status"></div><script src="admin.js"></script><script src="sms-payment.js"></script></body></html>

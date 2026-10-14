@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SMS 결제 요청 내역 — link it 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css"><link rel="stylesheet" href="sms-payment.css"></head><body>
+<header class="admin-mobile-header"><span class="admin-mobile-header__logo">link it</span><button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></header>
+<div class="admin-overlay" id="adminOverlay"></div><div class="admin-layout"><aside class="admin-sidebar" id="adminSidebar"></aside><main class="admin-main"><div class="sms-page">
+
+<div class="sms-head"><div><h1>SMS 결제 요청 내역</h1><p>결제 요청과 결제 상태를 확인합니다.</p></div><a class="admin-btn admin-btn--primary" href="sms-payment-create.html">새 결제 요청</a></div>
+<div class="sms-kpis"><div class="sms-kpi"><span>전체 요청</span><strong data-request-kpi="total">0</strong></div><div class="sms-kpi"><span>결제 대기</span><strong data-request-kpi="pending">0</strong></div><div class="sms-kpi"><span>결제 완료</span><strong data-request-kpi="paid">0</strong></div><div class="sms-kpi"><span>만료</span><strong data-request-kpi="expired">0</strong></div><div class="sms-kpi"><span>요청 종료</span><strong data-request-kpi="ended">0</strong></div></div>
+<section class="sms-card"><div class="sms-search">
+<label>상점<select id="smsBaFilter"><option value="">전체 상점</option><option value="ba-demo-01">모노데이</option><option value="ba-demo-02">루미에르</option><option value="ba-demo-03">온더테이블</option></select></label>
+<label>결제/요청 상태<select id="smsState"><option value="">전체 상태</option><option>미결제</option><option>결제완료</option><option>만료</option><option>요청 종료</option></select></label>
+<label style="grid-column:span 2">검색어<input id="smsQuery" type="search" placeholder="요청번호, 상품명, 구매자명, 휴대폰번호"></label>
+<div class="sms-search__actions"><button class="admin-btn admin-btn--primary" type="button" id="smsSearchBtn">검색</button><button class="admin-btn admin-btn--outline" type="button" id="smsResetBtn">초기화</button></div></div></section>
+<section class="sms-card"><div class="sms-summary"><span>검색 결과 <strong id="smsRequestCount">0건</strong></span><span>휴대폰번호는 일부 마스킹됩니다.</span></div><div class="sms-table-wrap"><table class="sms-table"><thead><tr><th>요청번호</th><th>상점 이름</th><th>상품명</th><th>구매자</th><th>요청금액</th><th>요청 상태</th><th>결제 상태</th><th>최근 전송</th><th>요청일시</th><th>유효일시</th></tr></thead><tbody id="smsRequestRows"></tbody></table></div><div class="sms-pager">페이지당 20건 · 데모 데이터</div></section>
+</div></main></div><div class="sms-toast" role="status"></div><script src="admin.js"></script><script src="sms-payment.js"></script></body></html>

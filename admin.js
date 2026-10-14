@@ -51,6 +51,11 @@
       "product-list.html":    "product-list.html",
       "product-display.html": "product-list.html",
       "order-list.html":      "order-list.html",
+      "sms-payment-create.html":   "sms-payment-create.html",
+      "sms-payment-list.html":     "sms-payment-create.html",
+      "sms-payment-detail.html":   "sms-payment-create.html",
+      "sms-payment-messages.html": "sms-payment-create.html",
+      "sms-payment-settings.html": "sms-payment-create.html",
       "design.html":                  "design.html",
       "design-editor.html":           "design.html",
       "design-editor-minimal.html":   "design.html",
@@ -114,6 +119,17 @@
             '<span>주문관리</span>' +
           '</a>' +
           '<a href="order-list.html" class="' + sc("order-list.html") + '">주문내역</a>' +
+        '</div>' +
+
+        '<div class="admin-sidebar__group">' +
+          '<a href="sms-payment-create.html" class="' + mc("sms-payment-create.html") + '">' +
+            '<svg class="admin-sidebar__nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a3 3 0 0 1-3 3H8l-5 4V6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3z"/><path d="M7 8h10M7 12h7"/></svg>' +
+            '<span>SMS 문자결제</span>' +
+          '</a>' +
+          '<a href="sms-payment-create.html" class="' + sc("sms-payment-create.html") + '">SMS 결제 요청</a>' +
+          '<a href="sms-payment-list.html" class="' + sc("sms-payment-list.html") + '">SMS 요청 내역</a>' +
+          '<a href="sms-payment-messages.html" class="' + sc("sms-payment-messages.html") + '">발송내역 관리</a>' +
+          '<a href="sms-payment-settings.html" class="' + sc("sms-payment-settings.html") + '">SMS 결제 설정</a>' +
         '</div>' +
 
         '<div class="admin-sidebar__group">' +

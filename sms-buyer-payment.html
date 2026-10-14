@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>결제 안내 — 링크유</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="sms-payment.css">
+</head>
+
+<body>
+    <main id="smsBuyerRoot" class="sms-buyer">
+        <div class="sms-buyer__shell">
+            <div class="sms-buyer__brand">link it</div>
+            <section class="sms-buyer__card">
+                <div id="buyerUnavailable" hidden>
+                    <div class="sms-result-icon">!</div>
+                    <h1 style="text-align:center">결제 요청을 확인할 수 없습니다</h1>
+                    <p id="buyerUnavailableText" class="sms-help" style="text-align:center">유효하지 않거나 종료된 결제 링크입니다.</p>
+                </div>
+                <form id="buyerPayForm">
+                    <div class="sms-buyer__merchant">결제 요청 상점</div>
+                    <h1 id="buyerBa">상점 이름</h1>
+                    <div id="buyerProduct" class="sms-buyer__row" hidden><span>상품명</span><span
+                            id="buyerProductName"></span></div>
+                    <div class="sms-buyer__row"><span>결제금액</span><strong id="buyerAmount"
+                            class="sms-buyer__total"></strong></div>
+                    <div class="sms-buyer__row"><span>결제기한</span><span id="buyerExpiry"></span></div>
+                    <div class="sms-buyer__row"><span>구매자 연락처</span><span><input id="buyerPhone" aria-label="구매자 연락처"
+                                readonly style="border:0;text-align:right;color:inherit;width:125px"></span></div>
+                    <label class="sms-buyer__field">수령인<input type="text" placeholder="배송이 필요한 경우 입력"></label><label
+                        class="sms-buyer__field">배송지<input type="text" placeholder="배송이 필요한 경우 입력"></label><label
+                        class="sms-buyer__field">배송 요청사항<textarea rows="2"
+                            placeholder="선택 입력"></textarea></label><button
+                        class="admin-btn admin-btn--primary sms-buyer__cta" type="submit">결제 진행</button>
+                    <p class="sms-help" style="margin-top:12px">카드 정보는 결제창에서 직접 입력합니다. 링크페이먼트 대표번호로 문의할 수 있습니다.</p>
+                </form>
+            </section>
+            <div class="sms-buyer__foot" id="buyerHelp">링크페이먼트 대표 전화번호<br>1522-9665</div>
+        </div>
+    </main>
+    <div class="sms-toast" role="status"></div>
+    <script src="sms-payment.js"></script>
+</body>
+
+</html>

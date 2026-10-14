@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>결제 링크 안내 — 링크유</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="sms-payment.css">
+</head>
+
+<body>
+    <main id="smsBuyerUnavailable" class="sms-buyer">
+        <div class="sms-buyer__shell">
+            <div class="sms-buyer__brand">link it</div>
+            <section class="sms-buyer__card" style="text-align:center">
+                <div class="sms-result-icon">!</div>
+                <h1>결제 링크를 확인할 수 없습니다</h1>
+                <p class="sms-help">만료되었거나 종료된 요청입니다. 링크페이먼트 대표번호로 문의해주세요.</p><a
+                    class="admin-btn admin-btn--outline sms-buyer__cta" href="sms-payment-list.html">어드민 미리보기로 돌아가기</a>
+            </section>
+            <div class="sms-buyer__foot" id="buyerHelp">링크페이먼트 대표 전화번호<br>1522-9665</div>
+        </div>
+    </main>
+    <div class="sms-toast" role="status"></div>
+    <script src="sms-payment.js"></script>
+</body>
+
+</html>
