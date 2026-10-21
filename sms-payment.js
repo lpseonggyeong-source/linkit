@@ -22,7 +22,6 @@
   function stamp() { return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date()); }
   function initCreate() {
     const form=document.getElementById('smsCreateForm'); if(!form)return;
-    form.elements.companyName.value=company.name;
     const product=form.elements.product, amount=form.elements.amount, phone=form.elements.phone, preview=document.getElementById('smsPreviewText');
     let generated=null;
     const urlFor=id=>new URL('sms-buyer-payment.html?id='+encodeURIComponent(id),location.href).href;
@@ -33,7 +32,7 @@
     document.getElementById('smsGenerateLink').addEventListener('click',generate);
     document.getElementById('smsCopyLink').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.getElementById('smsGeneratedUrl').value);toast('결제링크를 복사했습니다. SMS는 발송되지 않습니다.');}catch(e){document.getElementById('smsGeneratedUrl').select();toast('링크를 선택했습니다. 복사 단축키를 사용해주세요.');}});
     form.addEventListener('submit',e=>{e.preventDefault();phone.required=true;if(!form.reportValidity())return;const item=generate();if(!item||item.attempts)return;if(!confirm('이 결제링크로 SMS 발송을 요청할까요? 운영 서비스에서는 발송 요금이 부과됩니다. 현재는 실제 발송되지 않는 데모입니다.'))return;item.sendStatus='확인 중';item.attempts=1;const rows=read();const index=rows.findIndex(x=>x.id===item.id);rows[index]=item;save(rows);show();toast('SMS 요청을 기록했습니다. 실제 문자는 발송되지 않았습니다.');});
-    document.getElementById('smsClearBtn').addEventListener('click',()=>{if(confirm('입력을 초기화할까요? 생성한 링크는 요청 내역에 유지됩니다.')){form.reset();form.elements.companyName.value=company.name;generated=null;document.getElementById('smsGeneratedPanel').hidden=true;document.getElementById('smsSendButton').disabled=false;update();}});
+    document.getElementById('smsClearBtn').addEventListener('click',()=>{if(confirm('입력을 초기화할까요? 생성한 링크는 요청 내역에 유지됩니다.')){form.reset();generated=null;document.getElementById('smsGeneratedPanel').hidden=true;document.getElementById('smsSendButton').disabled=false;update();}});
   }
   function initList() {
     const body=document.getElementById('smsRequestRows');if(!body)return;
