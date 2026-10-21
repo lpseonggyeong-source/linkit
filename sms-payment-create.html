@@ -1,100 +1,26 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>결제 요청 — link it 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css"><link rel="stylesheet" href="sms-payment.css"></head><body>
+<header class="admin-mobile-header"><span class="admin-mobile-header__logo">link it</span><button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></header>
+<div class="admin-overlay" id="adminOverlay"></div><div class="admin-layout"><aside class="admin-sidebar" id="adminSidebar"></aside><main class="admin-main"><div class="sms-page">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>결제 요청 — link it 어드민</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" href="sms-payment.css">
-</head>
+<div class="sms-head"><div><h1>SMS 결제 요청</h1><p>결제 정보를 입력해 구매자에게 SMS 결제 링크를 안내합니다.</p></div><a class="admin-btn admin-btn--outline" href="sms-payment-list.html">요청 내역</a></div>
 
-<body>
-    <header class="admin-mobile-header"><span class="admin-mobile-header__logo">link it</span><button
-            class="admin-hamburger" id="adminHamburger"
-            aria-label="메뉴 열기"><span></span><span></span><span></span></button></header>
-    <div class="admin-overlay" id="adminOverlay"></div>
-    <div class="admin-layout">
-        <aside class="admin-sidebar" id="adminSidebar"></aside>
-        <main class="admin-main">
-            <div class="sms-page">
+<form id="smsCreateForm">
+<div class="sms-grid"><div>
+<section class="sms-card sms-main-card"><h2>결제 정보</h2><div class="sms-form-grid">
+<div class="sms-field full"><label for="smsCompanyName">회사명</label><input id="smsCompanyName" name="companyName" type="text" readonly value="[회사명]"></div>
+<div class="sms-field full"><label for="smsProduct">상품명 <span class="sms-note">선택</span></label><input id="smsProduct" name="product" type="text" placeholder="상품명 없이도 발송할 수 있습니다"><small class="sms-note">상품명이 비어 있으면 문자와 결제 화면에서 상품명 행을 생략합니다.</small></div>
+<div class="sms-field"><label for="smsBuyerName">구매자명</label><input id="smsBuyerName" name="buyer" type="text" placeholder="구매자 이름"></div>
+<div class="sms-field"><label for="smsAmount">결제금액 <span class="sms-req">*</span></label><input id="smsAmount" name="amount" type="number" min="1" step="1" placeholder="예: 35000" required></div>
+<div class="sms-field"><label for="smsPhone">휴대폰번호 <span class="sms-note">SMS 발송 시 필수</span></label><input id="smsPhone" name="phone" type="tel" inputmode="numeric" pattern="01[016789]-?[0-9]{3,4}-?[0-9]{4}" placeholder="01012345678"></div>
 
-                <div class="sms-head">
-                    <div>
-                        <h1>SMS 결제 요청</h1>
-                        <p>결제 정보를 입력해 구매자에게 SMS 결제 링크를 안내합니다.</p>
-                    </div><a class="admin-btn admin-btn--outline" href="sms-payment-list.html">요청 내역</a>
-                </div>
 
-                <form id="smsCreateForm">
-                    <div class="sms-grid">
-                        <div>
-                            <section class="sms-card sms-main-card">
-                                <h2>결제 정보</h2>
-                                <div class="sms-form-grid">
-                                    <div class="sms-field full"><label for="smsBa">상점명 <span
-                                                class="sms-req">*</span></label><select id="smsBa" name="ba" required>
-                                            <option value="ba-demo-01" data-name="모노데이">모노데이 (상점 연동 예시)</option>
-                                            <option value="ba-demo-02" data-name="루미에르">루미에르 (상점 연동 예시)</option>
-                                            <option value="ba-demo-03" data-name="온더테이블">온더테이블 (상점 연동 예시)</option>
-                                        </select><small class="sms-note">생성된 상점 이름과 자동 동기화되는 항목입니다.</small></div>
-                                    <div class="sms-field full"><label for="smsProduct">상품명 <span
-                                                class="sms-note">선택</span></label><input id="smsProduct" name="product"
-                                            type="text" placeholder="상품명 없이도 발송할 수 있습니다"><small class="sms-note">상품명이 비어
-                                            있으면 문자와 결제 화면에서 상품명 행을 생략합니다.</small></div>
-                                    <div class="sms-field"><label for="smsBuyerName">구매자명</label><input
-                                            id="smsBuyerName" name="buyer" type="text" placeholder="구매자 이름"></div>
-                                    <div class="sms-field"><label for="smsAmount">결제금액 <span
-                                                class="sms-req">*</span></label><input id="smsAmount" name="amount"
-                                            type="number" min="1" step="1" placeholder="예: 35000" required></div>
-                                    <div class="sms-field"><label for="smsPhone">휴대폰번호 <span class="sms-note">SMS 발송 시
-                                                필수</span></label><input id="smsPhone" name="phone" type="tel"
-                                            inputmode="numeric" pattern="01[016789]-?[0-9]{3,4}-?[0-9]{4}"
-                                            placeholder="01012345678"></div>
-                                    <div class="sms-field full"><label for="smsMemo">구매자 안내</label><textarea
-                                            id="smsMemo" name="memo" placeholder="결제 전 구매자에게 전달할 안내사항"></textarea></div>
-                                    <div class="sms-field full"><label for="smsAdminMemo">관리자 메모</label><textarea
-                                            id="smsAdminMemo" name="adminMemo" placeholder="관리자만 확인할 메모"></textarea>
-                                    </div>
-                                </div>
-                            </section>
-                            <p class="sms-help">결제링크는 생성 시점부터 24시간 동안 유효합니다. 링크 생성·복사만으로는 SMS가 발송되지 않습니다.</p>
-                            <div class="sms-sticky-actions"><button class="admin-btn admin-btn--outline" type="button"
-                                    id="smsClearBtn">입력 초기화</button><button class="admin-btn admin-btn--outline"
-                                    type="button" id="smsGenerateLink">결제링크 생성</button><button
-                                    class="admin-btn admin-btn--primary" id="smsSendButton" type="submit">SMS 발송
-                                    요청</button></div>
-                            <section class="sms-card" id="smsGeneratedPanel" hidden style="margin-top:20px">
-                                <h2>생성된 결제링크</h2>
-                                <div style="display:flex;gap:8px"><input id="smsGeneratedUrl" aria-label="생성된 결제링크"
-                                        readonly
-                                        style="flex:1;min-width:0;padding:12px;border:1px solid #ddd;border-radius:8px"><button
-                                        type="button" class="admin-btn admin-btn--outline" id="smsCopyLink">복사</button>
-                                </div>
-                                <p class="sms-help" id="smsLinkExpiry"></p>
-                                <p class="sms-help" id="smsLinkStatus"></p><a id="smsGeneratedDetail"
-                                    class="sms-link">요청 상세 보기</a>
-                            </section>
-                        </div>
-                        <aside class="sms-card sms-preview">
-                            <h2>문자 미리보기</h2>
-                            <div class="sms-phone">
-                                <div class="sms-phone__top">링크페이먼트</div>
-                                <div id="smsPreviewText" class="sms-bubble"></div>
-                            </div>
-                        </aside>
-                    </div>
-                </form>
-            </div>
-        </main>
-    </div>
-    <div class="sms-toast" role="status"></div>
-    <script src="admin.js"></script>
-    <script src="sms-payment.js"></script>
-</body>
-
-</html>
+</div></section>
+<p class="sms-help">결제링크는 생성 시점부터 24시간 동안 유효합니다. 링크 생성·복사만으로는 SMS가 발송되지 않습니다.</p><div class="sms-sticky-actions"><button class="admin-btn admin-btn--outline" type="button" id="smsClearBtn">입력 초기화</button><button class="admin-btn admin-btn--outline" type="button" id="smsGenerateLink">결제링크 생성</button><button class="admin-btn admin-btn--primary" id="smsSendButton" type="submit">SMS 발송 요청</button></div>
+<section class="sms-card" id="smsGeneratedPanel" hidden style="margin-top:20px"><h2>생성된 결제링크</h2><div style="display:flex;gap:8px"><input id="smsGeneratedUrl" aria-label="생성된 결제링크" readonly style="flex:1;min-width:0;padding:12px;border:1px solid #ddd;border-radius:8px"><button type="button" class="admin-btn admin-btn--outline" id="smsCopyLink">복사</button></div><p class="sms-help" id="smsLinkExpiry"></p><p class="sms-help" id="smsLinkStatus"></p><a id="smsGeneratedDetail" class="sms-link">요청 상세 보기</a></section></div><aside class="sms-card sms-preview"><h2>문자 미리보기</h2><div class="sms-phone"><div class="sms-phone__top">링크페이먼트</div><div id="smsPreviewText" class="sms-bubble"></div></div></aside></div></form>
+</div></main></div><div class="sms-toast" role="status"></div><script src="admin.js"></script><script src="sms-payment.js"></script></body></html>

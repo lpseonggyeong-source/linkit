@@ -1,66 +1,23 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SMS 결제 설정 — link it 어드민</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css"><link rel="stylesheet" href="sms-payment.css"></head><body>
+<header class="admin-mobile-header"><span class="admin-mobile-header__logo">link it</span><button class="admin-hamburger" id="adminHamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button></header>
+<div class="admin-overlay" id="adminOverlay"></div><div class="admin-layout"><aside class="admin-sidebar" id="adminSidebar"></aside><main class="admin-main"><div class="sms-page">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>SMS 결제 설정 — link it 어드민</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" href="sms-payment.css">
-</head>
-
-<body>
-    <header class="admin-mobile-header"><span class="admin-mobile-header__logo">link it</span><button
-            class="admin-hamburger" id="adminHamburger"
-            aria-label="메뉴 열기"><span></span><span></span><span></span></button></header>
-    <div class="admin-overlay" id="adminOverlay"></div>
-    <div class="admin-layout">
-        <aside class="admin-sidebar" id="adminSidebar"></aside>
-        <main class="admin-main">
-            <div class="sms-page">
-
-                <div class="sms-head">
-                    <div>
-                        <h1>SMS 결제 설정</h1>
-                        <p>대표번호와 상점 이름 동기화 상태를 확인합니다.</p>
-                    </div>
-                </div>
-                <section class="sms-card">
-                    <h2>발송 기본 정보</h2>
-                    <div class="sms-toggle-row">
-                        <div><strong>대표번호</strong><br><span>발신 및 고객 문의 대표번호</span></div><strong>링크페이먼트</strong>
-                    </div>
-                    <div class="sms-toggle-row">
-                        <div><strong>실제 발신번호</strong><br><span>운영에 등록된 대표번호를 연동합니다.</span></div><strong>설정값 연동
-                            예정</strong>
-                    </div>
-                    <div class="sms-toggle-row">
-                        <div><strong>상점 이름</strong><br><span>생성된 상점 이름을 결제 요청에 자동 반영</span></div><strong>자동 동기화</strong>
-                    </div>
-                    <div class="sms-toggle-row">
-                        <div><strong>상품명</strong><br><span>미입력 시 문자와 구매자 결제 화면에서 생략</span></div><strong>선택 입력</strong>
-                    </div>
-                    <div class="sms-toggle-row">
-                        <div><strong>결제 유효기간</strong><br><span>결제링크 생성 시점 기준</span></div><strong>24시간 (자동 생성 · 변경
-                            불가)</strong>
-                    </div>
-                    <div class="sms-toggle-row">
-                        <div><strong>발송 채널</strong><br><span>알림톡 기능은 제공하지 않습니다.</span></div><strong>SMS / LMS</strong>
-                    </div>
-                    </div>
-                    <div class="sms-sticky-actions"><button id="smsSaveSettings" type="button"
-                            class="admin-btn admin-btn--primary">설정 확인</button></div>
-                </section>
-            </div>
-        </main>
-    </div>
-    <div class="sms-toast" role="status"></div>
-    <script src="admin.js"></script>
-    <script src="sms-payment.js"></script>
-</body>
-
-</html>
+<div class="sms-head"><div><h1>SMS 결제 설정</h1><p>대표번호와 회사명 동기화 상태를 확인합니다.</p></div></div>
+<div class="sms-banner">서비스 운영 설정값은 실제 시스템 연동 전까지 이 화면에서 저장되지 않습니다.</div>
+<section class="sms-card"><h2>발송 기본 정보</h2>
+<div class="sms-toggle-row"><div><strong>대표번호</strong><br><span>발신 및 고객 문의 대표번호</span></div><strong>링크페이먼트</strong></div>
+<div class="sms-toggle-row"><div><strong>실제 발신번호</strong><br><span>운영에 등록된 대표번호를 연동합니다.</span></div><strong>설정값 연동 예정</strong></div>
+<div class="sms-toggle-row"><div><strong>회사명</strong><br><span>등록된 회사명을 결제 요청에 자동 반영</span></div><strong>자동 동기화</strong></div>
+<div class="sms-toggle-row"><div><strong>상품명</strong><br><span>미입력 시 문자와 구매자 결제 화면에서 생략</span></div><strong>선택 입력</strong></div>
+<div class="sms-toggle-row"><div><strong>결제 유효기간</strong><br><span>결제링크 생성 시점 기준</span></div><strong>24시간 (자동 생성 · 변경 불가)</strong></div>
+<div class="sms-toggle-row"><div><strong>발송 채널</strong><br><span>알림톡 기능은 제공하지 않습니다.</span></div><strong>SMS / LMS</strong></div>
+<div class="sms-status-info">대표번호의 실제 숫자와 발신 등록 상태는 운영 시스템 연동 후 표시합니다. 확인되지 않은 번호를 임의로 노출하지 않습니다.</div>
+<div class="sms-sticky-actions"><button id="smsSaveSettings" type="button" class="admin-btn admin-btn--primary">설정 확인</button></div>
+</section>
+</div></main></div><div class="sms-toast" role="status"></div><script src="admin.js"></script><script src="sms-payment.js"></script></body></html>
